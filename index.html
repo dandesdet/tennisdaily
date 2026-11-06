@@ -3,155 +3,456 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tennis Daily — теннис Узбекистана в одном месте</title>
-<meta name="description" content="Новости, турниры и каналы о теннисе в Узбекистане: сайты, Telegram, Instagram, WhatsApp. Каждый день на русском и узбекском.">
-<meta property="og:title" content="Tennis Daily — теннис Узбекистана в одном месте">
-<meta property="og:description" content="Новости, турниры и каналы о теннисе в Узбекистане. Каждый день.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23D8F25B'/%3E%3Cpath d='M5 9c6 3 6 11 0 14M27 9c-6 3-6 11 0 14' stroke='%2310261B' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<title>Tennis Daily — любительский теннис Ташкента</title>
+<meta name="description" content="Турниры, итоги, корты и поиск партнёров. Любительский теннис Ташкента — коротко и по делу.">
+<meta property="og:title" content="Tennis Daily — любительский теннис Ташкента">
+<meta property="og:description" content="Турниры, итоги, корты и поиск партнёров. Обновляется каждый день.">
+<meta property="og:image" content="https://tennisdaily.uz/img/laver.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23DCEB4C'/%3E%3Cpath d='M5 9c6 3 6 11 0 14M27 9c-6 3-6 11 0 14' stroke='%231B1A17' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <style>
+@font-face{font-family:'Golos Text';font-weight:400;font-display:swap;src:url(fonts/golos-text-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-weight:400;font-display:swap;src:url(fonts/golos-text-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Golos Text';font-weight:500;font-display:swap;src:url(fonts/golos-text-cyrillic-500-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-weight:500;font-display:swap;src:url(fonts/golos-text-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Golos Text';font-weight:600;font-display:swap;src:url(fonts/golos-text-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-weight:600;font-display:swap;src:url(fonts/golos-text-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Golos Text';font-weight:700;font-display:swap;src:url(fonts/golos-text-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-weight:700;font-display:swap;src:url(fonts/golos-text-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Oswald';font-weight:500;font-display:swap;src:url(fonts/oswald-cyrillic-500-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-weight:500;font-display:swap;src:url(fonts/oswald-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Oswald';font-weight:600;font-display:swap;src:url(fonts/oswald-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-weight:600;font-display:swap;src:url(fonts/oswald-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Oswald';font-weight:700;font-display:swap;src:url(fonts/oswald-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-weight:700;font-display:swap;src:url(fonts/oswald-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Caveat';font-weight:600;font-display:swap;src:url(fonts/caveat-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Caveat';font-weight:600;font-display:swap;src:url(fonts/caveat-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Caveat';font-weight:700;font-display:swap;src:url(fonts/caveat-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Caveat';font-weight:700;font-display:swap;src:url(fonts/caveat-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
-  --bg:#F5F6F0; --surface:#FFFFFF; --ink:#10261B; --muted:#3B5247; --line:#DCE3DA;
-  --court:#1F6B4A; --ball:#D8F25B; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  --paper:#F3EEE3; --card:#FFFDF8; --ink:#1B1A17; --muted:#4A463E; --line:#DDD5C4;
+  --clay:#C2502F; --clay-soft:#F2D9CC; --court:#1E4D3A; --court-soft:#D6E5DA; --ball:#DCEB4C;
+  --display:"Oswald",Impact,sans-serif; --body:"Golos Text",-apple-system,sans-serif; --hand:"Caveat",cursive;
 }
-@media (prefers-color-scheme:dark){:root{--bg:#0D1A14;--surface:#14251C;--ink:#ECF3EE;--muted:#B5C7BC;--line:#22382C;--court:#7FD3A4}}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(27,26,23,.05) 1px,transparent 1px);background-size:4px 4px}
 a{color:inherit}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header{padding:24px 0 8px}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;text-decoration:none}
-.logo svg{width:28px;height:28px;flex:none}
-.langs{display:flex;gap:4px;background:var(--surface);border-radius:20px;padding:4px}
-.langs button{border:0;background:none;color:var(--muted);font:600 16px var(--font);padding:4px 14px;border-radius:16px;cursor:pointer}
-.langs button:hover{color:var(--ink)}
-.langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.hero{padding:48px 0 32px}
-.hero h1{font-size:40px;line-height:1.15;margin:0 0 16px;letter-spacing:-.01em;max-width:720px}
-.hero h1 mark{white-space:nowrap;background:var(--ball);color:#10261B;padding:0 6px;border-radius:8px}
-.hero p{font-size:20px;color:var(--muted);margin:0;max-width:620px}
-.soon{display:inline-flex;align-items:center;gap:8px;margin-top:24px;font-weight:600;color:var(--court)}
-.soon::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--court);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.3}}
-@media (prefers-reduced-motion:reduce){.soon::before{animation:none}}
-section{padding:32px 0}
-h2{font-size:20px;margin:0 0 4px}
-.lead{color:var(--muted);margin:0 0 20px}
-.feed{display:grid;gap:12px}
-.item{display:grid;grid-template-columns:96px 1fr;gap:16px;background:var(--surface);border-radius:16px;padding:16px 20px;text-decoration:none;transition:background .15s}
-.item:hover{background:color-mix(in srgb,var(--surface) 88%,var(--court))}
-.item:active{transform:scale(.995)}
-.item time{color:var(--muted);font-variant-numeric:tabular-nums}
-.item b{display:block;font-size:18px;line-height:1.35;font-weight:600}
-.item span{display:block;color:var(--muted);margin-top:4px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{background:var(--surface);border-radius:16px;padding:20px}
-.card h3{display:flex;align-items:center;gap:10px;font-size:18px;margin:0 0 12px}
-.card h3 svg{width:24px;height:24px;flex:none}
-.card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.card li a{display:flex;justify-content:space-between;gap:12px;text-decoration:none;padding:8px 0;border-bottom:1px solid var(--line)}
-.card li a:hover{color:var(--court)}
-.card li a em{font-style:normal;color:var(--muted);white-space:nowrap}
-.card li:last-child a{border-bottom:0}
-.empty{color:var(--muted);margin:0}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border-radius:12px;background:var(--ink);color:var(--bg);font:600 16px var(--font);text-decoration:none;transition:opacity .15s}
-.btn:hover{opacity:.88}
-.btn:active{transform:scale(.98)}
-.cta{background:var(--surface);border-radius:20px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.cta p{margin:0;font-size:18px;max-width:560px}
-footer{padding:32px 0 48px;color:var(--muted)}
-@media (max-width:680px){
-  .hero{padding:32px 0 16px}.hero h1{font-size:32px}.hero p{font-size:18px}
-  .grid{grid-template-columns:1fr}
-  .item{grid-template-columns:1fr;gap:4px}
+img{display:block;max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:rgba(27,26,23,.35);border-radius:8px}
+
+/* masthead */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-bottom:2px solid var(--ink)}
+.date{font-weight:600}
+.langs{display:flex;gap:4px}
+.langs button{border:0;background:none;font:600 16px var(--body);color:var(--muted);padding:4px 10px;border-radius:8px;cursor:pointer}
+.langs button:hover{color:var(--ink);background:var(--line)}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.mast{padding:28px 0 20px;border-bottom:6px double var(--ink);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.mast h1{font:700 88px/0.9 var(--display);margin:0;letter-spacing:-.01em;text-transform:uppercase}
+.mast h1 .b{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--ball);vertical-align:.04em;margin:0 .04em;position:relative;box-shadow:inset -4px -4px 0 rgba(0,0,0,.08)}
+.mast h1 .b::before,.mast h1 .b::after{content:"";position:absolute;top:8%;bottom:8%;width:46%;border:3px solid var(--ink);border-radius:50%}
+.mast h1 .b::before{left:-26%;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.mast h1 .b::after{right:-26%;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.mast p{margin:12px 0 0;font-size:20px;max-width:560px}
+.issue{text-align:right;font:500 18px/1.3 var(--display);text-transform:uppercase;letter-spacing:.04em}
+.issue b{display:block;font-size:40px;line-height:1}
+.ticker{display:flex;gap:32px;overflow-x:auto;padding:12px 0;border-bottom:1px solid var(--ink);white-space:nowrap;scrollbar-width:none}
+.ticker::-webkit-scrollbar{display:none}
+.ticker a{text-decoration:none;font-weight:600}
+.ticker a:hover{color:var(--clay)}
+.ticker span{color:var(--clay);margin-right:6px}
+
+section{padding:40px 0 8px}
+.sh{display:flex;align-items:baseline;gap:16px;margin:0 0 20px}
+.sh h2{font:700 40px/1 var(--display);text-transform:uppercase;margin:0}
+.sh .hand{font:700 24px var(--hand);color:var(--clay);transform:rotate(-3deg)}
+
+/* event cards */
+.events{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+.ev{background:var(--card);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--line)}
+.ev .ph{position:relative;background:var(--court)}
+.ev .ph img{width:100%;height:280px;object-fit:cover;cursor:zoom-in}
+.ev.big .ph img{height:420px;object-position:50% 30%}
+.when{position:absolute;left:16px;top:16px;background:var(--ink);color:var(--paper);border-radius:12px;padding:8px 12px;text-align:center;font-family:var(--display);text-transform:uppercase;line-height:1}
+.when b{display:block;font-size:32px}
+.when small{font-size:14px;letter-spacing:.06em}
+.ev .bd{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.ev h3{font:600 28px/1.1 var(--display);text-transform:uppercase;margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.fact{background:var(--paper);border-radius:20px;padding:4px 12px;font-weight:500}
+.fill{display:grid;gap:6px}
+.fill .lbl{display:flex;justify-content:space-between;font-weight:600}
+.bar{height:16px;border-radius:8px;background:var(--line);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .paid{background:var(--court)}
+.bar .in{background:var(--court);opacity:.45}
+.bar .out{background:repeating-linear-gradient(-45deg,var(--clay) 0 4px,transparent 4px 8px)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:0}
+.legend .l1::before{background:var(--court)}.legend .l2::before{background:var(--court);opacity:.45}.legend .l3::before{background:var(--clay)}
+.note{font:600 22px/1.25 var(--hand);color:var(--clay);margin:0}
+.who{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.ava{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;background:var(--court-soft);color:var(--court);display:grid;place-items:center;font:600 14px var(--body)}
+.go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;height:48px;padding:0 20px;border-radius:12px;background:var(--ink);color:var(--paper);font-weight:600;text-decoration:none;transition:background .15s}
+.go:hover{background:var(--clay)}
+.go:active{transform:scale(.98)}
+.go svg{width:18px;height:18px}
+.side{display:grid;gap:20px;align-content:start}
+.mini{background:var(--card);border-radius:16px;padding:20px;display:grid;gap:10px}
+.mini h3{font:600 22px/1.15 var(--display);text-transform:uppercase;margin:0}
+.mini .tag{font:600 14px var(--body);color:var(--clay)}
+.mini.trip{grid-template-columns:96px 1fr;align-items:start}
+.mini.trip img{width:96px;height:96px;border-radius:12px;object-fit:cover;cursor:zoom-in}
+
+/* results */
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.res{background:var(--card);border-radius:16px;padding:12px 12px 20px;display:flex;flex-direction:column;gap:12px}
+.res .pic{position:relative;border-radius:8px;overflow:hidden}
+.res .pic img{width:100%;height:260px;object-fit:cover;cursor:zoom-in}
+.res .pic::after{content:"";position:absolute;top:-6px;left:50%;width:88px;height:22px;background:rgba(220,235,76,.75);transform:translateX(-50%) rotate(-2deg)}
+.res:nth-child(2n) .pic{transform:rotate(.6deg)}
+.res:nth-child(2n+1) .pic{transform:rotate(-.5deg)}
+.res .meta{padding:0 8px;color:var(--muted);font-weight:500}
+.res h3{font:600 22px/1.15 var(--display);text-transform:uppercase;margin:0;padding:0 8px}
+.podium{list-style:none;margin:0;padding:0 8px;display:grid;gap:6px}
+.podium li{display:grid;grid-template-columns:32px 1fr;gap:8px;align-items:center}
+.podium .m{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 14px var(--display);color:var(--ink)}
+.p1 .m{background:#E8C44A}.p2 .m{background:#C9CCD1}.p3 .m{background:#D69A6A}
+.podium .f{font-weight:600}
+.res .quote{font:600 20px/1.2 var(--hand);color:var(--court);padding:0 8px;margin:0}
+.res .muted{padding:0 8px;margin:0;color:var(--muted)}
+
+/* league strip */
+.league{margin-top:20px;background:var(--court);color:#F3EEE3;border-radius:16px;padding:24px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center}
+.league .nums{display:flex;gap:28px}
+.league .nums div{font:700 40px/1 var(--display)}
+.league .nums small{display:block;font:500 14px var(--body);opacity:.85;margin-top:4px}
+.league p{margin:0}
+.league a.go{background:var(--ball);color:var(--ink)}
+.league a.go:hover{background:#fff}
+
+/* explained news */
+.news{display:grid;gap:16px}
+.nw{background:var(--card);border-radius:16px;display:grid;grid-template-columns:64px 1fr 1fr;gap:20px;padding:20px;align-items:start}
+.nw .ic{width:64px;height:64px;border-radius:16px;display:grid;place-items:center}
+.nw .ic svg{width:32px;height:32px}
+.ic.clay{background:var(--clay-soft);color:var(--clay)}.ic.court{background:var(--court-soft);color:var(--court)}.ic.ball{background:#EEF4B8;color:#5B6312}
+.nw h3{font:600 22px/1.15 var(--display);text-transform:uppercase;margin:0 0 6px}
+.nw .src{color:var(--muted);font-weight:500}
+.nw p{margin:6px 0 0}
+.mean{background:var(--paper);border-radius:12px;padding:12px 16px;position:relative}
+.mean b{display:block;font:700 22px/1.1 var(--hand);color:var(--clay);margin-bottom:4px}
+.mean p{margin:0}
+
+/* partners */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pin{background:#FFF7C9;padding:20px 16px 16px;border-radius:4px;box-shadow:0 8px 16px -10px rgba(0,0,0,.35);position:relative;display:flex;flex-direction:column;gap:10px}
+.pin:nth-child(2){background:#E3F0E7;transform:rotate(1deg)}
+.pin:nth-child(3){background:#F7E1D7;transform:rotate(-1.2deg)}
+.pin:nth-child(1){transform:rotate(-.6deg)}
+.pin:nth-child(4){background:#E9E4F5;transform:rotate(.8deg)}
+.pin::before{content:"";position:absolute;top:-8px;left:50%;width:16px;height:16px;border-radius:50%;background:var(--clay);transform:translateX(-50%);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.pin .lvl{font:700 28px/1 var(--display)}
+.pin .lvl small{font:500 14px var(--body);color:var(--muted)}
+.pin p{margin:0}
+.pin .who{margin-top:auto}
+
+/* courts */
+.courts{background:var(--card);border-radius:16px;overflow:hidden}
+.courts summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:20px;transition:background .15s}
+.courts summary::-webkit-details-marker{display:none}
+.courts summary:hover{background:#FBF6EA}
+.courts summary h2{font:700 32px/1 var(--display);text-transform:uppercase;margin:0}
+.courts summary .chg{white-space:nowrap;background:var(--clay);color:#fff;border-radius:20px;padding:4px 12px;font-weight:600}
+.courts summary .chev{margin-left:auto;width:24px;height:24px;transition:transform .2s}
+.courts[open] summary .chev{transform:rotate(180deg)}
+.crows{display:grid;grid-template-columns:repeat(2,1fr);gap:0 24px;padding:0 20px 20px}
+.crow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 0;border-top:1px solid var(--line)}
+.crow b{font-weight:600}
+.crow .st{font-weight:600;border-radius:20px;padding:2px 10px;align-self:start}
+.st.new{background:var(--court-soft);color:var(--court)}
+.st.up{background:var(--clay-soft);color:var(--clay)}
+.st.off{background:var(--line);color:var(--muted)}
+.st.ok{color:var(--muted);padding:2px 0}
+.crow .d{grid-column:1/-1;color:var(--muted)}
+.crow .d a{font-weight:600;color:var(--ink);text-decoration:none;margin-right:12px}
+.crow .d a:hover{color:var(--clay)}
+.crow.changed b::after{content:" ●";color:var(--clay)}
+.cfoot{padding:0 20px 20px;color:var(--muted)}
+
+footer{margin-top:48px;padding:28px 0 48px;border-top:6px double var(--ink);display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+footer h4{font:600 20px var(--display);text-transform:uppercase;margin:0 0 8px}
+footer p{margin:0 0 8px;color:var(--muted)}
+footer a{font-weight:600;text-decoration:none}
+footer a:hover{color:var(--clay)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(20,18,14,.92);display:none;place-items:center;z-index:9;padding:20px;cursor:zoom-out}
+.lb.on{display:grid}
+.lb img{max-height:92vh;max-width:96vw;border-radius:8px}
+
+/* load */
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mast,.ticker,section{animation:rise .5s ease both}
+section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-delay:.14s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media (max-width:900px){
+  .mast{grid-template-columns:1fr}.issue{text-align:left}
+  .mast h1{font-size:56px}
+  .events,.results,.crows,footer{grid-template-columns:1fr}
+  .board{grid-template-columns:repeat(2,1fr)}
+  .nw{grid-template-columns:48px 1fr}.nw .ic{width:48px;height:48px;border-radius:12px}.nw .mean{grid-column:1/-1}
+  .league{grid-template-columns:1fr}.league .nums{flex-wrap:wrap}
+  .ev.big .ph img{height:360px;object-position:50% 0}
 }
+@media (max-width:520px){.board{grid-template-columns:1fr}.sh h2{font-size:32px}.mast h1{font-size:44px}}
 html:not([lang="uz"]) [data-uz],html[lang="uz"] [data-ru]{display:none!important}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <div class="bar">
-    <a class="logo" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#D8F25B"/><path d="M5 9c6 3 6 11 0 14M27 9c-6 3-6 11 0 14" stroke="#10261B" stroke-width="2" fill="none"/></svg>Tennis Daily</a>
-    <div class="langs" role="group" aria-label="Язык">
-      <button type="button" data-set="ru" aria-pressed="true">RU</button>
-      <button type="button" data-set="uz" aria-pressed="false">UZ</button>
-    </div>
+
+<div class="top">
+  <div class="date"><span data-ru>Пятница, 6 ноября 2026</span><span data-uz>Juma, 6-noyabr 2026</span></div>
+  <div class="langs" role="group" aria-label="Язык"><button type="button" data-set="ru" aria-pressed="true">RU</button><button type="button" data-set="uz" aria-pressed="false">UZ</button></div>
+</div>
+
+<header class="mast">
+  <div>
+    <h1>Tennis Da<span class="b"></span>ly</h1>
+    <p data-ru>Любительский теннис Ташкента: где сыграть турнир, кто выиграл прошлый, какие корты открылись и закрылись.</p>
+    <p data-uz>Toshkent havaskor tennisi: qaysi turnirda o‘ynash, kim g‘olib bo‘ldi, qaysi kortlar ochildi va yopildi.</p>
   </div>
+  <div class="issue"><span data-ru>Выпуск</span><span data-uz>Son</span><b>№ 1</b></div>
 </header>
 
-<div class="hero">
-  <h1><span data-ru>Весь теннис Узбекистана — <mark>в одном месте</mark></span><span data-uz>Oʻzbekiston tennisi — <mark>bir joyda</mark></span></h1>
-  <p data-ru>Собираем новости, турниры и каналы о теннисе из сайтов, Telegram, Instagram и WhatsApp. Коротко, каждый день, на русском и узбекском.</p>
-  <p data-uz>Saytlar, Telegram, Instagram va WhatsApp’dagi tennis yangiliklari, turnirlar va kanallarni yigʻamiz. Qisqa, har kuni, rus va oʻzbek tillarida.</p>
-  <div class="soon"><span data-ru>Ежедневный дайджест скоро запустится</span><span data-uz>Kunlik dayjest tez orada ishga tushadi</span></div>
+<nav class="ticker" aria-label="Коротко">
+  <a href="#soon"><span>●</span><span data-ru>Laver Cup — завтра, осталось 1 место</span><span data-uz>Laver Cup — ertaga, 1 o‘rin qoldi</span></a>
+  <a href="#soon"><span>●</span><span data-ru>Пары в Учкуне 8 ноября — 2 свободные пары</span><span data-uz>8-noyabr Uchqunda juftlik — 2 juftga joy bor</span></a>
+  <a href="#news"><span>●</span><span data-ru>Ёшлик: +50 000 сум за вход</span><span data-uz>Yoshlik: kirish +50 000 so‘m</span></a>
+  <a href="#courts"><span>●</span><span data-ru>Открылся крытый корт в Туринском политехе</span><span data-uz>Turin politexnikasida yopiq kort ochildi</span></a>
+</nav>
+
+<!-- ====== SOON ====== -->
+<section id="soon">
+  <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><span class="hand" data-ru>успей записаться</span><span class="hand" data-uz>yozilishga ulguring</span></div>
+  <div class="events">
+    <article class="ev big">
+      <div class="ph"><img src="img/laver.webp" alt="Афиша Laver Cup 7 ноября, Меридиан"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><b>7</b><small data-ru>ноя</small><small data-uz>noy</small></div></div>
+      <div class="bd">
+        <h3>Laver Cup · <span data-ru>Меридиан</span><span data-uz>Meridian</span></h3>
+        <div class="facts"><span class="fact">16:00–22:00</span><span class="fact">NTRP ≤ 3.75</span><span class="fact" data-ru>400 000 сум · корт, мячи, ужин</span><span class="fact" data-uz>400 000 so‘m · kort, koptok, kechki ovqat</span><span class="fact" data-ru>Спонсор DI sport</span><span class="fact" data-uz>Homiy DI sport</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Набор</span><span data-uz>Ro‘yxat</span><span data-ru>19 из 20 мест</span><span data-uz>20 tadan 19</span></div>
+          <div class="bar" aria-hidden="true"><i class="paid" style="width:25%"></i><i class="in" style="width:70%"></i></div>
+          <div class="legend"><span class="l1" data-ru>оплатили 5</span><span class="l1" data-uz>to‘lagan 5</span><span class="l2" data-ru>записаны, ещё не оплатили 14</span><span class="l2" data-uz>yozilgan, to‘lamagan 14</span></div>
+        </div>
+        <p class="note" data-ru>14 заявок пришли за первые 2 часа после анонса. Потом трое отказались, их места заняли — осталось одно.</p>
+        <p class="note" data-uz>E’londan keyingi 2 soatda 14 ta ariza tushdi. Uch kishi voz kechdi, joylari to‘ldi — bitta qoldi.</p>
+        <div class="who"><span class="ava">АМ</span><span data-ru>Организатор Абдукарим Мирзаев · группа «Теннис (Бойцовский клуб)»</span><span data-uz>Tashkilotchi Abdukarim Mirzayev · «Tennis (Boytsovskiy klub)» guruhi</span></div>
+      </div>
+    </article>
+
+    <div class="side">
+      <article class="ev">
+        <div class="ph"><img src="img/uchqun.webp" alt="Афиша парного турнира 8 ноября, Учкун" style="height:180px"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><b>8</b><small data-ru>ноя</small><small data-uz>noy</small></div></div>
+        <div class="bd">
+          <h3 data-ru>Пары · Учкун</h3><h3 data-uz>Juftlik · Uchqun</h3>
+          <div class="facts"><span class="fact">16:00–22:00</span><span class="fact" data-ru>хард под навесом</span><span class="fact" data-uz>ayvon ostidagi hard</span><span class="fact" data-ru>NTRP пары ≤ 7.0</span><span class="fact" data-uz>Juft NTRP ≤ 7.0</span><span class="fact" data-ru>350 000 сум с игрока</span><span class="fact" data-uz>o‘yinchi boshiga 350 000</span></div>
+          <div class="fill">
+            <div class="lbl"><span data-ru>Пары</span><span data-uz>Juftlar</span><span data-ru>10 из 12</span><span data-uz>12 tadan 10</span></div>
+            <div class="bar" aria-hidden="true"><i class="in" style="width:83%"></i></div>
+          </div>
+          <p class="note" data-ru>Призы: Korzinka Biznes и путёвка на курорт. Ещё трое ищут себе пару — если ты без партнёра, пиши в группу.</p>
+          <p class="note" data-uz>Sovrinlar: Korzinka Biznes va dam olish maskaniga yo‘llanma. Yana uch kishi sherik qidiryapti.</p>
+        </div>
+      </article>
+      <article class="mini">
+        <span class="tag" data-ru>Вс, 8 ноября · 9:00–14:00</span><span class="tag" data-uz>Ya, 8-noyabr · 9:00–14:00</span>
+        <h3 data-ru>Женские пары, итоговый турнир сезона</h3><h3 data-uz>Ayollar juftligi, mavsum yakuniy turniri</h3>
+        <p style="margin:0" data-ru>Стадион МВЭС (М. Горький) · 600 000 сум с пары · у одной из партнёрш уровень до 3.0. Запись через группу Tennis plus.</p>
+        <p style="margin:0" data-uz>MVES stadioni (M. Gorkiy) · juftga 600 000 so‘m · sheriklardan biri 3.0 gacha. Yozilish Tennis plus guruhi orqali.</p>
+      </article>
+      <article class="mini trip">
+        <img src="img/sharm.webp" alt="Участники прошлого Sharm Cup">
+        <div>
+          <span class="tag" data-ru>4–9 января · Египет</span><span class="tag" data-uz>4–9 yanvar · Misr</span>
+          <h3>Sharm Cup</h3>
+          <p style="margin:6px 0 0" data-ru>Любительский турнир плюс море на новогодние каникулы. Взнос $75–100, тур из Ташкента — от $950 за 7 ночей.</p>
+          <p style="margin:6px 0 0" data-uz>Havaskorlar turniri va dengiz. Badal $75–100, Toshkentdan tur — 7 kecha $950 dan.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====== RESULTS ====== -->
+<section id="results">
+  <div class="sh"><h2 data-ru>Итоги</h2><h2 data-uz>Natijalar</h2><span class="hand" data-ru>поздравляем!</span><span class="hand" data-uz>tabriklaymiz!</span></div>
+  <div class="results">
+    <article class="res">
+      <div class="pic"><img src="img/oct24.webp" alt="Участники одиночного турнира 24 октября, Меридиан"></div>
+      <div class="meta" data-ru>24 октября · Меридиан · одиночка до 3.75 · 16 игроков</div><div class="meta" data-uz>24-oktabr · Meridian · yakkalik 3.75 gacha · 16 o‘yinchi</div>
+      <h3 data-ru>Гайрат — чемпион</h3><h3 data-uz>G‘ayrat — chempion</h3>
+      <ol class="podium"><li class="p1"><span class="m">1</span><span class="f">Гайрат Рахматуллаев</span></li><li class="p2"><span class="m">2</span><span class="f">Рахматжон Закиров</span></li></ol>
+      <p class="muted" data-ru>Группа «Бойцовский клуб». Сетка и счёт — на PlayOn.</p><p class="muted" data-uz>«Boytsovskiy klub» guruhi. Setka va hisob — PlayOn’da.</p>
+    </article>
+    <article class="res">
+      <div class="pic"><img src="img/tp_single.webp" alt="Призёры мужского одиночного турнира 25 октября, МГУ"></div>
+      <div class="meta" data-ru>25 октября · корты МГУ · одиночка до 4.0</div><div class="meta" data-uz>25-oktabr · MGU kortlari · yakkalik 4.0 gacha</div>
+      <h3 data-ru>7 сетов за 7 часов</h3><h3 data-uz>7 soatda 7 set</h3>
+      <ol class="podium"><li class="p1"><span class="m">1</span><span class="f">Саша Вао</span></li><li class="p2"><span class="m">2</span><span class="f">Сарвар Ибрагимов</span></li><li class="p3"><span class="m">3</span><span class="f">Махмуд Юлдашев</span></li></ol>
+      <p class="quote" data-ru>«Впервые в жизни сыграл 7 сетов за 7 часов» — победитель</p><p class="quote" data-uz>«Hayotimda birinchi marta 7 soatda 7 set o‘ynadim» — g‘olib</p>
+    </article>
+    <article class="res">
+      <div class="pic"><img src="img/tml_win.webp" alt="Masters Open Doubles, Юнусабад"></div>
+      <div class="meta" data-ru>18 октября · Юнусабад · Masters Open Doubles</div><div class="meta" data-uz>18-oktabr · Yunusobod · Masters Open Doubles</div>
+      <h3 data-ru>Пары лиги Masters</h3><h3 data-uz>Masters ligasi juftliklari</h3>
+      <ol class="podium"><li class="p1"><span class="m">1</span><span class="f">Заррух Ниязов / Рахимбек Ибрахимов</span></li><li class="p2"><span class="m">2</span><span class="f">Петро Захарченко / Аббос Садиков</span></li><li class="p3"><span class="m">3</span><span class="f">Акмаль Арабджанов / Ахмаджон Косими</span></li></ol>
+      <p class="muted" data-ru>В турнире «одного очка» победил Святослав Ларионов — подачей с руки.</p><p class="muted" data-uz>«Bir ochko» turnirida Svyatoslav Larionov g‘olib bo‘ldi.</p>
+    </article>
+    <article class="res">
+      <div class="pic"><img src="img/mixed.webp" alt="Призёры микста 18 октября, МГУ"></div>
+      <div class="meta" data-ru>18 октября · корты МГУ · микст до 4.0 · 12 пар</div><div class="meta" data-uz>18-oktabr · MGU kortlari · mikst 4.0 gacha · 12 juft</div>
+      <h3 data-ru>Микст</h3><h3 data-uz>Mikst</h3>
+      <ol class="podium"><li class="p1"><span class="m">1</span><span class="f">Родион Ким / Александра Ткаченко</span></li><li class="p2"><span class="m">2</span><span class="f">Н. Ходжаева / Р. Бахтеев</span></li><li class="p3"><span class="m">3</span><span class="f">Арева Амбарцумян / Саидсултон Гулямов</span></li></ol>
+    </article>
+    <article class="res">
+      <div class="pic"><img src="img/tp_women.webp" alt="Женский одиночный турнир 25 октября"></div>
+      <div class="meta" data-ru>25 октября · женская одиночка</div><div class="meta" data-uz>25-oktabr · ayollar yakkaligi</div>
+      <h3 data-ru>Весь пьедестал — одной школы</h3><h3 data-uz>Butun shohsupa — bir maktabdan</h3>
+      <p class="muted" data-ru>Все три призовых места заняли ученицы тренеров Tennis plus. Имена клуб не опубликовал.</p><p class="muted" data-uz>Uchala sovrinli o‘rinni Tennis plus o‘quvchilari egalladi. Ismlar e’lon qilinmagan.</p>
+    </article>
+    <article class="res">
+      <div class="pic"><img src="img/oct31.webp" alt="Участники парного турнира 31 октября, Меридиан"></div>
+      <div class="meta" data-ru>31 октября · Меридиан · пары до 7.5 · 12 пар</div><div class="meta" data-uz>31-oktabr · Meridian · juftlik 7.5 gacha · 12 juft</div>
+      <h3 data-ru>Пары в Меридиане</h3><h3 data-uz>Meridianda juftlik</h3>
+      <p class="muted" data-ru>Победителей в группе так и не назвали — знаешь, кто взял? Напиши нам.</p><p class="muted" data-uz>G‘oliblar guruhda e’lon qilinmadi — bilsangiz, yozing.</p>
+      <p class="quote" data-ru>«6 геймов — всё-таки кайф» — из чата после турнира</p><p class="quote" data-uz>«6 geymgacha o‘ynash — maza» — chatdan</p>
+    </article>
+  </div>
+
+  <div class="league">
+    <div><h3 style="font:700 28px/1 var(--display);text-transform:uppercase;margin:0">Tashkent Masters League</h3><p data-ru>Сезон Uz Open закрыт, результаты дивизионов и переходы — на сайте лиги.</p><p data-uz>Uz Open mavsumi yopildi, natijalar liga saytida.</p></div>
+    <div class="nums"><div>217<small data-ru>игроков</small><small data-uz>o‘yinchi</small></div><div>8<small data-ru>дивизионов</small><small data-uz>divizion</small></div><div>1972<small data-ru>матча за всё время</small><small data-uz>jami o‘yin</small></div></div>
+    <a class="go" href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Таблица</span><span data-uz>Jadval</span></a>
+  </div>
+</section>
+
+<!-- ====== NEWS ====== -->
+<section id="news">
+  <div class="sh"><h2 data-ru>Что изменилось</h2><h2 data-uz>Nima o‘zgardi</h2><span class="hand" data-ru>и что это значит для тебя</span><span class="hand" data-uz>va bu sen uchun nima degani</span></div>
+  <div class="news">
+    <article class="nw">
+      <div class="ic clay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div><h3 data-ru>Ёшлик: 50 000 сум за вход</h3><h3 data-uz>Yoshlik: kirish uchun 50 000 so‘m</h3><span class="src" data-ru>С 1 ноября · обсуждают в Бойцовском клубе и Tennis plus</span><span class="src" data-uz>1-noyabrdan · guruhlarda muhokama</span>
+        <p data-ru>Стадион «Ёшлик» (бывший «Старт») берёт плату за вход на территорию сверх аренды корта.</p><p data-uz>«Yoshlik» stadioni kortni ijaraga olishdan tashqari hududga kirish uchun ham pul oladi.</p></div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><p data-ru>Три игры в неделю — плюс 600 000 сум в месяц. Если играешь в Ёшлике регулярно, посчитай: Учкун и Республиканская школа заметно дешевле (смотри «Корты» ниже).</p><p data-uz>Haftada uch marta — oyiga +600 000 so‘m. Uchqun va Respublika maktabi arzonroq (pastdagi «Kortlar»).</p></div>
+    </article>
+    <article class="nw">
+      <div class="ic court"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></div>
+      <div><h3 data-ru>Новый крытый корт: Туринский политех</h3><h3 data-uz>Yangi yopiq kort: Turin politexnikasi</h3><span class="src" data-ru>Tennis plus · с 2 ноября</span><span class="src" data-uz>Tennis plus · 2-noyabrdan</span>
+        <p data-ru>Малая кольцевая, 17. Раздевалки, душ, яркий свет. Группы для взрослых — Пн, Ср, Пт в 19:00 и 20:00, только по записи.</p><p data-uz>Kichik halqa yo‘li, 17. Kiyinish xonalari, dush. Kattalar guruhlari — Du, Ch, Ju 19:00 va 20:00.</p></div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><p data-ru>Ещё одно место, где можно играть зимой без снега и ветра. Открытые корты МГУ закрылись до весны, а крытых в городе мало.</p><p data-uz>Qishda o‘ynash uchun yana bir joy. MGU ochiq kortlari bahorgacha yopildi.</p></div>
+    </article>
+    <article class="nw">
+      <div class="ic ball"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 22l5-3 5 3-1.5-9.5"/></svg></div>
+      <div><h3 data-ru>Ирода Туляганова возглавила Республиканскую школу олимпийского резерва</h3><h3 data-uz>Iroda To‘laganova Respublika olimpiya zaxiralari maktabiga rahbar bo‘ldi</h3><span class="src"><a href="https://www.uzdaily.uz/en/iroda-tulyaganova-appointed-head-of-uzbekistan-tennis-school/" target="_blank" rel="noopener">UzDaily</a> · <span data-ru>3 ноября</span><span data-uz>3-noyabr</span></span>
+        <p data-ru>Бывшая 16-я ракетка мира стала директором главной теннисной школы страны.</p><p data-uz>Sobiq jahon 16-raketkasi mamlakatning bosh tennis maktabi direktori bo‘ldi.</p></div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><p data-ru>Для любителя эта школа важна как площадка: корты там сдают по часам, и по прошлогоднему обзору Afisha — дешевле всех в городе. Там же проходят детские турниры. Если что-то поменяется с ценами или доступом, мы напишем.</p><p data-uz>Havaskor uchun bu maktab — kort: soatbay ijara shahardagi eng arzonlardan. Bolalar turnirlari ham shu yerda. O‘zgarish bo‘lsa, yozamiz.</p></div>
+    </article>
+    <article class="nw">
+      <div class="ic court"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div>
+      <div><h3 data-ru>Лига Masters меняет правила</h3><h3 data-uz>Masters ligasi qoidalari o‘zgaradi</h3><span class="src" data-ru>Tashkent Masters League · 2 ноября</span><span class="src" data-uz>Tashkent Masters League · 2-noyabr</span>
+        <p data-ru>Со следующего сезона счёт нужно внести в течение суток, а недоигранные матчи не засчитываются.</p><p data-uz>Keyingi mavsumdan hisob bir kun ichida kiritilishi kerak, tugallanmagan o‘yinlar hisobga olinmaydi.</p></div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><p data-ru>Сыграл — сразу отметь в приложении. Матч «на потом» в конце сезона больше не спасёт.</p><p data-uz>O‘ynadingmi — darhol ilovada belgila.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- ====== PARTNERS ====== -->
+<section id="partners">
+  <div class="sh"><h2 data-ru>Ищу партнёра</h2><h2 data-uz>Sherik qidiraman</h2><span class="hand" data-ru>откликнись в группе</span><span class="hand" data-uz>guruhda javob yoz</span></div>
+  <div class="board">
+    <div class="pin"><div class="lvl">2–2.5 <small>NTRP</small></div><p data-ru>Ищу компанию играть регулярно, вместе расти. Если желающих много — откроем группу для новичков.</p><p data-uz>Muntazam o‘ynash uchun sherik qidiraman. Ko‘p bo‘lsa, yangi boshlovchilar guruhini ochamiz.</p><div class="who"><img class="ava" src="av/sardor.webp" alt="">Sardor · <span data-ru>11 ответов</span><span data-uz>11 javob</span></div></div>
+    <div class="pin"><div class="lvl">2.5–3.5 <small data-ru>пары</small><small data-uz>juftlik</small></div><p data-ru>Нужны игроки в пары на зиму: зал Ёшлик, Вт, Чт, Сб в 20:00.</p><p data-uz>Qishga juftlikka o‘yinchilar kerak: Yoshlik zali, Se, Pa, Sh 20:00.</p><div class="who"><img class="ava" src="av/svetlana.webp" alt="">Svetlana · Tennis plus</div></div>
+    <div class="pin"><div class="lvl" data-ru>Начальный+</div><div class="lvl" data-uz>Boshlang‘ich+</div><p data-ru>Ищу напарника на тренировку с тренером: воскресенье 11–12, крытый корт AJOU. Цена пополам.</p><p data-uz>Murabbiy bilan mashg‘ulotga sherik: yakshanba 11–12, AJOU yopiq korti. Narx yarmi.</p><div class="who"><span class="ava">Д</span>Diana · Tennis plus</div></div>
+    <div class="pin"><div class="lvl">3.75–4 <small data-ru>одиночка</small><small data-uz>yakkalik</small></div><p data-ru>Сегодня вечером нужен один человек на одиночку.</p><p data-uz>Bugun kechqurun yakkalikka bitta odam kerak.</p><div class="who"><span class="ava">Д</span><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span></div></div>
+  </div>
+</section>
+
+<!-- ====== COURTS ====== -->
+<section id="courts">
+  <details class="courts" id="courtsBox">
+    <summary><h2 data-ru>Корты Ташкента</h2><h2 data-uz>Toshkent kortlari</h2><span class="chg" id="chg"></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="crows" id="crows"></div>
+    <p class="cfoot" data-ru>Цены и телефоны — из открытых источников и сообщений в группах, могли устареть. Бронь онлайн: <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city" target="_blank" rel="noopener">PlaySport</a>, боты @tennis_plusbot и @ace_club_courts_bot.</p>
+    <p class="cfoot" data-uz>Narx va telefonlar ochiq manbalardan, eskirgan bo‘lishi mumkin. Onlayn bron: <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city" target="_blank" rel="noopener">PlaySport</a>, @tennis_plusbot, @ace_club_courts_bot.</p>
+  </details>
+</section>
+
+<footer>
+  <div><h4 data-ru>Откуда новости</h4><h4 data-uz>Manbalar</h4>
+    <p data-ru>Теннисные группы Ташкента («Бойцовский клуб», Tennis plus, Tashkent Masters League), федерация <a href="https://tennis.uz" target="_blank" rel="noopener">tennis.uz</a>, городские медиа.</p>
+    <p data-uz>Toshkent tennis guruhlari, <a href="https://tennis.uz" target="_blank" rel="noopener">tennis.uz</a> federatsiyasi, shahar nashrlari.</p></div>
+  <div><h4 data-ru>Есть новость?</h4><h4 data-uz>Yangilik bormi?</h4>
+    <p data-ru>Турнир, новый корт, итоги — пиши: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
+    <p data-uz>Turnir, yangi kort, natija — yozing: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
+    <p>© 2026 tennisdaily.uz</p></div>
+</footer>
 </div>
 
-<section>
-  <h2 data-ru>Последнее</h2><h2 data-uz>Soʻnggi yangiliklar</h2>
-  <p class="lead" data-ru>Так будет выглядеть дайджест. Каждая новость ведёт на источник.</p>
-  <p class="lead" data-uz>Dayjest shunday koʻrinadi. Har bir yangilik manbaga olib boradi.</p>
-  <div class="feed">
-    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>24.02.2026</time><div><b data-ru>Камилла Рахимова вышла во второй круг ATX Open в Техасе</b><b data-uz>Kamilla Rahimova Texasdagi ATX Open’ning ikkinchi davrasiga chiqdi</b><span>tennis.uz</span></div></a>
-    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>23.02.2026</time><div><b data-ru>Мария Тимофеева прошла квалификацию WTA 500 в Мериде</b><b data-uz>Mariya Timofeyeva Meridadagi WTA 500 saralashidan oʻtdi</b><span>tennis.uz</span></div></a>
-    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>23.02.2026</time><div><b data-ru>Саидаслам Фарходов выиграл турнир Tennis Europe в Румынии</b><b data-uz>Saidaslam Farxodov Ruminiyadagi Tennis Europe turnirida gʻolib boʻldi</b><span>tennis.uz</span></div></a>
-    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>08.02.2026</time><div><b data-ru>Сборная Узбекистана завершила матчи Кубка Дэвиса против Нигерии</b><b data-uz>Oʻzbekiston terma jamoasi Nigeriyaga qarshi Devis kubogi oʻyinlarini yakunladi</b><span>tennis.uz</span></div></a>
-  </div>
-</section>
+<div class="lb" id="lb"><img alt=""></div>
 
-<section>
-  <h2 data-ru>Источники</h2><h2 data-uz>Manbalar</h2>
-  <p class="lead" data-ru>Откуда собираем новости. Список растёт.</p>
-  <p class="lead" data-uz>Yangiliklarni qayerdan yigʻamiz. Roʻyxat kengaymoqda.</p>
-  <div class="grid">
-    <div class="card">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-ru>Сайты</span><span data-uz>Saytlar</span></h3>
-      <ul>
-        <li><a href="https://tennis.uz" target="_blank" rel="noopener"><span data-ru>Федерация тенниса Узбекистана</span><span data-uz>Oʻzbekiston tennis federatsiyasi</span><em>tennis.uz</em></a></li>
-        <li><a href="https://www.afisha.uz/ru/gorod/2025/11/01/tennis" target="_blank" rel="noopener"><span data-ru>Корты Ташкента</span><span data-uz>Toshkent kortlari</span><em>afisha.uz</em></a></li>
-        <li><a href="https://www.weproject.media/articles/detail/9-mest-v-tashkente-gde-mozhno-poigrat-v-tennis-i-padel/" target="_blank" rel="noopener"><span data-ru>Где играть в теннис и падел</span><span data-uz>Tennis va padel qayerda</span><em>weproject.media</em></a></li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 4-18 7 6 2 2 6 3-4 5 4z"/><path d="m9 13 9-6"/></svg>Telegram</h3>
-      <p class="empty" data-ru>Собираем каналы и чаты: турниры, поиск партнёров, корты.</p>
-      <p class="empty" data-uz>Kanal va chatlarni yigʻyapmiz: turnirlar, sherik topish, kortlar.</p>
-    </div>
-    <div class="card">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="6"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</h3>
-      <ul>
-        <li><a href="https://www.instagram.com/padel.uz/" target="_blank" rel="noopener"><span>Padel.uz</span><em>@padel.uz</em></a></li>
-        <li><a href="https://www.instagram.com/skypadel.uzb/" target="_blank" rel="noopener"><span>Sky Padel</span><em>@skypadel.uzb</em></a></li>
-        <li><a href="https://www.instagram.com/7padel.uz/" target="_blank" rel="noopener"><span>7 Padel</span><em>@7padel.uz</em></a></li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.5-4.5A8 8 0 1 1 8.5 18.5z"/></svg>WhatsApp</h3>
-      <p class="empty" data-ru>Собираем группы клубов и тренеров.</p>
-      <p class="empty" data-uz>Klub va murabbiylar guruhlarini yigʻyapmiz.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="cta">
-    <p data-ru>Ведёте канал, клуб или турнир? Пришлите ссылку — добавим в дайджест.</p>
-    <p data-uz>Kanal, klub yoki turnir yuritasizmi? Havolani yuboring — dayjestga qoʻshamiz.</p>
-    <a class="btn" href="https://t.me/dandesdet" target="_blank" rel="noopener"><span data-ru>Предложить источник</span><span data-uz>Manba taklif qilish</span></a>
-  </div>
-</section>
-
-<footer>© 2026 Tennis Daily · tennisdaily.uz</footer>
-</div>
 <script>
+const COURTS = [
+  {ru:'Туринский политех', uz:'Turin politexnikasi', st:'new', stRu:'новый · крытый', stUz:'yangi · yopiq', since:'2026-11-02', dRu:'Крытый корт, раздевалки и душ. Tennis plus, по записи.', dUz:'Yopiq kort, dush. Tennis plus, yozilish orqali.', map:'https://yandex.ru/maps/-/CXu8nZLG'},
+  {ru:'Ёшлик (Старт)', uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час. Тел. 93 171 23 33', dUz:'Ochiq grunt va yopiq hard. 93 171 23 33', map:'https://yandex.uz/maps/-/CLrFRJj6'},
+  {ru:'МГУ им. Ломоносова', uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', dRu:'Открытый грунт. Tennis plus перенёс группы в крытые залы.', dUz:'Ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', map:'https://yandex.uz/maps/-/CLrJVEJM'},
+  {ru:'Учкун', uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'Грунт и хард под навесом, 100 000/час. Тел. 99 902 78 02', dUz:'Grunt va ayvon ostida hard. 99 902 78 02', map:'https://yandex.uz/maps/-/CLrJeDP2'},
+  {ru:'Республиканская школа олимпийского резерва', uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'День 60 000, вечер 80 000 за час (данные 2025). Тел. 71 208 19 01', dUz:'Kunduz 60 000, kechqurun 80 000 (2025). 71 208 19 01', map:'https://yandex.uz/maps/-/CLrJQMJd'},
+  {ru:'Меридиан', uz:'Meridian', st:'ok', stRu:'открыт · крытый', stUz:'ochiq · yopiq', dRu:'Здесь проходят турниры «Бойцовского клуба». Тел. 99 801 99 66', dUz:'«Boytsovskiy klub» turnirlari shu yerda. 99 801 99 66'},
+  {ru:'Юнусабад (у телебашни)', uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'2 грунта и 4 харда. Летние турниры клуба здесь закончились 18 октября. Тел. 71 234 77 60', dUz:'2 grunt, 4 hard. 71 234 77 60', map:'https://yandex.uz/maps/-/CLrFB49P'},
+  {ru:'Пахтакор', uz:'Paxtakor', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'10 кортов, грунт и хард, есть крытый. Тел. 90 333 11 51', dUz:'10 kort, grunt va hard. 90 333 11 51', map:'https://yandex.uz/maps/-/CLrFnL6x'},
+  {ru:'Динамо', uz:'Dinamo', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'Улица и зал. Тел. 91 135 18 77', dUz:'Ochiq va yopiq. 91 135 18 77', map:'https://yandex.uz/maps/-/CLrJBE9x'},
+  {ru:'AJOU / Ravshan court', uz:'AJOU / Ravshan court', st:'ok', stRu:'открыт · крытый', stUz:'ochiq · yopiq', dRu:'Хард, кондиционер и отопление. Tennis plus: 90 013 01 40', dUz:'Hard, konditsioner va isitish.'},
+  {ru:'Хадра теннис', uz:'Hadra tennis', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'Тел. 71 244 14 49', dUz:'71 244 14 49'},
+  {ru:'TopTennis Мирабад', uz:'TopTennis Mirobod', st:'ok', stRu:'открыт', stUz:'ochiq', dRu:'Тел. 94 047 47 94', dUz:'94 047 47 94'},
+];
+const TODAY = new Date('2026-11-06'), FRESH = 10; // дней, пока изменение считается новостью
+let lang = 'ru';
+function renderCourts() {
+  const fresh = c => c.since && (TODAY - new Date(c.since)) / 864e5 <= FRESH;
+  const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
+  document.getElementById('crows').innerHTML = list.map(c => `
+    <div class="crow${fresh(c) ? ' changed' : ''}"><b>${c[lang]}</b><span class="st ${c.st}">${lang === 'ru' ? c.stRu : c.stUz}</span>
+    <div class="d">${lang === 'ru' ? c.dRu : c.dUz}${c.map ? ` <a href="${c.map}" target="_blank" rel="noopener">${lang === 'ru' ? 'На карте' : 'Xaritada'} →</a>` : ''}</div></div>`).join('');
+  const n = list.filter(fresh).length, chg = document.getElementById('chg');
+  chg.hidden = !n;
+  chg.textContent = lang === 'ru' ? `${n} ${n === 1 ? 'изменение' : n < 5 ? 'изменения' : 'изменений'}` : `${n} ta o‘zgarish`;
+  return n;
+}
+// Карта кортов раскрыта, пока есть свежие изменения; без них — свёрнута.
+if (renderCourts()) document.getElementById('courtsBox').open = true;
+
 const set = l => {
-  document.documentElement.lang = l;
+  lang = l; document.documentElement.lang = l;
   document.querySelectorAll('[data-set]').forEach(b => b.setAttribute('aria-pressed', b.dataset.set === l));
   try { localStorage.setItem('td-lang', l); } catch (e) {}
+  renderCourts();
 };
 document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
 set(saved || (/^uz/i.test(navigator.language) ? 'uz' : 'ru'));
+
+// Любую фотографию можно открыть крупно; закрывается кликом или Esc
+const lb = document.getElementById('lb'), lbi = lb.querySelector('img');
+document.querySelectorAll('.ev .ph img, .res .pic img, .mini.trip img').forEach(img => img.onclick = () => { lbi.src = img.src; lbi.alt = img.alt; lb.classList.add('on'); });
+lb.onclick = () => lb.classList.remove('on');
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('on'); });
 </script>
 </body>
 </html>
