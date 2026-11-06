@@ -488,7 +488,7 @@ function renderCourts() {
   chg.textContent = L_(`${n} ${n === 1 ? 'изменение' : n < 5 ? 'изменения' : 'изменений'} за неделю`, `haftada ${n} ta o‘zgarish`, `${n} change${n === 1 ? '' : 's'} this week`);
 }
 // Карта: Google Maps, если задан ключ; иначе — OpenStreetMap (Leaflet)
-const GMAPS_KEY = '';   // ключ Google Maps JavaScript API, ограниченный доменом tennisdaily.uz
+const GMAPS_KEY = 'AIzaSyDl0stvfwgv03hnm8ot-VttmUf5dFJycwo';   // ключ Google Maps JavaScript API, ограниченный доменом tennisdaily.uz
 const unmark = () => document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on'));
 function initLeaflet() {
   if (!window.L) return;
