@@ -476,10 +476,12 @@ function renderCourts() {
 }
 // Карта: Google Maps, если задан ключ; иначе — OpenStreetMap (Leaflet)
 const GMAPS_KEY = 'AIzaSyDl0stvfwgv03hnm8ot-VttmUf5dFJycwo';   // ключ Google Maps JavaScript API, ограниченный доменом tennisdaily.uz
+// мышь: колесо над картой сразу зумит; тач: страница листается одним пальцем, карта — двумя
+const FINE = matchMedia('(pointer: fine)').matches;
 const unmark = () => document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on'));
 function initLeaflet() {
   if (!window.L) return;
-  map = L.map('cmap', {scrollWheelZoom: false}).setView([41.33, 69.28], 12);
+  map = L.map('cmap', {scrollWheelZoom: FINE}).setView([41.33, 69.28], 12);
   map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
@@ -492,9 +494,6 @@ function initLeaflet() {
     return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
   });
   map.fitBounds(L.latLngBounds(COURTS.map(c => c.ll)), {padding: [40, 40]});
-  // колесо мыши зумит карту только после клика по ней — чтобы не мешать прокрутке страницы
-  map.on('click', () => map.scrollWheelZoom.enable());
-  map.getContainer().addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
   map.on('popupclose', unmark);
 }
 // маркер — теннисный мяч; закрытый корт — серый мяч
@@ -519,7 +518,7 @@ const MAP_STYLE = [
 ];
 window.initGoogle = () => {
   const g = google.maps;
-  map = new g.Map(document.getElementById('cmap'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: 'cooperative',
+  map = new g.Map(document.getElementById('cmap'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: FINE ? 'greedy' : 'cooperative',
     disableDefaultUI: true, zoomControl: true, clickableIcons: false, styles: MAP_STYLE});
   const info = new g.InfoWindow({maxWidth: 300}); let cur = null, pinned = false;
   info.addListener('closeclick', () => { cur = null; pinned = false; unmark(); });
