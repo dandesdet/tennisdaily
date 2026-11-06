@@ -183,7 +183,7 @@ a.via:hover{color:var(--court)}
 .nw{display:grid;grid-row:span 3;grid-template-rows:subgrid;gap:16px;padding:40px 0 0;align-content:start}
 .nw>div:first-of-type{align-self:start}
 img[src*="courts/turin"]{object-position:50% 0}
-.nph.none{background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23DCEB4C'/%3E%3Cpath d='M5 8.5c5.5 3.6 5.5 11.4 0 15M27 8.5c-5.5 3.6-5.5 11.4 0 15' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3C/svg%3E") center/56px no-repeat}
+.nph.none{background:var(--soft) url(img/ball.png) center/56px no-repeat}
 .nph{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-img);background:var(--soft)}
 .nw .ic{width:56px;height:56px;border-radius:var(--r-inner);display:grid;place-items:center}
 .nw .ic svg{width:28px;height:28px}
@@ -204,7 +204,7 @@ img[src*="courts/turin"]{object-position:50% 0}
 .crows{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
 .crow{display:grid;grid-template-columns:112px 1fr auto;gap:4px 16px;padding:16px 0;border-top:1px solid var(--line);cursor:pointer;align-content:start}
 .cth{grid-row:1/3;width:112px;height:84px;border-radius:var(--r-inner);object-fit:cover;background:var(--soft)}
-.cth.none{background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23DCEB4C'/%3E%3Cpath d='M5 8.5c5.5 3.6 5.5 11.4 0 15M27 8.5c-5.5 3.6-5.5 11.4 0 15' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3C/svg%3E") center/32px no-repeat}
+.cth.none{background:var(--soft) url(img/ball.png) center/32px no-repeat}
 .crow b{font-weight:600;transition:color .15s}
 .crow:hover b,.crow.on b{color:var(--court)}
 .crow:focus{outline:none}
@@ -654,7 +654,7 @@ function initLeaflet() {
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
   marks = COURTS.map(c => {
-    const m = L.marker(c.ll, {icon: L.icon({iconUrl: ball(c.st === 'off'), iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14]})})
+    const m = L.marker(c.ll, {icon: L.icon({iconUrl: ball(c.st === 'off'), iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -18]})})
       .addTo(map).bindPopup(popup(c), {maxWidth: 300});
     let pin = false, t;
     const hide = () => { if (pin) return; clearTimeout(t); t = setTimeout(() => m.closePopup(), 300); };
@@ -668,7 +668,7 @@ function initLeaflet() {
   map.on('popupclose', unmark);
 }
 // маркер — теннисный мяч; закрытый корт — серый мяч
-const ball = off => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="${off ? '#B9B3A6' : '#DCEB4C'}" stroke="${off ? '#8D877B' : '#9DAA25'}" stroke-width="1.5"/><path d="M5 8.5c5.5 3.6 5.5 11.4 0 15M27 8.5c-5.5 3.6-5.5 11.4 0 15" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`);
+const ball = off => off ? 'img/ball_off.png' : 'img/ball.png';
 const MAP_STYLE = [
   {featureType: 'poi', stylers: [{visibility: 'off'}]},
   {featureType: 'transit', stylers: [{visibility: 'off'}]},
@@ -678,13 +678,6 @@ const MAP_STYLE = [
   {featureType: 'administrative.land_parcel', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative', elementType: 'labels', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{visibility: 'off'}]},
-  {elementType: 'geometry', stylers: [{color: '#F4F4F0'}]},
-  {featureType: 'road', elementType: 'geometry', stylers: [{color: '#FFFFFF'}]},
-  {featureType: 'road.arterial', elementType: 'geometry', stylers: [{color: '#FAFAF7'}]},
-  {featureType: 'water', elementType: 'geometry', stylers: [{color: '#CFE0E3'}]},
-  {featureType: 'landscape.natural', elementType: 'geometry', stylers: [{color: '#E3EBDD'}]},
-  {elementType: 'labels.text.fill', stylers: [{color: '#6E6E6A'}]},
-  {elementType: 'labels.text.stroke', stylers: [{color: '#F4F4F0'}]},
 ];
 
 // Ориентиры на карте — не кликаются, только помогают понять, где что
@@ -713,7 +706,7 @@ window.initGoogle = () => {
   marks = COURTS.map(c => {
     const pos = {lat: c.ll[0], lng: c.ll[1]}; if (!c.far) b.extend(pos);
     const m = new g.Marker({position: pos, map, zIndex: 10,
-      icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(28, 28), anchor: new g.Point(14, 14)}});
+      icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(40, 40), anchor: new g.Point(20, 20)}});
     const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
     // наведение — быстрый просмотр с фото; клик — закрепить карточку
     m.addListener('mouseover', () => { clearTimeout(hideT); if (!pinned && cur !== c) open(); });
