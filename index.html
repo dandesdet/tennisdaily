@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tennis Daily — теннис Узбекистана в одном месте</title>
+<meta name="description" content="Новости, турниры и каналы о теннисе в Узбекистане: сайты, Telegram, Instagram, WhatsApp. Каждый день на русском и узбекском.">
+<meta property="og:title" content="Tennis Daily — теннис Узбекистана в одном месте">
+<meta property="og:description" content="Новости, турниры и каналы о теннисе в Узбекистане. Каждый день.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23D8F25B'/%3E%3Cpath d='M5 9c6 3 6 11 0 14M27 9c-6 3-6 11 0 14' stroke='%2310261B' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#F5F6F0; --surface:#FFFFFF; --ink:#10261B; --muted:#3B5247; --line:#DCE3DA;
+  --court:#1F6B4A; --ball:#D8F25B; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#0D1A14;--surface:#14251C;--ink:#ECF3EE;--muted:#B5C7BC;--line:#22382C;--court:#7FD3A4}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding:24px 0 8px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;text-decoration:none}
+.logo svg{width:28px;height:28px;flex:none}
+.langs{display:flex;gap:4px;background:var(--surface);border-radius:20px;padding:4px}
+.langs button{border:0;background:none;color:var(--muted);font:600 16px var(--font);padding:4px 14px;border-radius:16px;cursor:pointer}
+.langs button:hover{color:var(--ink)}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.hero{padding:48px 0 32px}
+.hero h1{font-size:40px;line-height:1.15;margin:0 0 16px;letter-spacing:-.01em;max-width:720px}
+.hero h1 mark{white-space:nowrap;background:var(--ball);color:#10261B;padding:0 6px;border-radius:8px}
+.hero p{font-size:20px;color:var(--muted);margin:0;max-width:620px}
+.soon{display:inline-flex;align-items:center;gap:8px;margin-top:24px;font-weight:600;color:var(--court)}
+.soon::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--court);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.soon::before{animation:none}}
+section{padding:32px 0}
+h2{font-size:20px;margin:0 0 4px}
+.lead{color:var(--muted);margin:0 0 20px}
+.feed{display:grid;gap:12px}
+.item{display:grid;grid-template-columns:96px 1fr;gap:16px;background:var(--surface);border-radius:16px;padding:16px 20px;text-decoration:none;transition:background .15s}
+.item:hover{background:color-mix(in srgb,var(--surface) 88%,var(--court))}
+.item:active{transform:scale(.995)}
+.item time{color:var(--muted);font-variant-numeric:tabular-nums}
+.item b{display:block;font-size:18px;line-height:1.35;font-weight:600}
+.item span{display:block;color:var(--muted);margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:var(--surface);border-radius:16px;padding:20px}
+.card h3{display:flex;align-items:center;gap:10px;font-size:18px;margin:0 0 12px}
+.card h3 svg{width:24px;height:24px;flex:none}
+.card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.card li a{display:flex;justify-content:space-between;gap:12px;text-decoration:none;padding:8px 0;border-bottom:1px solid var(--line)}
+.card li a:hover{color:var(--court)}
+.card li a em{font-style:normal;color:var(--muted);white-space:nowrap}
+.card li:last-child a{border-bottom:0}
+.empty{color:var(--muted);margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border-radius:12px;background:var(--ink);color:var(--bg);font:600 16px var(--font);text-decoration:none;transition:opacity .15s}
+.btn:hover{opacity:.88}
+.btn:active{transform:scale(.98)}
+.cta{background:var(--surface);border-radius:20px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cta p{margin:0;font-size:18px;max-width:560px}
+footer{padding:32px 0 48px;color:var(--muted)}
+@media (max-width:680px){
+  .hero{padding:32px 0 16px}.hero h1{font-size:32px}.hero p{font-size:18px}
+  .grid{grid-template-columns:1fr}
+  .item{grid-template-columns:1fr;gap:4px}
+}
+html:not([lang="uz"]) [data-uz],html[lang="uz"] [data-ru]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="bar">
+    <a class="logo" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#D8F25B"/><path d="M5 9c6 3 6 11 0 14M27 9c-6 3-6 11 0 14" stroke="#10261B" stroke-width="2" fill="none"/></svg>Tennis Daily</a>
+    <div class="langs" role="group" aria-label="Язык">
+      <button type="button" data-set="ru" aria-pressed="true">RU</button>
+      <button type="button" data-set="uz" aria-pressed="false">UZ</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <h1><span data-ru>Весь теннис Узбекистана — <mark>в одном месте</mark></span><span data-uz>Oʻzbekiston tennisi — <mark>bir joyda</mark></span></h1>
+  <p data-ru>Собираем новости, турниры и каналы о теннисе из сайтов, Telegram, Instagram и WhatsApp. Коротко, каждый день, на русском и узбекском.</p>
+  <p data-uz>Saytlar, Telegram, Instagram va WhatsApp’dagi tennis yangiliklari, turnirlar va kanallarni yigʻamiz. Qisqa, har kuni, rus va oʻzbek tillarida.</p>
+  <div class="soon"><span data-ru>Ежедневный дайджест скоро запустится</span><span data-uz>Kunlik dayjest tez orada ishga tushadi</span></div>
+</div>
+
+<section>
+  <h2 data-ru>Последнее</h2><h2 data-uz>Soʻnggi yangiliklar</h2>
+  <p class="lead" data-ru>Так будет выглядеть дайджест. Каждая новость ведёт на источник.</p>
+  <p class="lead" data-uz>Dayjest shunday koʻrinadi. Har bir yangilik manbaga olib boradi.</p>
+  <div class="feed">
+    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>24.02.2026</time><div><b data-ru>Камилла Рахимова вышла во второй круг ATX Open в Техасе</b><b data-uz>Kamilla Rahimova Texasdagi ATX Open’ning ikkinchi davrasiga chiqdi</b><span>tennis.uz</span></div></a>
+    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>23.02.2026</time><div><b data-ru>Мария Тимофеева прошла квалификацию WTA 500 в Мериде</b><b data-uz>Mariya Timofeyeva Meridadagi WTA 500 saralashidan oʻtdi</b><span>tennis.uz</span></div></a>
+    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>23.02.2026</time><div><b data-ru>Саидаслам Фарходов выиграл турнир Tennis Europe в Румынии</b><b data-uz>Saidaslam Farxodov Ruminiyadagi Tennis Europe turnirida gʻolib boʻldi</b><span>tennis.uz</span></div></a>
+    <a class="item" href="https://tennis.uz/en" target="_blank" rel="noopener"><time>08.02.2026</time><div><b data-ru>Сборная Узбекистана завершила матчи Кубка Дэвиса против Нигерии</b><b data-uz>Oʻzbekiston terma jamoasi Nigeriyaga qarshi Devis kubogi oʻyinlarini yakunladi</b><span>tennis.uz</span></div></a>
+  </div>
+</section>
+
+<section>
+  <h2 data-ru>Источники</h2><h2 data-uz>Manbalar</h2>
+  <p class="lead" data-ru>Откуда собираем новости. Список растёт.</p>
+  <p class="lead" data-uz>Yangiliklarni qayerdan yigʻamiz. Roʻyxat kengaymoqda.</p>
+  <div class="grid">
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-ru>Сайты</span><span data-uz>Saytlar</span></h3>
+      <ul>
+        <li><a href="https://tennis.uz" target="_blank" rel="noopener"><span data-ru>Федерация тенниса Узбекистана</span><span data-uz>Oʻzbekiston tennis federatsiyasi</span><em>tennis.uz</em></a></li>
+        <li><a href="https://www.afisha.uz/ru/gorod/2025/11/01/tennis" target="_blank" rel="noopener"><span data-ru>Корты Ташкента</span><span data-uz>Toshkent kortlari</span><em>afisha.uz</em></a></li>
+        <li><a href="https://www.weproject.media/articles/detail/9-mest-v-tashkente-gde-mozhno-poigrat-v-tennis-i-padel/" target="_blank" rel="noopener"><span data-ru>Где играть в теннис и падел</span><span data-uz>Tennis va padel qayerda</span><em>weproject.media</em></a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 4-18 7 6 2 2 6 3-4 5 4z"/><path d="m9 13 9-6"/></svg>Telegram</h3>
+      <p class="empty" data-ru>Собираем каналы и чаты: турниры, поиск партнёров, корты.</p>
+      <p class="empty" data-uz>Kanal va chatlarni yigʻyapmiz: turnirlar, sherik topish, kortlar.</p>
+    </div>
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="6"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</h3>
+      <ul>
+        <li><a href="https://www.instagram.com/padel.uz/" target="_blank" rel="noopener"><span>Padel.uz</span><em>@padel.uz</em></a></li>
+        <li><a href="https://www.instagram.com/skypadel.uzb/" target="_blank" rel="noopener"><span>Sky Padel</span><em>@skypadel.uzb</em></a></li>
+        <li><a href="https://www.instagram.com/7padel.uz/" target="_blank" rel="noopener"><span>7 Padel</span><em>@7padel.uz</em></a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.5-4.5A8 8 0 1 1 8.5 18.5z"/></svg>WhatsApp</h3>
+      <p class="empty" data-ru>Собираем группы клубов и тренеров.</p>
+      <p class="empty" data-uz>Klub va murabbiylar guruhlarini yigʻyapmiz.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta">
+    <p data-ru>Ведёте канал, клуб или турнир? Пришлите ссылку — добавим в дайджест.</p>
+    <p data-uz>Kanal, klub yoki turnir yuritasizmi? Havolani yuboring — dayjestga qoʻshamiz.</p>
+    <a class="btn" href="https://t.me/dandesdet" target="_blank" rel="noopener"><span data-ru>Предложить источник</span><span data-uz>Manba taklif qilish</span></a>
+  </div>
+</section>
+
+<footer>© 2026 Tennis Daily · tennisdaily.uz</footer>
+</div>
+<script>
+const set = l => {
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-set]').forEach(b => b.setAttribute('aria-pressed', b.dataset.set === l));
+  try { localStorage.setItem('td-lang', l); } catch (e) {}
+};
+document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
+let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
+set(saved || (/^uz/i.test(navigator.language) ? 'uz' : 'ru'));
+</script>
+</body>
+</html>
