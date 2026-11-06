@@ -166,7 +166,10 @@ a.via:hover{color:var(--court)}
 
 /* новости */
 .news{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
-.nw{display:flex;flex-direction:column;gap:16px;padding:40px 0 0}
+.news{grid-auto-rows:auto}
+.nw{display:grid;grid-row:span 3;grid-template-rows:subgrid;gap:16px;padding:40px 0 0;align-content:start}
+.nw>div:first-of-type{align-self:start}
+img[src*="courts/turin"]{object-position:50% 0}
 .nph{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-img);background:var(--soft)}
 .nw .ic{width:56px;height:56px;border-radius:var(--r-inner);display:grid;place-items:center}
 .nw .ic svg{width:28px;height:28px}
@@ -435,20 +438,6 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Играешь в AJOU — спроси про бейдж заранее, иначе на входе развернут.</p><p data-uz>AJOU’da o‘ynasangiz — beyj haqida oldindan so‘rang, aks holda kiritishmaydi.</p><p data-en>Playing at AJOU? Ask about the badge in advance or you’ll be turned away at the door.</p></div>
     </article>
     <article class="nw">
-      <img class="nph" src="img/courts/yoshlik.webp" alt="" loading="lazy">
-      <div><span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span><h3 data-ru>Ёшлик: 50 000 сум за вход</h3><h3 data-uz>Yoshlik: kirish uchun 50 000 so‘m</h3><h3 data-en>Yoshlik: 50,000 sum entry fee</h3><span class="src" data-ru>С 1 ноября · обсуждают в Бойцовском клубе и Tennis plus</span><span class="src" data-uz>1-noyabrdan · guruhlarda muhokama</span><span class="src" data-en>Since 1 November · discussed in Fight Club and Tennis plus</span>
-        <p data-ru>Стадион «Ёшлик» (бывший «Старт») берёт плату за вход на территорию сверх аренды корта.</p><p data-uz>«Yoshlik» stadioni kortni ijaraga olishdan tashqari hududga kirish uchun ham pul oladi.</p><p data-en>Yoshlik stadium (formerly Start) now charges an entry fee on top of the court rental.</p><p class="ct"><a href="tel:+998931712333" target="_blank" rel="noopener"><span data-ru>Стадион · 93 171 23 33</span><span data-uz>Stadion · 93 171 23 33</span><span data-en>Stadium · 93 171 23 33</span></a></p>
-        </div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Три игры в неделю — плюс 600 000 сум в месяц. Если играешь в Ёшлике регулярно, посчитай: Учкун и Республиканская школа заметно дешевле (смотри «Корты» ниже).</p><p data-uz>Haftada uch marta — oyiga +600 000 so‘m. Uchqun va Respublika maktabi arzonroq (pastdagi «Kortlar»).</p><p data-en>Three games a week — 600,000 sum more per month. If you play at Yoshlik regularly, compare: Uchqun and the Republican school are noticeably cheaper (see “Courts” below).</p></div>
-    </article>
-    <article class="nw">
-      <img class="nph" src="img/courts/turin.webp" alt="" loading="lazy">
-      <div><span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span><h3 data-ru>Новый крытый корт: Туринский политех</h3><h3 data-uz>Yangi yopiq kort: Turin politexnikasi</h3><h3 data-en>New indoor court: Turin Polytechnic</h3><span class="src" data-ru>Tennis plus · с 2 ноября</span><span class="src" data-uz>Tennis plus · 2-noyabrdan</span><span class="src" data-en>Tennis plus · since 2 November</span>
-        <p data-ru>Малая кольцевая, 17. Раздевалки, душ, яркий свет. Группы для взрослых — Пн, Ср, Пт в 19:00 и 20:00, только по записи.</p><p data-uz>Kichik halqa yo‘li, 17. Kiyinish xonalari, dush. Kattalar guruhlari — Du, Ch, Ju 19:00 va 20:00.</p><p data-en>Kichik Halqa Yo‘li, 17. Changing rooms, showers, bright lights. Adult groups Mon, Wed, Fri at 19:00 and 20:00, by sign-up only.</p><p class="ct"><a href="https://t.me/tennisplusss" target="_blank" rel="noopener"><span data-ru>Tennis plus · @tennisplusss</span><span data-uz>Tennis plus · @tennisplusss</span><span data-en>Tennis plus · @tennisplusss</span></a></p>
-        </div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Ещё одно место, где можно играть зимой без снега и ветра. Открытые корты МГУ закрылись до весны, а крытых в городе мало.</p><p data-uz>Qishda o‘ynash uchun yana bir joy. MGU ochiq kortlari bahorgacha yopildi.</p><p data-en>One more place to play in winter without snow and wind. MSU’s outdoor courts are closed until spring, and indoor courts are scarce.</p></div>
-    </article>
-    <article class="nw">
       <img class="nph" src="img/courts/school.webp" alt="" loading="lazy">
       <div><h3 data-ru>Ирода Туляганова возглавила Республиканскую школу олимпийского резерва</h3><h3 data-uz>Iroda To‘laganova Respublika olimpiya zaxiralari maktabiga rahbar bo‘ldi</h3><h3 data-en>Iroda Tulyaganova to head the Republican Olympic Reserve Tennis School</h3><span class="src"><a href="https://www.uzdaily.uz/en/iroda-tulyaganova-appointed-head-of-uzbekistan-tennis-school/" target="_blank" rel="noopener">UzDaily</a> · <span data-ru>3 ноября</span><span data-uz>3-noyabr</span><span data-en>3 November</span></span>
         <p data-ru>Бывшая 16-я ракетка мира стала директором главной теннисной школы страны.</p><p data-uz>Sobiq jahon 16-raketkasi mamlakatning bosh tennis maktabi direktori bo‘ldi.</p><p data-en>The former world No. 16 is now director of the country’s main tennis school.</p></div>
@@ -460,6 +449,20 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
         <p data-ru>Со следующего сезона счёт нужно внести в течение суток, а недоигранные матчи не засчитываются.</p><p data-uz>Keyingi mavsumdan hisob bir kun ichida kiritilishi kerak, tugallanmagan o‘yinlar hisobga olinmaydi.</p><p data-en>From next season scores must be entered within 24 hours, and unfinished matches won’t count.</p><p class="ct"><a href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Сайт лиги</span><span data-uz>Liga sayti</span><span data-en>League website</span></a></p>
         </div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Сыграл — сразу отметь в приложении. Матч «на потом» в конце сезона больше не спасёт.</p><p data-uz>O‘ynadingmi — darhol ilovada belgila.</p><p data-en>Played — log it in the app right away. Saving a match “for later” won’t help at the end of the season anymore.</p></div>
+    </article>
+    <article class="nw">
+      <img class="nph" src="img/courts/turin.webp" alt="" loading="lazy">
+      <div><span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span><h3 data-ru>Новый крытый корт: Туринский политех</h3><h3 data-uz>Yangi yopiq kort: Turin politexnikasi</h3><h3 data-en>New indoor court: Turin Polytechnic</h3><span class="src" data-ru>Tennis plus · с 2 ноября</span><span class="src" data-uz>Tennis plus · 2-noyabrdan</span><span class="src" data-en>Tennis plus · since 2 November</span>
+        <p data-ru>Малая кольцевая, 17. Раздевалки, душ, яркий свет. Группы для взрослых — Пн, Ср, Пт в 19:00 и 20:00, только по записи.</p><p data-uz>Kichik halqa yo‘li, 17. Kiyinish xonalari, dush. Kattalar guruhlari — Du, Ch, Ju 19:00 va 20:00.</p><p data-en>Kichik Halqa Yo‘li, 17. Changing rooms, showers, bright lights. Adult groups Mon, Wed, Fri at 19:00 and 20:00, by sign-up only.</p><p class="ct"><a href="https://t.me/tennisplusss" target="_blank" rel="noopener"><span data-ru>Tennis plus · @tennisplusss</span><span data-uz>Tennis plus · @tennisplusss</span><span data-en>Tennis plus · @tennisplusss</span></a></p>
+        </div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Ещё одно место, где можно играть зимой без снега и ветра. Открытые корты МГУ закрылись до весны, а крытых в городе мало.</p><p data-uz>Qishda o‘ynash uchun yana bir joy. MGU ochiq kortlari bahorgacha yopildi.</p><p data-en>One more place to play in winter without snow and wind. MSU’s outdoor courts are closed until spring, and indoor courts are scarce.</p></div>
+    </article>
+    <article class="nw">
+      <img class="nph" src="img/courts/yoshlik.webp" alt="" loading="lazy">
+      <div><span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span><h3 data-ru>Ёшлик: 50 000 сум за вход</h3><h3 data-uz>Yoshlik: kirish uchun 50 000 so‘m</h3><h3 data-en>Yoshlik: 50,000 sum entry fee</h3><span class="src" data-ru>С 1 ноября · обсуждают в Бойцовском клубе и Tennis plus</span><span class="src" data-uz>1-noyabrdan · guruhlarda muhokama</span><span class="src" data-en>Since 1 November · discussed in Fight Club and Tennis plus</span>
+        <p data-ru>Стадион «Ёшлик» (бывший «Старт») берёт плату за вход на территорию сверх аренды корта.</p><p data-uz>«Yoshlik» stadioni kortni ijaraga olishdan tashqari hududga kirish uchun ham pul oladi.</p><p data-en>Yoshlik stadium (formerly Start) now charges an entry fee on top of the court rental.</p><p class="ct"><a href="tel:+998931712333" target="_blank" rel="noopener"><span data-ru>Стадион · 93 171 23 33</span><span data-uz>Stadion · 93 171 23 33</span><span data-en>Stadium · 93 171 23 33</span></a></p>
+        </div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Три игры в неделю — плюс 600 000 сум в месяц. Если играешь в Ёшлике регулярно, посчитай: Учкун и Республиканская школа заметно дешевле (смотри «Корты» ниже).</p><p data-uz>Haftada uch marta — oyiga +600 000 so‘m. Uchqun va Respublika maktabi arzonroq (pastdagi «Kortlar»).</p><p data-en>Three games a week — 600,000 sum more per month. If you play at Yoshlik regularly, compare: Uchqun and the Republican school are noticeably cheaper (see “Courts” below).</p></div>
     </article>
   </div>
 </section>
