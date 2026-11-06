@@ -153,17 +153,27 @@ a.via:hover{color:var(--court)}
 .res .quote{font:italic 400 20px/1.4 var(--serif);margin:0}
 .res .muted{margin:0;color:var(--muted)}
 
-.league{margin-top:96px;background:var(--ink);color:#fff;border-radius:var(--r-card);padding:48px;display:grid;grid-template-columns:auto 1fr auto;gap:48px;align-items:center}
-.league h3{font:500 40px/1.05 var(--serif)!important;letter-spacing:-.02em;text-transform:none!important}
-.league .nums{display:flex;gap:40px}
-.league .nums div{font:500 64px/1 var(--serif);letter-spacing:-.03em}
-.league .nums small{display:block;font:500 16px var(--body);opacity:.75;margin-top:6px;letter-spacing:0}
-.league p{margin:8px 0 0;opacity:.85;max-width:520px}
-.go{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:var(--r-inner);font-weight:600;text-decoration:none;transition:background .15s}
 .league a.go{background:var(--ball);color:var(--ink)}
 .league a.go:hover{background:#fff}
 .go:active{transform:scale(.98)}
 
+.league{margin-top:96px;background:var(--soft);border-radius:var(--r-card);padding:12px;display:grid;gap:32px}
+.lg-head{display:grid;grid-template-columns:minmax(0,520px) 1fr;gap:40px;align-items:center;padding-right:28px}
+.lg-ph{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-inner)}
+.league h3{font:500 48px/1.08 var(--serif);letter-spacing:-.02em;margin:12px 0 12px}
+.league p{margin:0;max-width:720px}
+.league .nums{display:flex;flex-wrap:wrap;gap:16px 40px;margin-top:24px}
+.league .nums div{font:500 56px/1 var(--serif);letter-spacing:-.03em}
+.league .nums small{display:block;font:500 16px var(--body);color:var(--muted);margin-top:6px;letter-spacing:0}
+.champs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ch1{display:flex;gap:12px;align-items:center;background:var(--paper);border-radius:var(--r-inner);padding:12px}
+.ch1.top{background:var(--ball)}
+.cav{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;background:var(--court-soft);color:var(--court);display:grid;place-items:center;font:600 16px var(--body)}
+.ch1 b{display:block;font-weight:600;line-height:1.25}
+.ch1 small{display:block;color:var(--muted);font-size:16px;line-height:1.3}
+.ch1.top small{color:var(--ink)}
+.ldr{display:block;font-weight:600;font-size:14px;margin-top:2px}
+.league .ct{padding:0 12px 4px}
 /* новости */
 .news{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
 .news{grid-auto-rows:auto}
@@ -215,6 +225,8 @@ img[src*="courts/turin"]{object-position:50% 0}
 .gm-style .gm-style-iw-d{overflow:visible!important;max-height:none!important;font:400 16px/1.45 var(--body);color:var(--ink)}
 .gm-style .gm-style-iw-d p{margin:4px 0}
 .gm-style-iw-chr{position:absolute;top:0;right:0}
+.lm-label{font:600 14px var(--body)!important;color:var(--ink);text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}
+.lm{position:relative}.lm img{width:32px;height:32px}.lm .lm-label{position:absolute;left:50%;top:36px;transform:translateX(-50%)}
 .pp-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
 .pp-acts a{font-weight:600;color:var(--court);text-decoration:none}
 .pp-acts a:hover{color:var(--clay)}
@@ -262,8 +274,7 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
   .sh h2,.courts .ch h2{font-size:48px}
   .ev.big h3{font-size:40px}
   .ev.big .ph img{height:420px;object-position:50% 0}
-  .league{grid-template-columns:1fr;padding:32px;gap:24px}.league .nums{flex-wrap:wrap}
-  .cmap{height:420px}
+    .cmap{height:420px}
 }
 @media (max-width:520px){
   .mast h1{font-size:56px}
@@ -271,7 +282,7 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
   .ev h3,.ev.big h3{font-size:32px}
   .srcs{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}.srcs::-webkit-scrollbar{display:none}.sg{flex:none}
   .mini.trip{grid-template-columns:88px 1fr}.mini.trip>img{width:88px;height:88px}
-  .league .nums div{font-size:48px}
+  .league .nums div{font-size:40px}.champs{grid-template-columns:1fr}
 }
 html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] [data-ru],html[lang="en"] [data-ru]{display:none!important}
 </style>
@@ -420,9 +431,28 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
   </div>
 
   <div class="league">
-    <div><h3 style="font:700 28px/1 var(--display);text-transform:uppercase;margin:0">Tashkent Masters League</h3><p data-ru>Сезон Uz Open закрыт, результаты дивизионов и переходы — на сайте лиги.</p><p data-uz>Uz Open mavsumi yopildi, natijalar liga saytida.</p><p data-en>The Uz Open season is over; division results and promotions are on the league site.</p></div>
-    <div class="nums"><div>217<small data-ru>игроков</small><small data-uz>o‘yinchi</small><small data-en>players</small></div><div>8<small data-ru>дивизионов</small><small data-uz>divizion</small><small data-en>divisions</small></div><div>1972<small data-ru>матча за всё время</small><small data-uz>jami o‘yin</small><small data-en>matches all time</small></div></div>
-    <a class="go" href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Таблица</span><span data-uz>Jadval</span><span data-en>Standings</span></a>
+    <div class="lg-head">
+      <img class="lg-ph" src="img/tml_win.webp" alt="">
+      <div>
+        <a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span>Tashkent Masters League</span></a>
+        <h3><span data-ru>Сезон Uz Open: чемпионы дивизионов</span><span data-uz>Uz Open mavsumi: divizion chempionlari</span><span data-en>Uz Open season: division champions</span></h3>
+        <p data-ru>22 призёра сезона получили сертификаты по 600 000 сум, ещё 15 участников выиграли по 300 000 сум в розыгрыше. Сертификаты действуют до 1 февраля 2027, грамоты забирают в магазине Amazing Store (Фидокор, 1/1).</p>
+        <p data-uz>Mavsumning 22 sovrindori 600 000 so‘mlik sertifikat oldi, yana 15 ishtirokchi qur’a orqali 300 000 so‘mdan yutdi. Sertifikatlar 2027-yil 1-fevralgacha amal qiladi, yorliqlar Amazing Store do‘konida (Fidokor, 1/1).</p>
+        <p data-en>22 season prize-winners got 600,000 sum certificates, and 15 more players won 300,000 sum each in a draw. Certificates are valid until 1 February 2027; diplomas can be picked up at Amazing Store (Fidokor 1/1).</p>
+        <div class="nums"><div>217<small data-ru>игроков</small><small data-uz>o‘yinchi</small><small data-en>players</small></div><div>8<small data-ru>дивизионов</small><small data-uz>divizion</small><small data-en>divisions</small></div><div>37<small data-ru>с призами</small><small data-uz>sovrinli</small><small data-en>prize-winners</small></div><div>17,7<small data-ru>млн сум сертификатами</small><small data-uz>mln so‘m sertifikat</small><small data-en>mln sum in certificates</small></div></div>
+      </div>
+    </div>
+    <div class="champs">
+      <div class="ch1 top"><img class="cav" src="av/rogozin.webp" alt=""><div><b>Anton Rogozin</b><small>M10 · <span data-ru>7 побед из 9</span><span data-uz>9 tadan 7 g‘alaba</span><span data-en>7 of 9 won</span></small><span class="ldr"><span data-ru>высший дивизион</span><span data-uz>oliy divizion</span><span data-en>top division</span></span></div></div>
+      <div class="ch1"><span class="cav">VI</span><div><b>Vladimir Ivko</b><small>M15 · <span data-ru>6 побед из 6</span><span data-uz>6 tadan 6 g‘alaba</span><span data-en>6 of 6 won</span></small></div></div>
+      <div class="ch1"><img class="cav" src="av/rustamov.webp" alt=""><div><b>Bozorboy Rustamov</b><small>M20 · <span data-ru>6 побед из 7</span><span data-uz>7 tadan 6 g‘alaba</span><span data-en>6 of 7 won</span></small></div></div>
+      <div class="ch1"><img class="cav" src="av/juraev.webp" alt=""><div><b>Mirazim Juraev</b><small>M30 · <span data-ru>4 побед из 5</span><span data-uz>5 tadan 4 g‘alaba</span><span data-en>4 of 5 won</span></small></div></div>
+      <div class="ch1"><span class="cav">AA</span><div><b>Abdulaziz Abdazov</b><small>M35 · <span data-ru>7 побед из 9</span><span data-uz>9 tadan 7 g‘alaba</span><span data-en>7 of 9 won</span></small></div></div>
+      <div class="ch1"><span class="cav">AS</span><div><b>Abdulloh Saidahmedov</b><small>M40 · <span data-ru>7 побед из 8</span><span data-uz>8 tadan 7 g‘alaba</span><span data-en>7 of 8 won</span></small></div></div>
+      <div class="ch1"><span class="cav">AS</span><div><b>Abbos Sotvoldiev</b><small>M45 · <span data-ru>6 побед из 7</span><span data-uz>7 tadan 6 g‘alaba</span><span data-en>6 of 7 won</span></small></div></div>
+      <div class="ch1"><span class="cav">AA</span><div><b>Abubakir Akbarov</b><small>M50 · <span data-ru>9 побед из 9</span><span data-uz>9 tadan 9 g‘alaba</span><span data-en>9 of 9 won</span></small></div></div>
+    </div>
+    <p class="ct"><a href="https://tashkent-masters-league.uz/results?season_id=14" target="_blank" rel="noopener"><span data-ru>Все результаты и переходы</span><span data-uz>Barcha natijalar</span><span data-en>All results and promotions</span></a><a href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><span data-ru>Группа лиги</span><span data-uz>Liga guruhi</span><span data-en>League group</span></a></p>
   </div>
 </section>
 
@@ -534,6 +564,8 @@ function renderCourts() {
     r.onclick = go; r.onkeydown = e => { if (e.key === 'Enter') go(); };
   });
   marks.forEach(m => m.refresh());
+  (window.LM || []).forEach((m, i) => { const l = LANDMARKS[i], t = l[lang] || l.ru;
+    if (m.setLabel) m.setLabel({...m.getLabel(), text: t}); else m.setIcon(L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${t}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})); });
   const n = list.filter(fresh).length, chg = document.getElementById('chg');
   chg.hidden = !n;
   chg.textContent = L_(`${n} ${n === 1 ? 'изменение' : n < 5 ? 'изменения' : 'изменений'} за неделю`, `haftada ${n} ta o‘zgarish`, `${n} change${n === 1 ? '' : 's'} this week`);
@@ -559,7 +591,8 @@ function initLeaflet() {
     m.on('click', () => { pin = true; m.openPopup(); }); m.on('popupclose', () => { pin = false; });
     return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
   });
-  map.fitBounds(L.latLngBounds(COURTS.map(c => c.ll)), {padding: [40, 40]});
+  map.fitBounds(L.latLngBounds(COURTS.map(c => c.ll).concat(LANDMARKS.map(l => l.ll))), {padding: [40, 40]});
+  window.LM = LANDMARKS.map(l => L.marker(l.ll, {interactive: false, zIndexOffset: -100, icon: L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})}).addTo(map));
   map.on('popupclose', unmark);
 }
 // маркер — теннисный мяч; закрытый корт — серый мяч
@@ -582,6 +615,15 @@ const MAP_STYLE = [
   {elementType: 'labels.text.fill', stylers: [{color: '#6E6E6A'}]},
   {elementType: 'labels.text.stroke', stylers: [{color: '#F4F4F0'}]},
 ];
+
+// Ориентиры на карте — не кликаются, только помогают понять, где что
+const LANDMARKS = [
+  {ru:'Сквер Амира Темура', uz:'Amir Temur xiyoboni', en:'Amir Temur Square', ll:[41.311287,69.279758], i:'<path d="M12 3v3M9 6h6l-1 9h-4zM7 15h10v3H7zM5 18h14v3H5z"/>'},
+  {ru:'Телебашня', uz:'Teleminora', en:'TV Tower', ll:[41.34567,69.284719], i:'<path d="M12 2v6M9 21l3-13 3 13M8 11h8M10 8h4"/>'},
+  {ru:'Аэропорт', uz:'Aeroport', en:'Airport', ll:[41.261838,69.267204], i:'<path d="M21 14v-2l-8-4V4a1 1 0 0 0-2 0v4l-8 4v2l8-2v4l-2 2v1l3-1 3 1v-1l-2-2v-4z"/>'},
+  {ru:'Чорсу', uz:'Chorsu', en:'Chorsu Bazaar', ll:[41.326169,69.239632], i:'<path d="M4 20h16M6 20v-6a6 6 0 0 1 12 0v6M12 8V5M9 20v-4h6v4"/>'},
+];
+const lmIcon = l => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 36 36" width="36" height="36"><circle cx="12" cy="12" r="17" fill="#fff" stroke="#111" stroke-opacity=".15"/><g fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${l.i}</g></svg>`);
 window.initGoogle = () => {
   const g = google.maps;
   map = new g.Map(document.getElementById('cmap'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: FINE ? 'greedy' : 'cooperative',
@@ -608,7 +650,11 @@ window.initGoogle = () => {
     m.addListener('click', () => { pinned = true; open(); });
     return {focus: () => { map.panTo(pos); map.setZoom(15); pinned = true; open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }};
   });
+  LANDMARKS.forEach(l => b.extend({lat: l.ll[0], lng: l.ll[1]}));
   map.fitBounds(b, 40);
+  window.LM = LANDMARKS.map(l => new g.Marker({position: {lat: l.ll[0], lng: l.ll[1]}, map, clickable: false, zIndex: 1,
+    icon: {url: lmIcon(l), scaledSize: new g.Size(32, 32), anchor: new g.Point(16, 16), labelOrigin: new g.Point(16, 44)},
+    label: {text: l[lang] || l.ru, className: 'lm-label', color: '#111', fontSize: '14px', fontWeight: '600'}}));
 };
 // если ключ не сработал (API не включён, домен не разрешён) — молча возвращаемся к OpenStreetMap
 window.gm_authFailure = () => { const el = document.getElementById('cmap'); el.innerHTML = ''; el.className = 'cmap'; initLeaflet(); renderCourts(); };
