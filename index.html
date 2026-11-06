@@ -526,6 +526,8 @@ window.initGoogle = () => {
   });
   map.fitBounds(b, 40);
 };
+// если ключ не сработал (API не включён, домен не разрешён) — молча возвращаемся к OpenStreetMap
+window.gm_authFailure = () => { const el = document.getElementById('cmap'); el.innerHTML = ''; el.className = 'cmap'; initLeaflet(); renderCourts(); };
 function initMap() {
   if (!GMAPS_KEY) return initLeaflet();
   const sc = document.createElement('script');
