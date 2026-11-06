@@ -466,7 +466,7 @@ const fresh = c => c.since && (TODAY - new Date(c.since)) / 864e5 <= FRESH;
 let map = null, marks = [];
 function popup(c) {
   return `<b>${c[lang] || c.uz}</b><p>${L_(c.stRu, c.stUz, c.stEn)}</p><p>${L_(c.dRu, c.dUz, c.dEn)}</p>
-    <div class="pp-acts">${c.tel ? `<a href="tel:${c.tel}">${fmtTel(c.tel)}</a>` : ''}${c.book ? `<a href="${c.book}" target="_blank" rel="noopener">${L_('Бронь онлайн', 'Onlayn bron', 'Book online')} →</a>` : ''}<a href="https://yandex.uz/maps/?rtext=~${c.ll[0]},${c.ll[1]}&rtt=auto" target="_blank" rel="noopener">${L_('Маршрут', 'Yo‘nalish', 'Directions')} →</a></div>`;
+    <div class="pp-acts">${c.tel ? `<a href="tel:${c.tel}">${fmtTel(c.tel)}</a>` : ''}${c.book ? `<a href="${c.book}" target="_blank" rel="noopener">${L_('Бронь онлайн', 'Onlayn bron', 'Book online')} →</a>` : ''}<a href="${(lang === 'en' || GMAPS_KEY) ? `https://www.google.com/maps/dir/?api=1&destination=${c.ll[0]},${c.ll[1]}` : `https://yandex.uz/maps/?rtext=~${c.ll[0]},${c.ll[1]}&rtt=auto`}" target="_blank" rel="noopener">${L_('Маршрут', 'Yo‘nalish', 'Directions')} →</a></div>`;
 }
 function renderCourts() {
   const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
@@ -478,28 +478,59 @@ function renderCourts() {
       const m = marks[+r.dataset.i]; if (!m) return;
       document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on')); r.classList.add('on');
       document.getElementById('cmap').scrollIntoView({behavior: 'smooth', block: 'center'});
-      map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650);
+      m.focus();
     };
     r.onclick = go; r.onkeydown = e => { if (e.key === 'Enter') go(); };
   });
-  marks.forEach((m, i) => m.setPopupContent(popup(COURTS[i])));
+  marks.forEach(m => m.refresh());
   const n = list.filter(fresh).length, chg = document.getElementById('chg');
   chg.hidden = !n;
   chg.textContent = L_(`${n} ${n === 1 ? 'изменение' : n < 5 ? 'изменения' : 'изменений'} за неделю`, `haftada ${n} ta o‘zgarish`, `${n} change${n === 1 ? '' : 's'} this week`);
 }
-function initMap() {
+// Карта: Google Maps, если задан ключ; иначе — OpenStreetMap (Leaflet)
+const GMAPS_KEY = '';   // ключ Google Maps JavaScript API, ограниченный доменом tennisdaily.uz
+const unmark = () => document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on'));
+function initLeaflet() {
   if (!window.L) return;
   map = L.map('cmap', {scrollWheelZoom: false}).setView([41.33, 69.28], 12);
   map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
-  marks = COURTS.map(c => L.marker(c.ll, {title: c.ru, icon: L.divIcon({className: '', html: `<div class="pinm ${c.st}"></div>`, iconSize: [20, 20], iconAnchor: [10, 10], popupAnchor: [0, -10]})})
-    .addTo(map).bindPopup(popup(c)));
+  marks = COURTS.map(c => {
+    const m = L.marker(c.ll, {title: c.ru, icon: L.divIcon({className: '', html: `<div class="pinm ${c.st}"></div>`, iconSize: [20, 20], iconAnchor: [10, 10], popupAnchor: [0, -10]})})
+      .addTo(map).bindPopup(popup(c));
+    return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
+  });
   map.fitBounds(L.latLngBounds(COURTS.map(c => c.ll)), {padding: [40, 40]});
   // колесо мыши зумит карту только после клика по ней — чтобы не мешать прокрутке страницы
   map.on('click', () => map.scrollWheelZoom.enable());
   map.getContainer().addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
-  map.on('popupclose', () => document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on')));
+  map.on('popupclose', unmark);
+}
+const PIN = {ok: ['#1E4D3A', '#fff'], new: ['#DCEB4C', '#1E4D3A'], up: ['#C2502F', '#fff'], off: ['#8D877B', '#fff']};
+window.initGoogle = () => {
+  const g = google.maps;
+  map = new g.Map(document.getElementById('cmap'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: 'cooperative',
+    mapTypeControl: false, streetViewControl: false, fullscreenControl: true, clickableIcons: false});
+  const info = new g.InfoWindow(); let cur = null;
+  info.addListener('closeclick', () => { cur = null; unmark(); });
+  const b = new g.LatLngBounds();
+  marks = COURTS.map(c => {
+    const pos = {lat: c.ll[0], lng: c.ll[1]}; b.extend(pos);
+    const [fill, stroke] = PIN[c.st] || PIN.ok;
+    const m = new g.Marker({position: pos, map, title: c[lang] || c.uz,
+      icon: {path: g.SymbolPath.CIRCLE, scale: 9, fillColor: fill, fillOpacity: 1, strokeColor: stroke, strokeWeight: 3}});
+    const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m}); };
+    m.addListener('click', open);
+    return {focus: () => { map.panTo(pos); map.setZoom(15); open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }};
+  });
+  map.fitBounds(b, 40);
+};
+function initMap() {
+  if (!GMAPS_KEY) return initLeaflet();
+  const sc = document.createElement('script');
+  sc.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&callback=initGoogle&loading=async`;
+  sc.async = true; sc.onerror = initLeaflet; document.head.appendChild(sc);
 }
 initMap();
 
