@@ -605,7 +605,6 @@ const MAP_STYLE = [
   {featureType: 'administrative.neighborhood', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative.land_parcel', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative', elementType: 'labels', stylers: [{visibility: 'off'}]},
-  {featureType: 'administrative.locality', elementType: 'labels', stylers: [{visibility: 'on'}]},
   {featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{visibility: 'off'}]},
   {elementType: 'geometry', stylers: [{color: '#F4F4F0'}]},
   {featureType: 'road', elementType: 'geometry', stylers: [{color: '#FFFFFF'}]},
@@ -641,7 +640,7 @@ window.initGoogle = () => {
   const b = new g.LatLngBounds();
   marks = COURTS.map(c => {
     const pos = {lat: c.ll[0], lng: c.ll[1]}; b.extend(pos);
-    const m = new g.Marker({position: pos, map,
+    const m = new g.Marker({position: pos, map, zIndex: 10,
       icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(28, 28), anchor: new g.Point(14, 14)}});
     const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
     // наведение — быстрый просмотр с фото; клик — закрепить карточку
