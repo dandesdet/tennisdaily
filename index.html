@@ -19,10 +19,8 @@
 @font-face{font-family:'Golos Text';font-weight:600;font-display:swap;src:url(fonts/golos-text-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Golos Text';font-weight:700;font-display:swap;src:url(fonts/golos-text-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:'Golos Text';font-weight:700;font-display:swap;src:url(fonts/golos-text-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Caveat';font-weight:600;font-display:swap;src:url(fonts/caveat-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:'Caveat';font-weight:600;font-display:swap;src:url(fonts/caveat-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Caveat';font-weight:700;font-display:swap;src:url(fonts/caveat-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:'Caveat';font-weight:700;font-display:swap;src:url(fonts/caveat-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Neucha';font-weight:400;font-display:swap;src:url(fonts/neucha-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Neucha';font-weight:400;font-display:swap;src:url(fonts/neucha-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F}
 @font-face{font-family:'Literata';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/literata-cyrillic-opsz-normal.woff2) format('woff2-variations');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:'Literata';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/literata-latin-ext-opsz-normal.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Literata';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/literata-latin-opsz-normal.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -35,7 +33,7 @@
 :root{
   --paper:#FFFFFF; --ink:#111111; --muted:#4F4F4F; --line:#E4E4E0; --soft:#F4F4F0;
   --ball:#DCEB4C; --court:#1E4D3A; --court-soft:#E1ECE4; --clay:#B5432A; --clay-soft:#F7E3DC;
-  --serif:"Literata",Georgia,serif; --body:"Golos Text",-apple-system,sans-serif; --hand:"Caveat",cursive;
+  --serif:"Literata",Georgia,serif; --body:"Golos Text",-apple-system,sans-serif; --hand:"Neucha",cursive;
   --display:var(--serif);
   --r-card:24px; --r-img:16px; --r-inner:12px; --r-small:8px; --r-tiny:4px; --pill:999px; /* inner = outer − inset: 16−12=4 */
   --gut:64px;
@@ -63,10 +61,10 @@ img{display:block;max-width:100%}
 .mast h1 .b::before,.mast h1 .b::after{content:"";position:absolute;top:10%;bottom:10%;width:46%;border:.045em solid #fff;border-radius:50%}
 .mast h1 .b::before{left:-26%;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
 .mast h1 .b::after{right:-26%;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
-.mast p{margin:24px 0 0;font:italic 400 24px/1.45 var(--serif);max-width:720px;color:var(--ink)}
+.mast p{margin:24px 0 0;font:400 20px/1.5 var(--body);max-width:720px;color:var(--ink)}
 .mast>div{min-width:0}
 .issue{text-align:right;font:500 18px/1.3 var(--body);color:var(--muted)}
-.issue b{display:block;font:500 96px/1 var(--serif);letter-spacing:-.03em;color:var(--ink)}
+.issue b{display:block;font:500 56px/1.05 var(--serif);letter-spacing:-.03em;color:var(--ink)}
 
 .src-strip{margin-top:32px}
 .src-strip h5{font:600 16px var(--body);color:var(--muted);margin:0 0 12px}
@@ -89,7 +87,8 @@ a.sg:active{transform:scale(.98)}
 section{padding:96px 0 0}
 .sh{display:flex;align-items:baseline;gap:20px;margin:0 0 40px;flex-wrap:wrap}
 .sh h2{font:500 72px/1 var(--serif);letter-spacing:-.03em;margin:0}
-.sh .hand{font:700 28px var(--hand);color:var(--clay);transform:rotate(-2deg)}
+.sh .hand{font:400 24px var(--hand);color:var(--clay);display:inline-block}
+.sh .hand::first-letter,.mean b::first-letter{text-transform:uppercase}
 
 /* турниры */
 .events{display:grid;grid-template-columns:1.6fr 1fr;gap:48px}
@@ -115,7 +114,7 @@ section{padding:96px 0 0}
 .legend{display:flex;flex-wrap:wrap;gap:16px;color:var(--muted)}
 .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:0}
 .legend .l1::before{background:var(--court)}.legend .l2::before{background:var(--court);opacity:.4}
-.note{font:700 26px/1.25 var(--hand);color:var(--clay);margin:0;max-width:640px}
+.note{font:400 22px/1.35 var(--hand);color:var(--clay);margin:0;max-width:640px}
 .side{display:grid;gap:40px;align-content:start}
 .mini{display:grid;gap:10px;padding-top:32px;border-top:1px solid var(--line)}
 .mini h3{font:500 32px/1.15 var(--serif);letter-spacing:-.015em;margin:0}
@@ -131,7 +130,10 @@ a.via:hover{color:var(--court)}
 [data-card]{cursor:pointer}
 [data-card]:hover h3{color:var(--court)}
 [data-card] h3{transition:color .15s}
-.ev .ph img,.res .pic img,img.nph,.cth,.mini.trip>img,.lg-ph,.pp-img{filter:brightness(.97);outline:1px solid rgba(17,17,17,.08);outline-offset:-1px}
+.sg .gav,.via img,.cav,.ev .ph img,.res .pic img,img.nph,.cth,.mini.trip>img,.lg-ph,.pp-img{filter:brightness(.97);outline:1px solid rgba(17,17,17,.08);outline-offset:-1px}
+.world{display:grid;grid-template-columns:repeat(2,1fr);gap:40px}
+.world .mini.trip{grid-template-columns:240px 1fr;border-top:0;padding-top:0}
+.world .mini.trip>img{width:240px;height:180px}
 .ct{display:flex;flex-wrap:wrap;gap:6px 20px;margin:0;font-weight:600}
 .ct a{color:var(--court);text-decoration:none;transition:color .15s}
 .ct a::after{content:' →'}
@@ -151,7 +153,7 @@ a.via:hover{color:var(--court)}
 .podium .m{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 14px var(--body)}
 .p1 .m{background:#E8C44A}.p2 .m{background:#D3D5D9}.p3 .m{background:#DDA67A}
 .podium .f{font-weight:600}
-.res .quote{font:italic 400 20px/1.4 var(--serif);margin:0}
+.res .quote{font:400 18px/1.45 var(--body);margin:0}
 .res .muted{margin:0;color:var(--muted)}
 
 .league a.go{background:var(--ball);color:var(--ink)}
@@ -168,11 +170,11 @@ a.via:hover{color:var(--court)}
 .league .nums small{display:block;font:500 16px var(--body);color:var(--muted);margin-top:6px;letter-spacing:0}
 .champs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .ch1{display:flex;gap:12px;align-items:center;background:var(--paper);border-radius:var(--r-inner);padding:12px}
-.ch1.top{background:var(--ball)}
+.ch1.lead{background:var(--ball)}
 .cav{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;background:var(--court-soft);color:var(--court);display:grid;place-items:center;font:600 16px var(--body)}
 .ch1 b{display:block;font-weight:600;line-height:1.25}
 .ch1 small{display:block;color:var(--muted);font-size:16px;line-height:1.3}
-.ch1.top small{color:var(--ink)}
+.ch1.lead small{color:var(--ink)}
 .ldr{display:block;font-weight:600;font-size:14px;margin-top:2px}
 .league .ct{padding:0 12px 4px}
 /* новости */
@@ -191,7 +193,7 @@ img[src*="courts/turin"]{object-position:50% 0}
 .nw p{margin:8px 0 0}
 .nw .ct{margin-top:12px}
 .mean{background:var(--soft);border-radius:var(--r-img);padding:16px 20px}
-.mean b{display:block;font:700 24px/1.1 var(--hand);color:var(--clay);margin-bottom:4px}
+.mean b{display:block;font:400 20px/1.2 var(--hand);color:var(--clay);margin-bottom:4px}
 .mean p{margin:0}
 
 /* корты и карта */
@@ -280,14 +282,14 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
   .mast{grid-template-columns:1fr;gap:16px}.issue{text-align:left;display:flex;gap:8px;align-items:baseline;order:-1}.issue b{font-size:32px}
   .mast h1{font-size:80px}
   .mast p{font-size:20px}
-  .events,.results,.crows,.news,footer{grid-template-columns:1fr}
+  .events,.results,.crows,.news,.world,footer{grid-template-columns:1fr}
   section{padding-top:72px}
   .sh h2,.courts .ch h2{font-size:48px}
   .ev.big h3{font-size:40px}
   .ev.big .ph img{height:420px;object-position:50% 0}
     .cmap{height:420px}
 }
-@media (max-width:520px){
+@media (max-width:520px){.world .mini.trip{grid-template-columns:1fr}.world .mini.trip>img{width:100%;height:220px}
   .mast h1{font-size:56px}
   .sh h2,.courts .ch h2{font-size:40px}
   .ev h3,.ev.big h3{font-size:32px}
@@ -302,7 +304,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
 <div class="wrap">
 
 <div class="top">
-  <div class="date"><span data-ru>Пятница, 6 ноября 2026</span><span data-uz>Juma, 6-noyabr 2026</span><span data-en>Friday, 6 November 2026</span></div>
+  <div class="date"><span data-ru>Суббота, 7 ноября 2026</span><span data-uz>Shanba, 7-noyabr 2026</span><span data-en>Saturday, 7 November 2026</span></div>
   <div class="langs" role="group" aria-label="Язык"><button type="button" data-set="ru" aria-pressed="true">RU</button><button type="button" data-set="uz" aria-pressed="false">UZ</button><button type="button" data-set="en" aria-pressed="false">EN</button></div>
 </div>
 
@@ -313,7 +315,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
     <p data-uz>Toshkent havaskor tennisi: qaysi turnirda o‘ynash, kim g‘olib bo‘ldi, qaysi kortlar ochildi va yopildi.</p><p data-en>Amateur tennis in Tashkent: where to play a tournament, who won the last one, which courts opened and closed.</p>
     <div class="src-strip"><h5 data-ru>Собираем из групп — подписывайся</h5><h5 data-uz>Guruhlardan yig‘amiz — obuna bo‘ling</h5><h5 data-en>Collected from these groups — join them</h5><div class="srcs" id="srcs"></div></div>
   </div>
-  <div class="issue"><span data-ru>Выпуск</span><span data-uz>Son</span><span data-en>Issue</span><b>№ 1</b></div>
+  <div class="issue"><span data-ru>Обновлено</span><span data-uz>Yangilandi</span><span data-en>Updated</span><b><span data-ru>7 ноября</span><span data-uz>7-noyabr</span><span data-en>7 November</span></b></div>
 </header>
 
 <nav class="ticker" aria-label="Коротко">
@@ -374,7 +376,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
         </div>
       </article>
       <article class="mini trip">
-        <img src="img/courts/meridian.webp" alt="">
+        <img src="img/meridian_ev.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 16:00</span><span class="tag" data-uz>Ya, 8-noyabr · 16:00</span><span class="tag" data-en>Sun, 8 November · 16:00</span>
         <h3 data-ru>Одиночка NTRP 3.75–4.0 · Меридиан</h3><h3 data-uz>Yakkalik NTRP 3.75–4.0 · Meridian</h3><h3 data-en>Singles NTRP 3.75–4.0 · Meridian</h3>
@@ -391,6 +393,15 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
         <p class="ct"><a href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Запись на PlayOn</span><span data-uz>PlayOn’da yozilish</span><span data-en>Sign up on PlayOn</span></a><a href="https://t.me/brazilname" target="_blank" rel="noopener"><span data-ru>Организатор · Полина</span><span data-uz>Tashkilotchi · Polina</span><span data-en>Organizer · Polina</span></a></p>
         </div>
       </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====== WORLD ====== -->
+<section id="world">
+  <div class="sh"><h2 data-ru>Турниры по миру</h2><h2 data-uz>Dunyo bo‘ylab turnirlar</h2><h2 data-en>Tournaments abroad</h2><span class="hand" data-ru>Теннис и отпуск</span><span class="hand" data-uz>Tennis va dam olish</span><span class="hand" data-en>Tennis and a holiday</span></div>
+  <div class="world">
       <article class="mini trip">
                 <img src="img/sharm.webp" alt="Участники прошлого Sharm Cup">
         <div><span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
@@ -401,7 +412,6 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
         <p class="ct"><a href="https://t.me/c/2173137943/13669" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://t.me/+MR8BcZzcNy44NzFi" target="_blank" rel="noopener"><span data-ru>Группа турнира в Telegram</span><span data-uz>Turnir guruhi</span><span data-en>Tournament group on Telegram</span></a></p>
         </div>
       </article>
-    </div>
   </div>
 </section>
 
@@ -465,7 +475,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
 
   <div class="league">
     <div class="lg-head">
-      <img class="lg-ph" src="img/tml_win.webp" alt="">
+      <img class="lg-ph" src="img/tml_prizes.webp" alt="">
       <div>
         <a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span>Tashkent Masters League</span></a>
         <h3><span data-ru>Сезон Uz Open: чемпионы дивизионов</span><span data-uz>Uz Open mavsumi: divizion chempionlari</span><span data-en>Uz Open season: division champions</span></h3>
@@ -476,7 +486,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       </div>
     </div>
     <div class="champs">
-      <div class="ch1 top"><img class="cav" src="av/rogozin.webp" alt=""><div><b>Anton Rogozin</b><small>M10 · <span data-ru>7 побед из 9</span><span data-uz>9 tadan 7 g‘alaba</span><span data-en>7 of 9 won</span></small><span class="ldr"><span data-ru>высший дивизион</span><span data-uz>oliy divizion</span><span data-en>top division</span></span></div></div>
+      <div class="ch1 lead"><img class="cav" src="av/rogozin.webp" alt=""><div><b>Anton Rogozin</b><small>M10 · <span data-ru>7 побед из 9</span><span data-uz>9 tadan 7 g‘alaba</span><span data-en>7 of 9 won</span></small><span class="ldr"><span data-ru>высший дивизион</span><span data-uz>oliy divizion</span><span data-en>top division</span></span></div></div>
       <div class="ch1"><span class="cav">VI</span><div><b>Vladimir Ivko</b><small>M15 · <span data-ru>6 побед из 6</span><span data-uz>6 tadan 6 g‘alaba</span><span data-en>6 of 6 won</span></small></div></div>
       <div class="ch1"><img class="cav" src="av/rustamov.webp" alt=""><div><b>Bozorboy Rustamov</b><small>M20 · <span data-ru>6 побед из 7</span><span data-uz>7 tadan 6 g‘alaba</span><span data-en>6 of 7 won</span></small></div></div>
       <div class="ch1"><img class="cav" src="av/juraev.webp" alt=""><div><b>Mirazim Juraev</b><small>M30 · <span data-ru>4 побед из 5</span><span data-uz>5 tadan 4 g‘alaba</span><span data-en>4 of 5 won</span></small></div></div>
@@ -508,27 +518,27 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Играешь в AJOU — спроси про бейдж заранее, иначе на входе развернут.</p><p data-uz>AJOU’da o‘ynasangiz — beyj haqida oldindan so‘rang, aks holda kiritishmaydi.</p><p data-en>Playing at AJOU? Ask about the badge in advance or you’ll be turned away at the door.</p></div>
     </article>
     <article class="nw">
-      <img class="nph" src="img/courts/school.webp" alt="" loading="lazy">
+      <img class="nph" src="img/iroda_news.webp" alt="" loading="lazy">
       <div><h3 data-ru>Ирода Туляганова возглавила Республиканскую школу олимпийского резерва</h3><h3 data-uz>Iroda To‘laganova Respublika olimpiya zaxiralari maktabiga rahbar bo‘ldi</h3><h3 data-en>Iroda Tulyaganova to head the Republican Olympic Reserve Tennis School</h3><span class="src"><a href="https://www.uzdaily.uz/en/iroda-tulyaganova-appointed-head-of-uzbekistan-tennis-school/" target="_blank" rel="noopener">UzDaily</a> · <span data-ru>3 ноября</span><span data-uz>3-noyabr</span><span data-en>3 November</span></span>
         <p data-ru>Бывшая 16-я ракетка мира стала директором главной теннисной школы страны.</p><p data-uz>Sobiq jahon 16-raketkasi mamlakatning bosh tennis maktabi direktori bo‘ldi.</p><p data-en>The former world No. 16 is now director of the country’s main tennis school.</p></div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Для любителя эта школа важна как площадка: корты там сдают по часам, и по прошлогоднему обзору Afisha — дешевле всех в городе. Там же проходят детские турниры. Если что-то поменяется с ценами или доступом, мы напишем.</p><p data-uz>Havaskor uchun bu maktab — kort: soatbay ijara shahardagi eng arzonlardan. Bolalar turnirlari ham shu yerda. O‘zgarish bo‘lsa, yozamiz.</p><p data-en>For amateurs the school matters as a venue: courts are rented by the hour, and last year’s Afisha review called them the cheapest in town. Junior tournaments are held there too. If prices or access change, we’ll report it.</p></div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Для любителя эта школа важна как площадка: корты там сдают по часам, и по прошлогоднему обзору Afisha — дешевле всех в городе. Там же проходят детские турниры.</p><p data-uz>Havaskor uchun bu maktab — kort: soatbay ijara shahardagi eng arzonlardan. Bolalar turnirlari ham shu yerda.</p><p data-en>For amateurs the school matters as a venue: courts are rented by the hour, and last year’s Afisha review called them the cheapest in town. Junior tournaments are held there too.</p></div>
     </article>
     <article class="nw">
-      <img class="nph" src="img/tml_win.webp" alt="" loading="lazy">
+      <img class="nph" src="img/tml_rules.webp" alt="" loading="lazy">
       <div><a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span data-ru>Tashkent Masters League</span><span data-uz>Tashkent Masters League</span><span data-en>Tashkent Masters League</span></a><h3 data-ru>Лига Masters меняет правила</h3><h3 data-uz>Masters ligasi qoidalari o‘zgaradi</h3><h3 data-en>Masters League changes its rules</h3><span class="src" data-ru>Tashkent Masters League · 2 ноября</span><span class="src" data-uz>Tashkent Masters League · 2-noyabr</span><span class="src" data-en>Tashkent Masters League · 2 November</span>
         <p data-ru>Со следующего сезона счёт нужно внести в течение суток, а недоигранные матчи не засчитываются.</p><p data-uz>Keyingi mavsumdan hisob bir kun ichida kiritilishi kerak, tugallanmagan o‘yinlar hisobga olinmaydi.</p><p data-en>From next season scores must be entered within 24 hours, and unfinished matches won’t count.</p><p class="ct"><a href="https://t.me/tashkent_masters_league/8641" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Сайт лиги</span><span data-uz>Liga sayti</span><span data-en>League website</span></a></p>
         </div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Сыграл — сразу отметь в приложении. Матч «на потом» в конце сезона больше не спасёт.</p><p data-uz>O‘ynadingmi — darhol ilovada belgila.</p><p data-en>Played — log it in the app right away. Saving a match “for later” won’t help at the end of the season anymore.</p></div>
     </article>
     <article class="nw">
-      <img class="nph" src="img/courts/turin.webp" alt="" loading="lazy">
+      <img class="nph" src="img/turin_news.webp" alt="" loading="lazy">
       <div><span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span><h3 data-ru>Новый крытый корт: Туринский политех</h3><h3 data-uz>Yangi yopiq kort: Turin politexnikasi</h3><h3 data-en>New indoor court: Turin Polytechnic</h3><span class="src" data-ru>Tennis plus · с 2 ноября</span><span class="src" data-uz>Tennis plus · 2-noyabrdan</span><span class="src" data-en>Tennis plus · since 2 November</span>
         <p data-ru>Малая кольцевая, 17. Раздевалки, душ, яркий свет. Группы для взрослых — Пн, Ср, Пт в 19:00 и 20:00, только по записи.</p><p data-uz>Kichik halqa yo‘li, 17. Kiyinish xonalari, dush. Kattalar guruhlari — Du, Ch, Ju 19:00 va 20:00.</p><p data-en>Kichik Halqa Yo‘li, 17. Changing rooms, showers, bright lights. Adult groups Mon, Wed, Fri at 19:00 and 20:00, by sign-up only.</p><p class="ct"><a href="https://t.me/c/2173137943/13596" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Ещё одно место, где можно играть зимой без снега и ветра. Открытые корты МГУ закрылись до весны, а крытых в городе мало.</p><p data-uz>Qishda o‘ynash uchun yana bir joy. MGU ochiq kortlari bahorgacha yopildi.</p><p data-en>One more place to play in winter without snow and wind. MSU’s outdoor courts are closed until spring, and indoor courts are scarce.</p></div>
     </article>
     <article class="nw">
-      <img class="nph" src="img/courts/yoshlik.webp" alt="" loading="lazy">
+      <img class="nph" src="img/yoshlik_news.webp" alt="" loading="lazy">
       <div><span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span><h3 data-ru>Ёшлик: 50 000 сум за вход</h3><h3 data-uz>Yoshlik: kirish uchun 50 000 so‘m</h3><h3 data-en>Yoshlik: 50,000 sum entry fee</h3><span class="src" data-ru>С 1 ноября · обсуждают в Бойцовском клубе и Tennis plus</span><span class="src" data-uz>1-noyabrdan · guruhlarda muhokama</span><span class="src" data-en>Since 1 November · discussed in Fight Club and Tennis plus</span>
         <p data-ru>Стадион «Ёшлик» (бывший «Старт») берёт плату за вход на территорию сверх аренды корта.</p><p data-uz>«Yoshlik» stadioni kortni ijaraga olishdan tashqari hududga kirish uchun ham pul oladi.</p><p data-en>Yoshlik stadium (formerly Start) now charges an entry fee on top of the court rental.</p><p class="ct"><a href="https://t.me/c/1653350711/87014" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="tel:+998931712333" target="_blank" rel="noopener"><span data-ru>Стадион · 93 171 23 33</span><span data-uz>Stadion · 93 171 23 33</span><span data-en>Stadium · 93 171 23 33</span></a></p>
         </div>
@@ -564,7 +574,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
 <script src="vendor/leaflet.js"></script>
 <script>
 const COURTS = [
-  {ru:'Буревестник', en:"Burevestnik", stEn:"courts 1–4 closed", dEn:"Sharaf Rashidov St, next to the Amirov football school. Courts 1–4 are closed; indoor courts are planned in their place. Check the rest by phone or with the players.", uz:'Burevestnik', st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', since:'2026-11-07', ll:[41.3306,69.2752], dRu:'Шараф Рашидова, рядом с футбольной школой Амирова. Корты 1–4 закрыты, на их месте планируют крытые. Про остальные уточняйте.', dUz:'Sharaf Rashidov ko‘chasi, Amirov futbol maktabi yonida. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan.', img:'img/courts/burevestnik.webp', bk:[], t:[["c", "o"]]},
+  {ru:'Буревестник', en:"Burevestnik", stEn:"courts 1–4 closed", dEn:"Sharaf Rashidov St, next to the Amirov football school. Courts 1–4 are closed; indoor courts are planned in their place. Check the rest by phone or with the players.", uz:'Burevestnik', st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', since:'2026-11-07', ll:[41.3306,69.2752], dRu:'Шараф Рашидова, рядом с футбольной школой Амирова. Корты 1–4 закрыты, на их месте планируют крытые. Про остальные уточняйте.', dUz:'Sharaf Rashidov ko‘chasi, Amirov futbol maktabi yonida. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan.', img:'img/courts/burevestnik_sat.webp', bk:[], t:[["c", "o"]]},
   {ru:'Туринский политех', en:"Turin Polytechnic", stEn:"new", dEn:"Kichik Halqa Yo‘li, 17. Indoor court, changing rooms and showers. Tennis plus groups, by sign-up.", uz:'Turin politexnikasi', st:'new', stRu:'новый', stUz:'yangi', since:'2026-11-02', ll:[41.350545,69.222192], dRu:'Малая кольцевая, 17. Крытый корт, раздевалки и душ. Группы Tennis plus, по записи.', dUz:'Kichik halqa yo‘li, 17. Yopiq kort, dush. Tennis plus, yozilish orqali.', tel:'+998900130140', img:'img/courts/turin.webp', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i"]]},
   {ru:'Ёшлик (Старт)', en:"Yoshlik (Start)", stEn:"+50,000 entry fee", dEn:"Outdoor clay and an indoor hard court. Outdoors before 17:00 — 100,000/hour, plus 50,000 entry.", uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', ll:[41.324598,69.306003], dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час, плюс 50 000 за вход.', dUz:'Ochiq grunt va yopiq hard. Kort ijarasi + 50 000 kirish.', tel:'+998931712333', img:'img/courts/yoshlik.webp', h:'05:00–23:00', bk:[], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', img:'img/courts/mgu.webp', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o"]]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
@@ -574,19 +584,19 @@ const COURTS = [
   {ru:'Юнусабад (у телебашни)', en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"2 clay and 4 hard courts. Clay 165,000, hard 130,000 per hour.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'2 грунта и 4 харда. Грунт 165 000, хард 130 000 за час.', dUz:'2 grunt, 4 hard. Grunt 165 000, hard 130 000.', tel:'+998712347760', img:'img/courts/yunusabad.webp', h:'07:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}], t:[["c", "o"], ["h", "o"]]},
   {ru:'Пахтакор · Tennis & Padel City', en:"Pakhtakor · Tennis & Padel City", stEn:"open · online booking", dEn:"Islam Karimov 98A. 10 outdoor courts (7 clay, 3 hard) plus an indoor hall with clay and hard. Per hour: day 100–150,000, evening from 18:00 150–200,000; indoor 200 / 250,000.", uz:'Paxtakor · Tennis & Padel City', st:'ok', stRu:'открыт · онлайн-бронь', stUz:'ochiq · onlayn bron', ll:[41.315683,69.263468], dRu:'Ислама Каримова, 98А. 10 открытых кортов (7 грунт, 3 хард) и крытый зал: грунт и хард. Час днём 100–150 000, вечером с 18:00 — 150–200 000; крытые 200 / 250 000.', dUz:'Islom Karimov, 98A. 10 ta ochiq kort (7 grunt, 3 hard) va yopiq zal: grunt va hard. Soati kunduzi 100–150 000, kechqurun 18:00 dan 150–200 000; yopiq 200 / 250 000.', tel:'+998903331151', img:'img/courts/pakhtakor.webp', h:'07:00–02:00', bk:[{"u": "https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis", "k": "playsport", "t": "PlaySport", t:[["c", "o"], ["h", "o"], ["c", "i"], ["h", "i"]]}, {"u": "img/courts/pakhtakor-scheme.webp", "k": "scheme", "t": ""}]},
   {ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor 100,000, indoor 200,000 per hour.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Улица 100 000, зал 200 000 за час.', dUz:'Ochiq 100 000, yopiq 200 000.', tel:'+998911351877', img:'img/courts/dinamo.webp', h:'07:00–23:00', bk:[], t:[["c", "o"], ["x", "i"]]},
-  {ru:'AJOU · Ravshan court', en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 1, by Ajou University. Indoor hard court, air conditioning and heating. Entry now requires a badge — Akmal or Khasan aka will tell you how to get one. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 1, у университета Аджу. Крытый хард, кондиционер и отопление. На вход теперь просят бейдж — как оформить, подскажут Акмаль и Хасан-ака. Аренда и группы — Tennis plus.', dUz:'Ajou universiteti, Yashnobod. Yopiq hard, konditsioner va isitish. Endi kirish uchun beyj kerak — qanday olishni Akmal va Hasan aka aytib berishadi. Tennis plus.', tel:'+998900130140', img:'img/courts/ajou.webp', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i"]]},
+  {ru:'AJOU · Ravshan court', en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 1, by Ajou University. Indoor hard court, air conditioning and heating. Entry now requires a badge — Akmal or Khasan aka will tell you how to get one. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 1, у университета Аджу. Крытый хард, кондиционер и отопление. На вход теперь просят бейдж — как оформить, подскажут Акмаль и Хасан-ака. Аренда и группы — Tennis plus.', dUz:'Ajou universiteti, Yashnobod. Yopiq hard, konditsioner va isitish. Endi kirish uchun beyj kerak — qanday olishni Akmal va Hasan aka aytib berishadi. Tennis plus.', tel:'+998900130140', img:'img/courts/ajou_court.webp', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i"]]},
   {ru:'Хадра', en:"Hadra", stEn:"open", dEn:"Zarqaynar, 4/3.", uz:'Xadra', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.323518,69.241747], dRu:'Заркайнар, 4/3.', dUz:'Zarqaynar, 4/3.', tel:'+998712441449', img:'img/courts/hadra.webp', h:'09:00–21:00', bk:[], t:[["h", "r"]]},
   {ru:'TopTennis Мирабад', en:"TopTennis Mirabad", stEn:"open", dEn:"Niyozbek Yo‘li 3rd lane, 57.", uz:'TopTennis Mirobod', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.323207,69.292063], dRu:'Ниязбек йули, 3-й проезд, 57.', dUz:'Niyozbek yo‘li 3-tor, 57.', tel:'+998940474794', h:'11:00–20:00', bk:[{"u": "https://t.me/toptennis_admin", "k": "tg", "t": "@toptennis_admin"}]},
   {ru:'Ace club', en:"Ace club", stEn:"open", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers. From 250,000/hour.", uz:'Ace club', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ. От 250 000/час.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush. 250 000/soatdan.', img:'img/courts/ace.webp', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn", t:[["h", "i"]]}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}]},
   {ru:'Ипакчилик', en:"Ipakchilik", stEn:"open", dEn:"Ipakchi street.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи.', dUz:'Ipakchi ko‘chasi.', tel:'+998959492222', bk:[], img:'img/courts/ipak.webp', t:[["c", "o"]]},
   {ru:'Теннисная школа Ироды Тулягановой', en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', img:'img/courts/iroda.webp', h:'09:00–21:00', tel:'+998935646880', t:[["c","o"]], bk:[]},
-  {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
+  {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid_hall.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
   {ru:'Матонат', en:"Matonat", stEn:"open", dEn:"Matonat sports complex, Qiyot 88. Ask about tennis court rental.", uz:'Matonat', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.326168,69.278986], dRu:'Спорткомплекс «Матонат», Кият, 88. Аренду теннисных кортов уточняйте по телефону.', dUz:'«Matonat» sport majmuasi, Qiyot, 88. Tennis kortlari ijarasini telefonda aniqlang.', img:'img/courts/matonat.webp', tel:'+998712346679', bk:[]},
   {ru:'Локомотив', en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта.', dUz:'2 ta ochiq grunt kort.', t:[["c","o"]], bk:[]},
   {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[]},
   {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', img:'img/courts/humson.webp', h:'00:00–24:00', tel:'+998933996000', bk:[], t:[["h","o"]]},
 ];
-const TODAY = new Date('2026-11-06'), FRESH = 10; // дней, пока изменение считается новостью
+const TODAY = new Date('2026-11-07'), FRESH = 10; // дней, пока изменение считается новостью
 let lang = 'ru';
 const L_ = (ru, uz, en) => lang === 'ru' ? ru : lang === 'uz' ? uz : (en ?? uz);
 const fmtTel = t => t.replace(/^\+998(\d\d)(\d{3})(\d\d)(\d\d)$/, '$1\u00a0$2\u00a0$3\u00a0$4');
