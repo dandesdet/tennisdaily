@@ -506,8 +506,10 @@ function initLeaflet() {
   marks = COURTS.map(c => {
     const m = L.marker(c.ll, {icon: L.icon({iconUrl: ball(c.st === 'off'), iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14]})})
       .addTo(map).bindPopup(popup(c), {maxWidth: 300});
-    let pin = false;
-    m.on('mouseover', () => m.openPopup()); m.on('mouseout', () => { if (!pin) m.closePopup(); });
+    let pin = false, t;
+    const hide = () => { if (pin) return; clearTimeout(t); t = setTimeout(() => m.closePopup(), 300); };
+    m.on('mouseover', () => { clearTimeout(t); m.openPopup(); }); m.on('mouseout', hide);
+    m.on('popupopen', e => { const el = e.popup.getElement(); el.onmouseenter = () => clearTimeout(t); el.onmouseleave = hide; });
     m.on('click', () => { pin = true; m.openPopup(); }); m.on('popupclose', () => { pin = false; });
     return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
   });
@@ -541,6 +543,13 @@ window.initGoogle = () => {
   const info = new g.InfoWindow({maxWidth: 300}); let cur = null, pinned = false;
   info.addListener('closeclick', () => { cur = null; pinned = false; unmark(); });
   map.addListener('click', () => { info.close(); cur = null; pinned = false; unmark(); });
+  // карточка не исчезает, пока курсор идёт с мяча на неё: закрываем с задержкой и отменяем, если курсор внутри
+  let hideT;
+  const hideSoon = () => { if (pinned) return; clearTimeout(hideT); hideT = setTimeout(() => { info.close(); cur = null; }, 300); };
+  info.addListener('domready', () => {
+    const el = document.querySelector('#cmap .gm-style-iw-c');
+    if (el && !el.dataset.h) { el.dataset.h = 1; el.addEventListener('mouseenter', () => clearTimeout(hideT)); el.addEventListener('mouseleave', hideSoon); }
+  });
   const b = new g.LatLngBounds();
   marks = COURTS.map(c => {
     const pos = {lat: c.ll[0], lng: c.ll[1]}; b.extend(pos);
@@ -548,8 +557,8 @@ window.initGoogle = () => {
       icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(28, 28), anchor: new g.Point(14, 14)}});
     const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
     // наведение — быстрый просмотр с фото; клик — закрепить карточку
-    m.addListener('mouseover', () => { if (!pinned) open(); });
-    m.addListener('mouseout', () => { if (!pinned && cur === c) { info.close(); cur = null; } });
+    m.addListener('mouseover', () => { clearTimeout(hideT); if (!pinned && cur !== c) open(); });
+    m.addListener('mouseout', hideSoon);
     m.addListener('click', () => { pinned = true; open(); });
     return {focus: () => { map.panTo(pos); map.setZoom(15); pinned = true; open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }};
   });
