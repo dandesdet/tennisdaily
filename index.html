@@ -553,6 +553,8 @@ const COURTS = [
   {ru:'TopTennis Мирабад', en:"TopTennis Mirabad", stEn:"open", dEn:"Niyozbek Yo‘li 3rd lane, 57.", uz:'TopTennis Mirobod', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.323207,69.292063], dRu:'Ниязбек йули, 3-й проезд, 57.', dUz:'Niyozbek yo‘li 3-tor, 57.', tel:'+998940474794', h:'11:00–20:00', bk:[{"u": "https://t.me/toptennis_admin", "k": "tg", "t": "@toptennis_admin"}]},
   {ru:'Ace club', en:"Ace club", stEn:"open · indoor", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers. From 250,000/hour.", uz:'Ace club', st:'ok', stRu:'открыт · крытый', stUz:'ochiq · yopiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ. От 250 000/час.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush. 250 000/soatdan.', img:'img/courts/ace.webp', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn"}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}]},
   {ru:'Ипакчилик', en:"Ipakchilik", stEn:"open", dEn:"Ipakchi street.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи.', dUz:'Ipakchi ko‘chasi.', tel:'+998959492222', bk:[], img:'img/courts/ipak.webp'},
+  {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[]},
+  {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', img:'img/courts/humson.webp', h:'00:00–24:00', tel:'+998933996000', bk:[]},
 ];
 const TODAY = new Date('2026-11-06'), FRESH = 10; // дней, пока изменение считается новостью
 let lang = 'ru';
@@ -616,7 +618,7 @@ function initLeaflet() {
     m.on('click', () => { pin = true; m.openPopup(); }); m.on('popupclose', () => { pin = false; });
     return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
   });
-  map.fitBounds(L.latLngBounds(COURTS.map(c => c.ll).concat(LANDMARKS.map(l => l.ll))), {padding: [40, 40]});
+  map.fitBounds(L.latLngBounds(COURTS.filter(c => !c.far).map(c => c.ll).concat(LANDMARKS.map(l => l.ll))), {padding: [40, 40]});
   window.LM = LANDMARKS.map(l => L.marker(l.ll, {interactive: false, zIndexOffset: -100, icon: L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})}).addTo(map));
   map.on('popupclose', unmark);
 }
@@ -664,7 +666,7 @@ window.initGoogle = () => {
   });
   const b = new g.LatLngBounds();
   marks = COURTS.map(c => {
-    const pos = {lat: c.ll[0], lng: c.ll[1]}; b.extend(pos);
+    const pos = {lat: c.ll[0], lng: c.ll[1]}; if (!c.far) b.extend(pos);
     const m = new g.Marker({position: pos, map, zIndex: 10,
       icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(28, 28), anchor: new g.Point(14, 14)}});
     const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
