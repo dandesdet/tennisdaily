@@ -593,7 +593,8 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
   }
   if (!ARCH) return;
   document.documentElement.classList.add('arch');
-  ['world', 'courts'].forEach(id => document.getElementById(id)?.remove());
+  ['world', 'courts'].forEach(id => { const e = document.getElementById(id); if (e) e.hidden = true; });
+  const rh = document.querySelectorAll('#res-h h2'); ['Итоги', 'Natijalar', 'Results'].forEach((t, i) => rh[i] && (rh[i].textContent = t));
   document.querySelectorAll('.league, .ticker, .arch-link').forEach(e => e.remove());
   const bar = document.createElement('div'); bar.className = 'arch-bar';
   bar.innerHTML = '<span data-ru>Архив — всё, что старше недели</span><span data-uz>Arxiv — bir haftadan eskisi</span><span data-en>Archive — everything older than a week</span><a href="./"><span data-ru>← Свежий выпуск</span><span data-uz>← Yangi son</span><span data-en>← Latest issue</span></a>';
