@@ -320,7 +320,7 @@ footer .tg-btn{margin:8px 0 40px}
 /* канал ещё не создан — кнопки подписки скрыты; убрать это правило после create */
 a.tg-btn,.tg-note,.tg-h,footer p:has(>a.tg-btn){display:none!important}
 .a2hs-btn[hidden]{display:none}
-.ptr{position:fixed;left:50%;top:0;width:44px;height:44px;margin-left:-22px;z-index:50;pointer-events:none;opacity:0;transform-origin:50% 0;background:url(img/ball.png) center/contain no-repeat;will-change:transform}
+.ptr{position:fixed;left:50%;top:0;width:44px;height:44px;margin-left:-22px;z-index:50;pointer-events:none;opacity:0;transform-origin:50% 50%;background:url(img/ball.png) center/contain no-repeat;will-change:transform}
 html.standalone body{overscroll-behavior-y:contain}
 .spots{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);width:max-content}
 .spots::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
@@ -674,7 +674,7 @@ html.standalone body{overscroll-behavior-y:contain}
   const el = document.createElement('div'); el.className = 'ptr'; document.body.appendChild(el);
   const MAX = 160, GO = 90, TOP = 12; let y0 = null, d = 0, busy = false;
   // d — насколько тянем; мяч висит сверху и вытягивается вниз, сужаясь (объём сохраняется)
-  const pose = d => { const k = 1 + d / 110; return `translateY(${TOP}px) scale(${1 / Math.sqrt(k)}, ${k})`; };
+  const pose = d => { const k = 1 + d / 110; return `translateY(${TOP + (k - 1) * 22}px) scale(${1 / Math.sqrt(k)}, ${k})`; };   // верх мяча прибит к потолку
   const show = d => { el.style.opacity = Math.min(1, d / 30); el.style.transform = pose(d); };
   addEventListener('touchstart', e => { if (!busy && scrollY <= 0 && e.touches.length === 1) { y0 = e.touches[0].clientY; d = 0; } }, {passive: true});
   addEventListener('touchmove', e => {
