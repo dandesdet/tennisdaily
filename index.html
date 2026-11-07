@@ -351,6 +351,9 @@ html.standalone body{overscroll-behavior-y:contain}
 .ticker.end{-webkit-mask-image:none;mask-image:none}
 .ticker a{scroll-snap-align:start;flex:0 0 auto}
 @media (max-width:700px){.ticker{gap:24px}.ticker a{white-space:normal;max-width:68vw;display:flex;align-items:baseline;line-height:1.35}.ticker span:first-child{flex:none}}
+.live{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);color:#C62828}
+.live::before{content:"";width:10px;height:10px;border-radius:50%;background:#E53935;box-shadow:0 0 0 4px rgba(229,57,53,.18)}
+.live.done{color:var(--muted)}.live.done::before{background:var(--muted);box-shadow:none}
 </style>
 </head>
 <body>
@@ -384,7 +387,7 @@ html.standalone body{overscroll-behavior-y:contain}
 <section id="soon">
   <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><h2 data-en>This weekend</h2></div>
   <div class="events">
-    <article class="ev big" data-d="2026-11-07">
+    <article class="ev big" data-d="2026-11-07" data-start="2026-11-07T16:00" data-end="2026-11-07T22:00">
       <div class="ph"><img src="img/laver.webp" alt="Афиша Laver Cup 7 ноября, Меридиан"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><small data-en>Sat</small><b>7</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
@@ -403,7 +406,7 @@ html.standalone body{overscroll-behavior-y:contain}
     </article>
 
     <div class="side">
-      <article class="ev" data-d="2026-11-08">
+      <article class="ev" data-d="2026-11-08" data-start="2026-11-08T16:00" data-end="2026-11-08T22:00">
         <div class="ph"><img src="img/uchqun.webp" alt="Афиша парного турнира 8 ноября, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>8</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
         <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
@@ -419,7 +422,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <p class="ct"><a href="https://t.me/c/1653350711/87065" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </div>
       </article>
-      <article class="mini trip" data-d="2026-11-08">
+      <article class="mini trip" data-d="2026-11-08" data-start="2026-11-08T09:00" data-end="2026-11-08T14:00">
         <img src="img/women_final.webp" alt="" style="object-position:50% 45%">
         <div>
         <span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
@@ -430,7 +433,7 @@ html.standalone body{overscroll-behavior-y:contain}
       <p class="ct"><a href="https://t.me/c/3700502756/1299" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </div>
       </article>
-      <article class="mini trip" data-d="2026-11-08">
+      <article class="mini trip" data-d="2026-11-08" data-start="2026-11-08T16:00" data-end="2026-11-08T21:00">
         <img src="img/meridian_ev.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 16:00</span><span class="tag" data-uz>Ya, 8-noyabr · 16:00</span><span class="tag" data-en>Sun, 8 November · 16:00</span>
@@ -440,7 +443,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <p class="ct"><a href="https://playon.uz/tournaments/cmvp0a1y2000001moscqlfrjp" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
         </div>
       </article>
-      <article class="mini trip" data-d="2026-11-08">
+      <article class="mini trip" data-d="2026-11-08" data-start="2026-11-08T19:00" data-end="2026-11-08T21:30">
         <img src="img/courts/umid.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 19:00–21:30</span><span class="tag" data-uz>Ya, 8-noyabr · 19:00–21:30</span><span class="tag" data-en>Sun, 8 November · 19:00–21:30</span>
@@ -1006,6 +1009,29 @@ document.querySelector('.a2hs-link')?.addEventListener('click', e => {
 (() => { const t = document.querySelector('.ticker'); if (!t) return;
   const upd = () => t.classList.toggle('end', t.scrollLeft + t.clientWidth >= t.scrollWidth - 4);
   t.addEventListener('scroll', upd, {passive: true}); addEventListener('resize', upd); upd(); })();
+</script>
+<script>
+// Анонсы по времени (Ташкент): началось — «Уже идёт», запись и метка мест убираются; закончилось — «Завершился, итоги скоро»
+(() => {
+  const L = (ru, uz, en) => `<span data-ru>${ru}</span><span data-uz>${uz}</span><span data-en>${en}</span>`;
+  const tick = () => {
+    const now = Date.now();
+    document.querySelectorAll('#soon article[data-start]').forEach(a => {
+      const st = Date.parse(a.dataset.start + ':00+05:00'), en = Date.parse(a.dataset.end + ':00+05:00');
+      if (now < st) return;
+      const done = now >= en;
+      let badge = a.querySelector('.live');
+      if (!badge) {
+        a.querySelectorAll('.spots-row, .spots, .cta, .dm, .chk').forEach(e => e.remove());
+        badge = document.createElement('span');
+        const ct = a.querySelector('.ct'); ct ? ct.before(badge) : a.querySelector('h3')?.after(badge);
+      }
+      badge.className = 'live' + (done ? ' done' : '');
+      badge.innerHTML = done ? L('Завершился — итоги скоро', 'Yakunlandi — natijalar tez orada', 'Finished — results soon') : L('Уже идёт', 'Hozir bo‘lyapti', 'On now');
+    });
+  };
+  tick(); setInterval(tick, 60000);
+})();
 </script>
 </body>
 </html>
