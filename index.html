@@ -298,6 +298,8 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
   .league .nums div{font-size:40px}.champs{grid-template-columns:1fr}
 }
 html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] [data-ru],html[lang="en"] [data-ru]{display:none!important}
+.arch-link{margin-top:32px;font-weight:600}.arch-link a{text-decoration:none;color:var(--ink)}.arch-link a:hover{color:var(--court)}
+.arch-bar{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;margin:24px 0 0;padding:16px 24px;border-radius:var(--r-card);background:var(--soft,#F4F4F0);font-weight:600}.arch-bar a{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -331,7 +333,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
 <section id="soon">
   <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><h2 data-en>This weekend</h2><span class="hand" data-ru>успей записаться</span><span class="hand" data-uz>yozilishga ulguring</span><span class="hand" data-en>sign up in time</span></div>
   <div class="events">
-    <article class="ev big">
+    <article class="ev big" data-d="2026-11-07">
       <div class="ph"><img src="img/laver.webp" alt="Афиша Laver Cup 7 ноября, Меридиан"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><small data-en>Sat</small><b>7</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
@@ -349,7 +351,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
     </article>
 
     <div class="side">
-      <article class="ev">
+      <article class="ev" data-d="2026-11-08">
         <div class="ph"><img src="img/uchqun.webp" alt="Афиша парного турнира 8 ноября, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>8</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
         <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
@@ -364,7 +366,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
         <p class="ct"><a href="https://t.me/c/1653350711/87065" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><span data-ru>Запись на PlayOn</span><span data-uz>PlayOn’da yozilish</span><span data-en>Sign up on PlayOn</span></a></p>
         </div>
       </article>
-      <article class="mini trip">
+      <article class="mini trip" data-d="2026-11-08">
         <img src="img/women_final.webp" alt="" style="object-position:50% 45%">
         <div>
         <span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
@@ -375,7 +377,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <p class="ct"><a href="https://t.me/c/3700502756/1299" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </div>
       </article>
-      <article class="mini trip">
+      <article class="mini trip" data-d="2026-11-08">
         <img src="img/meridian_ev.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 16:00</span><span class="tag" data-uz>Ya, 8-noyabr · 16:00</span><span class="tag" data-en>Sun, 8 November · 16:00</span>
@@ -384,7 +386,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
         <p class="ct"><a href="https://playon.uz/tournaments/cmvp0a1y2000001moscqlfrjp" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
         </div>
       </article>
-      <article class="mini trip">
+      <article class="mini trip" data-d="2026-11-08">
         <img src="img/courts/umid.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 19:00–21:30</span><span class="tag" data-uz>Ya, 8-noyabr · 19:00–21:30</span><span class="tag" data-en>Sun, 8 November · 19:00–21:30</span>
@@ -417,9 +419,9 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
 
 <!-- ====== RESULTS ====== -->
 <section id="results">
-  <div class="sh"><h2 data-ru>Итоги октября</h2><h2 data-uz>Oktabr natijalari</h2><h2 data-en>October results</h2><span class="hand" data-ru>поздравляем!</span><span class="hand" data-uz>tabriklaymiz!</span><span class="hand" data-en>congrats!</span></div>
+  <div class="sh" id="res-h"><h2 data-ru>Последние итоги</h2><h2 data-uz>So‘nggi natijalar</h2><h2 data-en>Latest results</h2><span class="hand" data-ru>поздравляем!</span><span class="hand" data-uz>tabriklaymiz!</span><span class="hand" data-en>congrats!</span></div>
   <div class="results">
-    <article class="res">
+    <article class="res" data-d="2026-10-31">
       <div class="pic"><img src="img/oct31.webp" alt="Участники парного турнира 31 октября, Меридиан"></div>
       <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
       <div class="meta" data-ru>31 октября · Меридиан · пары до 7.5 · 12 пар</div><div class="meta" data-uz>31-oktabr · Meridian · juftlik 7.5 gacha · 12 juft</div><div class="meta" data-en>31 October · Meridian · doubles up to 7.5 · 12 pairs</div>
@@ -428,7 +430,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <p class="quote" data-ru>«6 геймов — всё-таки кайф» — из чата после турнира</p><p class="quote" data-uz>«6 geymgacha o‘ynash — maza» — chatdan</p><p class="quote" data-en>“6 games — still a blast” — from the chat after the event</p>
     <p class="ct"><a href="https://t.me/c/1653350711/86814" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://t.me/dandesdet" target="_blank" rel="noopener"><span data-ru>Знаешь победителей? @dandesdet</span><span data-uz>G‘oliblarni bilasizmi? @dandesdet</span><span data-en>Know the winners? @dandesdet</span></a></p>
         </article>
-    <article class="res">
+    <article class="res" data-d="2026-10-25">
       <div class="pic"><img src="img/tp_single.webp" alt="Призёры мужского одиночного турнира 25 октября, МГУ"></div>
       <span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
       <div class="meta" data-ru>25 октября · корты МГУ · одиночка до 4.0</div><div class="meta" data-uz>25-oktabr · MGU kortlari · yakkalik 4.0 gacha</div><div class="meta" data-en>25 October · MSU courts · singles up to 4.0</div>
@@ -437,7 +439,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <p class="quote" data-ru>«Впервые в жизни сыграл 7 сетов за 7 часов» — победитель</p><p class="quote" data-uz>«Hayotimda birinchi marta 7 soatda 7 set o‘ynadim» — g‘olib</p><p class="quote" data-en>“First time in my life I played 7 sets in 7 hours” — the winner</p>
     <p class="ct"><a href="https://t.me/c/2173137943/13527" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83" target="_blank" rel="noopener"><span data-ru>Итоги на PlayOn</span><span data-uz>PlayOn’da natijalar</span><span data-en>Results on PlayOn</span></a></p>
         </article>
-    <article class="res">
+    <article class="res" data-d="2026-10-25">
       <div class="pic"><img src="img/tp_women.webp" alt="Женский одиночный турнир 25 октября"></div>
       <span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
       <div class="meta" data-ru>25 октября · женская одиночка</div><div class="meta" data-uz>25-oktabr · ayollar yakkaligi</div><div class="meta" data-en>25 October · women’s singles</div>
@@ -445,7 +447,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <p class="muted" data-ru>Все три призовых места заняли ученицы тренеров Tennis plus. Имена клуб не опубликовал.</p><p class="muted" data-uz>Uchala sovrinli o‘rinni Tennis plus o‘quvchilari egalladi. Ismlar e’lon qilinmagan.</p><p class="muted" data-en>All three places went to students of Tennis plus coaches. The club didn’t publish names.</p>
     <p class="ct"><a href="https://t.me/c/2173137943/13531" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </article>
-    <article class="res">
+    <article class="res" data-d="2026-10-24">
       <div class="pic"><img src="img/oct24.webp" alt="Участники одиночного турнира 24 октября, Меридиан"></div>
       <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
       <div class="meta" data-ru>24 октября · Меридиан · одиночка до 3.75 · 16 игроков</div><div class="meta" data-uz>24-oktabr · Meridian · yakkalik 3.75 gacha · 16 o‘yinchi</div><div class="meta" data-en>24 October · Meridian · singles up to 3.75 · 16 players</div>
@@ -454,7 +456,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       
     <p class="ct"><a href="https://t.me/c/1653350711/86696" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </article>
-    <article class="res">
+    <article class="res" data-d="2026-10-18">
       <div class="pic"><img src="img/tml_win.webp" alt="Masters Open Doubles, Юнусабад"></div>
       <a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span data-ru>Tashkent Masters League</span><span data-uz>Tashkent Masters League</span><span data-en>Tashkent Masters League</span></a>
       <div class="meta" data-ru>18 октября · Юнусабад · Masters Open Doubles</div><div class="meta" data-uz>18-oktabr · Yunusobod · Masters Open Doubles</div><div class="meta" data-en>18 October · Yunusabad · Masters Open Doubles</div>
@@ -463,7 +465,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <p class="muted" data-ru>В турнире «одного очка» победил Святослав Ларионов — подачей с руки.</p><p class="muted" data-uz>«Bir ochko» turnirida Svyatoslav Larionov g‘olib bo‘ldi.</p><p class="muted" data-en>The “one point” event was won by Svyatoslav Larionov — with an underarm serve.</p>
     <p class="ct"><a href="https://t.me/tashkent_masters_league/8525" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Сайт лиги</span><span data-uz>Liga sayti</span><span data-en>League website</span></a></p>
         </article>
-    <article class="res">
+    <article class="res" data-d="2026-10-18">
       <div class="pic"><img src="img/mixed.webp" alt="Призёры микста 18 октября, МГУ"></div>
       <span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
       <div class="meta" data-ru>18 октября · корты МГУ · микст до 4.0 · 12 пар</div><div class="meta" data-uz>18-oktabr · MGU kortlari · mikst 4.0 gacha · 12 juft</div><div class="meta" data-en>18 October · MSU courts · mixed up to 4.0 · 12 pairs</div>
@@ -503,41 +505,41 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
 <section id="news">
   <div class="sh"><h2 data-ru>Что изменилось</h2><h2 data-uz>Nima o‘zgardi</h2><h2 data-en>What changed</h2><span class="hand" data-ru>и что это значит для тебя</span><span class="hand" data-uz>va bu sen uchun nima degani</span><span class="hand" data-en>and what it means for you</span></div>
   <div class="news">
-    <article class="nw">
+    <article class="nw" data-d="2026-11-07">
       <img class="nph" src="img/courts/burevestnik.webp" alt="" loading="lazy">
       <div><h3 data-ru>«Буревестник»: корты 1–4 закрыты</h3><h3 data-uz>«Burevestnik»: 1–4-kortlar yopildi</h3><h3 data-en>Burevestnik: courts 1–4 closed</h3><span class="src" data-ru>7 ноября</span><span class="src" data-uz>7-noyabr</span><span class="src" data-en>7 November</span>
         <p data-ru>Первый, второй, третий и четвёртый корты закрыли. На их месте планируют построить крытые.</p><p data-uz>Birinchi, ikkinchi, uchinchi va to‘rtinchi kortlar yopildi. O‘rniga yopiq kortlar qurish rejalashtirilgan.</p><p data-en>Courts one to four have been closed. Indoor courts are planned in their place.</p>
         <p class="ct"><a href="https://t.me/dandesdet" target="_blank" rel="noopener"><span data-ru>Знаешь подробности? @dandesdet</span><span data-uz>Batafsil bilasizmi? @dandesdet</span><span data-en>Know more? @dandesdet</span></a></p></div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Играл на этих кортах — бронируй заранее на оставшихся или смотри другие корты на карте ниже. Зато в городе станет больше крытых.</p><p data-uz>Shu kortlarda o‘ynagan bo‘lsangiz — qolganlarini oldindan bron qiling yoki pastdagi xaritadan boshqa kortni tanlang. Keyin shaharda yopiq kortlar ko‘payadi.</p><p data-en>If you played on these courts, book the remaining ones early or pick another court on the map below. Later the city gets more indoor courts.</p></div>
     </article>
-    <article class="nw">
+    <article class="nw" data-d="2026-11-06">
       <img class="nph" src="img/courts/ajou.webp" alt="" loading="lazy">
       <div><span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span><h3 data-ru>AJOU: на вход теперь нужен бейдж</h3><h3 data-uz>AJOU: endi kirish uchun beyj kerak</h3><h3 data-en>AJOU: you now need a badge to get in</h3><span class="src" data-ru>Ravshan court · с 6 ноября</span><span class="src" data-uz>Ravshan court · 6-noyabrdan</span><span class="src" data-en>Ravshan court · since 6 November</span>
         <p data-ru>На корты у университета Аджу пускают только по бейджу. Как его оформить, подскажут Акмаль и Хасан-ака.</p><p data-uz>Ajou universiteti yonidagi kortlarga faqat beyj bilan kiritishadi. Uni qanday olishni Akmal va Hasan aka aytib berishadi.</p><p data-en>The courts at Ajou University now admit players with a badge only. Akmal and Khasan aka will tell you how to get one.</p>
         <p class="ct"><a href="https://t.me/tennisplusss" target="_blank" rel="noopener"><span data-ru>Акмаль · @tennisplusss</span><span data-uz>Akmal · @tennisplusss</span><span data-en>Akmal · @tennisplusss</span></a></p></div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Играешь в AJOU — спроси про бейдж заранее, иначе на входе развернут.</p><p data-uz>AJOU’da o‘ynasangiz — beyj haqida oldindan so‘rang, aks holda kiritishmaydi.</p><p data-en>Playing at AJOU? Ask about the badge in advance or you’ll be turned away at the door.</p></div>
     </article>
-    <article class="nw">
+    <article class="nw" data-d="2026-11-03">
       <img class="nph" src="img/iroda_news.webp" alt="" loading="lazy">
       <div><h3 data-ru>Ирода Туляганова возглавила Республиканскую школу олимпийского резерва</h3><h3 data-uz>Iroda To‘laganova Respublika olimpiya zaxiralari maktabiga rahbar bo‘ldi</h3><h3 data-en>Iroda Tulyaganova to head the Republican Olympic Reserve Tennis School</h3><span class="src"><a href="https://www.uzdaily.uz/en/iroda-tulyaganova-appointed-head-of-uzbekistan-tennis-school/" target="_blank" rel="noopener">UzDaily</a> · <span data-ru>3 ноября</span><span data-uz>3-noyabr</span><span data-en>3 November</span></span>
         <p data-ru>Бывшая 16-я ракетка мира стала директором главной теннисной школы страны.</p><p data-uz>Sobiq jahon 16-raketkasi mamlakatning bosh tennis maktabi direktori bo‘ldi.</p><p data-en>The former world No. 16 is now director of the country’s main tennis school.</p></div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Для любителя эта школа важна как площадка: корты там сдают по часам, и по прошлогоднему обзору Afisha — дешевле всех в городе. Там же проходят детские турниры.</p><p data-uz>Havaskor uchun bu maktab — kort: soatbay ijara shahardagi eng arzonlardan. Bolalar turnirlari ham shu yerda.</p><p data-en>For amateurs the school matters as a venue: courts are rented by the hour, and last year’s Afisha review called them the cheapest in town. Junior tournaments are held there too.</p></div>
     </article>
-    <article class="nw">
+    <article class="nw" data-d="2026-11-02">
       <img class="nph" src="img/tml_rules.webp" alt="" loading="lazy">
       <div><a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span data-ru>Tashkent Masters League</span><span data-uz>Tashkent Masters League</span><span data-en>Tashkent Masters League</span></a><h3 data-ru>Лига Masters меняет правила</h3><h3 data-uz>Masters ligasi qoidalari o‘zgaradi</h3><h3 data-en>Masters League changes its rules</h3><span class="src" data-ru>Tashkent Masters League · 2 ноября</span><span class="src" data-uz>Tashkent Masters League · 2-noyabr</span><span class="src" data-en>Tashkent Masters League · 2 November</span>
         <p data-ru>Со следующего сезона счёт нужно внести в течение суток, а недоигранные матчи не засчитываются.</p><p data-uz>Keyingi mavsumdan hisob bir kun ichida kiritilishi kerak, tugallanmagan o‘yinlar hisobga olinmaydi.</p><p data-en>From next season scores must be entered within 24 hours, and unfinished matches won’t count.</p><p class="ct"><a href="https://t.me/tashkent_masters_league/8641" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Сайт лиги</span><span data-uz>Liga sayti</span><span data-en>League website</span></a></p>
         </div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Сыграл — сразу отметь в приложении. Матч «на потом» в конце сезона больше не спасёт.</p><p data-uz>O‘ynadingmi — darhol ilovada belgila.</p><p data-en>Played — log it in the app right away. Saving a match “for later” won’t help at the end of the season anymore.</p></div>
     </article>
-    <article class="nw">
+    <article class="nw" data-d="2026-11-02">
       <img class="nph" src="img/turin_news.webp" alt="" loading="lazy">
       <div><span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span><h3 data-ru>Новый крытый корт: Туринский политех</h3><h3 data-uz>Yangi yopiq kort: Turin politexnikasi</h3><h3 data-en>New indoor court: Turin Polytechnic</h3><span class="src" data-ru>Tennis plus · с 2 ноября</span><span class="src" data-uz>Tennis plus · 2-noyabrdan</span><span class="src" data-en>Tennis plus · since 2 November</span>
         <p data-ru>Малая кольцевая, 17. Раздевалки, душ, яркий свет. Группы для взрослых — Пн, Ср, Пт в 19:00 и 20:00, только по записи.</p><p data-uz>Kichik halqa yo‘li, 17. Kiyinish xonalari, dush. Kattalar guruhlari — Du, Ch, Ju 19:00 va 20:00.</p><p data-en>Kichik Halqa Yo‘li, 17. Changing rooms, showers, bright lights. Adult groups Mon, Wed, Fri at 19:00 and 20:00, by sign-up only.</p><p class="ct"><a href="https://t.me/c/2173137943/13596" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
         </div>
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Ещё одно место, где можно играть зимой без снега и ветра. Открытые корты МГУ закрылись до весны, а крытых в городе мало.</p><p data-uz>Qishda o‘ynash uchun yana bir joy. MGU ochiq kortlari bahorgacha yopildi.</p><p data-en>One more place to play in winter without snow and wind. MSU’s outdoor courts are closed until spring, and indoor courts are scarce.</p></div>
     </article>
-    <article class="nw">
+    <article class="nw" data-d="2026-11-01">
       <img class="nph" src="img/yoshlik_news.webp" alt="" loading="lazy">
       <div><span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span><h3 data-ru>Ёшлик: 50 000 сум за вход</h3><h3 data-uz>Yoshlik: kirish uchun 50 000 so‘m</h3><h3 data-en>Yoshlik: 50,000 sum entry fee</h3><span class="src" data-ru>С 1 ноября · обсуждают в Бойцовском клубе и Tennis plus</span><span class="src" data-uz>1-noyabrdan · guruhlarda muhokama</span><span class="src" data-en>Since 1 November · discussed in Fight Club and Tennis plus</span>
         <p data-ru>Стадион «Ёшлик» (бывший «Старт») берёт плату за вход на территорию сверх аренды корта.</p><p data-uz>«Yoshlik» stadioni kortni ijaraga olishdan tashqari hududga kirish uchun ham pul oladi.</p><p data-en>Yoshlik stadium (formerly Start) now charges an entry fee on top of the court rental.</p><p class="ct"><a href="https://t.me/c/1653350711/87014" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="tel:+998931712333" target="_blank" rel="noopener"><span data-ru>Стадион · 93 171 23 33</span><span data-uz>Stadion · 93 171 23 33</span><span data-en>Stadium · 93 171 23 33</span></a></p>
@@ -545,6 +547,7 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
       <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Три игры в неделю — плюс 600 000 сум в месяц. Если играешь в Ёшлике регулярно, посчитай: Учкун и Республиканская школа заметно дешевле (смотри «Корты» ниже).</p><p data-uz>Haftada uch marta — oyiga +600 000 so‘m. Uchqun va Respublika maktabi arzonroq (pastdagi «Kortlar»).</p><p data-en>Three games a week — 600,000 sum more per month. If you play at Yoshlik regularly, compare: Uchqun and the Republican school are noticeably cheaper (see “Courts” below).</p></div>
     </article>
   </div>
+  <p class="arch-link"><a href="?archive"><span data-ru>Архив: старые итоги, анонсы и новости</span><span data-uz>Arxiv: eski natijalar, e’lonlar va yangiliklar</span><span data-en>Archive: older results, announcements and news</span> →</a></p>
 </section>
 
 <!-- ====== COURTS ====== -->
@@ -565,12 +568,38 @@ html:not([lang="uz"]) [data-uz],html:not([lang="en"]) [data-en],html[lang="uz"] 
   <div><h4 data-ru>Есть новость?</h4><h4 data-uz>Yangilik bormi?</h4><h4 data-en>Got news?</h4>
     <p data-ru>Турнир, новый корт, итоги — пиши: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
     <p data-uz>Turnir, yangi kort, natija — yozing: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p><p data-en>A tournament, a new court, results — write to <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
-    <p>© 2026 tennisdaily.uz</p></div>
+    <p><a href="?archive"><span data-ru>Архив</span><span data-uz>Arxiv</span><span data-en>Archive</span></a> · © 2026 tennisdaily.uz</p></div>
 </footer>
 </div>
 
 <div class="lb" id="lb"><img alt=""></div>
 
+<script>
+// Дейли: анонсы — с сегодняшнего дня, итоги и новости — за последние 7 дней (по времени Ташкента).
+// ?archive — наоборот: только то, что уже ушло из ленты
+(() => {
+  const ARCH = new URLSearchParams(location.search).has('archive');
+  const day = d => Date.parse(d + 'T00:00:00+05:00');
+  const today = day(new Date(Date.now() + 5 * 36e5).toISOString().slice(0, 10));
+  const keep = {soon: today, results: today - 7 * 864e5, news: today - 7 * 864e5};
+  for (const [id, from] of Object.entries(keep)) {
+    const sec = document.getElementById(id); if (!sec) continue;
+    const arts = [...sec.querySelectorAll('article[data-d]')];
+    arts.forEach(a => { if ((day(a.dataset.d) < from) !== ARCH) a.remove(); });
+    if (arts.length && !sec.querySelector('article[data-d]')) {
+      if (id === 'results' && !ARCH) { document.getElementById('res-h')?.remove(); sec.querySelector('.results')?.remove(); }
+      else sec.remove();
+    }
+  }
+  if (!ARCH) return;
+  document.documentElement.classList.add('arch');
+  ['world', 'courts'].forEach(id => document.getElementById(id)?.remove());
+  document.querySelectorAll('.league, .ticker, .arch-link').forEach(e => e.remove());
+  const bar = document.createElement('div'); bar.className = 'arch-bar';
+  bar.innerHTML = '<span data-ru>Архив — всё, что старше недели</span><span data-uz>Arxiv — bir haftadan eskisi</span><span data-en>Archive — everything older than a week</span><a href="./"><span data-ru>← Свежий выпуск</span><span data-uz>← Yangi son</span><span data-en>← Latest issue</span></a>';
+  const first = document.querySelector('section'); first?.parentNode.insertBefore(bar, first);
+})();
+</script>
 <script src="vendor/leaflet.js"></script>
 <script>
 const COURTS = [
