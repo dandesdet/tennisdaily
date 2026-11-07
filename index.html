@@ -70,7 +70,7 @@ img{display:block;max-width:100%}
 .issue{text-align:right;font:500 18px/1.3 var(--body);color:var(--muted)}
 .issue b{display:block;font:500 56px/1.05 var(--serif);letter-spacing:-.03em;color:var(--ink)}
 
-.src-strip{margin-top:32px}
+.src-strip{margin-top:32px}.src-bottom .src-strip{margin:0 0 48px}
 .src-strip h5{font:600 16px var(--body);color:var(--muted);margin:0 0 12px}
 .srcs{display:flex;flex-wrap:wrap;gap:8px}
 .sg{display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:var(--pill);padding:6px 18px 6px 6px;text-decoration:none}
@@ -339,6 +339,7 @@ html.standalone body{overscroll-behavior-y:contain}
 .vplay .pl{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--ball);box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .vplay .pl::after{content:"";position:absolute;left:26px;top:20px;border-left:18px solid var(--ink);border-top:12px solid transparent;border-bottom:12px solid transparent}
 .vplay iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.dm{font:600 16px/1.3 var(--body);color:var(--court);text-decoration:none}.dm:hover{color:var(--ink)}
 .chk{flex-basis:100%;font:400 16px/1.3 var(--body);color:var(--muted)}
 </style>
 </head>
@@ -355,9 +356,9 @@ html.standalone body{overscroll-behavior-y:contain}
     <h1>Tennis Da<span class="b"></span>ly</h1>
     <p data-ru>Любительский теннис Ташкента: где сыграть турнир, кто выиграл прошлый, какие корты открылись и закрылись.</p>
     <p data-uz>Toshkent havaskor tennisi: qaysi turnirda o‘ynash, kim g‘olib bo‘ldi, qaysi kortlar ochildi va yopildi.</p><p data-en>Amateur tennis in Tashkent: where to play a tournament, who won the last one, which courts opened and closed.</p>
-    <div class="src-strip"><h5 data-ru>Собираем из этих групп</h5><h5 data-uz>Shu guruhlardan yig‘amiz</h5><h5 data-en>Collected from these groups</h5><div class="srcs" id="srcs"></div></div>
+
   </div>
-  <div class="issue"><span data-ru>Обновлено</span><span data-uz>Yangilandi</span><span data-en>Updated</span><b><span data-ru>7 ноября</span><span data-uz>7-noyabr</span><span data-en>7 November</span></b><a class="tg-btn" href="https://t.me/tennisdaily_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.1l8.9-5.6c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.5-4.8Z" fill="currentColor"/></svg><span data-ru>Подписывайся</span><span data-uz>Obuna bo‘ling</span><span data-en>Subscribe</span></a><a class="a2hs-link" href="#a2hs"><span data-ru>Добавить на рабочий стол ↓</span><span data-uz>Ish stoliga qo‘shish ↓</span><span data-en>Add to home screen ↓</span></a><span class="tg-note" data-ru>главное за день в Telegram</span><span class="tg-note" data-uz>kunning asosiysi Telegramda</span><span class="tg-note" data-en>the day’s highlights on Telegram</span></div>
+  <div class="issue"><a class="tg-btn" href="https://t.me/tennisdaily_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.1l8.9-5.6c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.5-4.8Z" fill="currentColor"/></svg><span data-ru>Подписывайся</span><span data-uz>Obuna bo‘ling</span><span data-en>Subscribe</span></a><a class="a2hs-link" href="#a2hs"><span data-ru>Добавить на рабочий стол ↓</span><span data-uz>Ish stoliga qo‘shish ↓</span><span data-en>Add to home screen ↓</span></a><span class="tg-note" data-ru>главное за день в Telegram</span><span class="tg-note" data-uz>kunning asosiysi Telegramda</span><span class="tg-note" data-en>the day’s highlights on Telegram</span></div>
 </header>
 
 <nav class="ticker" aria-label="Коротко">
@@ -396,7 +397,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <div class="ph"><img src="img/uchqun.webp" alt="Афиша парного турнира 8 ноября, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>8</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
         <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
-          <div class="spots-row"><span class="spots open"><span data-ru>Осталась 1 пара</span><span data-uz>1 juftga joy bor</span><span data-en>1 pair left</span></span><a class="cta" href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><span class="chk" data-ru>сверено с PlayOn в 13:00</span><span class="chk" data-uz>PlayOn bilan 13:00 da tekshirildi</span><span class="chk" data-en>checked on PlayOn at 13:00</span></div>
+          <div class="spots-row"><span class="spots open"><span data-ru>Осталась 1 пара</span><span data-uz>1 juftga joy bor</span><span data-en>1 pair left</span></span><a class="cta" href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/Abdukarim_87" target="_blank" rel="noopener"><span data-ru>или напиши организатору · Абдукарим</span><span data-uz>yoki tashkilotchiga yozing · Abdukarim</span><span data-en>or message the organizer · Abdukarim</span></a><span class="chk" data-ru>сверено с PlayOn в 13:00</span><span class="chk" data-uz>PlayOn bilan 13:00 da tekshirildi</span><span class="chk" data-en>checked on PlayOn at 13:00</span></div>
           <h3 data-ru>Пары · Учкун</h3><h3 data-uz>Juftlik · Uchqun</h3><h3 data-en>Doubles · Uchqun</h3>
           <div class="facts"><span class="fact">16:00–22:00</span><span class="fact" data-ru>хард под навесом</span><span class="fact" data-uz>ayvon ostidagi hard</span><span class="fact" data-en>hard court under a roof</span><span class="fact" data-ru>NTRP пары ≤ 7.0</span><span class="fact" data-uz>Juft NTRP ≤ 7.0</span><span class="fact" data-en>pair NTRP ≤ 7.0</span><span class="fact" data-ru>350 000 сум с игрока</span><span class="fact" data-uz>o‘yinchi boshiga 350 000</span><span class="fact" data-en>350,000 sum per player</span></div>
           <div class="fill">
@@ -433,7 +434,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <img src="img/courts/umid.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 19:00–21:30</span><span class="tag" data-uz>Ya, 8-noyabr · 19:00–21:30</span><span class="tag" data-en>Sun, 8 November · 19:00–21:30</span>
-        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 5 мест из 8</span><span data-uz>8 tadan 5 ta joy bor</span><span data-en>5 of 8 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><span class="chk" data-ru>сверено с PlayOn в 13:00</span><span class="chk" data-uz>PlayOn bilan 13:00 da tekshirildi</span><span class="chk" data-en>checked on PlayOn at 13:00</span></div>
+        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 5 мест из 8</span><span data-uz>8 tadan 5 ta joy bor</span><span data-en>5 of 8 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/brazilname" target="_blank" rel="noopener"><span data-ru>или напиши организатору · Полина</span><span data-uz>yoki tashkilotchiga yozing · Polina</span><span data-en>or message the organizer · Polina</span></a><span class="chk" data-ru>сверено с PlayOn в 13:00</span><span class="chk" data-uz>PlayOn bilan 13:00 da tekshirildi</span><span class="chk" data-en>checked on PlayOn at 13:00</span></div>
         <h3 data-ru>Любительский турнир для всех · «Умид»</h3><h3 data-uz>Hamma uchun havaskor turnir · «Umid»</h3><h3 data-en>Amateur tournament for everyone · Umid</h3>
         <p style="margin:0" data-ru>Одиночка на вылет, сетка 8, сет до 4, хард. Взнос 250 000 сум. Записалось 3 из 8. Спорткомплекс «Умид», Ялангач, 82А.</p><p style="margin:0" data-uz>Yakkalik, setka 8, set 4 gacha, hard. Badal 250 000 so‘m. 8 tadan 3 yozildi. «Umid» sport majmuasi, Yalang‘och, 82A.</p><p style="margin:0" data-en>Singles knockout, draw of 8, sets to 4, hard. Entry 250,000 sum. 3 of 8 signed up. Umid sports complex, Yalangach 82A.</p>
         <p class="ct"><a href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Запись на PlayOn</span><span data-uz>PlayOn’da yozilish</span><span data-en>Sign up on PlayOn</span></a><a href="https://t.me/brazilname" target="_blank" rel="noopener"><span data-ru>Организатор · Полина</span><span data-uz>Tashkilotchi · Polina</span><span data-en>Organizer · Polina</span></a></p>
@@ -623,6 +624,10 @@ html.standalone body{overscroll-behavior-y:contain}
     <p class="cfoot" data-ru>Все корты сдаются по часам — звони или бронируй онлайн: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, боты <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Цены — из открытых источников и групп, могли устареть.</p>
     <p class="cfoot" data-uz>Barcha kortlar soatbay ijaraga beriladi — qo‘ng‘iroq qiling yoki onlayn bron qiling: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a>, <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Narxlar eskirgan bo‘lishi mumkin.</p><p class="cfoot" data-en>All courts are rented by the hour — call or book online: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, bots <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> and <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Prices come from open sources and the groups and may be outdated.</p>
   </div>
+</section>
+
+<section class="src-bottom">
+<div class="src-strip"><h5 data-ru>Собираем из этих групп</h5><h5 data-uz>Shu guruhlardan yig‘amiz</h5><h5 data-en>Collected from these groups</h5><div class="srcs" id="srcs"></div></div>
 </section>
 
 <footer>
