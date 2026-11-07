@@ -320,7 +320,8 @@ footer .tg-btn{margin:8px 0 40px}
 /* канал ещё не создан — кнопки подписки скрыты; убрать это правило после create */
 a.tg-btn,.tg-note,.tg-h,footer p:has(>a.tg-btn){display:none!important}
 .a2hs-btn[hidden]{display:none}
-.ptr{position:fixed;left:50%;top:0;width:44px;height:44px;margin-left:-22px;z-index:50;pointer-events:none;opacity:0;transform-origin:50% 50%;background:url(img/ball.png) center/contain no-repeat;will-change:transform}
+.ptr{position:fixed;left:50%;top:0;width:44px;height:44px;margin-left:-22px;z-index:51;pointer-events:none;background:url(img/ball.png) center/contain no-repeat;will-change:transform}
+.ptr-band{position:fixed;left:50%;top:0;width:2px;height:1px;margin-left:-1px;z-index:50;pointer-events:none;background:#3A3A36;border-radius:1px;transform-origin:50% 0;opacity:0;will-change:transform}
 html.standalone body{overscroll-behavior-y:contain}
 .spots{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);width:max-content}
 .spots::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
@@ -665,40 +666,63 @@ html.standalone body{overscroll-behavior-y:contain}
 })();
 </script>
 <script>
-// Потяни вниз — обновить. Мяч резиновый: тянется за пальцем, отпустил — бьётся о потолок и падает вниз за экран.
+// Потяни вниз — обновить. Мяч висит на резинке над краем экрана: тянешь — выезжает за пальцем и чуть вытягивается,
+// отпустил — резинка дёргает его вверх, он бьётся о потолок, срывается и падает вниз за экран.
 // Работает в приложении с рабочего стола (в браузере это делает сам браузер); для проверки в браузере — ?ptr
 (() => {
   if (!(matchMedia('(display-mode: standalone)').matches || navigator.standalone || /[?&]ptr\b/.test(location.search))) return;
-  const el = document.createElement('div'); el.className = 'ptr'; document.body.appendChild(el);
-  const MAX = 160, GO = 90, TOP = 12; let y0 = null, d = 0, busy = false;
-  // d — насколько тянем; мяч висит сверху и вытягивается вниз, сужаясь (объём сохраняется)
-  const pose = d => { const k = 1 + d / 110; return `translateY(${TOP + (k - 1) * 22}px) scale(${1 / Math.sqrt(k)}, ${k})`; };   // верх мяча прибит к потолку
-  const show = d => { el.style.opacity = Math.min(1, d / 30); el.style.transform = pose(d); };
-  addEventListener('touchstart', e => { if (!busy && scrollY <= 0 && e.touches.length === 1) { y0 = e.touches[0].clientY; d = 0; } }, {passive: true});
+  const R = 22, REST = -R - 6, GO = 120, PULL = 300;
+  const band = document.createElement('div'); band.className = 'ptr-band';
+  const ball = document.createElement('div'); ball.className = 'ptr';
+  document.body.append(band, ball);
+  let y = REST, sx = 1, sy = 1, rot = 0, attached = true, y0 = null, busy = false, raf = 0;
+  const draw = () => {
+    ball.style.transform = `translate3d(0, ${y - R}px, 0) rotate(${rot}deg) scale(${sx}, ${sy})`;
+    const top = y - R * sy;   // верх мяча
+    band.style.transform = `scaleY(${attached ? Math.max(0, top) : 0})`;
+    band.style.opacity = attached && top > 0 ? 1 : 0;
+  };
+  const shape = s => { sy = 1 + s; sx = 1 / Math.sqrt(sy); };   // вытягивание с сохранением объёма
+  draw();
+  addEventListener('touchstart', e => { if (!busy && scrollY <= 0 && e.touches.length === 1) { y0 = e.touches[0].clientY; cancelAnimationFrame(raf); } }, {passive: true});
   addEventListener('touchmove', e => {
     if (y0 === null) return; const dy = e.touches[0].clientY - y0;
-    if (dy <= 0 || scrollY > 0) { y0 = null; show(0); el.style.opacity = 0; return; }
-    e.preventDefault(); d = MAX * (1 - Math.exp(-dy / MAX)); show(d);   // чем дальше, тем туже
+    if (dy <= 0 || scrollY > 0) { y0 = null; back(); return; }
+    e.preventDefault();
+    const d = PULL * (1 - Math.exp(-dy / PULL));   // чем дальше, тем туже резинка
+    y = REST + d; shape(Math.min(.22, d / 900)); draw();
   }, {passive: false});
-  addEventListener('touchend', async () => {
-    if (y0 === null) return; y0 = null;
-    if (d < GO) {   // не дотянул — пружиной обратно
-      el.animate([{transform: pose(d), opacity: 1}, {transform: `translateY(${TOP}px) scale(1.1,.9)`, opacity: 1, offset: .5}, {transform: `translateY(-60px) scale(1,1)`, opacity: 0}], {duration: 380, easing: 'ease-out', fill: 'forwards'})
-        .finished.then(() => { el.getAnimations().forEach(a => a.cancel()); el.style.opacity = 0; });
-      return;
-    }
+  addEventListener('touchend', () => { if (y0 === null) return; y0 = null; (y - REST >= GO) ? launch() : back(); });
+
+  // не дотянул — пружина с затуханием обратно за край
+  function back() {
+    let v = 0, t = performance.now();
+    const step = now => { const dt = Math.min(.032, (now - t) / 1000); t = now;
+      v += (-260 * (y - REST) - 22 * v) * dt; y += v * dt; shape(Math.max(-.12, Math.min(.2, -v / 3000)));
+      draw(); if (Math.abs(y - REST) > .5 || Math.abs(v) > 5) raf = requestAnimationFrame(step); else { y = REST; shape(0); draw(); } };
+    raf = requestAnimationFrame(step);
+  }
+  // дотянул — резинка выстреливает вверх, удар о потолок, падение
+  function launch() {
     busy = true;
     const fresh = fetch(location.pathname + location.search, {cache: 'reload'}).catch(() => {});
-    const H = innerHeight + 80;
-    const anim = el.animate([
-      {transform: pose(d), opacity: 1, easing: 'cubic-bezier(.2,0,.4,1)'},
-      {transform: 'translateY(-14px) scale(1.45,.55)', opacity: 1, offset: .16, easing: 'ease-out'},   // удар о потолок — сплющило
-      {transform: 'translateY(-2px) scale(.9,1.12) rotate(40deg)', opacity: 1, offset: .26, easing: 'cubic-bezier(.55,0,1,.6)'},  // отскок
-      {transform: `translateY(${H}px) scale(.9,1.12) rotate(540deg)`, opacity: 1}   // падение с ускорением
-    ], {duration: 1100, fill: 'forwards'});
-    await Promise.all([anim.finished, fresh]);
-    location.reload();
-  });
+    let v = 0, t = performance.now(), phase = 'up', hitAt = 0;
+    const H = innerHeight;
+    const step = now => { const dt = Math.min(.032, (now - t) / 1000); t = now;
+      if (phase === 'up') {
+        v += -900 * (y - REST) * dt; y += v * dt;            // жёсткая резинка тянет вверх
+        shape(Math.min(.35, Math.abs(v) / 4500));             // вытянуло скоростью
+        if (y - R * sy <= 0) { phase = 'hit'; hitAt = now; attached = false; y = R * .62; sy = .62; sx = 1.38; }
+      } else if (phase === 'hit') {                            // сплющило о потолок
+        if (now - hitAt > 70) { phase = 'fall'; v = 260; }
+      } else {                                                 // отскок и свободное падение
+        v += 2600 * dt; y += v * dt; rot += v * dt * .9;
+        const k = Math.min(1, (now - hitAt - 70) / 160); sx = 1.38 + (0.94 - 1.38) * k; sy = .62 + (1.08 - .62) * k;
+        if (y - R > H + 20) { draw(); fresh.then(() => location.reload()); return; }
+      }
+      draw(); raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+  }
 })();
 </script>
 <script src="vendor/leaflet.js"></script>
