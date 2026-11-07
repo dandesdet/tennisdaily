@@ -357,6 +357,7 @@ html.standalone body{overscroll-behavior-y:contain}
 .vids>.vid.wide{flex-basis:480px}.vid.wide .vplay{aspect-ratio:16/9}
 @media (max-width:600px){.vids>.vid.wide{flex-basis:86vw}}
 a.vplay{display:block}
+.vrow{font:600 20px/1.2 var(--body);margin:0 0 16px}.vids+.vrow{margin-top:48px}
 </style>
 </head>
 <body>
@@ -575,6 +576,7 @@ a.vplay{display:block}
 <!-- ====== VIDEO ====== -->
 <section id="video">
   <div class="sh"><h2 data-ru>Видео с кортов</h2><h2 data-uz>Kortlardan video</h2><h2 data-en>Videos from the courts</h2></div>
+  <h3 class="vrow" data-ru>Короткие ролики</h3><h3 class="vrow" data-uz>Qisqa videolar</h3><h3 class="vrow" data-en>Shorts</h3>
   <div class="vids">
     <article class="vid" data-d="2026-11-05">
       <button type="button" class="vplay" data-id="iPalS-TlosY" aria-label="Смотреть"><img src="https://i.ytimg.com/vi/iPalS-TlosY/oar2.jpg" alt="" loading="lazy"><span class="pl"></span></button>
@@ -588,6 +590,9 @@ a.vplay{display:block}
       <p class="muted" data-ru>4 ноября, 5:30 утра · Ravshan court (AJOU)</p><p class="muted" data-uz>4-noyabr, ertalab 5:30 · Ravshan court (AJOU)</p><p class="muted" data-en>4 November, 5:30 am · Ravshan court (AJOU)</p>
       <p class="ct"><a href="https://www.youtube.com/shorts/1sYwySHxVy4" target="_blank" rel="noopener"><span data-ru>На YouTube</span><span data-uz>YouTube’da</span><span data-en>On YouTube</span></a></p>
     </article>
+  </div>
+  <h3 class="vrow" data-ru>Матчи целиком</h3><h3 class="vrow" data-uz>To‘liq o‘yinlar</h3><h3 class="vrow" data-en>Full matches</h3>
+  <div class="vids">
     <article class="vid wide" data-d="2026-11-07">
       <a class="vplay" href="https://swing.vision/matches/sw2-yP7YidM" target="_blank" rel="noopener" aria-label="Смотреть"><img src="img/sv_RRQ2yfs.webp" alt="" loading="lazy"><span class="pl"></span></a>
       <h3 data-ru>Каримходжаев / Хидоятов — RG / Алишер Хакимов</h3><h3 data-uz>Karimxo‘jayev / Hidoyatov — RG / Alisher Hakimov</h3><h3 data-en>Karimkhodjaev / Khidoyatov vs RG / Alisher Khakimov</h3>
@@ -1068,6 +1073,14 @@ document.querySelector('.a2hs-link')?.addEventListener('click', e => {
   };
   tick(); setInterval(tick, 60000);
 })();
+</script>
+<script>
+// пустой этаж видео (всё ушло в архив) — убираем вместе с его заголовком
+document.querySelectorAll('#video .vids').forEach(v => {
+  if (v.querySelector('article')) return;
+  let p = v.previousElementSibling; while (p && p.classList.contains('vrow')) { const q = p.previousElementSibling; p.remove(); p = q; }
+  v.remove();
+});
 </script>
 </body>
 </html>
