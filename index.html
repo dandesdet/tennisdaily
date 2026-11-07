@@ -665,8 +665,6 @@ html.standalone body{overscroll-behavior-y:contain}
 })();
 </script>
 <script>
-// Потяни вниз — обновить. Только в приложении с рабочего стола: в браузере это уже делает сам браузер
-<script>
 // Потяни вниз — обновить. Мяч резиновый: тянется за пальцем, отпустил — бьётся о потолок и падает вниз за экран.
 // Работает в приложении с рабочего стола (в браузере это делает сам браузер); для проверки в браузере — ?ptr
 (() => {
@@ -702,7 +700,11 @@ html.standalone body{overscroll-behavior-y:contain}
     location.reload();
   });
 })();
-</script>:"courts 1–4 closed", dEn:"Sharaf Rashidov St, next to the Amirov football school. Courts 1–4 are closed; indoor courts are planned in their place. Check the rest by phone or with the players.", uz:'Burevestnik', st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', since:'2026-11-07', ll:[41.3306,69.2752], dRu:'Шараф Рашидова, рядом с футбольной школой Амирова. Корты 1–4 закрыты, на их месте планируют крытые. Про остальные уточняйте.', dUz:'Sharaf Rashidov ko‘chasi, Amirov futbol maktabi yonida. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan.', img:'img/courts/burevestnik_sat.webp', bk:[], t:[["c", "o"]]},
+</script>
+<script src="vendor/leaflet.js"></script>
+<script>
+const COURTS = [
+  {ru:'Буревестник', en:"Burevestnik", stEn:"courts 1–4 closed", dEn:"Sharaf Rashidov St, next to the Amirov football school. Courts 1–4 are closed; indoor courts are planned in their place. Check the rest by phone or with the players.", uz:'Burevestnik', st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', since:'2026-11-07', ll:[41.3306,69.2752], dRu:'Шараф Рашидова, рядом с футбольной школой Амирова. Корты 1–4 закрыты, на их месте планируют крытые. Про остальные уточняйте.', dUz:'Sharaf Rashidov ko‘chasi, Amirov futbol maktabi yonida. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan.', img:'img/courts/burevestnik_sat.webp', bk:[], t:[["c", "o"]]},
   {ru:'Туринский политех', en:"Turin Polytechnic", stEn:"new", dEn:"Kichik Halqa Yo‘li, 17. Indoor court, changing rooms and showers. Tennis plus groups, by sign-up.", uz:'Turin politexnikasi', st:'new', stRu:'новый', stUz:'yangi', since:'2026-11-02', ll:[41.350545,69.222192], dRu:'Малая кольцевая, 17. Крытый корт, раздевалки и душ. Группы Tennis plus, по записи.', dUz:'Kichik halqa yo‘li, 17. Yopiq kort, dush. Tennis plus, yozilish orqali.', tel:'+998900130140', img:'img/courts/turin.webp', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i"]]},
   {ru:'Ёшлик (Старт)', en:"Yoshlik (Start)", stEn:"+50,000 entry fee", dEn:"Outdoor clay and an indoor hard court. Outdoors before 17:00 — 100,000/hour, plus 50,000 entry.", uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', ll:[41.324598,69.306003], dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час, плюс 50 000 за вход.', dUz:'Ochiq grunt va yopiq hard. Kort ijarasi + 50 000 kirish.', tel:'+998931712333', img:'img/courts/yoshlik.webp', h:'05:00–23:00', bk:[], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', img:'img/courts/mgu.webp', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o"]]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
