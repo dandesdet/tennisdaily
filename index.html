@@ -654,7 +654,7 @@ function initLeaflet() {
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
   marks = COURTS.map(c => {
-    const m = L.marker(c.ll, {icon: L.icon({iconUrl: ball(c.st === 'off'), iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -18]})})
+    const m = L.marker(c.ll, {icon: L.icon({iconUrl: ball(c.st === 'off'), iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8]})})
       .addTo(map).bindPopup(popup(c), {maxWidth: 300});
     let pin = false, t;
     const hide = () => { if (pin) return; clearTimeout(t); t = setTimeout(() => m.closePopup(), 300); };
@@ -664,7 +664,7 @@ function initLeaflet() {
     return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
   });
   map.fitBounds(L.latLngBounds(COURTS.filter(c => !c.far).map(c => c.ll).concat(LANDMARKS.map(l => l.ll))), {padding: [40, 40]});
-  window.LM = LANDMARKS.map(l => L.marker(l.ll, {interactive: false, zIndexOffset: -100, icon: L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})}).addTo(map));
+  window.LM = LANDMARKS.map(l => L.marker(l.ll, {interactive: false, zIndexOffset: 1000, icon: L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})}).addTo(map));
   map.on('popupclose', unmark);
 }
 // маркер — теннисный мяч; закрытый корт — серый мяч
@@ -706,7 +706,7 @@ window.initGoogle = () => {
   marks = COURTS.map(c => {
     const pos = {lat: c.ll[0], lng: c.ll[1]}; if (!c.far) b.extend(pos);
     const m = new g.Marker({position: pos, map, zIndex: 10,
-      icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(40, 40), anchor: new g.Point(20, 20)}});
+      icon: {url: ball(c.st === 'off'), scaledSize: new g.Size(16, 16), anchor: new g.Point(8, 8)}});
     const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
     // наведение — быстрый просмотр с фото; клик — закрепить карточку
     m.addListener('mouseover', () => { clearTimeout(hideT); if (!pinned && cur !== c) open(); });
@@ -716,7 +716,7 @@ window.initGoogle = () => {
   });
   LANDMARKS.forEach(l => b.extend({lat: l.ll[0], lng: l.ll[1]}));
   map.fitBounds(b, 40);
-  window.LM = LANDMARKS.map(l => new g.Marker({position: {lat: l.ll[0], lng: l.ll[1]}, map, clickable: false, zIndex: 1,
+  window.LM = LANDMARKS.map(l => new g.Marker({position: {lat: l.ll[0], lng: l.ll[1]}, map, clickable: false, zIndex: 1000,
     icon: {url: lmIcon(l), scaledSize: new g.Size(32, 32), anchor: new g.Point(16, 16), labelOrigin: new g.Point(16, 44)},
     label: {text: l[lang] || l.ru, className: 'lm-label', color: '#111', fontSize: '14px', fontWeight: '600'}}));
 };
