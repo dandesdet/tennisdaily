@@ -340,6 +340,9 @@ html.standalone body{overscroll-behavior-y:contain}
 .dm{font:600 16px/1.3 var(--body);color:var(--court);text-decoration:none}.dm:hover{color:var(--ink)}
 .chk{flex-basis:100%;font:400 16px/1.3 var(--body);color:var(--muted)}
 .fact.sf::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--sf);margin-right:8px;vertical-align:1px}
+.a2hs-app{display:flex;flex-direction:column;align-items:center;gap:6px;width:max-content;margin:4px 0 16px;font:500 13px/1 var(--body);color:var(--ink)}
+.a2hs-app img{width:60px;height:60px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.a2hs .ico{width:20px;height:20px;vertical-align:-4px;margin:0 2px;fill:currentColor}
 </style>
 </head>
 <body>
@@ -652,15 +655,11 @@ html.standalone body{overscroll-behavior-y:contain}
     <p><a class="tg-btn" href="https://t.me/tennisdaily_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.1l8.9-5.6c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.5-4.8Z" fill="currentColor"/></svg><span data-ru>Подписывайтесь</span><span data-uz>Obuna bo‘ling</span><span data-en>Subscribe</span></a></p>
     <h4 class="a2hs-h" data-ru>Tennis Daily на рабочем столе</h4><h4 class="a2hs-h" data-uz>Tennis Daily ish stolida</h4><h4 class="a2hs-h" data-en>Tennis Daily on your home screen</h4>
     <div class="a2hs" id="a2hs">
-      <ol class="a2hs-ios"><span class="os">iPhone</span>
-        <li data-ru>Откройте сайт в Safari</li><li data-uz>Saytni Safari’da oching</li><li data-en>Open the site in Safari</li>
-        <li data-ru>Нажмите «Поделиться» <span class="ic">⬆︎</span> внизу экрана</li><li data-uz>Pastdagi «Ulashish» <span class="ic">⬆︎</span> tugmasini bosing</li><li data-en>Tap Share <span class="ic">⬆︎</span> at the bottom</li>
-        <li data-ru>Выберите «На экран „Домой“» → «Добавить»</li><li data-uz>«Bosh ekranga» → «Qo‘shish»ni tanlang</li><li data-en>Choose “Add to Home Screen” → Add</li>
-      </ol>
-      <ol class="a2hs-and"><span class="os">Android</span>
-        <li data-ru>Откройте сайт в Chrome</li><li data-uz>Saytni Chrome’da oching</li><li data-en>Open the site in Chrome</li>
-        <li data-ru>Нажмите меню <span class="ic">⋮</span> справа вверху</li><li data-uz>Yuqori o‘ngdagi <span class="ic">⋮</span> menyuni bosing</li><li data-en>Tap the <span class="ic">⋮</span> menu, top right</li>
-        <li data-ru>Выберите «Добавить на главный экран»</li><li data-uz>«Bosh ekranga qo‘shish»ni tanlang</li><li data-en>Choose “Add to Home screen”</li>
+      <div class="a2hs-app"><img src="/img/apple-touch-icon.png" alt="" width="60" height="60"><span>Tennis Daily</span></div>
+      <ol class="a2hs-all">
+        <li data-ru>Откройте tennisdaily.uz в браузере телефона</li><li data-uz>tennisdaily.uz saytini telefon brauzerida oching</li><li data-en>Open tennisdaily.uz in your phone’s browser</li>
+        <li data-ru>Откройте меню браузера: «Поделиться» <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> на iPhone или <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg> на Android</li><li data-uz>Brauzer menyusini oching: iPhone’da «Ulashish» <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>, Android’da <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg></li><li data-en>Open the browser menu: Share <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> on iPhone or <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg> on Android</li>
+        <li data-ru>Выберите «На экран „Домой“», «Добавить на главный экран» или «Установить приложение» — название зависит от браузера</li><li data-uz>«Bosh ekranga», «Bosh ekranga qo‘shish» yoki «Ilovani o‘rnatish»ni tanlang — nomi brauzerga bog‘liq</li><li data-en>Choose “Add to Home Screen” or “Install app” — the wording depends on the browser</li>
       </ol>
       <button type="button" class="tg-btn a2hs-btn" hidden><span data-ru>Добавить на рабочий стол</span><span data-uz>Ish stoliga qo‘shish</span><span data-en>Add to home screen</span></button>
     </div>
