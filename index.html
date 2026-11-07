@@ -321,7 +321,6 @@ footer .tg-btn{margin:8px 0 40px}
 a.tg-btn,.tg-note,.tg-h,footer p:has(>a.tg-btn){display:none!important}
 .a2hs-btn[hidden]{display:none}
 .ptr{position:fixed;left:50%;top:0;width:44px;height:44px;margin-left:-22px;z-index:51;pointer-events:none;background:url(img/ball.png) center/contain no-repeat;will-change:transform}
-.ptr-band{position:fixed;left:50%;top:0;width:2px;height:1px;margin-left:-1px;z-index:50;pointer-events:none;background:#3A3A36;border-radius:1px;transform-origin:50% 0;opacity:0;will-change:transform}
 html.standalone body{overscroll-behavior-y:contain}
 .spots{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);width:max-content}
 .spots::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
@@ -666,21 +665,17 @@ html.standalone body{overscroll-behavior-y:contain}
 })();
 </script>
 <script>
-// Потяни вниз — обновить. Мяч висит на резинке над краем экрана: тянешь — выезжает за пальцем и чуть вытягивается,
-// отпустил — резинка дёргает его вверх, он бьётся о потолок, срывается и падает вниз за экран.
+// Потяни вниз — обновить. Мяч висит на невидимой резинке над краем экрана: тянешь — выезжает за пальцем и чуть вытягивается,
+// отпустил — резинка выстреливает его вверх за край.
 // Работает в приложении с рабочего стола (в браузере это делает сам браузер); для проверки в браузере — ?ptr
 (() => {
   if (!(matchMedia('(display-mode: standalone)').matches || navigator.standalone || /[?&]ptr\b/.test(location.search))) return;
   const R = 22, REST = -R - 6, GO = 120, PULL = 300;
-  const band = document.createElement('div'); band.className = 'ptr-band';
   const ball = document.createElement('div'); ball.className = 'ptr';
-  document.body.append(band, ball);
-  let y = REST, sx = 1, sy = 1, rot = 0, attached = true, y0 = null, busy = false, raf = 0;
+  document.body.append(ball);
+  let y = REST, sx = 1, sy = 1, rot = 0, y0 = null, busy = false, raf = 0;
   const draw = () => {
     ball.style.transform = `translate3d(0, ${y - R}px, 0) rotate(${rot}deg) scale(${sx}, ${sy})`;
-    const top = y - R * sy;   // верх мяча
-    band.style.transform = `scaleY(${attached ? Math.max(0, top) : 0})`;
-    band.style.opacity = attached && top > 0 ? 1 : 0;
   };
   const shape = s => { sy = 1 + s; sx = 1 / Math.sqrt(sy); };   // вытягивание с сохранением объёма
   draw();
@@ -702,25 +697,17 @@ html.standalone body{overscroll-behavior-y:contain}
       draw(); if (Math.abs(y - REST) > .5 || Math.abs(v) > 5) raf = requestAnimationFrame(step); else { y = REST; shape(0); draw(); } };
     raf = requestAnimationFrame(step);
   }
-  // дотянул — резинка выстреливает вверх, удар о потолок, падение
+  // дотянул — невидимая резинка выстреливает мяч вверх, и он улетает за край экрана
   function launch() {
     busy = true;
     const fresh = fetch(location.pathname + location.search, {cache: 'reload'}).catch(() => {});
-    let v = 0, t = performance.now(), phase = 'up', hitAt = 0;
-    const H = innerHeight;
+    let v = 0, t = performance.now();
     const step = now => { const dt = Math.min(.032, (now - t) / 1000); t = now;
-      if (phase === 'up') {
-        v += -900 * (y - REST) * dt; y += v * dt;            // жёсткая резинка тянет вверх
-        shape(Math.min(.35, Math.abs(v) / 4500));             // вытянуло скоростью
-        if (y - R * sy <= 0) { phase = 'hit'; hitAt = now; attached = false; y = R * .62; sy = .62; sx = 1.38; }
-      } else if (phase === 'hit') {                            // сплющило о потолок
-        if (now - hitAt > 70) { phase = 'fall'; v = 260; }
-      } else {                                                 // отскок и свободное падение
-        v += 2600 * dt; y += v * dt; rot += v * dt * .9;
-        const k = Math.min(1, (now - hitAt - 70) / 160); sx = 1.38 + (0.94 - 1.38) * k; sy = .62 + (1.08 - .62) * k;
-        if (y - R > H + 20) { draw(); fresh.then(() => location.reload()); return; }
-      }
-      draw(); raf = requestAnimationFrame(step); };
+      v += (-900 * (y - REST) - 1800) * dt; y += v * dt;       // резинка + разгон вверх
+      shape(Math.min(.35, Math.abs(v) / 4500));                // вытянуло скоростью
+      draw();
+      if (y + R * sy < -40) { fresh.then(() => location.reload()); return; }
+      raf = requestAnimationFrame(step); };
     raf = requestAnimationFrame(step);
   }
 })();
