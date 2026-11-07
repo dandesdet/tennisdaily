@@ -568,7 +568,7 @@ html.standalone body{overscroll-behavior-y:contain}
 
 <!-- ====== NEWS ====== -->
 <section id="news">
-  <div class="sh"><h2 data-ru>Что изменилось</h2><h2 data-uz>Nima o‘zgardi</h2><h2 data-en>What changed</h2><span class="hand" data-ru>и что это значит для вас</span><span class="hand" data-uz>va bu sen uchun nima degani</span><span class="hand" data-en>and what it means for you</span></div>
+  <div class="sh"><h2 data-ru>Что изменилось</h2><h2 data-uz>Nima o‘zgardi</h2><h2 data-en>What changed</h2><span class="hand" data-ru>и что это значит для вас</span><span class="hand" data-uz>va bu siz uchun nima degani</span><span class="hand" data-en>and what it means for you</span></div>
   <div class="news">
     <article class="nw" data-d="2026-11-07">
       <img class="nph" src="img/courts/burevestnik.webp" alt="" loading="lazy">
@@ -613,6 +613,20 @@ html.standalone body{overscroll-behavior-y:contain}
     </article>
   </div>
   <p class="arch-link"><a href="?archive"><span data-ru>Архив: старые итоги, анонсы и новости</span><span data-uz>Arxiv: eski natijalar, e’lonlar va yangiliklar</span><span data-en>Archive: older results, announcements and news</span> →</a></p>
+</section>
+
+<!-- ====== GEAR ====== -->
+<section id="gear">
+  <div class="sh"><h2 data-ru>Новинки экипировки</h2><h2 data-uz>Yangi jihozlar</h2><h2 data-en>New gear</h2></div>
+  <div class="news">
+    <article class="nw" data-d="2026-11-01">
+      <img class="nph" src="img/gear_blade100pro.webp" alt="Wilson Blade 100 Pro v10" loading="lazy">
+      <div><h3 data-ru>Wilson Blade 100 Pro v10 — новая ракетка в линейке Blade</h3><h3 data-uz>Wilson Blade 100 Pro v10 — Blade qatoridagi yangi raketka</h3><h3 data-en>Wilson Blade 100 Pro v10 — a new frame in the Blade line</h3><span class="src" data-ru>Wilson · обзор от 1 ноября</span><span class="src" data-uz>Wilson · 1-noyabrdagi sharh</span><span class="src" data-en>Wilson · review of 1 November</span>
+        <p data-ru>Голова 100 кв. дюймов, натяжка 16×20, 295 г без струн, самый толстый и жёсткий обод в семействе Blade. В США — $299, в Европе — около €260.</p><p data-uz>Kallagi 100 kv. dyuym, tor 16×20, torsiz 295 g, Blade oilasidagi eng qalin va qattiq gardish. AQShda — $299, Yevropada — taxminan €260.</p><p data-en>100 sq in head, 16×20 pattern, 295 g unstrung, the thickest and stiffest beam in the Blade family. $299 in the US, about €260 in Europe.</p>
+        <p class="ct"><a href="https://www.wilson.com/en-us/products/blade-100-pro-v10-tennis-racket-wr20810" target="_blank" rel="noopener"><span data-ru>Wilson</span><span data-uz>Wilson</span><span data-en>Wilson</span></a><a href="https://www.tennisnerd.net/?p=70289" target="_blank" rel="noopener"><span data-ru>Обзор Tennisnerd</span><span data-uz>Tennisnerd sharhi</span><span data-en>Tennisnerd review</span></a><a href="https://www.tennis-warehouse.com/learning_center/racquet_reviews/WB100Preview.html" target="_blank" rel="noopener"><span data-ru>Тест Tennis Warehouse</span><span data-uz>Tennis Warehouse testi</span><span data-en>Tennis Warehouse playtest</span></a></p></div>
+      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Для тех, кто играет агрессивно с задней линии: мощнее и стабильнее обычной Blade 98. Ракетка жёсткая — сначала попробуйте её у знакомых. Продаётся ли она уже в Ташкенте, мы не знаем; знаете магазин — напишите @dandesdet.</p><p data-uz>Orqa chiziqdan hujumkor o‘ynaydiganlar uchun: oddiy Blade 98 dan kuchliroq va barqarorroq. Raketka qattiq — avval tanishlarnikida sinab ko‘ring. Toshkentda sotilayotganini bilmaymiz; do‘konni bilsangiz — @dandesdet ga yozing.</p><p data-en>For aggressive baseliners: more power and stability than the regular Blade 98. It’s a stiff frame — try a friend’s first. We don’t know yet if it’s sold in Tashkent; if you know a shop, message @dandesdet.</p></div>
+    </article>
+  </div>
 </section>
 
 <!-- ====== COURTS ====== -->
@@ -666,7 +680,7 @@ html.standalone body{overscroll-behavior-y:contain}
   const ARCH = new URLSearchParams(location.search).has('archive');
   const day = d => Date.parse(d + 'T00:00:00+05:00');
   const today = day(new Date(Date.now() + 5 * 36e5).toISOString().slice(0, 10));
-  const keep = {soon: today, results: today - 7 * 864e5, video: today - 7 * 864e5, news: today - 7 * 864e5};
+  const keep = {soon: today, results: today - 7 * 864e5, video: today - 7 * 864e5, news: today - 7 * 864e5, gear: today - 7 * 864e5};
   for (const [id, from] of Object.entries(keep)) {
     const sec = document.getElementById(id); if (!sec) continue;
     const arts = [...sec.querySelectorAll('article[data-d]')];
