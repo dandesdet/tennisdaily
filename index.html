@@ -324,6 +324,14 @@ a.tg-btn,.tg-note,.tg-h,footer p:has(>a.tg-btn){display:none!important}
 .ptr.go{transition:transform .2s,opacity .2s}.ptr.spin{animation:ptrspin .7s linear infinite}
 @keyframes ptrspin{to{rotate:360deg}}
 html.standalone body{overscroll-behavior-y:contain}
+.spots{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);width:max-content}
+.spots::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
+.spots.full{color:var(--clay)}.spots.full::before{background:#D93025}
+.spots.open{color:var(--court)}.spots.open::before{background:#1FA45B;box-shadow:0 0 0 4px rgba(31,164,91,.18)}
+.spots-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cta{display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:var(--pill);background:var(--ball);color:var(--ink);font:600 16px/1 var(--body);text-decoration:none;box-shadow:0 0 0 1px #A9B82C inset;transition:background .15s,transform .1s}
+.cta:hover{background:#D0E03A}.cta:active{transform:scale(.97)}
+.mini.trip .spots,.mini.trip .spots-row{margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -347,7 +355,7 @@ html.standalone body{overscroll-behavior-y:contain}
 <nav class="ticker" aria-label="Коротко">
   <a href="#news"><span>●</span><span data-ru>«Буревестник»: корты 1–4 закрыты</span><span data-uz>«Burevestnik»: 1–4-kortlar yopildi</span><span data-en>Burevestnik: courts 1–4 closed</span></a>
   <a href="#news"><span>●</span><span data-ru>AJOU: на вход нужен бейдж</span><span data-uz>AJOU: kirish beyj orqali</span><span data-en>AJOU: badge needed to enter</span></a>
-  <a href="#soon"><span>●</span><span data-ru>Laver Cup — завтра, мест нет, только резерв</span><span data-uz>Laver Cup — ertaga, joy yo‘q, faqat zaxira</span><span data-en>Laver Cup — tomorrow, full, reserve list only</span></a>
+  <a href="#soon"><span>●</span><span data-ru>Турнир для всех в «Умиде» 8 ноября — 5 свободных мест</span><span data-uz>8-noyabr «Umid»da hamma uchun turnir — 5 ta joy bor</span><span data-en>Open tournament at Umid on 8 Nov — 5 spots left</span></a>
   <a href="#soon"><span>●</span><span data-ru>Пары в Учкуне 8 ноября — 2 свободные пары</span><span data-uz>8-noyabr Uchqunda juftlik — 2 juftga joy bor</span><span data-en>Doubles at Uchqun on 8 Nov — 2 pairs still needed</span></a>
   <a href="#news"><span>●</span><span data-ru>Ёшлик: +50 000 сум за вход</span><span data-uz>Yoshlik: kirish +50 000 so‘m</span><span data-en>Yoshlik: +50,000 sum entry fee</span></a>
   <a href="#courts"><span>●</span><span data-ru>Открылся крытый корт в Туринском политехе</span><span data-uz>Turin politexnikasida yopiq kort ochildi</span><span data-en>New indoor court at Turin Polytechnic</span></a>
@@ -355,12 +363,13 @@ html.standalone body{overscroll-behavior-y:contain}
 
 <!-- ====== SOON ====== -->
 <section id="soon">
-  <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><h2 data-en>This weekend</h2><span class="hand" data-ru>успей записаться</span><span class="hand" data-uz>yozilishga ulguring</span><span class="hand" data-en>sign up in time</span></div>
+  <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><h2 data-en>This weekend</h2></div>
   <div class="events">
     <article class="ev big" data-d="2026-11-07">
       <div class="ph"><img src="img/laver.webp" alt="Афиша Laver Cup 7 ноября, Меридиан"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><small data-en>Sat</small><b>7</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
+        <span class="spots full"><span data-ru>Мест нет — только резерв</span><span data-uz>Joy yo‘q — faqat zaxira</span><span data-en>Full — reserve list only</span></span>
         <h3>Laver Cup · <span data-ru>Меридиан</span><span data-uz>Meridian</span><span data-en>Meridian</span></h3>
         <div class="facts"><span class="fact">16:00–22:00</span><span class="fact">NTRP ≤ 3.75</span><span class="fact" data-ru>400 000 сум · корт, мячи, ужин</span><span class="fact" data-uz>400 000 so‘m · kort, koptok, kechki ovqat</span><span class="fact" data-en>400,000 sum · court, balls, dinner</span><span class="fact" data-ru>Спонсор DI sport</span><span class="fact" data-uz>Homiy DI sport</span><span class="fact" data-en>Sponsor DI sport</span></div>
         <div class="fill">
@@ -379,6 +388,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <div class="ph"><img src="img/uchqun.webp" alt="Афиша парного турнира 8 ноября, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>8</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
         <div class="bd">
         <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
+          <div class="spots-row"><span class="spots open"><span data-ru>Осталось 2 пары</span><span data-uz>2 juftga joy bor</span><span data-en>2 pairs left</span></span><a class="cta" href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a></div>
           <h3 data-ru>Пары · Учкун</h3><h3 data-uz>Juftlik · Uchqun</h3><h3 data-en>Doubles · Uchqun</h3>
           <div class="facts"><span class="fact">16:00–22:00</span><span class="fact" data-ru>хард под навесом</span><span class="fact" data-uz>ayvon ostidagi hard</span><span class="fact" data-en>hard court under a roof</span><span class="fact" data-ru>NTRP пары ≤ 7.0</span><span class="fact" data-uz>Juft NTRP ≤ 7.0</span><span class="fact" data-en>pair NTRP ≤ 7.0</span><span class="fact" data-ru>350 000 сум с игрока</span><span class="fact" data-uz>o‘yinchi boshiga 350 000</span><span class="fact" data-en>350,000 sum per player</span></div>
           <div class="fill">
@@ -405,6 +415,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <img src="img/meridian_ev.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 16:00</span><span class="tag" data-uz>Ya, 8-noyabr · 16:00</span><span class="tag" data-en>Sun, 8 November · 16:00</span>
+        <span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span>
         <h3 data-ru>Одиночка NTRP 3.75–4.0 · Меридиан</h3><h3 data-uz>Yakkalik NTRP 3.75–4.0 · Meridian</h3><h3 data-en>Singles NTRP 3.75–4.0 · Meridian</h3>
         <p style="margin:0" data-ru>Мужчины, 8 игроков: 2 группы по 4, потом две лиги. Один сет до 6, хард. Сетка заполнена.</p><p style="margin:0" data-uz>Erkaklar, 8 o‘yinchi: 2 guruh, keyin ikki liga. Bir set 6 gacha, hard. Setka to‘ldi.</p><p style="margin:0" data-en>Men, 8 players: 2 groups of 4, then two leagues. One set to 6, hard court. Draw is full.</p>
         <p class="ct"><a href="https://playon.uz/tournaments/cmvp0a1y2000001moscqlfrjp" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
@@ -414,6 +425,7 @@ html.standalone body{overscroll-behavior-y:contain}
         <img src="img/courts/umid.webp" alt="">
         <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <span class="tag" data-ru>Вс, 8 ноября · 19:00–21:30</span><span class="tag" data-uz>Ya, 8-noyabr · 19:00–21:30</span><span class="tag" data-en>Sun, 8 November · 19:00–21:30</span>
+        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 5 мест из 8</span><span data-uz>8 tadan 5 ta joy bor</span><span data-en>5 of 8 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a></div>
         <h3 data-ru>Любительский турнир для всех · «Умид»</h3><h3 data-uz>Hamma uchun havaskor turnir · «Umid»</h3><h3 data-en>Amateur tournament for everyone · Umid</h3>
         <p style="margin:0" data-ru>Одиночка на вылет, сетка 8, сет до 4, хард. Взнос 250 000 сум. Записалось 3 из 8. Спорткомплекс «Умид», Ялангач, 82А.</p><p style="margin:0" data-uz>Yakkalik, setka 8, set 4 gacha, hard. Badal 250 000 so‘m. 8 tadan 3 yozildi. «Umid» sport majmuasi, Yalang‘och, 82A.</p><p style="margin:0" data-en>Singles knockout, draw of 8, sets to 4, hard. Entry 250,000 sum. 3 of 8 signed up. Umid sports complex, Yalangach 82A.</p>
         <p class="ct"><a href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Запись на PlayOn</span><span data-uz>PlayOn’da yozilish</span><span data-en>Sign up on PlayOn</span></a><a href="https://t.me/brazilname" target="_blank" rel="noopener"><span data-ru>Организатор · Полина</span><span data-uz>Tashkilotchi · Polina</span><span data-en>Organizer · Polina</span></a></p>
