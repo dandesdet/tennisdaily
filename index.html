@@ -346,6 +346,11 @@ html.standalone body{overscroll-behavior-y:contain}
 .totop{position:fixed;right:20px;bottom:20px;z-index:40;width:52px;height:52px;border:0;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s,transform .2s,background .15s}
 .totop.on{opacity:1;transform:none;pointer-events:auto}.totop:hover{background:var(--court)}.totop:active{transform:scale(.94)}
 .totop svg{width:22px;height:22px}
+/* бегущая строка: видно, что дальше есть ещё — край затухает, следующий пункт выглядывает */
+.ticker{gap:32px;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 64px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 64px),transparent)}
+.ticker.end{-webkit-mask-image:none;mask-image:none}
+.ticker a{scroll-snap-align:start;flex:0 0 auto}
+@media (max-width:700px){.ticker{gap:24px}.ticker a{white-space:normal;max-width:68vw;display:flex;align-items:baseline;line-height:1.35}.ticker span:first-child{flex:none}}
 </style>
 </head>
 <body>
@@ -995,6 +1000,12 @@ document.querySelector('.a2hs-link')?.addEventListener('click', e => {
   const btn = document.querySelector('.a2hs-btn');
   if (btn && !btn.hidden) { e.preventDefault(); btn.click(); }
 });
+</script>
+<script>
+// бегущая строка: затухание справа убираем, когда долистали до конца
+(() => { const t = document.querySelector('.ticker'); if (!t) return;
+  const upd = () => t.classList.toggle('end', t.scrollLeft + t.clientWidth >= t.scrollWidth - 4);
+  t.addEventListener('scroll', upd, {passive: true}); addEventListener('resize', upd); upd(); })();
 </script>
 </body>
 </html>
