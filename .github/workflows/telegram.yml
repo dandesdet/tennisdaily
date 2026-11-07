@@ -1,0 +1,24 @@
+# Пост в канал Tennis Daily: срабатывает, когда в репо меняется tg/teaser.txt
+# Нужно: секрет TG_BOT_TOKEN (бот — админ канала), переменная TG_CHANNEL (например @tennisdaily_uz)
+name: Telegram teaser
+on:
+  push:
+    branches: [main]
+    paths: ['tg/teaser.txt']
+  workflow_dispatch:
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Send
+        env:
+          TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          CHAT: ${{ vars.TG_CHANNEL || '@tennisdaily_uz' }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "Нет секрета TG_BOT_TOKEN — пропускаю"; exit 0; fi
+          if [ -f tg/teaser.jpg ] && [ $(wc -m < tg/teaser.txt) -le 1024 ]; then
+            curl -sf "https://api.telegram.org/bot$TOKEN/sendPhoto" -F chat_id="$CHAT" -F photo=@tg/teaser.jpg -F parse_mode=HTML -F caption="<tg/teaser.txt"
+          else
+            curl -sf "https://api.telegram.org/bot$TOKEN/sendMessage" -F chat_id="$CHAT" -F parse_mode=HTML -F text="<tg/teaser.txt"
+          fi
