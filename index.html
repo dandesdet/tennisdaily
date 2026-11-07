@@ -320,9 +320,7 @@ footer .tg-btn{margin:8px 0 40px}
 /* канал ещё не создан — кнопки подписки скрыты; убрать это правило после create */
 a.tg-btn,.tg-note,.tg-h,footer p:has(>a.tg-btn){display:none!important}
 .a2hs-btn[hidden]{display:none}
-.ptr{position:fixed;left:50%;top:0;width:40px;height:40px;margin-left:-20px;z-index:50;pointer-events:none;opacity:0;transform:translateY(-48px);background:url(img/ball.png) center/40px no-repeat}
-.ptr.go{transition:transform .2s,opacity .2s}.ptr.spin{animation:ptrspin .7s linear infinite}
-@keyframes ptrspin{to{rotate:360deg}}
+.ptr{position:fixed;left:50%;top:0;width:44px;height:44px;margin-left:-22px;z-index:50;pointer-events:none;opacity:0;transform-origin:50% 0;background:url(img/ball.png) center/contain no-repeat;will-change:transform}
 html.standalone body{overscroll-behavior-y:contain}
 .spots{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);width:max-content}
 .spots::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
@@ -668,31 +666,43 @@ html.standalone body{overscroll-behavior-y:contain}
 </script>
 <script>
 // Потяни вниз — обновить. Только в приложении с рабочего стола: в браузере это уже делает сам браузер
+<script>
+// Потяни вниз — обновить. Мяч резиновый: тянется за пальцем, отпустил — бьётся о потолок и падает вниз за экран.
+// Работает в приложении с рабочего стола (в браузере это делает сам браузер); для проверки в браузере — ?ptr
 (() => {
-  const h = document.documentElement;
-  if (!(matchMedia('(display-mode: standalone)').matches || navigator.standalone)) return;
+  if (!(matchMedia('(display-mode: standalone)').matches || navigator.standalone || /[?&]ptr\b/.test(location.search))) return;
   const el = document.createElement('div'); el.className = 'ptr'; document.body.appendChild(el);
-  const MAX = 120, GO = 72; let y0 = null, d = 0, busy = false;
-  const set = (v, anim) => { el.classList.toggle('go', !!anim); el.style.opacity = Math.min(1, v / GO); el.style.transform = `translateY(${v - 48}px) rotate(${v * 3}deg)`; };
+  const MAX = 160, GO = 90, TOP = 12; let y0 = null, d = 0, busy = false;
+  // d — насколько тянем; мяч висит сверху и вытягивается вниз, сужаясь (объём сохраняется)
+  const pose = d => { const k = 1 + d / 110; return `translateY(${TOP}px) scale(${1 / Math.sqrt(k)}, ${k})`; };
+  const show = d => { el.style.opacity = Math.min(1, d / 30); el.style.transform = pose(d); };
   addEventListener('touchstart', e => { if (!busy && scrollY <= 0 && e.touches.length === 1) { y0 = e.touches[0].clientY; d = 0; } }, {passive: true});
   addEventListener('touchmove', e => {
     if (y0 === null) return; const dy = e.touches[0].clientY - y0;
-    if (dy <= 0 || scrollY > 0) { y0 = null; set(0, true); return; }
-    e.preventDefault(); d = Math.min(MAX, dy * .5); set(d);
+    if (dy <= 0 || scrollY > 0) { y0 = null; show(0); el.style.opacity = 0; return; }
+    e.preventDefault(); d = MAX * (1 - Math.exp(-dy / MAX)); show(d);   // чем дальше, тем туже
   }, {passive: false});
   addEventListener('touchend', async () => {
     if (y0 === null) return; y0 = null;
-    if (d < GO) { set(0, true); return; }
-    busy = true; set(GO, true); el.classList.add('spin');
-    try { await fetch(location.pathname + location.search, {cache: 'reload'}); } catch (e) {}
+    if (d < GO) {   // не дотянул — пружиной обратно
+      el.animate([{transform: pose(d), opacity: 1}, {transform: `translateY(${TOP}px) scale(1.1,.9)`, opacity: 1, offset: .5}, {transform: `translateY(-60px) scale(1,1)`, opacity: 0}], {duration: 380, easing: 'ease-out', fill: 'forwards'})
+        .finished.then(() => { el.getAnimations().forEach(a => a.cancel()); el.style.opacity = 0; });
+      return;
+    }
+    busy = true;
+    const fresh = fetch(location.pathname + location.search, {cache: 'reload'}).catch(() => {});
+    const H = innerHeight + 80;
+    const anim = el.animate([
+      {transform: pose(d), opacity: 1, easing: 'cubic-bezier(.2,0,.4,1)'},
+      {transform: 'translateY(-14px) scale(1.45,.55)', opacity: 1, offset: .16, easing: 'ease-out'},   // удар о потолок — сплющило
+      {transform: 'translateY(-2px) scale(.9,1.12) rotate(40deg)', opacity: 1, offset: .26, easing: 'cubic-bezier(.55,0,1,.6)'},  // отскок
+      {transform: `translateY(${H}px) scale(.9,1.12) rotate(540deg)`, opacity: 1}   // падение с ускорением
+    ], {duration: 1100, fill: 'forwards'});
+    await Promise.all([anim.finished, fresh]);
     location.reload();
   });
 })();
-</script>
-<script src="vendor/leaflet.js"></script>
-<script>
-const COURTS = [
-  {ru:'Буревестник', en:"Burevestnik", stEn:"courts 1–4 closed", dEn:"Sharaf Rashidov St, next to the Amirov football school. Courts 1–4 are closed; indoor courts are planned in their place. Check the rest by phone or with the players.", uz:'Burevestnik', st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', since:'2026-11-07', ll:[41.3306,69.2752], dRu:'Шараф Рашидова, рядом с футбольной школой Амирова. Корты 1–4 закрыты, на их месте планируют крытые. Про остальные уточняйте.', dUz:'Sharaf Rashidov ko‘chasi, Amirov futbol maktabi yonida. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan.', img:'img/courts/burevestnik_sat.webp', bk:[], t:[["c", "o"]]},
+</script>:"courts 1–4 closed", dEn:"Sharaf Rashidov St, next to the Amirov football school. Courts 1–4 are closed; indoor courts are planned in their place. Check the rest by phone or with the players.", uz:'Burevestnik', st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', since:'2026-11-07', ll:[41.3306,69.2752], dRu:'Шараф Рашидова, рядом с футбольной школой Амирова. Корты 1–4 закрыты, на их месте планируют крытые. Про остальные уточняйте.', dUz:'Sharaf Rashidov ko‘chasi, Amirov futbol maktabi yonida. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan.', img:'img/courts/burevestnik_sat.webp', bk:[], t:[["c", "o"]]},
   {ru:'Туринский политех', en:"Turin Polytechnic", stEn:"new", dEn:"Kichik Halqa Yo‘li, 17. Indoor court, changing rooms and showers. Tennis plus groups, by sign-up.", uz:'Turin politexnikasi', st:'new', stRu:'новый', stUz:'yangi', since:'2026-11-02', ll:[41.350545,69.222192], dRu:'Малая кольцевая, 17. Крытый корт, раздевалки и душ. Группы Tennis plus, по записи.', dUz:'Kichik halqa yo‘li, 17. Yopiq kort, dush. Tennis plus, yozilish orqali.', tel:'+998900130140', img:'img/courts/turin.webp', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i"]]},
   {ru:'Ёшлик (Старт)', en:"Yoshlik (Start)", stEn:"+50,000 entry fee", dEn:"Outdoor clay and an indoor hard court. Outdoors before 17:00 — 100,000/hour, plus 50,000 entry.", uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', ll:[41.324598,69.306003], dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час, плюс 50 000 за вход.', dUz:'Ochiq grunt va yopiq hard. Kort ijarasi + 50 000 kirish.', tel:'+998931712333', img:'img/courts/yoshlik.webp', h:'05:00–23:00', bk:[], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', img:'img/courts/mgu.webp', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o"]]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
