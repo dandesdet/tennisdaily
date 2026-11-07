@@ -358,6 +358,10 @@ html.standalone body{overscroll-behavior-y:contain}
 @media (max-width:600px){.vids>.vid.wide{flex-basis:78vw}}
 a.vplay{display:block}
 .vrow{font:600 20px/1.2 var(--body);margin:0 0 16px}.vids+.vrow{margin-top:48px}
+.res .pic.wide img{aspect-ratio:auto}
+.res .score{margin:0;font:500 32px/1.1 var(--serif);letter-spacing:-.01em}
+.events:not(:has(>.ev.big)){display:block}
+.events:not(:has(>.ev.big)) .side{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:48px}
 </style>
 </head>
 <body>
@@ -391,23 +395,6 @@ a.vplay{display:block}
 <section id="soon">
   <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><h2 data-en>This weekend</h2></div>
   <div class="events">
-    <article class="ev big" data-d="2026-11-07" data-start="2026-11-07T16:00" data-end="2026-11-07T22:00">
-      <div class="ph"><img src="img/laver.webp" alt="Афиша Laver Cup 7 ноября, Меридиан"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><small data-en>Sat</small><b>7</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
-      <div class="bd">
-        <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
-        <h3>Laver Cup · <span data-ru>Меридиан</span><span data-uz>Meridian</span><span data-en>Meridian</span></h3>
-        <div class="facts"><span class="fact">16:00–22:00</span><span class="fact">NTRP ≤ 3.75</span><span class="fact" data-ru>400 000 сум · корт, мячи, ужин</span><span class="fact" data-uz>400 000 so‘m · kort, koptok, kechki ovqat</span><span class="fact" data-en>400,000 sum · court, balls, dinner</span><span class="fact" data-ru>Спонсор DI sport</span><span class="fact" data-uz>Homiy DI sport</span><span class="fact" data-en>Sponsor DI sport</span></div>
-        <div class="fill">
-          <div class="lbl"><span data-ru>Набор</span><span data-uz>Ro‘yxat</span><span data-en>Sign-ups</span><span data-ru>20 из 20 мест</span><span data-uz>20 tadan 20</span><span data-en>20 of 20 spots</span></div>
-          <div class="bar" aria-hidden="true"><i class="paid" style="width:30%"></i><i class="in" style="width:70%"></i></div>
-          <div class="legend"><span class="l1" data-ru>оплатили 6</span><span class="l1" data-uz>to‘lagan 6</span><span class="l1" data-en>paid 6</span><span class="l2" data-ru>записаны, ещё не оплатили 14</span><span class="l2" data-uz>yozilgan, to‘lamagan 14</span><span class="l2" data-en>signed up, not paid yet 14</span></div>
-        </div>
-        <p class="note" data-ru>14 заявок пришли за первые 2 часа после анонса. Последнее место заняли сегодня днём — теперь только в резерв.</p>
-        <p class="note" data-uz>E’londan keyingi 2 soatda 14 ta ariza tushdi. Oxirgi o‘rin bugun kunduzi band bo‘ldi — endi faqat zaxiraga.</p><p class="note" data-en>14 sign-ups came in the first 2 hours after the announcement. The last spot went this afternoon — reserve list only now.</p>
-        <span class="spots full"><span data-ru>Мест нет — только резерв</span><span data-uz>Joy yo‘q — faqat zaxira</span><span data-en>Full — reserve list only</span></span>
-        <p class="ct"><a href="https://t.me/c/1653350711/86963" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://playon.uz/tournaments/cmvyys5ex006901l5grunzdvc" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
-      </div>
-    </article>
 
     <div class="side">
       <article class="ev" data-d="2026-11-08" data-start="2026-11-08T16:00" data-end="2026-11-08T22:00">
@@ -492,6 +479,15 @@ a.vplay{display:block}
 <section id="results">
   <div class="sh" id="res-h"><h2 data-ru>Последние итоги</h2><h2 data-uz>So‘nggi natijalar</h2><h2 data-en>Latest results</h2><span class="hand" data-ru>поздравляем!</span><span class="hand" data-uz>tabriklaymiz!</span><span class="hand" data-en>congrats!</span></div>
   <div class="results">
+    <article class="res" data-d="2026-11-07">
+      <div class="pic wide"><img src="img/laver_win.webp" alt="Команда Europe с кубком Laver Cup, Меридиан, 7 ноября"></div>
+      <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
+      <div class="meta" data-ru>7 ноября · Меридиан · командный турнир, 20 игроков</div><div class="meta" data-uz>7-noyabr · Meridian · jamoaviy turnir, 20 o‘yinchi</div><div class="meta" data-en>7 November · Meridian · team event, 20 players</div>
+      <h3 data-ru>Laver Cup: победила Европа</h3><h3 data-uz>Laver Cup: Yevropa g‘alaba qozondi</h3><h3 data-en>Laver Cup: Europe wins</h3>
+      <p class="score">Europe 🔵 44 : 31 🔴 World</p>
+      <p class="muted" data-ru>Европа: Данияр Башаров, Миразим Джураев, Зафар Ахмадхужаев, Бобур Хакназаров, Джамолиддинходжа Абдужаббаров, Имрон Ирматов, Искандар, Акмаль Файзуллаев, Бонур Латипов, Миромил Миркамилов. Больше всех побед в команде — у Зафара Ахмадхужаева: 5.</p><p class="muted" data-uz>Yevropa: Doniyor Basharov, Mirazim Jo‘rayev, Zafar Ahmadxo‘jayev, Bobur Haqnazarov, Jamoliddinxo‘ja Abdujabborov, Imron Irmatov, Iskandar, Akmal Fayzullayev, Bonur Latipov, Miromil Mirkamilov. Jamoada eng ko‘p g‘alaba — Zafar Ahmadxo‘jayevda: 5.</p><p class="muted" data-en>Europe: Daniyar Basharov, Mirazim Juraev, Zafar Akhmadkhujaev, Bobur Khaknazarov, Jamoliddinkhoja Abdujabbarov, Imron Irmatov, Iskandar, Akmal Fayzullaev, Bonur Latipov, Miromil Mirkamilov. Most wins on the team — Zafar Akhmadkhujaev with 5.</p>
+      <p class="ct"><a href="https://playon.uz/tournaments/cmvyys5ex006901l5grunzdvc" target="_blank" rel="noopener"><span data-ru>Итоги на PlayOn</span><span data-uz>PlayOn’da natijalar</span><span data-en>Results on PlayOn</span></a><a href="https://t.me/c/1653350711/86963" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
+    </article>
     <article class="res" data-d="2026-10-31">
       <div class="pic"><img src="img/oct31.webp" alt="Участники парного турнира 31 октября, Меридиан"></div>
       <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
