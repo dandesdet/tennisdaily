@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uz">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -347,7 +347,7 @@ html.standalone body{overscroll-behavior-y:contain}
 
 <div class="top">
   <div class="date"><span data-ru>Суббота, 7 ноября 2026</span><span data-uz>Shanba, 7-noyabr 2026</span><span data-en>Saturday, 7 November 2026</span></div>
-  <div class="langs" role="group" aria-label="Язык"><button type="button" data-set="ru" aria-pressed="true">RU</button><button type="button" data-set="uz" aria-pressed="false">UZ</button><button type="button" data-set="en" aria-pressed="false">EN</button></div>
+  <div class="langs" role="group" aria-label="Язык"><button type="button" data-set="uz" aria-pressed="true">UZ</button><button type="button" data-set="ru" aria-pressed="false">RU</button><button type="button" data-set="en" aria-pressed="false">EN</button></div>
 </div>
 
 <header class="mast">
@@ -960,8 +960,7 @@ const set = l => {
 };
 document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
-const nl = navigator.language || '';
-set(saved || (/^uz/i.test(nl) ? 'uz' : /^(ru|be|uk|kk|ky|tg)/i.test(nl) ? 'ru' : 'en'));
+set(saved || 'uz');   // по умолчанию — узбекский; выбор человека запоминаем
 
 // Любую фотографию можно открыть крупно; закрывается кликом или Esc
 const lb = document.getElementById('lb'), lbi = lb.querySelector('img');
