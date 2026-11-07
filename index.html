@@ -330,6 +330,13 @@ html.standalone body{overscroll-behavior-y:contain}
 .cta{display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:var(--pill);background:var(--ball);color:var(--ink);font:600 16px/1 var(--body);text-decoration:none;box-shadow:0 0 0 1px #A9B82C inset;transition:background .15s,transform .1s}
 .cta:hover{background:#D0E03A}.cta:active{transform:scale(.97)}
 .mini.trip .spots,.mini.trip .spots-row{margin-bottom:8px}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,320px));gap:32px}
+.vid{display:flex;flex-direction:column;gap:12px}.vid h3{font:500 24px/1.2 var(--serif);margin:0}.vid p{margin:0}
+.vplay{position:relative;display:block;width:100%;aspect-ratio:9/16;border:0;padding:0;border-radius:var(--r-img);overflow:hidden;background:#111;cursor:pointer}
+.vplay img{width:100%;height:100%;object-fit:cover;transition:transform .3s}.vplay:hover img{transform:scale(1.03)}
+.vplay .pl{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--ball);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.vplay .pl::after{content:"";position:absolute;left:26px;top:20px;border-left:18px solid var(--ink);border-top:12px solid transparent;border-bottom:12px solid transparent}
+.vplay iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 </style>
 </head>
 <body>
@@ -535,6 +542,26 @@ html.standalone body{overscroll-behavior-y:contain}
   </div>
 </section>
 
+<!-- ====== VIDEO ====== -->
+<section id="video">
+  <div class="sh"><h2 data-ru>Видео с кортов</h2><h2 data-uz>Kortlardan video</h2><h2 data-en>Videos from the courts</h2></div>
+  <div class="vids">
+    <article class="vid" data-d="2026-11-04">
+      <button type="button" class="vplay" data-id="1sYwySHxVy4" aria-label="Смотреть"><img src="https://i.ytimg.com/vi/1sYwySHxVy4/hqdefault.jpg" alt="" loading="lazy"><span class="pl"></span></button>
+      <h3 data-ru>Владимир Ивко — Шерзод Гуламов</h3><h3 data-uz>Vladimir Ivko — Sherzod G‘ulomov</h3><h3 data-en>Vladimir Ivko vs Sherzod Gulamov</h3>
+      <p class="muted" data-ru>4 ноября, 5:30 утра · корты Tennis plus</p><p class="muted" data-uz>4-noyabr, ertalab 5:30 · Tennis plus kortlari</p><p class="muted" data-en>4 November, 5:30 am · Tennis plus courts</p>
+      <p class="ct"><a href="https://www.youtube.com/shorts/1sYwySHxVy4" target="_blank" rel="noopener"><span data-ru>На YouTube</span><span data-uz>YouTube’da</span><span data-en>On YouTube</span></a></p>
+    </article>
+    <article class="vid" data-d="2026-11-05">
+      <button type="button" class="vplay" data-id="iPalS-TlosY" aria-label="Смотреть"><img src="https://i.ytimg.com/vi/iPalS-TlosY/hqdefault.jpg" alt="" loading="lazy"><span class="pl"></span></button>
+      <h3 data-ru>Розыгрыш: бэкхендщик против волейщика</h3><h3 data-uz>Rally: bekxend ustasi va voley ustasi</h3><h3 data-en>Rally: backhand player vs volley player</h3>
+      <p class="muted" data-ru>5 ноября</p><p class="muted" data-uz>5-noyabr</p><p class="muted" data-en>5 November</p>
+      <p class="ct"><a href="https://www.youtube.com/shorts/iPalS-TlosY" target="_blank" rel="noopener"><span data-ru>На YouTube</span><span data-uz>YouTube’da</span><span data-en>On YouTube</span></a></p>
+    </article>
+  </div>
+  <p class="arch-link" style="margin-top:24px"><a href="https://www.youtube.com/@dandesdet/shorts" target="_blank" rel="noopener"><span data-ru>Все ролики на YouTube</span><span data-uz>Barcha videolar YouTube’da</span><span data-en>All videos on YouTube</span> →</a></p>
+</section>
+
 <!-- ====== NEWS ====== -->
 <section id="news">
   <div class="sh"><h2 data-ru>Что изменилось</h2><h2 data-uz>Nima o‘zgardi</h2><h2 data-en>What changed</h2><span class="hand" data-ru>и что это значит для тебя</span><span class="hand" data-uz>va bu sen uchun nima degani</span><span class="hand" data-en>and what it means for you</span></div>
@@ -618,7 +645,7 @@ html.standalone body{overscroll-behavior-y:contain}
     <h4 data-ru>Есть новость?</h4><h4 data-uz>Yangilik bormi?</h4><h4 data-en>Got news?</h4>
     <p data-ru>Турнир, новый корт, итоги — пиши: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
     <p data-uz>Turnir, yangi kort, natija — yozing: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p><p data-en>A tournament, a new court, results — write to <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
-    <p><a href="?archive"><span data-ru>Архив</span><span data-uz>Arxiv</span><span data-en>Archive</span></a> · © 2026 tennisdaily.uz</p></div>
+    <p><a href="https://www.youtube.com/@dandesdet" target="_blank" rel="noopener">YouTube</a> · <a href="?archive"><span data-ru>Архив</span><span data-uz>Arxiv</span><span data-en>Archive</span></a> · © 2026 tennisdaily.uz</p></div>
 </footer>
 </div>
 
@@ -631,7 +658,7 @@ html.standalone body{overscroll-behavior-y:contain}
   const ARCH = new URLSearchParams(location.search).has('archive');
   const day = d => Date.parse(d + 'T00:00:00+05:00');
   const today = day(new Date(Date.now() + 5 * 36e5).toISOString().slice(0, 10));
-  const keep = {soon: today, results: today - 7 * 864e5, news: today - 7 * 864e5};
+  const keep = {soon: today, results: today - 7 * 864e5, video: today - 7 * 864e5, news: today - 7 * 864e5};
   for (const [id, from] of Object.entries(keep)) {
     const sec = document.getElementById(id); if (!sec) continue;
     const arts = [...sec.querySelectorAll('article[data-d]')];
@@ -711,6 +738,13 @@ html.standalone body{overscroll-behavior-y:contain}
     raf = requestAnimationFrame(step);
   }
 })();
+</script>
+<script>
+// Видео: сначала только картинка (быстро грузится), по нажатию — плеер YouTube
+document.querySelectorAll('.vplay').forEach(b => b.addEventListener('click', () => {
+  if (b.querySelector('iframe')) return;
+  b.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&playsinline=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;
+}));
 </script>
 <script src="vendor/leaflet.js"></script>
 <script>
