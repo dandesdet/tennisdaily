@@ -375,6 +375,14 @@ a.vplay{display:block}
 .cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}
 .cfilt small{font:500 14px/1 var(--body);opacity:.6}
 .crow[hidden]{display:none}
+.league2{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.lgp{background:var(--soft);border-radius:var(--r-card);padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.lgp h3{font:500 40px/1.1 var(--serif);letter-spacing:-.02em;margin:0}.lgp p{margin:0}
+.lgp .nums{display:flex;flex-wrap:wrap;gap:16px 32px}.lgp .nums div{font:500 40px/1 var(--serif);letter-spacing:-.03em}
+.lgp .nums small{display:block;font:500 16px var(--body);color:var(--muted);margin-top:6px;letter-spacing:0}
+.lgp .champs{grid-template-columns:1fr 1fr}
+@media (max-width:1100px){.league2{grid-template-columns:1fr}}
+@media (max-width:600px){.lgp .champs{grid-template-columns:1fr}.lgp h3{font-size:32px}}
 </style>
 </head>
 <body>
@@ -570,29 +578,33 @@ a.vplay{display:block}
         </article>
   </div>
 
-  <div class="league">
-    <div class="lg-head">
-      <img class="lg-ph" src="img/tml_prizes.webp" alt="">
-      <div>
-        <a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span>Tashkent Masters League</span></a>
-        <h3><span data-ru>Сезон Uz Open: чемпионы дивизионов</span><span data-uz>Uz Open mavsumi: divizion chempionlari</span><span data-en>Uz Open season: division champions</span></h3>
-        <p data-ru>22 призёра сезона получили сертификаты по 600 000 сум, ещё 15 участников выиграли по 300 000 сум в розыгрыше. Сертификаты действуют до 1 февраля 2027, грамоты забирают в магазине Amazing Store (Фидокор, 1/1).</p>
-        <p data-uz>Mavsumning 22 sovrindori 600 000 so‘mlik sertifikat oldi, yana 15 ishtirokchi qur’a orqali 300 000 so‘mdan yutdi. Sertifikatlar 2027-yil 1-fevralgacha amal qiladi, yorliqlar Amazing Store do‘konida (Fidokor, 1/1).</p>
-        <p data-en>22 season prize-winners got 600,000 sum certificates, and 15 more players won 300,000 sum each in a draw. Certificates are valid until 1 February 2027; diplomas can be picked up at Amazing Store (Fidokor 1/1).</p>
-        <div class="nums"><div>217<small data-ru>игроков</small><small data-uz>o‘yinchi</small><small data-en>players</small></div><div>8<small data-ru>дивизионов</small><small data-uz>divizion</small><small data-en>divisions</small></div><div>37<small data-ru>с призами</small><small data-uz>sovrinli</small><small data-en>prize-winners</small></div><div>17,7<small data-ru>млн сум сертификатами</small><small data-uz>mln so‘m sertifikat</small><small data-en>mln sum in certificates</small></div></div>
-      </div>
+  <div class="league2">
+    <div class="lgp">
+      <img class="lg-ph" src="img/tml_logo.webp" alt="Tashkent Masters League" style="object-fit:contain;background:linear-gradient(180deg,#FDB813,#F4845F)">
+      <a class="via" href="https://playon.uz/leagues/tml-doubles-2026" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+      <h3><span data-ru>Новый сезон лиги: зимние пары</span><span data-uz>Liganing yangi mavsumi: qishki juftliklar</span><span data-en>New league season: Winter Doubles</span></h3>
+      <p data-ru>Tashkent Masters League, 14 ноября — 21 февраля. Мужские, женские пары и микст. Матч — один сет до 8, корт и время пары выбирают сами. Взнос 500 000 сум с пары, платить после распределения по дивизионам.</p><p data-uz>Tashkent Masters League, 14-noyabr — 21-fevral. Erkaklar, ayollar juftligi va mikst. O‘yin — 8 gacha bir set, kort va vaqtni juftliklar o‘zlari tanlaydi. Badal juftlikdan 500 000 so‘m, divizionlarga taqsimlangandan keyin to‘lanadi.</p><p data-en>Tashkent Masters League, 14 November – 21 February. Men’s, women’s and mixed doubles. A match is one set to 8; pairs pick the court and time themselves. Entry 500,000 sum per pair, paid after the division draw.</p>
+      <p data-ru>Призы в каждом дивизионе: 1,4 млн, 1,2 млн и 1 млн сум на пару. Второй зачёт — Doubles Shuffle: личная заявка, новые напарники в каждом матче, 250 000 сум.</p><p data-uz>Har bir divizionda sovrinlar: juftlikka 1,4 mln, 1,2 mln va 1 mln so‘m. Ikkinchi hisob — Doubles Shuffle: shaxsiy ariza, har o‘yinda yangi sherik, 250 000 so‘m.</p><p data-en>Prizes in every division: 1.4M, 1.2M and 1M sum per pair. A second format, Doubles Shuffle: individual entry, new partners every match, 250,000 sum.</p>
+      <div class="spots-row"><span class="spots open"><span data-ru>Запись до 13 ноября · уже 7 пар</span><span data-uz>Yozilish 13-noyabrgacha · 7 juft yozildi</span><span data-en>Sign-up until 13 November · 7 pairs so far</span></span><a class="cta" href="https://playon.uz/leagues/tml-doubles-2026" target="_blank" rel="noopener"><span data-ru>Записаться парой</span><span data-uz>Juft bo‘lib yozilish</span><span data-en>Sign up as a pair</span></a><span class="chk" data-ru>сверено с PlayOn 10 ноября в 15:40</span><span class="chk" data-uz>PlayOn bilan 10-noyabr 15:40 da tekshirildi</span><span class="chk" data-en>checked on PlayOn on 10 November at 15:40</span></div>
+      <p class="ct"><a href="https://playon.uz/leagues/tml-shuffle-2026" target="_blank" rel="noopener"><span data-ru>Doubles Shuffle на PlayOn</span><span data-uz>PlayOn’da Doubles Shuffle</span><span data-en>Doubles Shuffle on PlayOn</span></a><a href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><span data-ru>Группа лиги</span><span data-uz>Liga guruhi</span><span data-en>League group</span></a></p>
     </div>
-    <div class="champs">
+    <div class="lgp">
+      <a class="via" href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><img src="img/groups/tml.webp" alt=""><span>Tashkent Masters League</span></a>
+      <h3><span data-ru>Сезон Uz Open: чемпионы дивизионов</span><span data-uz>Uz Open mavsumi: divizion chempionlari</span><span data-en>Uz Open season: division champions</span></h3>
+      <div class="nums"><div>217<small data-ru>игроков</small><small data-uz>o‘yinchi</small><small data-en>players</small></div><div>8<small data-ru>дивизионов</small><small data-uz>divizion</small><small data-en>divisions</small></div><div>37<small data-ru>с призами</small><small data-uz>sovrinli</small><small data-en>prize-winners</small></div><div>17,7<small data-ru>млн сум сертификатами</small><small data-uz>mln so‘m sertifikat</small><small data-en>mln sum in certificates</small></div></div>
+      <div class="champs">
       <div class="ch1 lead"><img class="cav" src="av/rogozin.webp" alt=""><div><b>Anton Rogozin</b><small>M10 · <span data-ru>7 побед из 9</span><span data-uz>9 tadan 7 g‘alaba</span><span data-en>7 of 9 won</span></small><span class="ldr"><span data-ru>высший дивизион</span><span data-uz>oliy divizion</span><span data-en>top division</span></span></div></div>
-      <div class="ch1"><span class="cav">VI</span><div><b>Vladimir Ivko</b><small>M15 · <span data-ru>6 побед из 6</span><span data-uz>6 tadan 6 g‘alaba</span><span data-en>6 of 6 won</span></small></div></div>
+      <div class="ch1"><img class="cav" src="av/ivko.webp" alt=""><div><b>Vladimir Ivko</b><small>M15 · <span data-ru>6 побед из 6</span><span data-uz>6 tadan 6 g‘alaba</span><span data-en>6 of 6 won</span></small></div></div>
       <div class="ch1"><img class="cav" src="av/rustamov.webp" alt=""><div><b>Bozorboy Rustamov</b><small>M20 · <span data-ru>6 побед из 7</span><span data-uz>7 tadan 6 g‘alaba</span><span data-en>6 of 7 won</span></small></div></div>
       <div class="ch1"><img class="cav" src="av/juraev.webp" alt=""><div><b>Mirazim Juraev</b><small>M30 · <span data-ru>4 побед из 5</span><span data-uz>5 tadan 4 g‘alaba</span><span data-en>4 of 5 won</span></small></div></div>
       <div class="ch1"><span class="cav">AA</span><div><b>Abdulaziz Abdazov</b><small>M35 · <span data-ru>7 побед из 9</span><span data-uz>9 tadan 7 g‘alaba</span><span data-en>7 of 9 won</span></small></div></div>
       <div class="ch1"><span class="cav">AS</span><div><b>Abdulloh Saidahmedov</b><small>M40 · <span data-ru>7 побед из 8</span><span data-uz>8 tadan 7 g‘alaba</span><span data-en>7 of 8 won</span></small></div></div>
       <div class="ch1"><span class="cav">AS</span><div><b>Abbos Sotvoldiev</b><small>M45 · <span data-ru>6 побед из 7</span><span data-uz>7 tadan 6 g‘alaba</span><span data-en>6 of 7 won</span></small></div></div>
-      <div class="ch1"><span class="cav">AA</span><div><b>Abubakir Akbarov</b><small>M50 · <span data-ru>9 побед из 9</span><span data-uz>9 tadan 9 g‘alaba</span><span data-en>9 of 9 won</span></small></div></div>
+      <div class="ch1"><img class="cav" src="av/akbarov.webp" alt=""><div><b>Abubakir Akbarov</b><small>M50 · <span data-ru>9 побед из 9</span><span data-uz>9 tadan 9 g‘alaba</span><span data-en>9 of 9 won</span></small></div></div>
     </div>
-    <p class="ct"><a href="https://t.me/tashkent_masters_league/8659" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://tashkent-masters-league.uz/results?season_id=14" target="_blank" rel="noopener"><span data-ru>Все результаты и переходы</span><span data-uz>Barcha natijalar</span><span data-en>All results and promotions</span></a><a href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><span data-ru>Группа лиги</span><span data-uz>Liga guruhi</span><span data-en>League group</span></a></p>
+      <p class="muted" data-ru>Призёры получили сертификаты Amazing Store на 17,7 млн сум, они действуют до 1 февраля 2027.</p><p class="muted" data-uz>Sovrindorlar 17,7 mln so‘mlik Amazing Store sertifikatlarini oldi, ular 2027-yil 1-fevralgacha amal qiladi.</p><p class="muted" data-en>Prize-winners got Amazing Store certificates worth 17.7M sum, valid until 1 February 2027.</p>
+      <p class="ct"><a href="https://t.me/tashkent_masters_league/8659" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a><a href="https://tashkent-masters-league.uz/results?season_id=14" target="_blank" rel="noopener"><span data-ru>Все результаты и переходы</span><span data-uz>Barcha natijalar</span><span data-en>All results and promotions</span></a><a href="https://t.me/tashkent_masters_league" target="_blank" rel="noopener"><span data-ru>Группа лиги</span><span data-uz>Liga guruhi</span><span data-en>League group</span></a></p>
+    </div>
   </div>
 </section>
 
