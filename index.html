@@ -368,8 +368,18 @@ a.vplay{display:block}
 <div class="wrap">
 
 <div class="top">
-  <div class="date"><span data-ru>Суббота, 7 ноября 2026</span><span data-uz>Shanba, 7-noyabr 2026</span><span data-en>Saturday, 7 November 2026</span></div>
+  <div class="date" id="today"></div>
   <div class="langs" role="group" aria-label="Язык"><button type="button" data-set="uz" aria-pressed="true">UZ</button><button type="button" data-set="ru" aria-pressed="false">RU</button><button type="button" data-set="en" aria-pressed="false">EN</button></div>
+<script>
+// Дата в шапке — всегда сегодняшняя (по Ташкенту)
+(() => { const d = new Date(Date.now() + (new Date().getTimezoneOffset() + 300) * 6e4);
+  const ruD=['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], ruM=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const uzD=['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'], uzM=['yanvar','fevral','mart','aprel','may','iyun','iyul','avgust','sentabr','oktabr','noyabr','dekabr'];
+  const enD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], enM=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const w=d.getDay(), n=d.getDate(), m=d.getMonth(), y=d.getFullYear();
+  document.getElementById('today').innerHTML = `<span data-ru>${ruD[w]}, ${n} ${ruM[m]} ${y}</span><span data-uz>${uzD[w]}, ${n}-${uzM[m]} ${y}</span><span data-en>${enD[w]}, ${n} ${enM[m]} ${y}</span>`;
+})();
+</script>
 </div>
 
 <header class="mast">
@@ -383,68 +393,54 @@ a.vplay{display:block}
 </header>
 
 <nav class="ticker" aria-label="Коротко">
+  <a href="#soon"><span>●</span><span data-ru>Мужские пары в Учкуне 15 ноября — 5 свободных мест</span><span data-uz>15-noyabr Uchqunda erkaklar juftligi — 5 ta joy bor</span><span data-en>Men’s doubles at Uchqun on 15 Nov — 5 spots left</span></a>
+  <a href="#results"><span>●</span><span data-ru>Laver Cup: Европа победила 44:31</span><span data-uz>Laver Cup: Yevropa 44:31 hisobida yutdi</span><span data-en>Laver Cup: Europe won 44–31</span></a>
+  <a href="#results"><span>●</span><span data-ru>Учкун, 8 ноября: Мумтозхонов / Ахмадхужаев — чемпионы</span><span data-uz>Uchqun, 8-noyabr: Mumtozxonov / Ahmadxo‘jayev — chempionlar</span><span data-en>Uchqun, 8 Nov: Mumtozkhonov / Akhmadkhujaev win</span></a>
   <a href="#news"><span>●</span><span data-ru>«Буревестник»: корты 1–4 закрыты</span><span data-uz>«Burevestnik»: 1–4-kortlar yopildi</span><span data-en>Burevestnik: courts 1–4 closed</span></a>
   <a href="#news"><span>●</span><span data-ru>AJOU: на вход нужен бейдж</span><span data-uz>AJOU: kirish beyj orqali</span><span data-en>AJOU: badge needed to enter</span></a>
-  <a href="#soon"><span>●</span><span data-ru>Турнир для всех в «Умиде» 8 ноября — 5 свободных мест</span><span data-uz>8-noyabr «Umid»da hamma uchun turnir — 5 ta joy bor</span><span data-en>Open tournament at Umid on 8 Nov — 5 spots left</span></a>
-  <a href="#soon"><span>●</span><span data-ru>Мужские пары в Учкуне 8 ноября — осталось одно место</span><span data-uz>8-noyabr Uchqunda erkaklar juftligi — 1 juftga joy bor</span><span data-en>Men’s doubles at Uchqun on 8 Nov — 1 spot left</span></a>
-  <a href="#news"><span>●</span><span data-ru>Ёшлик: +50 000 сум за вход</span><span data-uz>Yoshlik: kirish +50 000 so‘m</span><span data-en>Yoshlik: +50,000 sum entry fee</span></a>
-  <a href="#courts"><span>●</span><span data-ru>Открылся крытый корт в Туринском политехе</span><span data-uz>Turin politexnikasida yopiq kort ochildi</span><span data-en>New indoor court at Turin Polytechnic</span></a>
 </nav>
 
 <!-- ====== SOON ====== -->
 <section id="soon">
-  <div class="sh"><h2 data-ru>На выходных</h2><h2 data-uz>Dam olish kunlari</h2><h2 data-en>This weekend</h2></div>
+  <div class="sh"><h2 data-ru>Ближайшие турниры</h2><h2 data-uz>Yaqin turnirlar</h2><h2 data-en>Upcoming tournaments</h2></div>
   <div class="events">
+    <article class="ev big" data-d="2026-11-15" data-start="2026-11-15T16:00" data-end="2026-11-15T22:00">
+      <div class="ph"><img src="img/uchqun_court.webp" alt="Хардовые корты под навесом, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>15</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Мужские пары · Учкун</h3><h3 data-uz>Erkaklar juftligi · Uchqun</h3><h3 data-en>Men’s doubles · Uchqun</h3>
+        <div class="facts"><span class="fact">16:00–22:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Хард под навесом</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Ayvon ostidagi hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Hard court under a roof</span><span class="fact" data-ru>NTRP до 3.6</span><span class="fact" data-uz>NTRP 3.6 gacha</span><span class="fact" data-en>NTRP up to 3.6</span><span class="fact" data-ru>350 000 сум с игрока</span><span class="fact" data-uz>o‘yinchidan 350 000 so‘m</span><span class="fact" data-en>350,000 sum per player</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Пары</span><span data-uz>Juftlar</span><span data-en>Pairs</span><span data-ru>7 из 12</span><span data-uz>12 tadan 7</span><span data-en>7 of 12</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:58%"></i></div>
+        </div>
+        <p class="note" data-ru>4 группы по 3 пары, потом плей-офф. Запись до 14 ноября, 16:00.</p><p class="note" data-uz>3 juftdan 4 guruh, keyin pley-off. Yozilish 14-noyabr, 16:00 gacha.</p><p class="note" data-en>4 groups of 3 pairs, then playoffs. Sign-up closes 14 November, 16:00.</p>
+        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 5 мест для пар</span><span data-uz>5 juftga joy bor</span><span data-en>5 pair spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/Abdukarim_87" target="_blank" rel="noopener"><span data-ru>или напишите организатору · Абдукарим</span><span data-uz>yoki tashkilotchiga yozing · Abdukarim</span><span data-en>or message the organizer · Abdukarim</span></a><span class="chk" data-ru>сверено с PlayOn 10 ноября в 14:30</span><span class="chk" data-uz>PlayOn bilan 10-noyabr 14:30 da tekshirildi</span><span class="chk" data-en>checked on PlayOn on 10 November at 14:30</span></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
 
     <div class="side">
-      <article class="ev" data-d="2026-11-08" data-start="2026-11-08T16:00" data-end="2026-11-08T22:00">
-        <div class="ph"><img src="img/uchqun.webp" alt="Афиша парного турнира 8 ноября, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>8</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
-        <div class="bd">
-        <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
-          <h3 data-ru>Мужские пары · Учкун</h3><h3 data-uz>Erkaklar juftligi · Uchqun</h3><h3 data-en>Men’s doubles · Uchqun</h3>
-          <div class="facts"><span class="fact">16:00–22:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Хард под навесом</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Ayvon ostidagi hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Hard court under a roof</span><span class="fact" data-ru>NTRP пары ≤ 7.0</span><span class="fact" data-uz>Juft NTRP ≤ 7.0</span><span class="fact" data-en>pair NTRP ≤ 7.0</span><span class="fact" data-ru>350 000 сум с игрока</span><span class="fact" data-uz>o‘yinchi boshiga 350 000</span><span class="fact" data-en>350,000 sum per player</span></div>
-          <div class="fill">
-            <div class="lbl"><span data-ru>Пары</span><span data-uz>Juftlar</span><span data-en>Pairs</span><span data-ru>11 из 12</span><span data-uz>12 tadan 11</span><span data-en>11 of 12</span></div>
-            <div class="bar" aria-hidden="true"><i class="in" style="width:92%"></i></div>
-          </div>
-          <p class="note" data-ru>Призы: Korzinka Biznes и путёвка на курорт. Ещё трое ищут себе пару — если вы без партнёра, пишите в группу.</p>
-          <p class="note" data-uz>Sovrinlar: Korzinka Biznes va dam olish maskaniga yo‘llanma. Yana uch kishi sherik qidiryapti.</p><p class="note" data-en>Prizes: Korzinka Biznes and a resort trip. Three more players are looking for a partner — if you don’t have one, write in the group.</p>
-        <div class="spots-row"><span class="spots open"><span data-ru>Осталась 1 пара</span><span data-uz>1 juftga joy bor</span><span data-en>1 pair left</span></span><a class="cta" href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/Abdukarim_87" target="_blank" rel="noopener"><span data-ru>или напишите организатору · Абдукарим</span><span data-uz>yoki tashkilotchiga yozing · Abdukarim</span><span data-en>or message the organizer · Abdukarim</span></a><span class="chk" data-ru>сверено с PlayOn в 22:40</span><span class="chk" data-uz>PlayOn bilan 22:40 da tekshirildi</span><span class="chk" data-en>checked on PlayOn at 22:40</span></div>
-        <p class="ct"><a href="https://t.me/c/1653350711/87065" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
-        </div>
-      </article>
-      <article class="mini trip" data-d="2026-11-08" data-start="2026-11-08T09:00" data-end="2026-11-08T14:00">
-        <img src="img/women_final.webp" alt="" style="object-position:50% 45%">
-        <div>
-        <span class="via"><img src="img/groups/tp.webp" alt=""><span data-ru>Tennis plus</span><span data-uz>Tennis plus</span><span data-en>Tennis plus</span></span>
-        <span class="tag" data-ru>Вс, 8 ноября · 9:00–14:00</span><span class="tag" data-uz>Ya, 8-noyabr · 9:00–14:00</span><span class="tag" data-en>Sun, 8 November · 9:00–14:00</span>
-        <h3 data-ru>Женские пары, итоговый турнир сезона</h3><h3 data-uz>Ayollar juftligi, mavsum yakuniy turniri</h3><h3 data-en>Women’s doubles, season finale</h3>
-        <p style="margin:0" data-ru>Стадион МВЭС (М. Горький) · 8 пар, 2 грунтовых корта · 600 000 сум с пары · у одной из партнёрш уровень до 3.0.</p>
-        <p style="margin:0" data-uz>MVES stadioni (M. Gorkiy) · 8 juft, 2 grunt kort · juftga 600 000 so‘m · sheriklardan biri 3.0 gacha.</p><p style="margin:0" data-en>MVES stadium (Maxim Gorky metro) · 8 pairs, 2 clay courts · 600,000 sum per pair · one partner must be rated 3.0 or lower.</p>
-      <p class="ct"><a href="https://t.me/c/3700502756/1299" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
-        </div>
-      </article>
-      <article class="mini trip" data-d="2026-11-08" data-start="2026-11-08T16:00" data-end="2026-11-08T21:00">
-        <img src="img/meridian_ev.webp" alt="">
-        <div><a class="via" href="https://playon.uz/tournaments" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
-        <span class="tag" data-ru>Вс, 8 ноября · 16:00</span><span class="tag" data-uz>Ya, 8-noyabr · 16:00</span><span class="tag" data-en>Sun, 8 November · 16:00</span>
-        <h3 data-ru>Одиночка NTRP 3.75–4.0 · Меридиан</h3><h3 data-uz>Yakkalik NTRP 3.75–4.0 · Meridian</h3><h3 data-en>Singles NTRP 3.75–4.0 · Meridian</h3>
-        <p style="margin:0" data-ru>Мужчины, 8 игроков: 2 группы по 4, потом две лиги. Один сет до 6, хард. Сетка заполнена.</p><p style="margin:0" data-uz>Erkaklar, 8 o‘yinchi: 2 guruh, keyin ikki liga. Bir set 6 gacha, hard. Setka to‘ldi.</p><p style="margin:0" data-en>Men, 8 players: 2 groups of 4, then two leagues. One set to 6, hard court. Draw is full.</p>
+      <article class="mini trip" data-d="2026-11-14" data-start="2026-11-14T16:00" data-end="2026-11-14T22:00">
+        <img src="img/fc_logo.webp" alt="Бойцовский клуб">
+        <div><span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
+        <span class="tag" data-ru>Сб, 14 ноября · 16:00–22:00</span><span class="tag" data-uz>Sh, 14-noyabr · 16:00–22:00</span><span class="tag" data-en>Sat, 14 November · 16:00–22:00</span>
+        <h3 data-ru>Мужская одиночка NTRP до 4.0 · Меридиан</h3><h3 data-uz>Erkaklar yakkaligi NTRP 4.0 gacha · Meridian</h3><h3 data-en>Men’s singles NTRP up to 4.0 · Meridian</h3>
+        <p style="margin:0" data-ru>12 игроков, группы и плей-офф, сет до 6, хард. Взнос 400 000 сум.</p><p style="margin:0" data-uz>12 o‘yinchi, guruhlar va pley-off, set 6 gacha, hard. Badal 400 000 so‘m.</p><p style="margin:0" data-en>12 players, groups and playoffs, one set to 6, hard. Entry 400,000 sum.</p>
         <span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span>
-        <p class="ct"><a href="https://playon.uz/tournaments/cmvp0a1y2000001moscqlfrjp" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmw7g2e1p002e01m2mzci5jfo" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
         </div>
       </article>
-      <article class="mini trip" data-d="2026-11-08" data-start="2026-11-08T19:00" data-end="2026-11-08T21:30">
-        <img src="img/courts/umid.webp" alt="">
-        <div><a class="via" href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
-        <span class="tag" data-ru>Вс, 8 ноября · 19:00–21:30</span><span class="tag" data-uz>Ya, 8-noyabr · 19:00–21:30</span><span class="tag" data-en>Sun, 8 November · 19:00–21:30</span>
-        <h3 data-ru>Любительский турнир для всех · «Умид»</h3><h3 data-uz>Hamma uchun havaskor turnir · «Umid»</h3><h3 data-en>Amateur tournament for everyone · Umid</h3>
-        <p style="margin:0" data-ru>Одиночка на вылет, сетка 8, сет до 4, хард. Взнос 250 000 сум. Записалось 3 из 8. Спорткомплекс «Умид», Ялангач, 82А.</p><p style="margin:0" data-uz>Yakkalik, setka 8, set 4 gacha, hard. Badal 250 000 so‘m. 8 tadan 3 yozildi. «Umid» sport majmuasi, Yalang‘och, 82A.</p><p style="margin:0" data-en>Singles knockout, draw of 8, sets to 4, hard. Entry 250,000 sum. 3 of 8 signed up. Umid sports complex, Yalangach 82A.</p>
-        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 5 мест из 8</span><span data-uz>8 tadan 5 ta joy bor</span><span data-en>5 of 8 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmw2jjhue000c01o7mjnath5g" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/brazilname" target="_blank" rel="noopener"><span data-ru>или напишите организатору · Полина</span><span data-uz>yoki tashkilotchiga yozing · Polina</span><span data-en>or message the organizer · Polina</span></a><span class="chk" data-ru>сверено с PlayOn в 22:40</span><span class="chk" data-uz>PlayOn bilan 22:40 da tekshirildi</span><span class="chk" data-en>checked on PlayOn at 22:40</span></div>
-        
+      <article class="mini trip" data-d="2026-11-29">
+        <img src="img/meridian_ev.webp" alt="Корты Меридиан">
+        <div><a class="via" href="https://playon.uz/tournaments/cmvpjrom5001y01nul8p92nu0" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <span class="tag" data-ru>15, 22 и 29 ноября · 16:00</span><span class="tag" data-uz>15, 22 va 29-noyabr · 16:00</span><span class="tag" data-en>15, 22 and 29 November · 16:00</span>
+        <h3 data-ru>Одиночки Тахира Хидоятова · Меридиан</h3><h3 data-uz>Tohir Hidoyatovning yakkalik turnirlari · Meridian</h3><h3 data-en>Tahir Khidoyatov’s singles events · Meridian</h3>
+        <p style="margin:0" data-ru>15 и 29 ноября — Мастерс NTRP 4.5–5.0, 22 ноября — NTRP 3.75–4.0. По 8 мужчин, 2 группы и две лиги, хард, 400 000 сум.</p><p style="margin:0" data-uz>15 va 29-noyabr — Masters NTRP 4.5–5.0, 22-noyabr — NTRP 3.75–4.0. 8 erkakdan, 2 guruh va ikki liga, hard, 400 000 so‘m.</p><p style="margin:0" data-en>15 and 29 November — Masters NTRP 4.5–5.0; 22 November — NTRP 3.75–4.0. 8 men each, 2 groups and two leagues, hard, 400,000 sum.</p>
+        <span class="spots full"><span data-ru>Все три сетки заполнены</span><span data-uz>Uchala setka to‘lgan</span><span data-en>All three draws are full</span></span>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmvpjrom5001y01nul8p92nu0" target="_blank" rel="noopener"><span data-ru>15 ноября</span><span data-uz>15-noyabr</span><span data-en>15 Nov</span></a><a href="https://playon.uz/tournaments/cmvy5to56003u01l57e0k2y0c" target="_blank" rel="noopener"><span data-ru>22 ноября</span><span data-uz>22-noyabr</span><span data-en>22 Nov</span></a><a href="https://playon.uz/tournaments/cmw1r91jt004n01mpisc11xky" target="_blank" rel="noopener"><span data-ru>29 ноября</span><span data-uz>29-noyabr</span><span data-en>29 Nov</span></a></p>
         </div>
       </article>
-
     </div>
   </div>
 </section>
@@ -479,6 +475,23 @@ a.vplay{display:block}
 <section id="results">
   <div class="sh" id="res-h"><h2 data-ru>Последние итоги</h2><h2 data-uz>So‘nggi natijalar</h2><h2 data-en>Latest results</h2><span class="hand" data-ru>поздравляем!</span><span class="hand" data-uz>tabriklaymiz!</span><span class="hand" data-en>congrats!</span></div>
   <div class="results">
+    <article class="res" data-d="2026-11-08">
+      <div class="pic wide"><img src="img/uchqun.webp" alt="Афиша мужского парного турнира 8 ноября, Учкун"></div>
+      <a class="via" href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+      <div class="meta" data-ru>8 ноября · Учкун · мужские пары · 12 пар</div><div class="meta" data-uz>8-noyabr · Uchqun · erkaklar juftligi · 12 juft</div><div class="meta" data-en>8 November · Uchqun · men’s doubles · 12 pairs</div>
+      <h3 data-ru>Мужские пары в Учкуне</h3><h3 data-uz>Uchqunda erkaklar juftligi</h3><h3 data-en>Men’s doubles at Uchqun</h3>
+      <ol class="podium"><li class="p1"><span class="m">1</span><span class="f"><span data-ru>Мунимхон Мумтозхонов / Зафар Ахмадхужаев</span><span data-uz>Munimxon Mumtozxonov / Zafar Ahmadxo‘jayev</span><span data-en>Munimkhon Mumtozkhonov / Zafar Akhmadkhujaev</span></span></li><li class="p2"><span class="m">2</span><span class="f"><span data-ru>Дилшод Хабибуллаев / Абдуллох Тошмирзаев</span><span data-uz>Dilshod Habibullayev / Abdulloh Toshmirzayev</span><span data-en>Dilshod Khabibullaev / Abdulloh Toshmirzaev</span></span></li><li class="p3"><span class="m">3</span><span class="f"><span data-ru>Тимур Авазметов / Михаил · Ахмад Усмонов / Абдукарим Мирзаев</span><span data-uz>Timur Avazmetov / Mixail · Ahmad Usmonov / Abdukarim Mirzayev</span><span data-en>Timur Avazmetov / Mikhail · Ahmad Usmanov / Abdukarim Mirzaev</span></span></li></ol>
+      <p class="muted" data-ru>Итоги — по PlayOn. Третье место поделили две пары.</p><p class="muted" data-uz>Natijalar PlayOn bo‘yicha. Uchinchi o‘rinni ikki juft bo‘lishdi.</p><p class="muted" data-en>Results from PlayOn. Two pairs shared third place.</p>
+      <p class="ct"><a href="https://playon.uz/tournaments/cmvze2g4r00a001l5fjiovrjy" target="_blank" rel="noopener"><span data-ru>Итоги на PlayOn</span><span data-uz>PlayOn’da natijalar</span><span data-en>Results on PlayOn</span></a><a href="https://t.me/c/1653350711/87065" target="_blank" rel="noopener"><span data-ru>Пост в группе</span><span data-uz>Guruhdagi post</span><span data-en>Group post</span></a></p>
+    </article>
+    <article class="res" data-d="2026-11-08">
+      <a class="via" href="https://playon.uz/tournaments/cmvp0a1y2000001moscqlfrjp" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+      <div class="meta" data-ru>8 ноября · Меридиан · мужская одиночка NTRP 3.75–4.0 · 8 игроков</div><div class="meta" data-uz>8-noyabr · Meridian · erkaklar yakkaligi NTRP 3.75–4.0 · 8 o‘yinchi</div><div class="meta" data-en>8 November · Meridian · men’s singles NTRP 3.75–4.0 · 8 players</div>
+      <h3 data-ru>Одиночка в Меридиане</h3><h3 data-uz>Meridianda yakkalik</h3><h3 data-en>Singles at Meridian</h3>
+      <ol class="podium"><li class="p1"><span class="m">1</span><span class="f"><span data-ru>Тахир Хидоятов</span><span data-uz>Tohir Hidoyatov</span><span data-en>Tahir Khidoyatov</span></span></li><li class="p2"><span class="m">2</span><span class="f"><span data-ru>Фирдавс Мухитдинов</span><span data-uz>Firdavs Muxitdinov</span><span data-en>Firdavs Mukhitdinov</span></span></li><li class="p3"><span class="m">3</span><span class="f"><span data-ru>Саидазиз Каримов</span><span data-uz>Saidaziz Karimov</span><span data-en>Saidaziz Karimov</span></span></li></ol>
+      <p class="muted" data-ru>Финал 6:1, матч за третье место 6:4 против Артёма Кащея. Итоги — по PlayOn.</p><p class="muted" data-uz>Final 6:1, uchinchi o‘rin uchun o‘yin Artyom Kashcheyga qarshi 6:4. Natijalar PlayOn bo‘yicha.</p><p class="muted" data-en>Final 6–1; third-place match 6–4 against Artyom Kashchey. Results from PlayOn.</p>
+      <p class="ct"><a href="https://playon.uz/tournaments/cmvp0a1y2000001moscqlfrjp" target="_blank" rel="noopener"><span data-ru>Итоги на PlayOn</span><span data-uz>PlayOn’da natijalar</span><span data-en>Results on PlayOn</span></a></p>
+    </article>
     <article class="res" data-d="2026-11-07">
       <div class="pic wide"><img src="img/laver_win.webp" alt="Команда Europe с кубком Laver Cup, Меридиан, 7 ноября"></div>
       <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
