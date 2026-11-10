@@ -68,18 +68,47 @@ img{display:block;max-width:100%}
   .section-nav a{flex:1 0 auto;padding:0 4px}
 }
 .post-media,.post-share-fallback{position:relative}
-.post-share{position:absolute;z-index:2;top:8px;right:8px;display:grid;justify-items:end;gap:4px}
+.post-share{position:absolute;z-index:2;top:8px;right:8px;display:grid;justify-items:end}
 .post-share button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--court);cursor:pointer}
 .post-share svg{width:21px;height:21px}
 .post-share-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .post-share button:hover{background:var(--court-soft)}
 .post-share button:focus-visible{outline:2px solid var(--court);outline-offset:-3px}
-.post-share [role="status"]:not(:empty){padding:4px 8px;border-radius:var(--r-tiny);background:var(--paper);color:var(--ink);font-size:14px;white-space:nowrap;pointer-events:none}
 @media (hover:hover) and (pointer:fine){
   .post-share{opacity:0;pointer-events:none}
   [id^="post-"]:hover .post-share,[id^="post-"]:focus-within .post-share{opacity:1;pointer-events:auto}
 }
 [id^="post-"]{scroll-margin-top:16px}
+.share-dialog{width:min(472px,calc(100% - 24px));max-width:none;padding:20px 24px 24px;border:0;border-radius:var(--r-inner);background:var(--paper);color:var(--ink);box-shadow:0 12px 40px #0004}
+.share-dialog::backdrop{background:#0007}
+.share-dialog [hidden]{display:none}
+.share-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.share-head h2{font:500 17px/1.3 var(--body);margin:0}
+.share-dialog button{font:500 14px var(--body);color:inherit;cursor:pointer}
+.share-dialog button:focus-visible,.share-dialog a:focus-visible,.share-dialog input:focus-visible{outline:2px solid var(--court);outline-offset:2px}
+.share-close,.share-arrow{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:var(--paper)}
+.share-close{margin:-8px -10px -8px 0}
+.share-close:hover,.share-arrow:hover,.share-copy:hover{background:var(--soft)}
+.share-close svg,.share-arrow svg{width:20px;height:20px}
+.share-channels{position:relative}
+.share-track{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding:4px 3px 8px}
+.share-track::-webkit-scrollbar{display:none}
+.share-option{display:grid;justify-items:center;align-content:start;gap:6px;flex:0 0 72px;color:var(--ink);font-size:12px;text-decoration:none;white-space:nowrap;border-radius:var(--r-small)}
+.share-option:hover{text-decoration:underline}
+.share-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--share-color);color:white}
+.share-icon svg{width:30px;height:30px}
+.share-arrow{position:absolute;top:11px;width:44px;height:44px;box-shadow:0 2px 7px #0003}
+.share-prev{left:-8px}
+.share-next{right:-8px}
+.share-link-row{display:flex;align-items:center;gap:8px;min-height:56px;margin-top:18px;padding:6px 8px 6px 14px;border:1px solid #ccc;border-radius:var(--r-inner)}
+.share-link-row input{min-width:0;flex:1;background:none;border:0;color:inherit;font:400 14px var(--body);text-overflow:ellipsis}
+.share-copy{flex:none;min-height:42px;padding:0 12px;border:1px solid var(--line);border-radius:var(--pill);background:var(--paper)}
+.share-status{margin:8px 0 0;color:var(--court);font-size:13px}
+.share-status:empty{margin:0}
+@media (max-width:440px){
+  .share-dialog{padding:18px 16px 20px}
+  .share-copy{padding:0 8px}
+}
 
 .mast{padding:24px 0 48px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
 .mast h1{--mast-title-size:168px;font:500 var(--mast-title-size)/0.92 var(--serif);font-size:min(var(--mast-title-size),16.7cqi);font-variation-settings:"opsz" 72;letter-spacing:-.045em;margin:0;white-space:nowrap}
@@ -115,7 +144,7 @@ section{padding:96px 0 0}
 .sh{display:flex;align-items:baseline;gap:20px;margin:0 0 40px;flex-wrap:wrap}
 .sh h2{font:500 72px/1 var(--serif);letter-spacing:-.03em;margin:0}
 .sh .hand{font:400 24px var(--hand);color:var(--clay);display:inline-block}
-.sh .hand::first-letter,.mean b::first-letter{text-transform:uppercase}
+.sh .hand::first-letter{text-transform:uppercase}
 
 /* турниры */
 .events{display:grid;grid-template-columns:1.6fr 1fr;gap:48px}
@@ -208,7 +237,7 @@ a.via:hover{color:var(--court)}
 .news{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
 .news{grid-auto-rows:auto}
 .nw{display:grid;grid-row:span 3;grid-template-rows:subgrid;gap:16px;padding:40px 0 0;align-content:start}
-.nw>div:not(.post-media,.mean){align-self:start}
+.nw>div:not(.post-media){align-self:start}
 img[src*="courts/turin"]{object-position:50% 0}
 .nph.none{background:var(--soft) url(img/ball.png) center/56px no-repeat}
 .nph{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-img);background:var(--soft)}
@@ -218,19 +247,18 @@ img[src*="courts/turin"]{object-position:50% 0}
 .nw h3{font:500 28px/1.2 var(--serif);letter-spacing:-.01em;margin:0 0 8px}
 .nw .src,.post-date,.news-source{color:var(--muted);font-weight:500}
 .post-date{display:block;font-size:14px;margin-bottom:6px}
-#news .nw{grid-row:span 4}
 .news-source{font-size:14px}
 .nw p{margin:8px 0 0}
 .nw .ct{margin-top:12px}
-.mean{background:var(--soft);border-radius:var(--r-img);padding:16px 20px}
-.mean b{display:block;font:400 20px/1.2 var(--hand);color:var(--clay);margin-bottom:4px}
-.mean p{margin:0}
 
 /* корты и карта */
 .courts .ch{display:flex;align-items:baseline;gap:20px;margin:0 0 32px;flex-wrap:wrap}
 .courts .ch h2{font:500 72px/1 var(--serif);letter-spacing:-.03em;margin:0}
 .courts .ch .chg{white-space:nowrap;background:var(--ball);color:var(--ink);border-radius:var(--pill);padding:4px 14px;font-weight:600;align-self:center}
-.map-frame{position:relative;margin:0 0 24px}
+.map-frame{position:relative}
+.map-photo-credits{margin:6px 0 18px;text-align:right;color:var(--muted);font-size:13px}
+.map-photo-credits summary{cursor:pointer}
+.map-photo-credits ul{list-style:none;margin:6px 0 0;padding:0}
 .cmap{height:640px;border-radius:var(--r-img);background:var(--soft);z-index:0}
 #cmap [role="region"][tabindex="0"]{border-radius:var(--r-img)}
 #cmap:focus-visible,#cmap [role="region"][tabindex="0"]:focus-visible{outline:2px solid #005fcc;outline-offset:-2px}
@@ -238,17 +266,12 @@ img[src*="courts/turin"]{object-position:50% 0}
 .map-zoom-hint kbd{display:inline-block;padding:1px 5px;border:1px solid var(--line);border-radius:var(--r-tiny);background:var(--soft);font:600 13px var(--body)}
 @media (any-pointer:fine){.map-zoom-hint{display:block}}
 .crows{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
-.crow{display:grid;grid-template-columns:112px 1fr auto;gap:4px 16px;padding:16px 0;border-top:1px solid var(--line);cursor:pointer;align-content:start}
+.crow{display:grid;grid-template-columns:112px minmax(0,1fr);gap:4px 16px;padding:16px 0;border-top:1px solid var(--line);cursor:pointer;align-content:start}
 .cth{grid-row:1/3;width:112px;height:84px;border-radius:var(--r-inner);object-fit:cover;background:var(--soft)}
 .cth.none{background:var(--soft) url(img/ball.png) center/32px no-repeat}
 .crow b{font-weight:600;transition:color .15s}
 .crow:hover b,.crow.on b{color:var(--court)}
 .crow:focus{outline:none}
-.crow .st{font-weight:600;border-radius:var(--pill);padding:2px 10px;align-self:start}
-.st.new{background:var(--court-soft);color:var(--court)}
-.st.up{background:var(--clay-soft);color:var(--clay)}
-.st.off{background:var(--soft);color:var(--muted)}
-.st.ok{color:var(--muted);padding:2px 0}
 .crow .d{grid-column:2/-1;color:var(--muted)}
 
 .ty{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
@@ -280,8 +303,11 @@ img[src*="courts/turin"]{object-position:50% 0}
 .gm-style .gm-style-iw-d{overflow:visible!important;max-height:none!important;font:400 16px/1.45 var(--body);color:var(--ink)}
 .gm-style-iw-chr{position:absolute;top:0;right:0}
 .lm-label{font:600 14px var(--body)!important;color:var(--ink);text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}
-.lm{position:relative}.lm img{width:32px;height:32px}.lm .lm-label{position:absolute;left:50%;bottom:36px;transform:translateX(-50%)}
-.gm-landmark{position:absolute;width:32px;height:32px;transform:translate(-50%,-50%);pointer-events:none}
+.lm{position:relative;width:40px;height:40px;pointer-events:none}
+.lm[hidden]{display:none}
+.lm img{width:100%;height:100%;object-fit:cover;border:2px solid var(--paper);border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.lm .lm-label{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%)}
+.gm-landmark{position:absolute;transform:translate(-50%,-50%)}
 .leaflet-container a.leaflet-popup-close-button{top:8px;right:8px;width:28px;height:28px;font-size:20px;line-height:27px;background:#fff;border-radius:50%;color:var(--ink)}
 .gm-style-iw-chr button{background:#fff!important;border-radius:50%;margin:6px!important;width:32px!important;height:32px!important}
 .gm-style-iw-chr button span{margin:4px!important}
@@ -514,7 +540,7 @@ a.vplay{display:block}
 
 <!-- ====== WORLD ====== -->
 <section id="world">
-  <div class="sh"><h2 data-ru>Турниры по миру</h2><h2 data-uz>Dunyo bo‘ylab turnirlar</h2><h2 data-en>Tournaments abroad</h2><span class="hand" data-ru>Теннис и отпуск</span><span class="hand" data-uz>Tennis va dam olish</span><span class="hand" data-en>Tennis and a holiday</span></div>
+  <div class="sh"><h2 data-ru>Турниры по миру</h2><h2 data-uz>Dunyo bo‘ylab turnirlar</h2><h2 data-en>Tournaments abroad</h2></div>
   <div class="world">
       <article class="mini trip" id="post-santa-cup-2027">
         <img src="img/am_dubai.webp" alt="Santa Cup 2027">
@@ -540,7 +566,7 @@ a.vplay{display:block}
 
 <!-- ====== RESULTS ====== -->
 <section id="results">
-  <div class="sh" id="res-h"><h2 data-ru>Последние итоги</h2><h2 data-uz>So‘nggi natijalar</h2><h2 data-en>Latest results</h2><span class="hand" data-ru>поздравляем!</span><span class="hand" data-uz>tabriklaymiz!</span><span class="hand" data-en>congrats!</span></div>
+  <div class="sh" id="res-h"><h2 data-ru>Последние итоги</h2><h2 data-uz>So‘nggi natijalar</h2><h2 data-en>Latest results</h2></div>
   <div class="results">
     <article class="res" id="post-uchqun-doubles-nov-8" data-d="2026-11-08">
       <div class="pic wide"><img src="img/uchqun.webp" alt="Афиша мужского парного турнира 8 ноября, Учкун"></div>
@@ -735,22 +761,19 @@ a.vplay{display:block}
       <div><time class="post-date" datetime="2026-11-07" data-ru>7 ноября</time><time class="post-date" datetime="2026-11-07" data-uz>7-noyabr</time><time class="post-date" datetime="2026-11-07" data-en>7 November</time><h3 data-ru>«Буревестник»: корты 1–4 закрыты</h3><h3 data-uz>«Burevestnik»: 1–4-kortlar yopildi</h3><h3 data-en>Burevestnik: courts 1–4 closed</h3>
         <p data-ru>Первый, второй, третий и четвёртый корты закрыли. На их месте планируют построить крытые.</p><p data-uz>Birinchi, ikkinchi, uchinchi va to‘rtinchi kortlar yopildi. O‘rniga yopiq kortlar qurish rejalashtirilgan.</p><p data-en>Courts one to four have been closed. Indoor courts are planned in their place.</p>
         <p class="ct"><a href="https://t.me/dandesdet" target="_blank" rel="noopener"><span data-ru>Знаете подробности? @dandesdet</span><span data-uz>Batafsil bilasizmi? @dandesdet</span><span data-en>Know more? @dandesdet</span></a></p></div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Играли на этих кортах — бронируйте заранее на оставшихся или посмотрите другие корты на карте ниже. Зато в городе станет больше крытых.</p><p data-uz>Shu kortlarda o‘ynagan bo‘lsangiz — qolganlarini oldindan bron qiling yoki pastdagi xaritadan boshqa kortni tanlang. Keyin shaharda yopiq kortlar ko‘payadi.</p><p data-en>If you played on these courts, book the remaining ones early or pick another court on the map below. Later the city gets more indoor courts.</p></div>
-      <div class="news-source"><span data-ru>Источник не указан</span><span data-uz>Manba ko‘rsatilmagan</span><span data-en>Source unavailable</span></div>
+      <div class="news-source"><span data-ru>Источник не указан</span><span data-uz>Manba ko‘rsatilmagan</span><span data-en>Source not provided</span></div>
     </article>
     <article class="nw" id="post-ajou-badge-nov-6" data-d="2026-11-06">
       <img class="nph" src="img/courts/ajou.webp" alt="" loading="lazy">
       <div><time class="post-date" datetime="2026-11-06" data-ru>6 ноября</time><time class="post-date" datetime="2026-11-06" data-uz>6-noyabr</time><time class="post-date" datetime="2026-11-06" data-en>6 November</time><h3 data-ru>AJOU: на вход теперь нужен бейдж</h3><h3 data-uz>AJOU: endi kirish uchun beyj kerak</h3><h3 data-en>AJOU: you now need a badge to get in</h3>
         <p data-ru>На корты у университета Аджу пускают по бейджу. Тем, кто играет здесь постоянно, бейджи сделают — для этого напишите Акмалю. Нужен ли бейдж тем, кто берёт корт на час, Акмаль сейчас уточняет.</p><p data-uz>Ajou universiteti yonidagi kortlarga beyj bilan kiritishadi. Doimiy o‘ynaydiganlarga beyj qilib berishadi — buning uchun Akmalga yozing. Kortni bir soatga olganlarga beyj kerakmi — Akmal hozir aniqlayapti.</p><p data-en>The courts at Ajou University admit players with a badge. Regulars will get badges — message Akmal for one. Whether hourly renters need one too, Akmal is still finding out.</p>
         <p class="ct"><a href="https://t.me/tennisplusss" target="_blank" rel="noopener"><span data-ru>Акмаль · @tennisplusss</span><span data-uz>Akmal · @tennisplusss</span><span data-en>Akmal · @tennisplusss</span></a></p></div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Ходите в AJOU регулярно — напишите Акмалю за бейджем сейчас. Берёте корт на час — уточните у него перед игрой.</p><p data-uz>AJOU’ga muntazam borsangiz — beyj uchun hozir Akmalga yozing. Kortni bir soatga olsangiz — o‘yindan oldin undan so‘rang.</p><p data-en>Play at AJOU regularly? Message Akmal for a badge now. Renting by the hour? Check with him before you play.</p></div>
       <div class="news-source"><span data-ru>Источник: </span><span data-uz>Manba: </span><span data-en>Source: </span><a href="https://t.me/tennisplusss" target="_blank" rel="noopener">Tennis plus</a></div>
     </article>
     <article class="nw" id="post-tulyaganova-school-nov-3" data-d="2026-11-03">
       <img class="nph" src="img/iroda_news.webp" alt="" loading="lazy">
       <div><time class="post-date" datetime="2026-11-03" data-ru>3 ноября</time><time class="post-date" datetime="2026-11-03" data-uz>3-noyabr</time><time class="post-date" datetime="2026-11-03" data-en>3 November</time><h3 data-ru>Ирода Туляганова возглавила Республиканскую школу олимпийского резерва</h3><h3 data-uz>Iroda To‘laganova Respublika olimpiya zaxiralari maktabiga rahbar bo‘ldi</h3><h3 data-en>Iroda Tulyaganova to head the Republican Olympic Reserve Tennis School</h3>
         <p data-ru>Бывшая 16-я ракетка мира стала директором главной теннисной школы страны.</p><p data-uz>Sobiq jahon 16-raketkasi mamlakatning bosh tennis maktabi direktori bo‘ldi.</p><p data-en>The former world No. 16 is now director of the country’s main tennis school.</p></div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Для любителя эта школа важна как площадка: корты там сдают по часам, и по прошлогоднему обзору Afisha — дешевле всех в городе. Там же проходят детские турниры.</p><p data-uz>Havaskor uchun bu maktab — kort: soatbay ijara shahardagi eng arzonlardan. Bolalar turnirlari ham shu yerda.</p><p data-en>For amateurs the school matters as a venue: courts are rented by the hour, and last year’s Afisha review called them the cheapest in town. Junior tournaments are held there too.</p></div>
       <div class="news-source"><span data-ru>Источник: </span><span data-uz>Manba: </span><span data-en>Source: </span><a href="https://www.uzdaily.uz/en/iroda-tulyaganova-appointed-head-of-uzbekistan-tennis-school/" target="_blank" rel="noopener">UzDaily</a></div>
     </article>
     <article class="nw" id="post-masters-league-news-nov-2" data-d="2026-11-02">
@@ -758,7 +781,6 @@ a.vplay{display:block}
       <div><time class="post-date" datetime="2026-11-02" data-ru>2 ноября</time><time class="post-date" datetime="2026-11-02" data-uz>2-noyabr</time><time class="post-date" datetime="2026-11-02" data-en>2 November</time><h3 data-ru>Лига Masters меняет правила</h3><h3 data-uz>Masters ligasi qoidalari o‘zgaradi</h3><h3 data-en>Masters League changes its rules</h3>
         <p data-ru>Со следующего сезона счёт нужно внести в течение суток, а недоигранные матчи не засчитываются.</p><p data-uz>Keyingi mavsumdan hisob bir kun ichida kiritilishi kerak, tugallanmagan o‘yinlar hisobga olinmaydi.</p><p data-en>From next season scores must be entered within 24 hours, and unfinished matches won’t count.</p><p class="ct"><a href="https://tashkent-masters-league.uz/" target="_blank" rel="noopener"><span data-ru>Сайт лиги</span><span data-uz>Liga sayti</span><span data-en>League website</span></a></p>
         </div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Сыграл — сразу отметь в приложении. Матч «на потом» в конце сезона больше не спасёт.</p><p data-uz>O‘ynadingmi — darhol ilovada belgila.</p><p data-en>Played — log it in the app right away. Saving a match “for later” won’t help at the end of the season anymore.</p></div>
       <div class="news-source"><span data-ru>Источник: </span><span data-uz>Manba: </span><span data-en>Source: </span><a href="https://t.me/tashkent_masters_league/8641" target="_blank" rel="noopener">Tashkent Masters League</a></div>
     </article>
     <article class="nw" id="post-turin-indoor-court-nov-2" data-d="2026-11-02">
@@ -766,7 +788,6 @@ a.vplay{display:block}
       <div><time class="post-date" datetime="2026-11-02" data-ru>2 ноября</time><time class="post-date" datetime="2026-11-02" data-uz>2-noyabr</time><time class="post-date" datetime="2026-11-02" data-en>2 November</time><h3 data-ru>Новый крытый корт: Туринский политех</h3><h3 data-uz>Yangi yopiq kort: Turin politexnikasi</h3><h3 data-en>New indoor court: Turin Polytechnic</h3>
         <p data-ru>Малая кольцевая, 17. Раздевалки, душ, яркий свет. Группы для взрослых — Пн, Ср, Пт в 19:00 и 20:00, только по записи.</p><p data-uz>Kichik halqa yo‘li, 17. Kiyinish xonalari, dush. Kattalar guruhlari — Du, Ch, Ju 19:00 va 20:00.</p><p data-en>Kichik Halqa Yo‘li, 17. Changing rooms, showers, bright lights. Adult groups Mon, Wed, Fri at 19:00 and 20:00, by sign-up only.</p>
         </div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Ещё одно место, где можно играть зимой без снега и ветра. Открытые корты МГУ закрылись до весны, а крытых в городе мало.</p><p data-uz>Qishda o‘ynash uchun yana bir joy. MGU ochiq kortlari bahorgacha yopildi.</p><p data-en>One more place to play in winter without snow and wind. MSU’s outdoor courts are closed until spring, and indoor courts are scarce.</p></div>
       <div class="news-source"><span data-ru>Источник: </span><span data-uz>Manba: </span><span data-en>Source: </span><a href="https://t.me/c/2173137943/13596" target="_blank" rel="noopener">Tennis plus</a></div>
     </article>
     <article class="nw" id="post-yoshlik-entry-fee-nov-1" data-d="2026-11-01">
@@ -774,7 +795,6 @@ a.vplay{display:block}
       <div><time class="post-date" datetime="2026-11-01" data-ru>1 ноября</time><time class="post-date" datetime="2026-11-01" data-uz>1-noyabr</time><time class="post-date" datetime="2026-11-01" data-en>1 November</time><h3 data-ru>Ёшлик: 50 000 сум за вход</h3><h3 data-uz>Yoshlik: kirish uchun 50 000 so‘m</h3><h3 data-en>Yoshlik: 50,000 sum entry fee</h3>
         <p data-ru>Стадион «Ёшлик» (бывший «Старт») берёт плату за вход на территорию сверх аренды корта.</p><p data-uz>«Yoshlik» stadioni kortni ijaraga olishdan tashqari hududga kirish uchun ham pul oladi.</p><p data-en>Yoshlik stadium (formerly Start) now charges an entry fee on top of the court rental.</p><p class="ct"><a href="tel:+998931712333" target="_blank" rel="noopener"><span data-ru>Стадион · 93 171 23 33</span><span data-uz>Stadion · 93 171 23 33</span><span data-en>Stadium · 93 171 23 33</span></a></p>
         </div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nima degani</b><b data-en>What it means</b><p data-ru>Три игры в неделю — плюс 600 000 сум в месяц. Если играете в Ёшлике регулярно, посчитайте: Учкун и Республиканская школа заметно дешевле (смотрите «Корты» ниже).</p><p data-uz>Haftada uch marta — oyiga +600 000 so‘m. Uchqun va Respublika maktabi arzonroq (pastdagi «Kortlar»).</p><p data-en>Three games a week — 600,000 sum more per month. If you play at Yoshlik regularly, compare: Uchqun and the Republican school are noticeably cheaper (see “Courts” below).</p></div>
       <div class="news-source"><span data-ru>Источник: </span><span data-uz>Manba: </span><span data-en>Source: </span><a href="https://t.me/c/1653350711/87014" target="_blank" rel="noopener"><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></a> · Tennis plus</div>
     </article>
   </div>
@@ -787,10 +807,10 @@ a.vplay{display:block}
   <div class="news">
     <article class="nw" id="post-wilson-blade-100-pro-v10" data-d="2026-11-01">
       <img class="nph" src="img/gear_blade100pro.webp" alt="Wilson Blade 100 Pro v10" loading="lazy">
-      <div><h3 data-ru>Wilson Blade 100 Pro v10 — новая ракетка в линейке Blade</h3><h3 data-uz>Wilson Blade 100 Pro v10 — Blade qatoridagi yangi raketka</h3><h3 data-en>Wilson Blade 100 Pro v10 — a new frame in the Blade line</h3><span class="src" data-ru>Wilson · обзор от 1 ноября</span><span class="src" data-uz>Wilson · 1-noyabrdagi sharh</span><span class="src" data-en>Wilson · review of 1 November</span>
+      <div><time class="post-date" datetime="2026-11-01" data-ru>1 ноября</time><time class="post-date" datetime="2026-11-01" data-uz>1-noyabr</time><time class="post-date" datetime="2026-11-01" data-en>1 November</time><h3 data-ru>Wilson Blade 100 Pro v10 — новая ракетка в линейке Blade</h3><h3 data-uz>Wilson Blade 100 Pro v10 — Blade qatoridagi yangi raketka</h3><h3 data-en>Wilson Blade 100 Pro v10 — a new frame in the Blade line</h3>
         <p data-ru>Голова 100 кв. дюймов, натяжка 16×20, 295 г без струн, самый толстый и жёсткий обод в семействе Blade. В США — $299, в Европе — около €260.</p><p data-uz>Kallagi 100 kv. dyuym, tor 16×20, torsiz 295 g, Blade oilasidagi eng qalin va qattiq gardish. AQShda — $299, Yevropada — taxminan €260.</p><p data-en>100 sq in head, 16×20 pattern, 295 g unstrung, the thickest and stiffest beam in the Blade family. $299 in the US, about €260 in Europe.</p>
-        <p class="ct"><a href="https://www.wilson.com/en-us/products/blade-100-pro-v10-tennis-racket-wr20810" target="_blank" rel="noopener"><span data-ru>Wilson</span><span data-uz>Wilson</span><span data-en>Wilson</span></a><a href="https://www.tennisnerd.net/?p=70289" target="_blank" rel="noopener"><span data-ru>Обзор Tennisnerd</span><span data-uz>Tennisnerd sharhi</span><span data-en>Tennisnerd review</span></a><a href="https://www.tennis-warehouse.com/learning_center/racquet_reviews/WB100Preview.html" target="_blank" rel="noopener"><span data-ru>Тест Tennis Warehouse</span><span data-uz>Tennis Warehouse testi</span><span data-en>Tennis Warehouse playtest</span></a></p></div>
-      <div class="mean"><b data-ru>Что это значит</b><b data-uz>Bu nimani anglatadi</b><b data-en>What it means</b><p data-ru>Для тех, кто играет агрессивно с задней линии: мощнее и стабильнее обычной Blade 98. Ракетка жёсткая — сначала попробуйте её у знакомых. Продаётся ли она уже в Ташкенте, мы не знаем; знаете магазин — напишите @dandesdet.</p><p data-uz>Orqa chiziqdan hujumkor o‘ynaydiganlar uchun: oddiy Blade 98 dan kuchliroq va barqarorroq. Raketka qattiq — avval tanishlarnikida sinab ko‘ring. Toshkentda sotilayotganini bilmaymiz; do‘konni bilsangiz — @dandesdet ga yozing.</p><p data-en>For aggressive baseliners: more power and stability than the regular Blade 98. It’s a stiff frame — try a friend’s first. We don’t know yet if it’s sold in Tashkent; if you know a shop, message @dandesdet.</p></div>
+      </div>
+      <div class="news-source"><span data-ru>Источники: </span><span data-uz>Manbalar: </span><span data-en>Sources: </span><a href="https://www.wilson.com/en-us/products/blade-100-pro-v10-tennis-racket-wr20810" target="_blank" rel="noopener"><span data-ru>Wilson</span><span data-uz>Wilson</span><span data-en>Wilson</span></a> · <a href="https://www.tennisnerd.net/?p=70289" target="_blank" rel="noopener"><span data-ru>Обзор Tennisnerd</span><span data-uz>Tennisnerd sharhi</span><span data-en>Tennisnerd review</span></a> · <a href="https://www.tennis-warehouse.com/learning_center/racquet_reviews/WB100Preview.html" target="_blank" rel="noopener"><span data-ru>Тест Tennis Warehouse</span><span data-uz>Tennis Warehouse testi</span><span data-en>Tennis Warehouse playtest</span></a></div>
     </article>
   </div>
 </section>
@@ -808,6 +828,19 @@ a.vplay{display:block}
         <span data-en>Hold <kbd>⌘ Command</kbd> or <kbd>Ctrl</kbd> and scroll to zoom</span>
       </div>
     </div>
+    <details class="map-photo-credits">
+      <summary><span data-ru>Фото ориентиров</span><span data-uz>Mo‘ljallar suratlari</span><span data-en>Landmark photo credits</span></summary>
+      <p><span data-ru>Кадрированные фотографии из Wikimedia Commons</span><span data-uz>Wikimedia Commons suratlari qirqilgan</span><span data-en>Cropped photographs from Wikimedia Commons</span></p>
+      <ul>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Ташкент,_сквер_Амира_Темура_01.jpg">Екатерина Борисова</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Toshkent_teleminorasi.jpg">ShNajimova</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:TASHKENT_AIRPORT.2_-_panoramio.jpg">Kayhan ERTUGRUL</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Chorsu_Bazaar_in_Tashkent.jpg">Adam Harangozó</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Chorsu_mehmonxonasi_2024.jpg">Basiyra</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Pakhtakor_Markaziy_Stadium.jpg">Ekrem Canli</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:2-V-luchah-zakata-IMG_2687-1.JPG">Kalumnika</a> · <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></li>
+      </ul>
+    </details>
     <div class="crows" id="crows"></div>
     <p class="cfoot" data-ru>Все корты сдаются по часам — звоните или бронируйте онлайн: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, боты <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Цены — из открытых источников и групп, могли устареть.</p>
     <p class="cfoot" data-uz>Barcha kortlar soatbay ijaraga beriladi — qo‘ng‘iroq qiling yoki onlayn bron qiling: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a>, <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Narxlar eskirgan bo‘lishi mumkin.</p><p class="cfoot" data-en>All courts are rented by the hour — call or book online: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, bots <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> and <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Prices come from open sources and the groups and may be outdated.</p>
@@ -842,6 +875,33 @@ a.vplay{display:block}
 </div>
 
 <div class="lb" id="lb"><img alt=""></div>
+
+<dialog class="share-dialog" id="share-dialog" aria-labelledby="share-title">
+  <div class="share-head">
+    <h2 id="share-title"><span data-ru>Поделиться</span><span data-uz>Ulashish</span><span data-en>Share</span></h2>
+    <button type="button" class="share-close" autofocus>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+      <span class="post-share-label"><span data-ru>Закрыть</span><span data-uz>Yopish</span><span data-en>Close</span></span>
+    </button>
+  </div>
+  <div class="share-channels">
+    <div class="share-track" id="share-track"></div>
+    <button type="button" class="share-arrow share-prev" aria-controls="share-track" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg>
+      <span class="post-share-label"><span data-ru>Назад</span><span data-uz>Orqaga</span><span data-en>Previous</span></span>
+    </button>
+    <button type="button" class="share-arrow share-next" aria-controls="share-track" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg>
+      <span class="post-share-label"><span data-ru>Дальше</span><span data-uz>Oldinga</span><span data-en>Next</span></span>
+    </button>
+  </div>
+  <div class="share-link-row">
+    <label for="share-url" class="post-share-label"><span data-ru>Ссылка на пост</span><span data-uz>Post havolasi</span><span data-en>Post link</span></label>
+    <input id="share-url" type="url" dir="ltr" readonly>
+    <button type="button" class="share-copy"><span data-ru>Копировать</span><span data-uz>Nusxalash</span><span data-en>Copy</span></button>
+  </div>
+  <p class="share-status" role="status"></p>
+</dialog>
 
 <script>
 // Дейли: анонсы — с сегодняшнего дня, итоги и новости — за последние 7 дней (по времени Ташкента).
@@ -957,7 +1017,7 @@ const COURTS = [
    dRu:'Юнусабад, массив Киёт, 88. Корты 1–4 закрыты, на их месте планируют крытые. Доступность остальных кортов уточняйте по телефону.',
    dUz:'Yunusobod, Qiyot mavzesi, 88. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan. Boshqa kortlar haqida telefonda aniqlang.',
    dEn:'Yunusabad, Qiyot residential area, 88. Courts 1–4 are closed, with indoor courts planned in their place. Call to check availability of the other courts.',
-   tel:'+998712346679', bk:[], t:[['c','o']]},
+   tel:'+998712346679', bk:[], t:[['c','o','img/courts/matonat-outdoor-clay.webp']]},
   {ru:'Туринский политех', en:"Turin Polytechnic", stEn:"new", dEn:"Kichik Halqa Yo‘li, 17. Indoor court, changing rooms and showers. Tennis plus groups, by sign-up.", uz:'Turin politexnikasi', st:'new', stRu:'новый', stUz:'yangi', since:'2026-11-02', ll:[41.350545,69.222192], dRu:'Малая кольцевая, 17. Крытый корт, раздевалки и душ. Группы Tennis plus, по записи.', dUz:'Kichik halqa yo‘li, 17. Yopiq kort, dush. Tennis plus, yozilish orqali.', tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/turin.webp']]},
   {ru:'Ёшлик (Старт)', en:"Yoshlik (Start)", stEn:"+50,000 entry fee", dEn:"Outdoor clay and an indoor hard court. Outdoors before 17:00 — 100,000/hour, plus 50,000 entry.", uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', ll:[41.324598,69.306003], dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час, плюс 50 000 за вход.', dUz:'Ochiq grunt va yopiq hard. Kort ijarasi + 50 000 kirish.', tel:'+998931712333', img:'img/courts/yoshlik.webp', h:'05:00–23:00', bk:[], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o",'img/courts/mgu.webp']]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
@@ -985,7 +1045,14 @@ const COURTS = [
   {ru:'Ace club', en:"Ace club", stEn:"open", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers. From 250,000/hour.", uz:'Ace club', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ. От 250 000/час.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush. 250 000/soatdan.', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn", t:[["h", "i",'img/courts/ace.webp']]}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}]},
   {ru:'Ипакчилик', en:"Ipakchilik", stEn:"open", dEn:"Ipakchi street.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи.', dUz:'Ipakchi ko‘chasi.', tel:'+998959492222', bk:[], t:[["c", "o",'img/courts/ipak.webp']]},
   {ru:'Теннисная школа Ироды Тулягановой', en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
-  {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid_hall.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
+  {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid-exterior.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
+  {ru:'Grand Mir Hotel', uz:'Grand Mir Hotel', en:'Grand Mir Hotel', st:'off',
+   ll:[41.29644,69.26789], tel:'+998781402000',
+   dRu:'Ул. Мирабад, 2. Отель закрыт, доступ к корту сейчас не подтверждён.',
+   dUz:'Mirobod ko‘chasi, 2. Mehmonxona yopiq, kortdan foydalanish imkoni tasdiqlanmagan.',
+   dEn:'2 Mirabad Street. The hotel is closed; access to the court is unconfirmed.',
+   bk:[{u:'https://yandex.uz/maps/org/grand_mir_hotel/211309407833/', k:'hotel'}],
+   t:[['h','o','img/courts/grand-mir-outdoor-hard.jpg']]},
   {ru:'Локомотив', en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта.', dUz:'2 ta ochiq grunt kort.', t:[["c","o",'img/courts/lokomotiv.webp']], bk:[]},
   {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
   {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
@@ -999,7 +1066,7 @@ let map = null, marks = [];
 let fitCourtView = () => {}, landmarkLabels = [];
 
 // Где посмотреть свободные слоты: PlayOn (онлайн-бронь), бот или канал клуба; если нет — звонок
-const BK = {playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos']};
+const BK = {playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
 function bookHtml(c) {
   const hrs = c.h ? `<span class="hrs">${L_('Работает', 'Ish vaqti', 'Open')} ${c.h}</span>` : c.tel ? `<span class="hrs">${L_('Часы уточняйте по телефону', 'Ish vaqtini telefonda aniqlang', 'Call for opening hours')}</span>` : `<span class="hrs">${L_('Часы и контакты пока не знаем — знаете? @dandesdet', 'Ish vaqti va aloqa hali noma’lum', 'Hours and contacts unknown yet')}</span>`;
   const links = (c.bk || []).map(b => `<a href="${b.u}" target="_blank" rel="noopener">${L_(...BK[b.k])}${b.t && !/^play/.test(b.k) ? ' · ' + b.t : ''}</a>`);
@@ -1065,7 +1132,7 @@ function renderCourts() {
   const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
   document.getElementById('crows').innerHTML = list.map(c => {
     const photo = courtPhoto(c);
-    return `<div class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" tabindex="0">${photo ? `<img class="cth" src="${photo}" alt="" loading="lazy">` : `<span class="cth none"></span>`}<b>${c[lang] || c.uz}</b><span class="st ${c.st}">${L_(c.stRu, c.stUz, c.stEn)}</span>
+    return `<div class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" tabindex="0">${photo ? `<img class="cth" src="${photo}" alt="" loading="lazy">` : `<span class="cth none"></span>`}<b>${c[lang] || c.uz}</b>
     <div class="d">${typesHtml(c)}${L_(c.dRu, c.dUz, c.dEn)}${bookHtml(c)}</div></div>`;
   }).join('');
   document.querySelectorAll('.crow').forEach(r => {
@@ -1113,10 +1180,11 @@ function initLeaflet() {
   map.createPane('landmarks').style.zIndex = 625;
   landmarkLabels = LANDMARKS.map(l => {
     const marker = L.marker(l.ll, {pane:'landmarks', interactive:false, keyboard:false,
-      icon:L.divIcon({className:'lm', html:landmarkContent(l), iconSize:[32,32], iconAnchor:[16,16]})}).addTo(map);
+      icon:L.divIcon({className:'lm', html:landmarkContent(l), iconSize:[40,40], iconAnchor:[20,20]})}).addTo(map);
     return marker.getElement().querySelector('.lm-label');
   });
-  fitCourtView(); applyCF();
+  map.on('zoomend', updateLandmarkVisibility);
+  fitCourtView(); updateLandmarkVisibility(); applyCF();
   map.on('popupclose', unmark);
 }
 // маркер — теннисный мяч; закрытый корт — серый мяч
@@ -1134,20 +1202,26 @@ const MAP_STYLE = [
 
 // Ориентиры на карте — не кликаются, только помогают понять, где что
 const LANDMARKS = [
-  {ru:'Сквер Амира Темура', uz:'Amir Temur xiyoboni', en:'Amir Temur Square', ll:[41.311287,69.279758], i:'<path d="M12 3v3M9 6h6l-1 9h-4zM7 15h10v3H7zM5 18h14v3H5z"/>'},
-  {ru:'Телебашня', uz:'Teleminora', en:'TV Tower', ll:[41.34567,69.284719], i:'<path d="M12 2v6M9 21l3-13 3 13M8 11h8M10 8h4"/>'},
-  {ru:'Аэропорт', uz:'Aeroport', en:'Airport', ll:[41.261838,69.267204], i:'<path d="M21 14v-2l-8-4V4a1 1 0 0 0-2 0v4l-8 4v2l8-2v4l-2 2v1l3-1 3 1v-1l-2-2v-4z"/>'},
-  {ru:'Чорсу', uz:'Chorsu', en:'Chorsu Bazaar', ll:[41.326169,69.239632], i:'<path d="M4 20h16M6 20v-6a6 6 0 0 1 12 0v6M12 8V5M9 20v-4h6v4"/>'},
+  {ru:'Сквер Амира Темура', uz:'Amir Temur xiyoboni', en:'Amir Temur Square', ll:[41.311287,69.279758], img:'img/landmarks/amir-temur.webp'},
+  {ru:'Телебашня', uz:'Teleminora', en:'TV Tower', ll:[41.34567,69.284719], img:'img/landmarks/tv-tower.webp'},
+  {ru:'Аэропорт', uz:'Aeroport', en:'Airport', ll:[41.261838,69.267204], img:'img/landmarks/airport.webp'},
+  {ru:'Чорсу', uz:'Chorsu', en:'Chorsu Bazaar', ll:[41.326169,69.239632], img:'img/landmarks/chorsu.webp'},
+  {ru:'Бывшая гостиница «Чорсу»', uz:'Sobiq «Chorsu» mehmonxonasi', en:'Former Chorsu Hotel', ll:[41.322596,69.234594], img:'img/landmarks/chorsu-hotel.webp', minZoom:14},
+  {ru:'Стадион «Пахтакор»', uz:'«Paxtakor» stadioni', en:'Pakhtakor Stadium', ll:[41.315522,69.260244], img:'img/landmarks/pakhtakor-stadium.webp', minZoom:14},
+  {ru:'Дворец авиастроителей', uz:'Aviasozlar madaniyat saroyi', en:'Aviators’ Palace of Culture', ll:[41.29212,69.341579], img:'img/landmarks/aviators-palace.webp'},
 ];
-const lmIcon = l => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 36 36" width="36" height="36"><circle cx="12" cy="12" r="17" fill="#fff" stroke="#111" stroke-opacity=".15"/><g fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${l.i}</g></svg>`);
-const landmarkContent = l => `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`;
+const landmarkContent = l => `<img src="${l.img}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`;
+function updateLandmarkVisibility() {
+  const zoom = map.getZoom();
+  landmarkLabels.forEach((label, i) => { label.parentElement.hidden = zoom < (LANDMARKS[i].minZoom ?? 0); });
+}
 window.initGoogle = () => {
   const g = google.maps;
   map = new g.Map(document.getElementById('cmap'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: 'cooperative',
     disableDefaultUI: true, zoomControl: true, clickableIcons: false, styles: MAP_STYLE});
   const info = new g.InfoWindow({maxWidth: 300}); let cur = null;
-  info.addListener('closeclick', () => { cur = null; unmark(); });
-  map.addListener('click', () => { info.close(); cur = null; unmark(); });
+  info.addListener('close', () => { cur = null; unmark(); });
+  map.addListener('click', () => info.close());
   marks = COURTS.map(c => {
     const pos = {lat: c.ll[0], lng: c.ll[1]};
     const icon = size => ({url:ball(c.st === 'off'), scaledSize:new g.Size(size, size), anchor:new g.Point(size / 2, size / 2)});
@@ -1156,8 +1230,11 @@ window.initGoogle = () => {
     const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
     m.addListener('mouseover', () => m.setIcon(hovered));
     m.addListener('mouseout', () => m.setIcon(normal));
-    m.addListener('click', open);
-    return {focus: () => { map.panTo(pos); map.setZoom(15); open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }, show: v => { m.setVisible(v); if (!v && cur === c) { info.close(); cur = null; unmark(); } }};
+    m.addListener('click', () => {
+      if (cur === c && info.isOpen) info.close();
+      else open();
+    });
+    return {focus: () => { map.panTo(pos); map.setZoom(15); open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }, show: v => { m.setVisible(v); if (!v && cur === c) info.close(); }};
   });
   fitCourtView = () => {
     const points = courtViewPoints().map(([lat, lng]) => ({lat, lng}));
@@ -1185,7 +1262,8 @@ window.initGoogle = () => {
     overlay.setMap(map);
     return el.querySelector('.lm-label');
   });
-  fitCourtView(); applyCF();
+  map.addListener('zoom_changed', updateLandmarkVisibility);
+  fitCourtView(); updateLandmarkVisibility(); applyCF();
 };
 // если ключ не сработал (API не включён, домен не разрешён) — молча возвращаемся к OpenStreetMap
 window.gm_authFailure = () => { const el = document.getElementById('cmap'); el.innerHTML = ''; el.className = 'cmap'; initLeaflet(); renderCourts(); };
@@ -1223,12 +1301,102 @@ document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dat
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
 set(saved || 'uz');   // по умолчанию — узбекский; выбор человека запоминаем
 
+const shareDialog = document.getElementById('share-dialog');
+const shareTrack = document.getElementById('share-track');
+const shareUrl = document.getElementById('share-url');
+const shareStatus = shareDialog.querySelector('.share-status');
+const sharePrev = shareDialog.querySelector('.share-prev');
+const shareNext = shareDialog.querySelector('.share-next');
+let shareOpener;
+
+function updateShareArrows() {
+  const atStart = shareTrack.scrollLeft < 2;
+  const atEnd = shareTrack.scrollLeft + shareTrack.clientWidth >= shareTrack.scrollWidth - 2;
+  sharePrev.hidden = atStart;
+  shareNext.hidden = atEnd;
+  if (document.activeElement === sharePrev && atStart) (atEnd ? shareUrl : shareNext).focus();
+  if (document.activeElement === shareNext && atEnd) (atStart ? shareUrl : sharePrev).focus();
+}
+
+function scrollShareOptions(direction) {
+  shareTrack.scrollBy({
+    left: direction * Math.max(78, shareTrack.clientWidth - 78),
+    behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+  });
+}
+
+shareTrack.addEventListener('scroll', updateShareArrows, {passive: true});
+window.addEventListener('resize', () => { if (shareDialog.open) updateShareArrows(); });
+sharePrev.onclick = () => scrollShareOptions(-1);
+shareNext.onclick = () => scrollShareOptions(1);
+shareDialog.querySelector('.share-close').onclick = () => shareDialog.close();
+shareDialog.addEventListener('close', () => shareOpener?.focus({preventScroll: true}));
+shareDialog.addEventListener('click', event => {
+  if (event.target !== shareDialog) return;
+  const bounds = shareDialog.getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right ||
+      event.clientY < bounds.top || event.clientY > bounds.bottom) shareDialog.close();
+});
+shareUrl.onclick = () => shareUrl.select();
+shareDialog.querySelector('.share-copy').onclick = async () => {
+  const url = shareUrl.value;
+  let message;
+  try {
+    await navigator.clipboard.writeText(url);
+    message = L_('Ссылка скопирована', 'Havola nusxalandi', 'Link copied');
+  } catch {
+    if (!shareDialog.open || shareUrl.value !== url) return;
+    shareUrl.focus();
+    shareUrl.select();
+    message = L_('Скопируйте выделенную ссылку', 'Belgilangan havolani nusxalang', 'Copy the selected link');
+  }
+  if (shareDialog.open && shareUrl.value === url) shareStatus.textContent = message;
+};
+
+function openPostShare(card, button) {
+  const url = new URL('./', location.href);
+  url.searchParams.set('post', card.id);
+  url.hash = card.id;
+  const title = [...card.querySelectorAll('h3')].find(h => h.getClientRects().length)?.innerText.trim() || document.title;
+  const link = encodeURIComponent(url.href);
+  const subject = encodeURIComponent(title);
+  const body = encodeURIComponent(title + '\n' + url.href);
+  const options = [
+    [L_('Сообщения', 'Xabarlar', 'Messages'), '#1767d2', 'sms:?body=' + body, 'M12 3C5.9 3 2 6.8 2 11.2c0 3.2 2 5.9 5.4 7.3L7 22l4.2-2.4c6.2.2 10.8-3.3 10.8-8.4C22 6.8 18.1 3 12 3Z'],
+    ['WhatsApp', '#07843e', 'https://wa.me/?text=' + body, 'M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.6 14.6l-2.5.7.7-2.4A8 8 0 0 1 12 4ZM9 7c-.8-.4-1.6.3-1.6 1.5 0 2.8 3.3 6.1 6 7.1 1.3.5 2.7.3 3.2-.6.4-.6.4-1.2.1-1.4l-2.2-1.1c-.3-.1-.5.2-1.1.9-1.1-.2-3.1-1.7-3.5-2.9.6-.6.8-.9.7-1.1L9.7 7.5C9.5 7.2 9.3 7.1 9 7Z'],
+    ['Telegram', '#147bad', 'https://t.me/share/url?url=' + link + '&text=' + subject, 'M21.7 3.5 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.8 1.5 1.9 5.8c.2.7.4.9.8.9.5 0 .7-.2 1-.5l2.3-2.3 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-15.1c.3-1.2-.4-1.9-1.4-1.7ZM9.5 13.4l9.2-6.1c.5-.3.7 0 .3.3l-7.6 7-.3 3.2-1.6-4.4Z'],
+    ['Facebook', '#385693', 'https://www.facebook.com/sharer/sharer.php?u=' + link, 'M14 22v-9h3l.5-3.5H14V7.3c0-1 .3-1.8 1.8-1.8h1.9V2.3c-.4-.1-1.5-.3-2.8-.3-2.8 0-4.7 1.7-4.7 4.8v2.7H7V13h3.2v9Z'],
+    ['X', '#111', 'https://twitter.com/intent/tweet?url=' + link + '&text=' + subject, 'M17.3 3H21l-7.8 8.9L22 21h-6.8l-5.3-6.9L3.8 21H0l8.4-9.6L0 3h7l4.8 6.3L17.3 3ZM16 19h1.9L6 4.9H4L16 19Z'],
+    ['Email', '#707070', 'mailto:?subject=' + subject + '&body=' + body, 'M3 5h18c1.1 0 2 1 2 2v10c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V7c0-1 .9-2 2-2Zm0 2v2l9 5.6L21 9V7l-9 5.5L3 7Z'],
+    ['Reddit', '#c83100', 'https://www.reddit.com/submit?url=' + link + '&title=' + subject, 'M22 11a2.2 2.2 0 0 0-3.5-1.8 11 11 0 0 0-5.7-1.8l1-4.2 3.4.8a1.7 1.7 0 1 0 .3-1l-4-.9a.6.6 0 0 0-.7.4l-1.2 4.8a11 11 0 0 0-6.1 1.9A2.2 2.2 0 1 0 3.3 13l-.1 1c0 3.6 3.9 6.5 8.8 6.5s8.8-2.9 8.8-6.5l-.1-1c.8-.3 1.3-1.1 1.3-2ZM8 12a1.3 1.3 0 1 1 0 2.6A1.3 1.3 0 0 1 8 12Zm4 6.1c-1.5 0-2.8-.4-3.5-1.1l.7-.7a5 5 0 0 0 5.6 0l.7.7a5.3 5.3 0 0 1-3.5 1.1Zm4-3.5a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z'],
+    ['Pinterest', '#b70926', 'https://www.pinterest.com/pin/create/button/?url=' + link + '&description=' + subject, 'M12 2a10 10 0 0 0-3.7 19.3c-.1-.8-.1-1.9.1-2.7l1.3-5.5s-.3-.7-.3-1.7c0-1.6.8-2.8 2-2.8.9 0 1.3.7 1.3 1.5 0 .9-.6 2.3-.9 3.6-.3 1.2.6 2 1.7 2 2 0 3.3-2.6 3.3-5 0-1.9-1.3-3.4-3.8-3.4-2.8 0-4.6 2.1-4.6 4.5 0 .8.2 1.4.6 1.8.2.2.2.3.1.6l-.2.7c-.1.2-.2.3-.4.2-1.2-.5-1.8-1.8-1.8-3.4 0-2.6 2.2-5.7 6.6-5.7 3.6 0 5.9 2.6 5.9 5.3 0 3.6-2 6.3-5 6.3-1 0-1.9-.5-2.2-1.2l-.7 2.5c-.3.9-.8 1.9-1.2 2.7a10 10 0 1 0 2-19.6Z'],
+    ['LinkedIn', '#006c9e', 'https://www.linkedin.com/sharing/share-offsite/?url=' + link, 'M3 8h4v13H3V8Zm2-6a2.3 2.3 0 1 1 0 4.6A2.3 2.3 0 0 1 5 2Zm5 6h4v1.7c.5-1 1.7-2 3.5-2 3.7 0 4.5 2.3 4.5 5.4V21h-4v-7c0-1.7-.3-2.9-1.9-2.9-1.7 0-2.1 1.4-2.1 2.9v7h-4V8Z'],
+  ];
+  shareTrack.replaceChildren(...options.map(([name, color, href, path]) => {
+    const option = document.createElement('a');
+    option.className = 'share-option';
+    option.href = href;
+    if (option.protocol === 'https:') {
+      option.target = '_blank';
+      option.rel = 'noopener noreferrer';
+    }
+    option.innerHTML = `<span class="share-icon" style="--share-color:${color}"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="${path}"/></svg></span>`;
+    option.append(name);
+    return option;
+  }));
+  shareOpener = button;
+  shareStatus.textContent = '';
+  shareUrl.value = url.href;
+  shareDialog.showModal();
+  shareTrack.scrollLeft = 0;
+  updateShareArrows();
+}
+
 document.querySelectorAll('[id^="post-"]').forEach(card => {
   const share = document.createElement('div');
   share.className = 'post-share';
-  share.innerHTML = '<button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M8 11H5v10h14V11h-3"/></svg><span class="post-share-label"><span data-ru>Поделиться</span><span data-uz>Ulashish</span><span data-en>Share</span></span></button><span role="status"></span>';
+  share.innerHTML = '<button type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M8 11H5v10h14V11h-3"/></svg><span class="post-share-label"><span data-ru>Поделиться</span><span data-uz>Ulashish</span><span data-en>Share</span></span></button>';
   const button = share.querySelector('button');
-  const status = share.querySelector('[role="status"]');
   let media = card.querySelector(':scope > :is(.ph,.pic)');
   if (media) {
     media.classList.add('post-media');
@@ -1244,27 +1412,7 @@ document.querySelectorAll('[id^="post-"]').forEach(card => {
     }
   }
   (media || card).append(share);
-  button.onclick = async () => {
-    status.textContent = '';
-    const url = new URL('./', location.href);
-    url.searchParams.set('post', card.id);
-    url.hash = card.id;
-    const title = [...card.querySelectorAll('h3')].find(h => h.getClientRects().length)?.innerText.trim();
-    if (navigator.share) {
-      try {
-        await navigator.share({title, url: url.href});
-        return;
-      } catch (error) {
-        if (error.name === 'AbortError') return;
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(url.href);
-      status.textContent = L_('Ссылка скопирована', 'Havola nusxalandi', 'Link copied');
-    } catch {
-      window.prompt(L_('Скопируйте ссылку', 'Havolani nusxalang', 'Copy this link'), url.href);
-    }
-  };
+  button.onclick = () => openPostShare(card, button);
 });
 
 // Любую фотографию можно открыть крупно; закрывается кликом или Esc
