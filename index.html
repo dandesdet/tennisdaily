@@ -364,6 +364,11 @@ a.vplay{display:block}
 .events:not(:has(>.ev.big)) .side{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:48px}
 .ev.big .ph.banner img{height:auto;aspect-ratio:940/193}
 .ev .ph.banner .when{top:50%;transform:translateY(-50%)}
+/* все обложки на сайте — один формат 16:9 */
+.ev .ph img,.ev.big .ph img,.res .pic img,.res .pic.wide img,.lg-ph{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:50% 50%}
+.mini.trip{grid-template-columns:160px 1fr}.mini.trip>img{width:160px;height:auto;aspect-ratio:16/9}
+.world .mini.trip{grid-template-columns:240px 1fr}.world .mini.trip>img{width:240px;height:auto;aspect-ratio:16/9}
+@media (max-width:520px){.mini.trip,.world .mini.trip{grid-template-columns:1fr}.mini.trip>img,.world .mini.trip>img{width:100%;height:auto}}
 </style>
 </head>
 <body>
@@ -407,7 +412,7 @@ a.vplay{display:block}
   <div class="sh"><h2 data-ru>Ближайшие турниры</h2><h2 data-uz>Yaqin turnirlar</h2><h2 data-en>Upcoming tournaments</h2></div>
   <div class="events">
     <article class="ev big" data-d="2026-11-15" data-start="2026-11-15T16:00" data-end="2026-11-15T22:00">
-      <div class="ph banner"><img src="img/uchqun_court.webp" alt="Хардовые корты под навесом, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>15</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="ph"><img src="img/courts/uchqun.webp" alt="Хардовые корты под навесом, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>15</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
         <a class="via" href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <h3 data-ru>Мужские пары · Учкун</h3><h3 data-uz>Erkaklar juftligi · Uchqun</h3><h3 data-en>Men’s doubles · Uchqun</h3>
