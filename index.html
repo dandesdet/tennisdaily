@@ -369,6 +369,12 @@ a.vplay{display:block}
 .mini.trip{grid-template-columns:160px 1fr}.mini.trip>img{width:160px;height:auto;aspect-ratio:16/9}
 .world .mini.trip{grid-template-columns:240px 1fr}.world .mini.trip>img{width:240px;height:auto;aspect-ratio:16/9}
 @media (max-width:520px){.mini.trip,.world .mini.trip{grid-template-columns:1fr}.mini.trip>img,.world .mini.trip>img{width:100%;height:auto}}
+.cfilt{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:var(--pill);background:var(--soft);color:var(--ink);font:600 16px/1 var(--body);cursor:pointer;transition:background .15s}
+.cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}
+.cfilt small{font:500 14px/1 var(--body);opacity:.6}
+.crow[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -412,7 +418,7 @@ a.vplay{display:block}
   <div class="sh"><h2 data-ru>Ближайшие турниры</h2><h2 data-uz>Yaqin turnirlar</h2><h2 data-en>Upcoming tournaments</h2></div>
   <div class="events">
     <article class="ev big" data-d="2026-11-15" data-start="2026-11-15T16:00" data-end="2026-11-15T22:00">
-      <div class="ph"><img src="img/courts/uchqun.webp" alt="Хардовые корты под навесом, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>15</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="ph"><img src="img/uchqun_hard.webp" alt="Хардовые корты под навесом, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>15</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
         <a class="via" href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
         <h3 data-ru>Мужские пары · Учкун</h3><h3 data-uz>Erkaklar juftligi · Uchqun</h3><h3 data-en>Men’s doubles · Uchqun</h3>
@@ -717,6 +723,7 @@ a.vplay{display:block}
 <section id="courts">
   <div class="courts">
     <div class="ch"><h2 data-ru>Где сыграть в Ташкенте</h2><h2 data-uz>Toshkentda qayerda o‘ynash mumkin</h2><h2 data-en>Where to play in Tashkent</h2><span class="chg" id="chg"></span></div>
+    <div class="cfilt" id="cfilt" role="group" aria-label="Тип корта"></div>
     <div class="cmap" id="cmap" role="region" aria-label="Карта кортов"></div>
     <div class="crows" id="crows"></div>
     <p class="cfoot" data-ru>Все корты сдаются по часам — звоните или бронируйте онлайн: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, боты <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Цены — из открытых источников и групп, могли устареть.</p>
@@ -907,6 +914,20 @@ function popup(c) {
   return `${c.img ? `<img class="pp-img" src="${c.img}" alt="">` : ''}<b>${c[lang] || c.uz}</b><p>${L_(c.stRu, c.stUz, c.stEn)}</p>${typesHtml(c)}<p>${L_(c.dRu, c.dUz, c.dEn)}</p>${bookHtml(c)}
     <div class="pp-acts"><a href="${(lang === 'en' || GMAPS_KEY) ? `https://www.google.com/maps/dir/?api=1&destination=${c.ll[0]},${c.ll[1]}` : `https://yandex.uz/maps/?rtext=~${c.ll[0]},${c.ll[1]}&rtt=auto`}" target="_blank" rel="noopener">${L_('Маршрут', 'Yo‘nalish', 'Directions')} →</a></div>`;
 }
+// Фильтр по типу корта: навес считаем улицей
+let CF = 'all';
+const CTYPES = [['all','Все','Hammasi','All'],['hi','Хард в зале','Zalda hard','Indoor hard'],['ho','Хард на улице','Ochiq hard','Outdoor hard'],['co','Грунт на улице','Ochiq grunt','Outdoor clay'],['ci','Грунт в зале','Zalda grunt','Indoor clay']];
+const cMatch = c => CF === 'all' || (c.t || []).some(([sf, k]) => sf + (k === 'r' ? 'o' : k) === CF);
+function applyCF() {
+  document.querySelectorAll('.crow').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); });
+  marks.forEach((m, i) => m.show && m.show(cMatch(COURTS[i])));
+}
+function renderCF() {
+  const el = document.getElementById('cfilt'); if (!el) return;
+  el.innerHTML = CTYPES.map(([k, ru, uz, en]) => { const n = k === 'all' ? COURTS.length : COURTS.filter(c => (c.t || []).some(([sf, kk]) => sf + (kk === 'r' ? 'o' : kk) === k)).length;
+    return `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${k === 'all' ? '' : `<i class="${k[0]}"></i>`}${L_(ru, uz, en)} <small>${n}</small></button>`; }).join('');
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { CF = b.dataset.k; renderCF(); applyCF(); });
+}
 function renderCourts() {
   const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
   document.getElementById('crows').innerHTML = list.map(c => `
@@ -922,6 +943,7 @@ function renderCourts() {
     r.onclick = go; r.onkeydown = e => { if (e.key === 'Enter') go(); };
   });
   marks.forEach(m => m.refresh());
+  renderCF(); applyCF();
   (window.LM || []).forEach((m, i) => { const l = LANDMARKS[i], t = l[lang] || l.ru;
     if (m.setLabel) m.setLabel({...m.getLabel(), text: t}); else m.setIcon(L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${t}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})); });
   const n = list.filter(fresh).length, chg = document.getElementById('chg');
@@ -947,7 +969,7 @@ function initLeaflet() {
     m.on('mouseover', () => { clearTimeout(t); m.openPopup(); }); m.on('mouseout', hide);
     m.on('popupopen', e => { const el = e.popup.getElement(); el.onmouseenter = () => clearTimeout(t); el.onmouseleave = hide; });
     m.on('click', () => { pin = true; m.openPopup(); }); m.on('popupclose', () => { pin = false; });
-    return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c))};
+    return {focus: () => { map.flyTo(m.getLatLng(), 15, {duration: .6}); setTimeout(() => m.openPopup(), 650); }, refresh: () => m.setPopupContent(popup(c)), show: v => { v ? m.addTo(map) : (m.closePopup(), m.remove()); }};
   });
   map.fitBounds(L.latLngBounds(COURTS.filter(c => !c.far).map(c => c.ll).concat(LANDMARKS.map(l => l.ll))), {padding: [40, 40]});
   window.LM = LANDMARKS.map(l => L.marker(l.ll, {interactive: false, zIndexOffset: 1000, icon: L.divIcon({className: 'lm', html: `<img src="${lmIcon(l)}" alt=""><span class="lm-label">${l[lang] || l.ru}</span>`, iconSize: [32, 32], iconAnchor: [16, 16]})}).addTo(map));
@@ -998,7 +1020,7 @@ window.initGoogle = () => {
     m.addListener('mouseover', () => { clearTimeout(hideT); if (!pinned && cur !== c) open(); });
     m.addListener('mouseout', hideSoon);
     m.addListener('click', () => { pinned = true; open(); });
-    return {focus: () => { map.panTo(pos); map.setZoom(15); pinned = true; open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }};
+    return {focus: () => { map.panTo(pos); map.setZoom(15); pinned = true; open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }, show: v => { m.setVisible(v); if (!v && cur === c) { info.close(); cur = null; pinned = false; } }};
   });
   LANDMARKS.forEach(l => b.extend({lat: l.ll[0], lng: l.ll[1]}));
   map.fitBounds(b, 40);
