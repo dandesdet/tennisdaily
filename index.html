@@ -82,13 +82,14 @@ img{display:block;max-width:100%}
 [id^="post-"]{scroll-margin-top:16px}
 
 .mast{padding:24px 0 48px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
-.mast h1{font:500 168px/0.92 var(--serif);font-variation-settings:"opsz" 72;letter-spacing:-.045em;margin:0}
+.mast h1{--mast-title-size:168px;font:500 var(--mast-title-size)/0.92 var(--serif);font-size:min(var(--mast-title-size),16.7cqi);font-variation-settings:"opsz" 72;letter-spacing:-.045em;margin:0;white-space:nowrap}
 .mast h1 .b{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:var(--ball);vertical-align:.02em;margin:0 .02em;position:relative}
 .mast h1 .b::before,.mast h1 .b::after{content:"";position:absolute;top:10%;bottom:10%;width:46%;border:.045em solid #fff;border-radius:50%}
 .mast h1 .b::before{left:-26%;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
 .mast h1 .b::after{right:-26%;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
 .mast p{margin:24px 0 0;font:400 20px/1.5 var(--body);max-width:720px;color:var(--ink)}
 .mast>div{min-width:0}
+.mast-copy{container-type:inline-size}
 .issue{text-align:right;font:500 18px/1.3 var(--body);color:var(--muted)}
 .issue b{display:block;font:500 56px/1.05 var(--serif);letter-spacing:-.03em;color:var(--ink)}
 
@@ -310,7 +311,7 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
 }
 @media (max-width:1280px){
   :root{--gut:40px}
-  .mast h1{font-size:128px}
+  .mast h1{--mast-title-size:128px}
   .results,.crows{grid-template-columns:repeat(2,1fr)}
   .news{grid-template-columns:repeat(2,1fr)}
   .ev.big .ph img{height:520px}
@@ -318,7 +319,7 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
 @media (max-width:900px){
   :root{--gut:20px}
   .mast{grid-template-columns:1fr;gap:16px}.issue{text-align:left;display:flex;gap:8px;align-items:baseline;order:-1}.issue b{font-size:32px}
-  .mast h1{font-size:80px}
+  .mast h1{--mast-title-size:80px}
   .mast p{font-size:20px}
   .events,.results,.crows,.news,.world,footer{grid-template-columns:1fr}
   section{padding-top:72px}
@@ -328,7 +329,7 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
     .cmap{height:420px}
 }
 @media (max-width:520px){.world .mini.trip{grid-template-columns:1fr}.world :is(.mini.trip>img,.mini.trip>.post-media>img){width:100%;height:220px}
-  .mast h1{font-size:56px}
+  .mast h1{--mast-title-size:56px}
   .sh h2,.courts .ch h2{font-size:40px}
   .ev h3,.ev.big h3{font-size:32px}
   .srcs{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}.srcs::-webkit-scrollbar{display:none}.sg{flex:none}
@@ -449,8 +450,8 @@ a.vplay{display:block}
 </nav>
 
 <header class="mast">
-  <div>
-    <h1>Tennis Da<span class="b"></span>ly</h1>
+  <div class="mast-copy">
+    <h1 aria-label="Tennis Daily">Tennis Da<span class="b" aria-hidden="true"></span>ly</h1>
     <p data-ru>Любительский теннис Ташкента: где сыграть турнир, кто выиграл прошлый, какие корты открылись и закрылись.</p>
     <p data-uz>Toshkent havaskor tennisi: qaysi turnirda o‘ynash, kim g‘olib bo‘ldi, qaysi kortlar ochildi va yopildi.</p><p data-en>Amateur tennis in Tashkent: where to play a tournament, who won the last one, which courts opened and closed.</p>
 
@@ -967,6 +968,12 @@ const COURTS = [
   {ru:'Пахтакор · Tennis & Padel City', en:"Pakhtakor · Tennis & Padel City", stEn:"open · online booking", dEn:"Islam Karimov 98A. 10 outdoor courts (7 clay, 3 hard) plus an indoor hall with clay and hard. Per hour: day 100–150,000, evening from 18:00 150–200,000; indoor 200 / 250,000.", uz:'Paxtakor · Tennis & Padel City', st:'ok', stRu:'открыт · онлайн-бронь', stUz:'ochiq · onlayn bron', ll:[41.315683,69.263468], dRu:'Ислама Каримова, 98А. 10 открытых кортов (7 грунт, 3 хард) и крытый зал: грунт и хард. Час днём 100–150 000, вечером с 18:00 — 150–200 000; крытые 200 / 250 000.', dUz:'Islom Karimov, 98A. 10 ta ochiq kort (7 grunt, 3 hard) va yopiq zal: grunt va hard. Soati kunduzi 100–150 000, kechqurun 18:00 dan 150–200 000; yopiq 200 / 250 000.', tel:'+998903331151', h:'07:00–02:00', bk:[{"u": "https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis", "k": "playsport", "t": "PlaySport", t:[["c", "o",'img/courts/pakhtakor.webp'], ["h", "o",'img/courts/pakhtakor-hard-outdoor.webp'], ["c", "i",'img/courts/pakhtakor-clay-indoor.webp'], ["h", "i",'img/courts/pakhtakor-hard-indoor.webp']]}, {"u": "img/courts/pakhtakor-scheme.webp", "k": "scheme", "t": ""}, {u:'https://tennispadelcity.uz/', k:'photos'}]},
   {ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor 100,000, indoor 200,000 per hour.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Улица 100 000, зал 200 000 за час.', dUz:'Ochiq 100 000, yopiq 200 000.', tel:'+998911351877', h:'07:00–23:00', bk:[], t:[["c", "o",'img/courts/dinamo.webp'], ["x", "i"]]},
   {ru:'AJOU · Ravshan court', en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 1, by Ajou University. Indoor hard court, air conditioning and heating. Entry by badge: regulars get one via Akmal; whether hourly renters need it is being clarified. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 1, у университета Аджу. Крытый хард, кондиционер и отопление. Вход по бейджу: постоянным игрокам делают через Акмаля, для тех, кто берёт корт на час, — уточняется. Аренда и группы — Tennis plus.', dUz:'Ajou universiteti, Yashnobod. Yopiq hard, konditsioner va isitish. Kirish beyj orqali: doimiy o‘yinchilarga Akmal orqali; soatbay olganlarga — aniqlanmoqda. Tennis plus.', tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/ajou_court.webp']]},
+  {ru:'JAR (Жар)', uz:'JAR', en:'JAR', st:'ok', stRu:'крытый зал', stUz:'yopiq zal', stEn:'indoor court',
+   ll:[41.32185,69.23049], tel:'+998712494839',
+   dRu:'Проспект Беруни, 3, рядом с Чорсу. Расписание теннисных занятий уточняйте по телефону.',
+   dUz:'Beruniy shoh ko‘chasi, 3, Chorsu yaqinida. Tennis mashg‘ulotlari jadvalini telefonda aniqlang.',
+   dEn:'3 Beruniy Avenue, near Chorsu. Call for the tennis schedule.',
+   bk:[], t:[['x','i','img/courts/jar-indoor.webp']]},
   {ru:'Хадра', en:"Hadra", stEn:"open", dEn:"Zarqaynar, 4/3.", uz:'Xadra', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.323518,69.241747], dRu:'Заркайнар, 4/3.', dUz:'Zarqaynar, 4/3.', tel:'+998712441449', h:'09:00–21:00', bk:[], t:[["h", "r",'img/courts/hadra.webp']]},
   {ru:'TopTennis · школа № 110', uz:'TopTennis · 110-maktab', en:'TopTennis · School No. 110',
    st:'ok', stRu:'тренировки', stUz:'mashg‘ulotlar', stEn:'coaching', ll:[41.303978,69.274050],
@@ -980,7 +987,7 @@ const COURTS = [
   {ru:'Теннисная школа Ироды Тулягановой', en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
   {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid_hall.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
   {ru:'Локомотив', en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта.', dUz:'2 ta ochiq grunt kort.', t:[["c","o",'img/courts/lokomotiv.webp']], bk:[]},
-  {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[]},
+  {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
   {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
 ];
 const TODAY = new Date('2026-11-07'), FRESH = 10; // дней, пока изменение считается новостью
