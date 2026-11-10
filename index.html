@@ -915,6 +915,7 @@ function popup(c) {
     <div class="pp-acts"><a href="${(lang === 'en' || GMAPS_KEY) ? `https://www.google.com/maps/dir/?api=1&destination=${c.ll[0]},${c.ll[1]}` : `https://yandex.uz/maps/?rtext=~${c.ll[0]},${c.ll[1]}&rtt=auto`}" target="_blank" rel="noopener">${L_('Маршрут', 'Yo‘nalish', 'Directions')} →</a></div>`;
 }
 // Фильтр по типу корта: навес считаем улицей
+COURTS.forEach(c => { if (!c.t) { const b = (c.bk || []).find(x => Array.isArray(x.t)); if (b) { c.t = b.t; delete b.t; } } });   // тип корта у части записей лежал внутри брони
 let CF = 'all';
 const CTYPES = [['all','Все','Hammasi','All'],['hi','Хард в зале','Zalda hard','Indoor hard'],['ho','Хард на улице','Ochiq hard','Outdoor hard'],['co','Грунт на улице','Ochiq grunt','Outdoor clay'],['ci','Грунт в зале','Zalda grunt','Indoor clay']];
 const cMatch = c => CF === 'all' || (c.t || []).some(([sf, k]) => sf + (k === 'r' ? 'o' : k) === CF);
