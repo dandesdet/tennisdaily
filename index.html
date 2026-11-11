@@ -1053,6 +1053,7 @@ a.vplay{display:block}
   btns.forEach(b => io.observe(b));
 })();
 </script>
+<script src="post/index.js"></script>
 <script src="vendor/leaflet.js"></script>
 <script>
 const COURTS = [
@@ -1587,9 +1588,12 @@ shareDialog.querySelector('.share-copy').onclick = async () => {
 };
 
 function openPostShare(card, button) {
-  const url = new URL('./', location.href);
-  url.searchParams.set('post', card.id);
-  url.hash = card.id;
+  const hasPreview = window.tennisDailyPostPreviews?.has(card.id);
+  const url = new URL(hasPreview ? `post/${card.id}/` : './', location.href);
+  if (!hasPreview) {
+    url.searchParams.set('post', card.id);
+    url.hash = card.id;
+  }
   const title = [...card.querySelectorAll('h3')].find(h => h.getClientRects().length)?.innerText.trim() || document.title;
   const link = encodeURIComponent(url.href);
   const subject = encodeURIComponent(title);
