@@ -122,8 +122,7 @@ img{display:block;max-width:100%}
 .issue{text-align:right;font:500 18px/1.3 var(--body);color:var(--muted)}
 .issue b{display:block;font:500 56px/1.05 var(--serif);letter-spacing:-.03em;color:var(--ink)}
 
-.src-strip{margin-top:32px}.src-bottom .src-strip{margin:0 0 48px}
-.src-strip h5{font:600 16px var(--body);color:var(--muted);margin:0 0 12px}
+.src-strip{min-width:0}
 .srcs{display:flex;flex-wrap:wrap;gap:8px}
 .sg{display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:var(--pill);padding:6px 18px 6px 6px;text-decoration:none}
 a.sg{transition:background .15s,color .15s}
@@ -331,8 +330,9 @@ img[src*="courts/turin"]{object-position:50% 0}
   .court-dialog-head{padding:16px 16px 12px}
   .court-detail{grid-template-columns:minmax(0,1fr);gap:16px;padding:16px}
 }
-.court-ball img{width:100%;height:100%;transition:transform .15s}
-.court-ball:hover img,.court-ball:focus-visible img{transform:scale(1.375)}
+.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--dot-color);box-shadow:0 1px 4px #0005;transition:transform .15s}
+.court-marker:hover .court-dot,.court-marker:focus-visible .court-dot{transform:scale(1.22)}
+.court-marker-type{margin:6px 0 0}
 .gm-style .gm-style-iw-c{border-radius:var(--r-card);padding:12px!important;max-height:none!important}
 .gm-style .gm-style-iw-d{overflow:visible!important;max-height:none!important;font:400 16px/1.45 var(--body);color:var(--ink)}
 .gm-style-iw-chr{position:absolute;top:0;right:0}
@@ -871,6 +871,11 @@ a.vplay{display:block}
         <li><a href="https://commons.wikimedia.org/wiki/File:Chorsu_mehmonxonasi_2024.jpg">Basiyra</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></li>
         <li><a href="https://commons.wikimedia.org/wiki/File:Pakhtakor_Markaziy_Stadium.jpg">Ekrem Canli</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
         <li><a href="https://commons.wikimedia.org/wiki/File:2-V-luchah-zakata-IMG_2687-1.JPG">Kalumnika</a> · <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Minor_Mosque_Tashkent.jpg">Yuriy Pavlovich</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:TashkentCity.jpg">Solijonovm1996</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Hazrati_Imam_Mosque_01.jpg">Bgag</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Magic_city_Tashkent_city.jpg">Behruznurullayevv</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B0%D1%80%D0%BA_%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%B0%D0%BD_-%D0%AF%D0%BD%D0%B3%D0%B8_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%BE%D0%BD_Yangi_O%27zbekiston_-_5_%D0%B8%D1%8E%D0%BB%D1%8F_2022.jpg">Artem Abd</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
       </ul>
     </details>
     <div class="crows" id="crows"></div>
@@ -879,14 +884,11 @@ a.vplay{display:block}
   </div>
 </section>
 
-<section class="src-bottom">
-<div class="src-strip"><h5 data-ru>Собираем из этих групп</h5><h5 data-uz>Shu guruhlardan yig‘amiz</h5><h5 data-en>Collected from these groups</h5><div class="srcs" id="srcs"></div></div>
-</section>
-
 <footer>
-  <div><h4 data-ru>Откуда новости</h4><h4 data-uz>Manbalar</h4><h4 data-en>Where the news comes from</h4>
-    <p data-ru>Теннисные группы Ташкента («Бойцовский клуб», Tennis plus, Tashkent Masters League), федерация <a href="https://tennis.uz" target="_blank" rel="noopener">tennis.uz</a>, городские медиа.</p>
-    <p data-uz>Toshkent tennis guruhlari, <a href="https://tennis.uz" target="_blank" rel="noopener">tennis.uz</a> federatsiyasi, shahar nashrlari.</p><p data-en>Tashkent tennis groups (“Fight Club”, Tennis plus, Tashkent Masters League), the federation <a href="https://tennis.uz" target="_blank" rel="noopener">tennis.uz</a>, city media.</p></div>
+  <div class="src-strip" id="sources">
+    <h4 data-ru>Источники</h4><h4 data-uz>Manbalar</h4><h4 data-en>Sources</h4>
+    <div class="srcs" id="srcs"></div>
+  </div>
   <div><h4 class="tg-h" data-ru>Главное за день — в Telegram</h4><h4 class="tg-h" data-uz>Kunning asosiysi — Telegramda</h4><h4 class="tg-h" data-en>The day’s highlights on Telegram</h4>
     <p><a class="tg-btn" href="https://t.me/tennisdaily_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.1l8.9-5.6c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.5-4.8Z" fill="currentColor"/></svg><span data-ru>Подписывайтесь</span><span data-uz>Obuna bo‘ling</span><span data-en>Subscribe</span></a></p>
     <h4 class="a2hs-h" data-ru>Tennis Daily на рабочем столе</h4><h4 class="a2hs-h" data-uz>Tennis Daily ish stolida</h4><h4 class="a2hs-h" data-en>Tennis Daily on your home screen</h4>
@@ -1177,19 +1179,23 @@ function courtGallery(c, filter, includeOverview = false) {
   }
   return gallery;
 }
-function popup(c) {
+function popup(c, type) {
   const preview = document.createElement('div');
   preview.className = 'court-preview';
   preview.innerHTML = `<b>${c[lang] || c.uz}</b>`;
-  const gallery = courtGallery(c, CF);
+  if (type.key !== 'x') preview.insertAdjacentHTML('beforeend', `<div class="court-marker-type"><span class="tg ${type.surface}">${markerTypeLabel(type)}</span></div>`);
+  const gallery = courtGallery(c, type.key) ||
+    (type.key === 'x' && c.img ? courtGallery(c, 'all') : null);
   if (gallery) preview.append(gallery);
   return preview;
 }
 COURTS.forEach(c => { if (!c.t) { const b = (c.bk || []).find(x => Array.isArray(x.t)); if (b) { c.t = b.t; delete b.t; } } });   // тип корта у части записей лежал внутри брони
 let CF = 'all';
-const CTYPES = [['all','Все','Hammasi','All'],['hi','Хард в зале','Zalda hard','Indoor hard'],['ho','Хард на улице','Ochiq hard','Outdoor hard'],['hr','Хард под навесом','Ayvon ostida hard','Covered hard'],['co','Грунт на улице','Ochiq grunt','Outdoor clay'],['ci','Грунт в зале','Zalda grunt','Indoor clay'],['24h','24/7','24/7','24/7']];
+const CTYPES = [['all','Все','Hammasi','All'],['h','Весь хард','Barcha hard kortlar','All hard'],['c','Весь грунт','Barcha grunt kortlar','All clay'],['hi','Хард в зале','Zalda hard','Indoor hard'],['ho','Хард на улице','Ochiq hard','Outdoor hard'],['hr','Хард под навесом','Ayvon ostida hard','Covered hard'],['co','Грунт на улице','Ochiq grunt','Outdoor clay'],['ci','Грунт в зале','Zalda grunt','Indoor clay'],['24h','24/7','24/7','24/7']];
 const isSurfaceFilter = filter => filter !== 'all' && filter !== '24h';
-const courtTypes = (c, filter = CF) => (c.t || []).filter(([sf, k]) => !isSurfaceFilter(filter) || sf + k === filter);
+const courtTypeKey = (surface, kind) => surface + (kind || '');
+const courtTypes = (c, filter = CF) => (c.t || []).filter(([surface, kind]) =>
+  !isSurfaceFilter(filter) || filter === surface || filter === courtTypeKey(surface, kind));
 const courtPhoto = c => (!isSurfaceFilter(CF) && c.img) || courtTypes(c).find(([, , img]) => img)?.[2];
 const cMatch = (c, filter = CF) => {
   if (filter === '24h') return c.h === '00:00–24:00' && c.st !== 'off';
@@ -1200,7 +1206,7 @@ const courtViewPoints = () => CF === '24h'
   : COURTS.filter(c => !c.far).map(c => c.ll).concat(LANDMARKS.map(l => l.ll));
 function applyCF() {
   document.querySelectorAll('.crow').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); });
-  marks.forEach((m, i) => m.show && m.show(cMatch(COURTS[i])));
+  marks.forEach(group => group.refresh());
 }
 function renderCF() {
   const el = document.getElementById('cfilt'); if (!el) return;
@@ -1310,7 +1316,6 @@ function renderCourts() {
   document.querySelectorAll('.crow').forEach(row => {
     row.onclick = () => openCourtDetails(COURTS[+row.dataset.i]);
   });
-  marks.forEach(m => m.refresh());
   renderCF(); applyCF();
   landmarkLabels.forEach((label, i) => { label.textContent = LANDMARKS[i][lang]; });
   const n = list.filter(fresh).length, chg = document.getElementById('chg');
@@ -1319,6 +1324,31 @@ function renderCourts() {
 }
 // Карта: Google Maps, если задан ключ; иначе — OpenStreetMap (Leaflet)
 const GMAPS_KEY = 'AIzaSyDl0stvfwgv03hnm8ot-VttmUf5dFJycwo';   // ключ Google Maps JavaScript API, ограниченный доменом tennisdaily.uz
+const COURT_DOT_COLORS = {h:'#2F6DB5', c:'#C2683A', x:'#77746D'};
+const markerTypeLabel = ({surface, kind}) => courtTypeLabel(surface, kind) ||
+  L_('Покрытие не указано', 'Qoplama ko‘rsatilmagan', 'Surface not listed');
+
+function courtMarkerGroup(court, createMarker) {
+  const types = new Map((court.t || []).map(([surface, kind]) => {
+    const key = courtTypeKey(surface, kind);
+    return [key, {key, surface, kind}];
+  }));
+  if (!types.size) types.set('x', {key:'x', surface:'x', kind:null});
+  const entries = [...types.values()].map(type => ({type, marker:createMarker(type)}));
+  const matches = ({type}) => cMatch(court) &&
+    (!isSurfaceFilter(CF) || CF === type.key || CF === type.surface);
+  return {
+    focus: () => entries.find(matches)?.marker.focus(),
+    refresh: () => {
+      const visible = entries.filter(matches);
+      entries.forEach(entry => {
+        const index = visible.indexOf(entry);
+        entry.marker.update(index !== -1, (index - (visible.length - 1) / 2) * 17);
+      });
+    },
+  };
+}
+
 function initLeaflet() {
   if (!window.L) return;
   map = L.map('cmap', {scrollWheelZoom: false}).setView([41.33, 69.28], 12);
@@ -1330,13 +1360,27 @@ function initLeaflet() {
   map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
-  marks = COURTS.map(c => {
-    const icon = L.divIcon({className:'court-ball', html:`<img src="${ball(c.st === 'off')}" alt="">`,
-      iconSize:[16,16], iconAnchor:[8,8], popupAnchor:[0,-8]});
-    const m = L.marker(c.ll, {icon})
-      .addTo(map).bindPopup(popup(c), {maxWidth: 300});
-    return {focus: () => { map.setView(m.getLatLng(), 15); m.openPopup(); }, refresh: () => m.setPopupContent(popup(c)), show: v => { v ? m.addTo(map) : (m.closePopup(), m.remove()); }};
-  });
+  marks = COURTS.map(c => courtMarkerGroup(c, type => {
+    const marker = L.marker(c.ll).bindPopup(() => popup(c, type), {maxWidth:300});
+    return {
+      focus: () => { map.setView(marker.getLatLng(), 15); marker.openPopup(); },
+      update: (visible, offset) => {
+        if (!visible) {
+          marker.remove();
+          return;
+        }
+        marker.setIcon(L.divIcon({
+          className:'court-marker',
+          html:`<span class="court-dot" style="--dot-color:${COURT_DOT_COLORS[type.surface]}"></span>`,
+          iconSize:[20,20], iconAnchor:[10 - offset,10], popupAnchor:[offset,-10],
+        })).addTo(map);
+        const title = `${c[lang]} · ${markerTypeLabel(type)}`;
+        marker.getElement().title = title;
+        marker.getElement().setAttribute('aria-label', title);
+        if (marker.isPopupOpen()) marker.setPopupContent(() => popup(c, type));
+      },
+    };
+  }));
   fitCourtView = () => {
     const points = courtViewPoints();
     if (points.length) map.fitBounds(points, {padding: [40, 40], maxZoom:14});
@@ -1350,8 +1394,6 @@ function initLeaflet() {
   map.on('zoomend', updateLandmarkVisibility);
   fitCourtView(); updateLandmarkVisibility(); applyCF();
 }
-// маркер — теннисный мяч; закрытый корт — серый мяч
-const ball = off => off ? 'img/ball_off.png' : 'img/ball.png';
 const MAP_STYLE = [
   {featureType: 'poi', stylers: [{visibility: 'off'}]},
   {featureType: 'transit', stylers: [{visibility: 'off'}]},
@@ -1369,6 +1411,11 @@ const LANDMARKS = [
   {ru:'Телебашня', uz:'Teleminora', en:'TV Tower', ll:[41.34567,69.284719], img:'img/landmarks/tv-tower.webp'},
   {ru:'Аэропорт', uz:'Aeroport', en:'Airport', ll:[41.261838,69.267204], img:'img/landmarks/airport.webp'},
   {ru:'Чорсу', uz:'Chorsu', en:'Chorsu Bazaar', ll:[41.326169,69.239632], img:'img/landmarks/chorsu.webp'},
+  {ru:'Мечеть Минор', uz:'Minor masjidi', en:'Minor Mosque', ll:[41.33530,69.27500], img:'img/landmarks/minor-mosque.webp'},
+  {ru:'Tashkent City', uz:'Tashkent City', en:'Tashkent City', ll:[41.31650,69.24837], img:'img/landmarks/tashkent-city.webp', minZoom:13},
+  {ru:'Комплекс Хазрати Имам', uz:'Hazrati Imom majmuasi', en:'Hazrati Imam Complex', ll:[41.337375,69.239903], img:'img/landmarks/hazrati-imam.webp', minZoom:13},
+  {ru:'Magic City', uz:'Magic City', en:'Magic City', ll:[41.30353,69.24430], img:'img/landmarks/magic-city.webp', minZoom:13},
+  {ru:'Парк «Новый Узбекистан»', uz:'Yangi O‘zbekiston bog‘i', en:'New Uzbekistan Park', ll:[41.32713,69.43824], img:'img/landmarks/new-uzbekistan.webp'},
   {ru:'Бывшая гостиница «Чорсу»', uz:'Sobiq «Chorsu» mehmonxonasi', en:'Former Chorsu Hotel', ll:[41.322596,69.234594], img:'img/landmarks/chorsu-hotel.webp', minZoom:14},
   {ru:'Стадион «Пахтакор»', uz:'«Paxtakor» stadioni', en:'Pakhtakor Stadium', ll:[41.315522,69.260244], img:'img/landmarks/pakhtakor-stadium.webp', minZoom:14},
   {ru:'Дворец авиастроителей', uz:'Aviasozlar madaniyat saroyi', en:'Aviators’ Palace of Culture', ll:[41.29212,69.341579], img:'img/landmarks/aviators-palace.webp'},
@@ -1385,20 +1432,41 @@ window.initGoogle = () => {
   const info = new g.InfoWindow({maxWidth: 300}); let cur = null;
   info.addListener('close', () => { cur = null; });
   map.addListener('click', () => info.close());
-  marks = COURTS.map(c => {
-    const pos = {lat: c.ll[0], lng: c.ll[1]};
-    const icon = size => ({url:ball(c.st === 'off'), scaledSize:new g.Size(size, size), anchor:new g.Point(size / 2, size / 2)});
-    const normal = icon(16), hovered = icon(22);
-    const m = new g.Marker({position: pos, map, zIndex: 10, icon:normal});
-    const open = () => { cur = c; info.setContent(popup(c)); info.open({map, anchor: m, shouldFocus: false}); };
-    m.addListener('mouseover', () => m.setIcon(hovered));
-    m.addListener('mouseout', () => m.setIcon(normal));
-    m.addListener('click', () => {
-      if (cur === c && info.isOpen) info.close();
+  marks = COURTS.map(c => courtMarkerGroup(c, type => {
+    const pos = {lat:c.ll[0], lng:c.ll[1]};
+    const marker = new g.Marker({position:pos, map, zIndex:10, visible:false});
+    let offset = 0;
+    const draw = scale => marker.setIcon({
+      path:g.SymbolPath.CIRCLE, scale, anchor:new g.Point(-offset / scale, 0),
+      fillColor:COURT_DOT_COLORS[type.surface], fillOpacity:1,
+      strokeColor:'#fff', strokeOpacity:1, strokeWeight:2,
+    });
+    const open = () => {
+      cur = marker;
+      info.setContent(popup(c, type));
+      info.open({map, anchor:marker, shouldFocus:false});
+    };
+    marker.addListener('mouseover', () => { draw(11); marker.setZIndex(11); });
+    marker.addListener('mouseout', () => { draw(9); marker.setZIndex(10); });
+    marker.addListener('click', () => {
+      if (cur === marker && info.isOpen) info.close();
       else open();
     });
-    return {focus: () => { map.panTo(pos); map.setZoom(15); open(); }, refresh: () => { if (cur === c) info.setContent(popup(c)); }, show: v => { m.setVisible(v); if (!v && cur === c) info.close(); }};
-  });
+    return {
+      focus: () => { map.panTo(pos); map.setZoom(15); open(); },
+      update: (visible, nextOffset) => {
+        marker.setVisible(visible);
+        if (!visible) {
+          if (cur === marker) info.close();
+          return;
+        }
+        offset = nextOffset;
+        draw(9);
+        marker.setTitle(`${c[lang]} · ${markerTypeLabel(type)}`);
+        if (cur === marker) info.setContent(popup(c, type));
+      },
+    };
+  }));
   fitCourtView = () => {
     const points = courtViewPoints().map(([lat, lng]) => ({lat, lng}));
     if (points.length === 1) { map.setCenter(points[0]); map.setZoom(14); }
@@ -1438,17 +1506,19 @@ function initMap() {
 }
 initMap();
 
-// Группы-источники: аватарка, название, ссылка. Закрытая группа без ссылки — просто подпись.
-const GROUPS = [
+// Источники дайджеста. Закрытые группы без ссылки отображаются текстом.
+const SOURCES = [
   {t:'Теннис (Бойцовский клуб)', tUz:'Tennis (Boytsovskiy klub)', tEn:'Tennis (Fight Club)', av:'БК', avL:'FC', img:'img/groups/fc.webp', n:360},
   {t:'Tennis plus', av:'TP', img:'img/groups/tp.webp', n:1612},
   {t:'Tashkent Masters League', av:'TML', u:'tashkent_masters_league', img:'img/groups/tml.webp', n:309},
   {t:'Motivation Family', av:'MF', u:'tennisfamuz', img:'img/groups/mf.webp', n:796},
+  {t:'Федерация тенниса Узбекистана', tUz:'O‘zbekiston tennis federatsiyasi', tEn:'Uzbekistan Tennis Federation', av:'ФТУ', avL:'UTF', link:'https://tennis.uz/', site:'tennis.uz'},
+  {t:'UzDaily', av:'UZ', link:'https://www.uzdaily.uz/', site:'uzdaily.uz'},
 ];
-function renderGroups() {
-  document.getElementById('srcs').innerHTML = GROUPS.map(g => {
+function renderSources() {
+  document.getElementById('srcs').innerHTML = SOURCES.map(g => {
     const link = g.link || (g.u && 'https://t.me/' + g.u);
-    const sub = g.u ? '@' + g.u : link ? L_('по приглашению', 'taklif orqali', 'by invite') : L_('закрытая группа', 'yopiq guruh', 'private group');
+    const sub = g.site || (g.u ? '@' + g.u : link ? L_('по приглашению', 'taklif orqali', 'by invite') : L_('закрытая группа', 'yopiq guruh', 'private group'));
     const inner = `${g.img ? `<img class="gav" src="${g.img}" alt="">` : `<span class="gav">${(lang !== 'ru' && g.avL) || g.av}</span>`}<span><b>${(lang === 'uz' && g.tUz) || (lang === 'en' && g.tEn) || g.t}</b><small>${sub}${g.n ? ' · ' + g.n.toLocaleString('ru-RU') + L_(' участников', ' a’zo', ' members') : ''}</small></span>`;
     return link ? `<a class="sg" href="${link}" target="_blank" rel="noopener">${inner}</a>` : `<span class="sg">${inner}</span>`;
   }).join('');
@@ -1458,7 +1528,7 @@ const set = l => {
   lang = l; document.documentElement.lang = l;
   document.querySelectorAll('[data-set]').forEach(b => b.setAttribute('aria-pressed', b.dataset.set === l));
   try { localStorage.setItem('td-lang', l); } catch (e) {}
-  renderCourts(); renderGroups();
+  renderCourts(); renderSources();
 };
 document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
