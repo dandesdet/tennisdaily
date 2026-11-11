@@ -266,12 +266,11 @@ img[src*="courts/turin"]{object-position:50% 0}
 .map-zoom-hint kbd{display:inline-block;padding:1px 5px;border:1px solid var(--line);border-radius:var(--r-tiny);background:var(--soft);font:600 13px var(--body)}
 @media (any-pointer:fine){.map-zoom-hint{display:block}}
 .crows{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
-.crow{display:grid;grid-template-columns:112px minmax(0,1fr);gap:4px 16px;padding:16px 0;border-top:1px solid var(--line);cursor:pointer;align-content:start}
+.crow{display:grid;grid-template-columns:112px minmax(0,1fr);gap:4px 16px;padding:16px 0;border:0;border-top:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;align-content:start;min-width:0}
 .cth{grid-row:1/3;width:112px;height:84px;border-radius:var(--r-inner);object-fit:cover;background:var(--soft)}
 .cth.none{background:var(--soft) url(img/ball.png) center/32px no-repeat}
 .crow b{font-weight:600;transition:color .15s}
-.crow:hover b,.crow.on b{color:var(--court)}
-.crow:focus{outline:none}
+.crow:hover b{color:var(--court)}
 .crow .d{grid-column:2/-1;color:var(--muted)}
 
 .ty{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
@@ -279,7 +278,6 @@ img[src*="courts/turin"]{object-position:50% 0}
 .tg::before{content:"";width:10px;height:10px;border-radius:50%;background:#B9B3A6}
 .tg.c::before{background:#C2683A}.tg.h::before{background:#2F6DB5}
 .bk{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-weight:600}
-.bk .hrs{color:var(--ink);width:100%}
 .bk a{color:var(--court);text-decoration:none;transition:color .15s}
 .bk a::after{content:' →'}
 .bk a:hover{color:var(--clay)}
@@ -292,11 +290,47 @@ img[src*="courts/turin"]{object-position:50% 0}
 .leaflet-popup-content{margin:12px;min-width:240px;font-size:16px;line-height:1.45}
 .court-preview{width:min(280px,calc(100vw - 72px))}
 .court-preview>b{display:block;font:500 22px/1.2 var(--serif);padding-right:32px}
-.court-photos{display:grid;gap:8px;margin-top:8px}
-.court-photos.multiple{grid-template-columns:repeat(2,minmax(0,1fr))}
+.court-photos{position:relative;margin-top:8px}
+.court-carousel .pp-img{object-position:center 58%}
+.court-carousel button{position:absolute;top:calc(31.25cqw - 22px);display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer;font:500 25px/1 var(--body);box-shadow:0 2px 8px #0004}
+.court-carousel{container-type:inline-size}
+.court-carousel button:hover{background:var(--court-soft)}
+.court-carousel button:focus-visible{outline:2px solid var(--court);outline-offset:2px}
+.court-carousel [data-step="-1"]{left:6px}
+.court-carousel [data-step="1"]{right:6px}
+.court-carousel figcaption{padding-right:36px}
+.court-slide-count{position:absolute;right:0;bottom:0;font-size:12px;color:var(--muted)}
 .court-photos figure{margin:0}
 .pp-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--r-inner)}
 .court-photos figcaption{margin-top:4px;font-size:12px;color:var(--muted)}
+.court-dialog{width:min(920px,calc(100% - 24px));max-width:none;max-height:calc(100dvh - 24px);padding:0;border:0;border-radius:var(--r-card);background:var(--paper);color:var(--ink);box-shadow:0 12px 40px #0004}
+.court-dialog::backdrop{background:#0008}
+.court-dialog-head{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:24px 28px 16px;border-bottom:1px solid var(--line)}
+.court-dialog-head h2{margin:0;font:500 clamp(25px,4vw,38px)/1.15 var(--serif)}
+.court-dialog-head .share-close{flex:none;margin:-6px -8px 0 0;cursor:pointer;color:var(--ink)}
+.court-dialog-head button:hover{background:var(--soft)}
+.court-detail{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;padding:24px 28px 28px}
+.court-detail h3{font:600 16px/1.35 var(--body);margin:0 0 5px}
+.court-detail p{margin:0;color:var(--muted)}
+.court-detail .court-photos{margin:0}
+.court-detail .pp-img{aspect-ratio:4/3;object-fit:contain;background:var(--soft)}
+.court-detail .court-carousel button{top:calc(37.5cqw - 22px)}
+.court-detail-info{display:grid;align-content:start;gap:16px}
+.court-detail-info .ty{margin:0}
+.court-detail-info .bk{margin:0}
+.court-detail-info .bk a{display:inline-block;padding:3px 0}
+.court-map-link{justify-self:start;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);background:var(--soft);color:var(--court);font:600 14px var(--body);cursor:pointer}
+.court-detail-empty{padding:16px;border-radius:var(--r-inner);background:var(--soft)}
+.court-videos{margin-top:16px}
+.court-videos .bk{margin-top:4px}
+.court-videos button{border:0;padding:3px 0;background:none;color:var(--court);font:inherit;text-align:left;cursor:pointer}
+.court-videos button:hover{text-decoration:underline}
+.court-videos iframe{display:block;width:100%;aspect-ratio:16/9;margin-top:8px;border:0;border-radius:var(--r-inner)}
+.court-dialog :is(button,a):focus-visible,.crow:focus-visible{outline:2px solid var(--court);outline-offset:3px}
+@media(max-width:640px){
+  .court-dialog-head{padding:16px 16px 12px}
+  .court-detail{grid-template-columns:minmax(0,1fr);gap:16px;padding:16px}
+}
 .court-ball img{width:100%;height:100%;transition:transform .15s}
 .court-ball:hover img,.court-ball:focus-visible img{transform:scale(1.375)}
 .gm-style .gm-style-iw-c{border-radius:var(--r-card);padding:12px!important;max-height:none!important}
@@ -717,7 +751,6 @@ a.vplay{display:block}
       <p class="ct"><a href="https://www.youtube.com/shorts/1sYwySHxVy4" target="_blank" rel="noopener"><span data-ru>На YouTube</span><span data-uz>YouTube’da</span><span data-en>On YouTube</span></a></p>
     </article>
   </div>
-  <p class="arch-link" style="margin-top:24px"><a href="https://www.youtube.com/@dandesdet/shorts" target="_blank" rel="noopener"><span data-ru>Все ролики на YouTube</span><span data-uz>Barcha videolar YouTube’da</span><span data-en>All videos on YouTube</span> →</a></p>
   <h3 class="vrow" data-ru>Матчи целиком</h3><h3 class="vrow" data-uz>To‘liq o‘yinlar</h3><h3 class="vrow" data-en>Full matches</h3>
   <div class="vids">
     <article class="vid wide" id="post-karimkhodjaev-hidoyatov-vs-rg-khakimov" data-d="2026-11-07">
@@ -749,7 +782,6 @@ a.vplay{display:block}
       <p class="ct"><a href="https://swing.vision/matches/sw2-tMeEQ1k" target="_blank" rel="noopener"><span data-ru>Смотреть на SwingVision</span><span data-uz>SwingVision’da ko‘rish</span><span data-en>Watch on SwingVision</span></a></p>
     </article>
   </div>
-  <p class="arch-link"><a href="https://www.youtube.com/@dandesdet/videos" target="_blank" rel="noopener"><span data-ru>Полноразмерные видео на YouTube</span><span data-uz>To‘liq videolar YouTube’da</span><span data-en>Full-length videos on YouTube</span> →</a></p>
 </section>
 
 <!-- ====== NEWS ====== -->
@@ -842,8 +874,8 @@ a.vplay{display:block}
       </ul>
     </details>
     <div class="crows" id="crows"></div>
-    <p class="cfoot" data-ru>Все корты сдаются по часам — звоните или бронируйте онлайн: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, боты <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Цены — из открытых источников и групп, могли устареть.</p>
-    <p class="cfoot" data-uz>Barcha kortlar soatbay ijaraga beriladi — qo‘ng‘iroq qiling yoki onlayn bron qiling: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a>, <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Narxlar eskirgan bo‘lishi mumkin.</p><p class="cfoot" data-en>All courts are rented by the hour — call or book online: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, bots <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> and <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Prices come from open sources and the groups and may be outdated.</p>
+    <p class="cfoot" data-ru>Условия аренды и контакты указаны в карточках кортов. Онлайн-бронь: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, боты <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Цены — из открытых источников и групп, могли устареть.</p>
+    <p class="cfoot" data-uz>Ijara shartlari va aloqa ma’lumotlari kort kartochkalarida. Onlayn bron: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a>, <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Narxlar eskirgan bo‘lishi mumkin.</p><p class="cfoot" data-en>See each court card for rental details and contacts. Online booking: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, bots <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> and <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>. Prices come from open sources and the groups and may be outdated.</p>
   </div>
 </section>
 
@@ -875,6 +907,16 @@ a.vplay{display:block}
 </div>
 
 <div class="lb" id="lb"><img alt=""></div>
+
+<dialog class="court-dialog" id="court-dialog" aria-labelledby="court-dialog-title">
+  <div class="court-dialog-head">
+    <h2 id="court-dialog-title"></h2>
+    <button type="button" class="share-close" autofocus>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+    </button>
+  </div>
+  <div class="court-detail"></div>
+</dialog>
 
 <dialog class="share-dialog" id="share-dialog" aria-labelledby="share-title">
   <div class="share-head">
@@ -1018,16 +1060,26 @@ const COURTS = [
    dUz:'Yunusobod, Qiyot mavzesi, 88. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan. Boshqa kortlar haqida telefonda aniqlang.',
    dEn:'Yunusabad, Qiyot residential area, 88. Courts 1–4 are closed, with indoor courts planned in their place. Call to check availability of the other courts.',
    tel:'+998712346679', bk:[], t:[['c','o','img/courts/matonat-outdoor-clay.webp']]},
-  {ru:'Туринский политех', en:"Turin Polytechnic", stEn:"new", dEn:"Kichik Halqa Yo‘li, 17. Indoor court, changing rooms and showers. Tennis plus groups, by sign-up.", uz:'Turin politexnikasi', st:'new', stRu:'новый', stUz:'yangi', since:'2026-11-02', ll:[41.350545,69.222192], dRu:'Малая кольцевая, 17. Крытый корт, раздевалки и душ. Группы Tennis plus, по записи.', dUz:'Kichik halqa yo‘li, 17. Yopiq kort, dush. Tennis plus, yozilish orqali.', tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/turin.webp']]},
-  {ru:'Ёшлик (Старт)', en:"Yoshlik (Start)", stEn:"+50,000 entry fee", dEn:"Outdoor clay and an indoor hard court. Outdoors before 17:00 — 100,000/hour, plus 50,000 entry.", uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', ll:[41.324598,69.306003], dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час, плюс 50 000 за вход.', dUz:'Ochiq grunt va yopiq hard. Kort ijarasi + 50 000 kirish.', tel:'+998931712333', img:'img/courts/yoshlik.webp', h:'05:00–23:00', bk:[], t:[["c", "o"], ["h", "i"]]},
+  {ru:'Туринский политех', en:"Turin Polytechnic", stEn:"new", dEn:"Kichik Halqa Yo‘li, 17. Indoor court, changing rooms and showers. Tennis plus groups, by sign-up.", uz:'Turin politexnikasi', st:'new', stRu:'новый', stUz:'yangi', since:'2026-11-02', ll:[41.350545,69.222192], dRu:'Малая кольцевая, 17. Крытый корт, раздевалки и душ. Группы Tennis plus, по записи.', dUz:'Kichik halqa yo‘li, 17. Yopiq kort, dush. Tennis plus, yozilish orqali.', access:['Занятия Tennis Plus по записи.','Tennis Plus mashg‘ulotlari yozilish orqali.','Tennis Plus sessions require advance sign-up.'], tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/turin.webp']]},
+  {ru:'Ёшлик (Старт)', en:"Yoshlik (Start)", stEn:"+50,000 entry fee", dEn:"Outdoor clay and an indoor hard court. Outdoors before 17:00 — 100,000/hour, plus 50,000 entry.", uz:'Yoshlik (Start)', st:'up', stRu:'+50 000 за вход', stUz:'+50 000 kirish', since:'2026-11-01', ll:[41.324598,69.306003], dRu:'Грунт на улице и хард в зале. Улица до 17:00 — 100 000/час, плюс 50 000 за вход.', dUz:'Ochiq grunt va yopiq hard. Kort ijarasi + 50 000 kirish.', access:['Вход на территорию оплачивается отдельно.','Hududga kirish uchun alohida haq olinadi.','Entry to the grounds is charged separately.'], tel:'+998931712333', img:'img/courts/yoshlik.webp', h:'05:00–23:00',
+   bk:[{u:'https://t.me/arendaKorta_Nbu_Start', k:'tg', t:'Aleks.Tennis.Coach'}], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o",'img/courts/mgu.webp']]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
   {ru:'Учкун', en:"Uchqun", stEn:"open", dEn:"Clay and a covered hard court, 100,000/hour.", uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.359794,69.285046], dRu:'Грунт и хард под навесом, 100 000/час.', dUz:'Grunt va ayvon ostida hard, 100 000/soat.', tel:'+998999027802', bk:[], t:[["c", "o"], ["h", "r",'img/uchqun_hard.webp']]},
   {ru:'Республиканская школа олимпийского резерва', en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard, 4 clay, 3 indoor hard. From 200,000/hour.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 грунта, 3 крытых харда. От 200 000/час.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ochiq hard, 4 grunt, 3 yopiq hard. 200 000/soatdan.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[["h", "o",'img/courts/school.webp'], ["c", "o"], ["h", "i"]]},
-  {ru:'Меридиан', en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'07:00–23:00', bk:[], t:[["h", "i",'img/courts/meridian.webp']]},
+  {ru:'Меридиан', en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'07:00–23:00', bk:[], t:[['h','i','img/courts/meridian.webp']],
+   videos:[
+     ['https://www.youtube.com/shorts/hh55DBUigII','Laver Cup: удар дня','Laver Cup: kun zarbasi','Laver Cup: shot of the day'],
+     ['https://www.youtube.com/shorts/JyOMNVMXVkM','Laver Cup: чистый виннер','Laver Cup: toza vinner','Laver Cup: a clean winner'],
+     ['https://swing.vision/matches/sw2-yP7YidM','Запись матча на SwingVision','SwingVision’da o‘yin yozuvi','Match recording on SwingVision']
+   ]},
   {ru:'Юнусабад (у телебашни)', en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"2 clay and 4 hard courts. Clay 165,000, hard 130,000 per hour.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'2 грунта и 4 харда. Грунт 165 000, хард 130 000 за час.', dUz:'2 grunt, 4 hard. Grunt 165 000, hard 130 000.', tel:'+998712347760', h:'07:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}], t:[["c", "o"], ["h", "o",'img/courts/yunusabad.webp']]},
   {ru:'Пахтакор · Tennis & Padel City', en:"Pakhtakor · Tennis & Padel City", stEn:"open · online booking", dEn:"Islam Karimov 98A. 10 outdoor courts (7 clay, 3 hard) plus an indoor hall with clay and hard. Per hour: day 100–150,000, evening from 18:00 150–200,000; indoor 200 / 250,000.", uz:'Paxtakor · Tennis & Padel City', st:'ok', stRu:'открыт · онлайн-бронь', stUz:'ochiq · onlayn bron', ll:[41.315683,69.263468], dRu:'Ислама Каримова, 98А. 10 открытых кортов (7 грунт, 3 хард) и крытый зал: грунт и хард. Час днём 100–150 000, вечером с 18:00 — 150–200 000; крытые 200 / 250 000.', dUz:'Islom Karimov, 98A. 10 ta ochiq kort (7 grunt, 3 hard) va yopiq zal: grunt va hard. Soati kunduzi 100–150 000, kechqurun 18:00 dan 150–200 000; yopiq 200 / 250 000.', tel:'+998903331151', h:'07:00–02:00', bk:[{"u": "https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis", "k": "playsport", "t": "PlaySport", t:[["c", "o",'img/courts/pakhtakor.webp'], ["h", "o",'img/courts/pakhtakor-hard-outdoor.webp'], ["c", "i",'img/courts/pakhtakor-clay-indoor.webp'], ["h", "i",'img/courts/pakhtakor-hard-indoor.webp']]}, {"u": "img/courts/pakhtakor-scheme.webp", "k": "scheme", "t": ""}, {u:'https://tennispadelcity.uz/', k:'photos'}]},
   {ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor 100,000, indoor 200,000 per hour.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Улица 100 000, зал 200 000 за час.', dUz:'Ochiq 100 000, yopiq 200 000.', tel:'+998911351877', h:'07:00–23:00', bk:[], t:[["c", "o",'img/courts/dinamo.webp'], ["x", "i"]]},
-  {ru:'AJOU · Ravshan court', en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 1, by Ajou University. Indoor hard court, air conditioning and heating. Entry by badge: regulars get one via Akmal; whether hourly renters need it is being clarified. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 1, у университета Аджу. Крытый хард, кондиционер и отопление. Вход по бейджу: постоянным игрокам делают через Акмаля, для тех, кто берёт корт на час, — уточняется. Аренда и группы — Tennis plus.', dUz:'Ajou universiteti, Yashnobod. Yopiq hard, konditsioner va isitish. Kirish beyj orqali: doimiy o‘yinchilarga Akmal orqali; soatbay olganlarga — aniqlanmoqda. Tennis plus.', tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/ajou_court.webp']]},
+  {ru:'AJOU · Ravshan court', en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 1, by Ajou University. Indoor hard court, air conditioning and heating. Entry by badge: regulars get one via Akmal; whether hourly renters need it is being clarified. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 1, у университета Аджу. Крытый хард, кондиционер и отопление. Вход по бейджу: постоянным игрокам делают через Акмаля, для тех, кто берёт корт на час, — уточняется. Аренда и группы — Tennis plus.', dUz:'Ajou universiteti, Yashnobod. Yopiq hard, konditsioner va isitish. Kirish beyj orqali: doimiy o‘yinchilarga Akmal orqali; soatbay olganlarga — aniqlanmoqda. Tennis plus.', access:['Постоянным игрокам нужен бейдж. Для разовой аренды уточните правила у Акмаля.','Doimiy o‘yinchilarga beyj kerak. Bir martalik ijara qoidalarini Akmaldan so‘rang.','Regular players need a badge. Ask Akmal about one-off bookings.'], tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/ajou_court.webp']],
+   videos:[
+     ['https://www.youtube.com/shorts/iPalS-TlosY','Бэкхендщик против волейщика','Bekhend va vollei','Backhander vs volleyer'],
+     ['https://www.youtube.com/shorts/1sYwySHxVy4','Владимир Ивко — Шерзод Гуламов','Vladimir Ivko — Sherzod Gulomov','Vladimir Ivko vs Sherzod Gulamov']
+   ]},
   {ru:'JAR (Жар)', uz:'JAR', en:'JAR', st:'ok', stRu:'крытый зал', stUz:'yopiq zal', stEn:'indoor court',
    ll:[41.32185,69.23049], tel:'+998712494839',
    dRu:'Проспект Беруни, 3, рядом с Чорсу. Расписание теннисных занятий уточняйте по телефону.',
@@ -1042,20 +1094,29 @@ const COURTS = [
    dEn:'Mirabad, 9 Yakub Kolas Street (formerly Yakkachinor). Coaching for adults and children.',
    tel:'+998977036145',
    bk:[{u:'https://www.instagram.com/toptennis.uz/', k:'ig', t:'@toptennis.uz'}, {u:'https://t.me/toptennis_admin', k:'tg', t:'@toptennis_admin'}], t:[['c','i','img/courts/toptennis-school-110.webp']]},
-  {ru:'Ace club', en:"Ace club", stEn:"open", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers. From 250,000/hour.", uz:'Ace club', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ. От 250 000/час.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush. 250 000/soatdan.', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn", t:[["h", "i",'img/courts/ace.webp']]}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}]},
-  {ru:'Ипакчилик', en:"Ipakchilik", stEn:"open", dEn:"Ipakchi street.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи.', dUz:'Ipakchi ko‘chasi.', tel:'+998959492222', bk:[], t:[["c", "o",'img/courts/ipak.webp']]},
+  {ru:'Ace club', en:"Ace club", stEn:"open", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers. From 250,000/hour.", uz:'Ace club', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ. От 250 000/час.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush. 250 000/soatdan.', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn"}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}],
+   t:[['h','i','img/courts/ace-blue.webp',['Голубой корт','Havorang kort','Light blue court']],
+      ['h','i','img/courts/ace-green.webp',['Зелёный корт','Yashil kort','Green court']]]},
+  {ru:'Ипакчилик', en:"Ipakchilik", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
+   t:[['c','o','img/courts/ipak.webp'], ['h','i','img/courts/ipakchi-indoor.webp']]},
   {ru:'Теннисная школа Ироды Тулягановой', en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
   {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid-exterior.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
   {ru:'Grand Mir Hotel', uz:'Grand Mir Hotel', en:'Grand Mir Hotel', st:'off',
-   ll:[41.29644,69.26789], tel:'+998781402000',
+   ll:[41.29644,69.26789], access:['Доступ к корту не подтверждён.','Kortdan foydalanish tasdiqlanmagan.','Court access is unconfirmed.'], tel:'+998781402000',
    dRu:'Ул. Мирабад, 2. Отель закрыт, доступ к корту сейчас не подтверждён.',
    dUz:'Mirobod ko‘chasi, 2. Mehmonxona yopiq, kortdan foydalanish imkoni tasdiqlanmagan.',
    dEn:'2 Mirabad Street. The hotel is closed; access to the court is unconfirmed.',
    bk:[{u:'https://yandex.uz/maps/org/grand_mir_hotel/211309407833/', k:'hotel'}],
    t:[['h','o','img/courts/grand-mir-outdoor-hard.jpg']]},
+  {ru:'Сингапурский институт (MDIS)', uz:'Singapur instituti (MDIS)', en:'Singapore Institute (MDIS)',
+   ll:[41.269655,69.202787], access:['Доступ для гостей уточняйте у MDIS.','Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.','Ask MDIS about guest access.'], tel:'+998781137702',
+   dRu:'Чиланзар, проспект Бунёдкор, 28. Крытый теннисный корт в спортцентре института. Доступ для гостей уточняйте у MDIS.',
+   dUz:'Chilonzor, Bunyodkor shoh ko‘chasi, 28. Institut sport markazidagi yopiq tennis korti. Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.',
+   dEn:'28 Bunyodkor Avenue, Chilanzar. Indoor tennis court at the institute’s sports centre. Ask MDIS about guest access.',
+   bk:[{u:'https://www.mdis.uz/en/menu/sport-centre-', k:'site'}], t:[['x','i','img/courts/mdis-indoor.webp']]},
   {ru:'Локомотив', en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта.', dUz:'2 ta ochiq grunt kort.', t:[["c","o",'img/courts/lokomotiv.webp']], bk:[]},
   {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
-  {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
+  {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', access:['Уточните, пускают ли на корт без проживания в санатории.','Sanatoriyda yashamasdan kortga kirish mumkinligini aniqlang.','Ask whether the court is open to non-guests.'], tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
 ];
 const TODAY = new Date('2026-11-07'), FRESH = 10; // дней, пока изменение считается новостью
 let lang = 'ru';
@@ -1066,38 +1127,70 @@ let map = null, marks = [];
 let fitCourtView = () => {}, landmarkLabels = [];
 
 // Где посмотреть свободные слоты: PlayOn (онлайн-бронь), бот или канал клуба; если нет — звонок
-const BK = {playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
+const BK = {site: ['Сайт спортцентра', 'Sport markazi sayti', 'Sports centre website'], playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
 function bookHtml(c) {
-  const hrs = c.h ? `<span class="hrs">${L_('Работает', 'Ish vaqti', 'Open')} ${c.h}</span>` : c.tel ? `<span class="hrs">${L_('Часы уточняйте по телефону', 'Ish vaqtini telefonda aniqlang', 'Call for opening hours')}</span>` : `<span class="hrs">${L_('Часы и контакты пока не знаем — знаете? @dandesdet', 'Ish vaqti va aloqa hali noma’lum', 'Hours and contacts unknown yet')}</span>`;
   const links = (c.bk || []).map(b => `<a href="${b.u}" target="_blank" rel="noopener">${L_(...BK[b.k])}${b.t && !/^play/.test(b.k) ? ' · ' + b.t : ''}</a>`);
   if (links.length && c.tel) links.push(`<a href="tel:${c.tel}">${L_('Тел.', 'Tel.', 'Tel.')} ${fmtTel(c.tel)}</a>`);
-  else if (c.tel) links.push(`<a href="tel:${c.tel}">${L_('Онлайн-брони нет — звоните', 'Onlayn bron yo‘q — qo‘ng‘iroq qiling', 'No online booking — call')} ${fmtTel(c.tel)}</a>`);
+  else if (c.tel) links.push(`<a href="tel:${c.tel}">${L_('Позвонить', 'Qo‘ng‘iroq qilish', 'Call')} ${fmtTel(c.tel)}</a>`);
   const coords = c.ll.join(',');
   const route = lang === 'en' || GMAPS_KEY
     ? `https://www.google.com/maps/dir/?api=1&destination=${coords}`
     : `https://yandex.uz/maps/?rtext=~${coords}&rtt=auto`;
   links.push(`<a href="${route}" target="_blank" rel="noopener">${L_('Маршрут', 'Yo‘nalish', 'Directions')}</a>`);
-  return `<div class="bk">${hrs}${links.join('')}</div>`;
+  return `<div class="bk">${links.join('')}</div>`;
 }
 
-// Варианты корта: [покрытие, тип площадки, фото именно этого варианта].
+// Варианты корта: [покрытие, тип площадки, фото, необязательная подпись на трёх языках].
 // img у локации — общий снимок, который можно показывать без фильтра покрытия.
 const SURF = {c: ['грунт', 'grunt', 'clay'], h: ['хард', 'hard', 'hard'], x: ['', '', '']};
 const KIND = {o: ['улица', 'ochiq', 'outdoor'], r: ['навес', 'ayvon', 'covered'], i: ['зал', 'zal', 'indoor']};
 const courtTypeLabel = (sf, k) => [L_(...SURF[sf]), k ? L_(...KIND[k]) : ''].filter(Boolean).join(' · ');
-const typesHtml = c => {
-  const types = courtTypes(c);
-  return types.length ? `<div class="ty">${types.map(([sf, k]) => `<span class="tg ${sf}">${courtTypeLabel(sf, k)}</span>`).join('')}</div>` : '';
+const typesHtml = (c, filter = CF) => {
+  const types = new Map(courtTypes(c, filter).map(([sf, k]) => [sf + k, [sf, k]]));
+  return types.size ? `<span class="ty">${[...types.values()].map(([sf, k]) => `<span class="tg ${sf}">${courtTypeLabel(sf, k)}</span>`).join('')}</span>` : '';
 };
-function popup(c) {
-  const photos = courtTypes(c).filter(([, , img]) => img);
+function courtGallery(c, filter, includeOverview = false) {
+  const photos = courtTypes(c, filter).filter(([, , img]) => img);
+  if (c.img && (includeOverview || (!photos.length && !isSurfaceFilter(filter))) &&
+      !photos.some(([, , img]) => img === c.img)) {
+    photos.push(['x', null, c.img, ['Общий вид', 'Umumiy ko‘rinish', 'Overview']]);
+  }
+  if (!photos.length) return null;
   const multiple = photos.length > 1;
-  const images = photos.map(([sf, k, img]) => {
-    const label = courtTypeLabel(sf, k);
-    return `<figure><img class="pp-img" src="${img}" alt="${multiple ? '' : label}">${multiple ? `<figcaption>${label}</figcaption>` : ''}</figure>`;
+  const images = photos.map(([sf, k, img, caption], index) => {
+    const label = caption ? L_(...caption) : courtTypeLabel(sf, k);
+    return `<figure${index ? ' hidden' : ''}><img class="pp-img" src="${img}" alt="${multiple ? '' : label}">${multiple ? `<figcaption>${label}</figcaption>` : ''}</figure>`;
   }).join('');
-  const gallery = images || (!isSurfaceFilter(CF) && c.img ? `<img class="pp-img" src="${c.img}" alt="">` : '');
-  return `<div class="court-preview"><b>${c[lang] || c.uz}</b>${gallery ? `<div class="court-photos${multiple ? ' multiple' : ''}">${gallery}</div>` : ''}</div>`;
+  const gallery = document.createElement('div');
+  gallery.className = multiple ? 'court-photos court-carousel' : 'court-photos';
+  const controls = multiple ? `
+    <button type="button" data-step="-1" aria-label="${L_('Предыдущее фото', 'Oldingi surat', 'Previous photo')}">‹</button>
+    <button type="button" data-step="1" aria-label="${L_('Следующее фото', 'Keyingi surat', 'Next photo')}">›</button>
+    <span class="court-slide-count" aria-live="polite">1 / ${photos.length}</span>` : '';
+  gallery.innerHTML = images + controls;
+  if (multiple) {
+    const slides = gallery.querySelectorAll('figure');
+    const counter = gallery.querySelector('.court-slide-count');
+    let current = 0;
+    gallery.querySelectorAll('[data-step]').forEach(button => {
+      button.addEventListener('click', event => {
+        event.stopPropagation();
+        slides[current].hidden = true;
+        current = (current + Number(button.dataset.step) + slides.length) % slides.length;
+        slides[current].hidden = false;
+        counter.textContent = `${current + 1} / ${slides.length}`;
+      });
+    });
+  }
+  return gallery;
+}
+function popup(c) {
+  const preview = document.createElement('div');
+  preview.className = 'court-preview';
+  preview.innerHTML = `<b>${c[lang] || c.uz}</b>`;
+  const gallery = courtGallery(c, CF);
+  if (gallery) preview.append(gallery);
+  return preview;
 }
 COURTS.forEach(c => { if (!c.t) { const b = (c.bk || []).find(x => Array.isArray(x.t)); if (b) { c.t = b.t; delete b.t; } } });   // тип корта у части записей лежал внутри брони
 let CF = 'all';
@@ -1128,22 +1221,101 @@ function renderCF() {
     el.querySelector('[aria-pressed="true"]').focus({preventScroll:true});
   });
 }
+const courtDialog = document.getElementById('court-dialog');
+const courtDialogBody = courtDialog.querySelector('.court-detail');
+const courtClose = courtDialog.querySelector('.share-close');
+courtClose.onclick = () => courtDialog.close();
+courtDialog.addEventListener('close', () => {
+  if (!courtDialog.open) courtDialogBody.replaceChildren();
+});
+courtDialog.addEventListener('click', event => {
+  if (event.target !== courtDialog) return;
+  const bounds = courtDialog.getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right ||
+      event.clientY < bounds.top || event.clientY > bounds.bottom) courtDialog.close();
+});
+
+function openCourtDetails(court) {
+  const name = court[lang] || court.ru;
+  courtDialog.querySelector('h2').textContent = name;
+  courtClose.setAttribute('aria-label', L_('Закрыть', 'Yopish', 'Close'));
+  const unavailable = L_('Не указано', 'Ko‘rsatilmagan', 'Not listed');
+  const gallery = courtGallery(court, 'all', true);
+  const media = document.createElement('div');
+  if (gallery) media.append(gallery);
+  else media.innerHTML = `<p class="court-detail-empty">${L_('Фото пока нет', 'Hozircha surat yo‘q', 'No photos yet')}</p>`;
+  if (court.videos?.length) {
+    const videoSection = document.createElement('div');
+    videoSection.className = 'court-videos';
+    videoSection.innerHTML = `<h3>${L_('Видео с корта', 'Kortdan videolar', 'Court videos')}</h3><div class="bk"></div>`;
+    const videoLinks = videoSection.querySelector('.bk');
+    court.videos.forEach(([href, ...title]) => {
+      const name = L_(...title);
+      const youtubeId = href.match(/^https:\/\/www\.youtube\.com\/shorts\/([\w-]+)$/)?.[1];
+      if (!youtubeId) {
+        const link = document.createElement('a');
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = name;
+        videoLinks.append(link);
+        return;
+      }
+      const play = document.createElement('button');
+      play.type = 'button';
+      play.textContent = '▶ ' + name;
+      play.onclick = () => {
+        videoSection.querySelector('iframe')?.remove();
+        const player = document.createElement('iframe');
+        player.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&playsinline=1`;
+        player.title = name;
+        player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        player.allowFullscreen = true;
+        videoSection.append(player);
+      };
+      videoLinks.append(play);
+    });
+    media.append(videoSection);
+  }
+  const info = document.createElement('div');
+  info.className = 'court-detail-info';
+  const entry = court.access ? L_(...court.access) : unavailable;
+  const hours = court.st === 'off'
+    ? (court.stRu ? L_(court.stRu, court.stUz, court.stEn) : unavailable)
+    : court.h || (court.tel ? L_('Уточняйте по телефону', 'Telefon orqali aniqlang', 'Call to confirm') : unavailable);
+  info.innerHTML = `
+    ${typesHtml(court, 'all')}
+    <div><h3>${L_('О кортах', 'Kortlar haqida', 'About the courts')}</h3><p>${L_(court.dRu, court.dUz, court.dEn) || unavailable}</p></div>
+    <div><h3>${L_('Условия входа', 'Kirish shartlari', 'Entry requirements')}</h3><p>${entry}</p></div>
+    <div><h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}</h3><p>${hours}</p></div>
+    <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>`;
+  const marker = marks[COURTS.indexOf(court)];
+  if (marker) {
+    const mapButton = document.createElement('button');
+    mapButton.type = 'button';
+    mapButton.className = 'court-map-link';
+    mapButton.textContent = L_('Показать на карте', 'Xaritada ko‘rsatish', 'Show on map');
+    mapButton.onclick = () => {
+      courtDialog.close();
+      document.getElementById('cmap').scrollIntoView({block: 'center'});
+      marker.focus();
+    };
+    info.append(mapButton);
+  }
+  courtDialogBody.replaceChildren(media, info);
+  courtDialog.showModal();
+  courtDialog.scrollTop = 0;
+}
+
 function renderCourts() {
   const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
   document.getElementById('crows').innerHTML = list.map(c => {
     const photo = courtPhoto(c);
-    return `<div class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" tabindex="0">${photo ? `<img class="cth" src="${photo}" alt="" loading="lazy">` : `<span class="cth none"></span>`}<b>${c[lang] || c.uz}</b>
-    <div class="d">${typesHtml(c)}${L_(c.dRu, c.dUz, c.dEn)}${bookHtml(c)}</div></div>`;
+    return `<button type="button" class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" aria-haspopup="dialog" aria-controls="court-dialog">${photo ? `<img class="cth" src="${photo}" alt="" loading="lazy">` : '<span class="cth none"></span>'}<b>${c[lang] || c.uz}</b>
+    <span class="d">${typesHtml(c)}</span></button>`;
   }).join('');
-  document.querySelectorAll('.crow').forEach(r => {
-    const go = () => {
-      const m = marks[+r.dataset.i]; if (!m) return;
-      document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on')); r.classList.add('on');
-      document.getElementById('cmap').scrollIntoView({behavior: 'smooth', block: 'center'});
-      m.focus();
-    };
-    r.onclick = e => { if (!e.target.closest('a')) go(); };
-    r.onkeydown = e => { if (e.key === 'Enter' && e.target === r) go(); };
+  document.querySelectorAll('.crow').forEach(row => {
+    row.onclick = () => openCourtDetails(COURTS[+row.dataset.i]);
   });
   marks.forEach(m => m.refresh());
   renderCF(); applyCF();
@@ -1154,7 +1326,6 @@ function renderCourts() {
 }
 // Карта: Google Maps, если задан ключ; иначе — OpenStreetMap (Leaflet)
 const GMAPS_KEY = 'AIzaSyDl0stvfwgv03hnm8ot-VttmUf5dFJycwo';   // ключ Google Maps JavaScript API, ограниченный доменом tennisdaily.uz
-const unmark = () => document.querySelectorAll('.crow.on').forEach(x => x.classList.remove('on'));
 function initLeaflet() {
   if (!window.L) return;
   map = L.map('cmap', {scrollWheelZoom: false}).setView([41.33, 69.28], 12);
@@ -1185,7 +1356,6 @@ function initLeaflet() {
   });
   map.on('zoomend', updateLandmarkVisibility);
   fitCourtView(); updateLandmarkVisibility(); applyCF();
-  map.on('popupclose', unmark);
 }
 // маркер — теннисный мяч; закрытый корт — серый мяч
 const ball = off => off ? 'img/ball_off.png' : 'img/ball.png';
@@ -1220,7 +1390,7 @@ window.initGoogle = () => {
   map = new g.Map(document.getElementById('cmap'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: 'cooperative',
     disableDefaultUI: true, zoomControl: true, clickableIcons: false, styles: MAP_STYLE});
   const info = new g.InfoWindow({maxWidth: 300}); let cur = null;
-  info.addListener('close', () => { cur = null; unmark(); });
+  info.addListener('close', () => { cur = null; });
   map.addListener('click', () => info.close());
   marks = COURTS.map(c => {
     const pos = {lat: c.ll[0], lng: c.ll[1]};
