@@ -54,7 +54,8 @@ img{display:block;max-width:100%}
 
 /* верх */
 .top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0}
-.date{font-weight:500;color:var(--muted)}
+.date{flex:none;font-weight:500;color:var(--muted)}
+.date-short{display:none}
 .langs{display:flex;gap:4px}
 .langs button{min-width:44px;min-height:44px;border:0;background:none;font:600 16px var(--body);color:var(--muted);padding:6px 12px;border-radius:var(--pill);cursor:pointer;transition:background .15s,color .15s}
 .langs button:hover{color:var(--ink);background:var(--soft)}
@@ -68,23 +69,18 @@ img{display:block;max-width:100%}
 @media (max-width:520px){
   .section-nav a{flex:1 0 auto;padding:0 12px}
 }
-.weather{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px 24px;padding:10px 0;border-bottom:1px solid var(--line)}
-.weather h2{margin:0;font:600 15px/1.3 var(--body)}
-.weather-meta,.weather-status{margin:0;font-size:13px;color:var(--muted)}
-.weather-meta a{display:inline-block;padding:4px 0}
+.weather{flex:1;min-width:0}
+.weather-status{margin:0;font-size:12px;color:var(--muted);text-align:center}
 .weather-window{overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin}
 .weather-window:focus-visible{outline:2px solid var(--court);outline-offset:-2px}
-.weather-days{display:grid;grid-template-columns:repeat(7,minmax(94px,1fr));gap:6px;list-style:none;margin:0;padding:0}
-.weather-day{display:grid;gap:1px;padding:5px 8px;border-left:1px solid var(--line);scroll-snap-align:start;white-space:nowrap;font-size:13px}
-.weather-day time{font-weight:600}
-.weather-reading{display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
-.weather-reading b{font-size:15px}
-.weather-reading small{color:var(--muted);font-size:13px}
-.weather-rain{color:var(--court);font-size:12px}
+.weather-days{display:flex;width:max-content;gap:8px;list-style:none;margin:0 auto;padding:4px 2px}
+.weather-day{display:flex;align-items:center;gap:4px;scroll-snap-align:start;white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.weather-icon{font-size:16px;line-height:1}
 .weather [hidden]{display:none}
-@media (max-width:760px){
-  .weather{grid-template-columns:minmax(0,1fr)}
-  .weather-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0 12px}
+@media (max-width:900px){
+  .top{gap:10px}
+  .date-long{display:none}
+  .date-short{display:inline}
 }
 .post-media,.post-share-fallback{position:relative}
 .post-share{position:absolute;z-index:2;top:8px;right:8px;display:grid;justify-items:end}
@@ -607,6 +603,15 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 
 <div class="top">
   <div class="date" id="today"></div>
+  <aside class="weather" aria-labelledby="weather-title">
+    <h2 class="post-share-label" id="weather-title"><span data-ru>Погода в Ташкенте</span><span data-uz>Toshkentda ob-havo</span><span data-en>Tashkent weather</span></h2>
+    <div class="weather-window" role="group" aria-labelledby="weather-title" tabindex="0" hidden>
+      <ol class="weather-days"></ol>
+    </div>
+    <p class="weather-status" role="status">
+      <span data-ru>Прогноз загружается…</span><span data-uz>Prognoz yuklanmoqda…</span><span data-en>Loading forecast…</span>
+    </p>
+  </aside>
   <div class="langs" role="group" aria-label="Язык"><button type="button" data-set="uz" aria-pressed="true">UZ</button><button type="button" data-set="ru" aria-pressed="false">RU</button><button type="button" data-set="en" aria-pressed="false">EN</button></div>
 <script>
 // Дата в шапке — всегда сегодняшняя (по Ташкенту)
@@ -615,7 +620,8 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
   const uzD=['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'], uzM=['yanvar','fevral','mart','aprel','may','iyun','iyul','avgust','sentabr','oktabr','noyabr','dekabr'];
   const enD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], enM=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const w=d.getDay(), n=d.getDate(), m=d.getMonth(), y=d.getFullYear();
-  document.getElementById('today').innerHTML = `<span data-ru>${ruD[w]}, ${n} ${ruM[m]} ${y}</span><span data-uz>${uzD[w]}, ${n}-${uzM[m]} ${y}</span><span data-en>${enD[w]}, ${n} ${enM[m]} ${y}</span>`;
+  const day = String(n).padStart(2, '0'), month = String(m + 1).padStart(2, '0');
+  document.getElementById('today').innerHTML = `<time datetime="${y}-${month}-${day}"><span class="date-long"><span data-ru>${ruD[w]}, ${n} ${ruM[m]} ${y}</span><span data-uz>${uzD[w]}, ${n}-${uzM[m]} ${y}</span><span data-en>${enD[w]}, ${n} ${enM[m]} ${y}</span></span><span class="date-short">${day}.${month}</span></time>`;
 })();
 </script>
 </div>
@@ -628,18 +634,6 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
   <a href="#coaches"><span data-ru>Тренеры</span><span data-uz>Murabbiylar</span><span data-en>Coaches</span></a>
 </nav>
 
-<aside class="weather" aria-labelledby="weather-title">
-  <div class="weather-heading">
-    <h2 id="weather-title"><span data-ru>Погода в Ташкенте</span><span data-uz>Toshkentda ob-havo</span><span data-en>Tashkent weather</span></h2>
-    <p class="weather-meta">°C · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>
-  </div>
-  <div class="weather-window" role="group" aria-labelledby="weather-title" tabindex="0" hidden>
-    <ol class="weather-days"></ol>
-  </div>
-  <p class="weather-status" role="status">
-    <span data-ru>Загружаем прогноз…</span><span data-uz>Prognoz yuklanmoqda…</span><span data-en>Loading forecast…</span>
-  </p>
-</aside>
 <script src="scripts/weather.js" defer></script>
 
 <header class="mast">
@@ -1063,7 +1057,8 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
     <h4 data-ru>Есть новость?</h4><h4 data-uz>Yangilik bormi?</h4><h4 data-en>Got news?</h4>
     <p data-ru>Турнир, новый корт, итоги — пишите: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
     <p data-uz>Turnir, yangi kort, natija — yozing: <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p><p data-en>A tournament, a new court, results — write to <a href="https://t.me/dandesdet" target="_blank" rel="noopener">@dandesdet</a></p>
-    <p class="footer-links"><a href="https://www.youtube.com/@dandesdet" target="_blank" rel="noopener">YouTube</a> · <a href="?archive"><span data-ru>Архив</span><span data-uz>Arxiv</span><span data-en>Archive</span></a> · © 2026 tennisdaily.uz</p></div>
+    <p class="footer-links"><a href="https://www.youtube.com/@dandesdet" target="_blank" rel="noopener">YouTube</a> · <a href="?archive"><span data-ru>Архив</span><span data-uz>Arxiv</span><span data-en>Archive</span></a> · © 2026 tennisdaily.uz</p>
+    <p><span data-ru>Прогноз погоды</span><span data-uz>Ob-havo prognozi</span><span data-en>Weather forecast</span> · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p></div>
 </footer>
 </div>
 

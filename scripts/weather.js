@@ -4,9 +4,6 @@
   const scrollArea = forecast.querySelector('.weather-window');
   const status = forecast.querySelector('.weather-status');
   const languages = ['ru', 'uz', 'en'];
-  const formats = languages.map(lang => new Intl.DateTimeFormat(lang, {
-    timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'short',
-  }));
   const conditions = [
     [[0], '☀️', ['Ясно', 'Ochiq', 'Clear']],
     [[1, 2], '⛅', ['Переменная облачность', 'Qisman bulutli', 'Partly cloudy']],
@@ -32,36 +29,19 @@
     day.className = 'weather-day';
     const time = document.createElement('time');
     time.dateTime = date;
-    appendTranslations(time, index === 0 ? ['Сегодня', 'Bugun', 'Today'] :
-      formats.map(format => format.format(new Date(date + 'T00:00:00Z'))));
+    const [, month, dayOfMonth] = date.split('-');
+    time.textContent = dayOfMonth + '.' + month;
 
-    const reading = document.createElement('div');
-    reading.className = 'weather-reading';
-    const condition = conditions.find(([codes]) => codes.includes(daily.weather_code?.[index]));
-    if (condition) {
-      const [, symbol, description] = condition;
-      const icon = document.createElement('span');
-      icon.setAttribute('aria-hidden', 'true');
-      icon.textContent = symbol;
-      const label = document.createElement('span');
-      label.className = 'post-share-label';
-      appendTranslations(label, description);
-      reading.append(icon, label);
-    }
-    const high = document.createElement('b');
-    const low = document.createElement('small');
-    high.textContent = Math.round(daily.temperature_2m_max[index]) + '°';
-    low.textContent = Math.round(daily.temperature_2m_min[index]) + '°';
-    reading.append(high, low);
-    day.append(time, reading);
-
-    const precipitation = daily.precipitation_probability_max?.[index];
-    if (Number.isFinite(precipitation)) {
-      const rain = document.createElement('span');
-      rain.className = 'weather-rain';
-      appendTranslations(rain, ['Осадки', 'Yog‘in', 'Precip.'].map(label => label + ' ' + precipitation + '%'));
-      day.append(rain);
-    }
+    const [, symbol, description] = conditions.find(([codes]) => codes.includes(daily.weather_code[index])) ||
+      [[], '–', ['Нет данных', 'Ma’lumot yo‘q', 'No data']];
+    const icon = document.createElement('span');
+    icon.className = 'weather-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = symbol;
+    const label = document.createElement('span');
+    label.className = 'post-share-label';
+    appendTranslations(label, description);
+    day.append(time, icon, label);
     return day;
   }
 
@@ -69,7 +49,7 @@
   url.search = new URLSearchParams({
     latitude: '41.3111',
     longitude: '69.2797',
-    daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
+    daily: 'weather_code',
     timezone: 'Asia/Tashkent',
     forecast_days: '7',
   });
@@ -81,9 +61,9 @@
       return response.json();
     })
     .then(({daily}) => {
-      if (!Array.isArray(daily?.time) || daily.time.length !== 7 || daily.time.some((date, index) =>
-        typeof date !== 'string' || !Number.isFinite(Date.parse(date + 'T00:00:00Z')) ||
-        !Number.isFinite(daily.temperature_2m_max?.[index]) || !Number.isFinite(daily.temperature_2m_min?.[index]))) {
+      if (!Array.isArray(daily?.time) || daily.time.length !== 7 ||
+        daily.time.some(date => typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) ||
+        !Array.isArray(daily.weather_code) || daily.weather_code.length !== 7) {
         throw new Error('Incomplete forecast');
       }
       days.replaceChildren(...daily.time.map((date, index) => renderDay(date, index, daily)));
