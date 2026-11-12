@@ -68,6 +68,24 @@ img{display:block;max-width:100%}
 @media (max-width:520px){
   .section-nav a{flex:1 0 auto;padding:0 12px}
 }
+.weather{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px 24px;padding:10px 0;border-bottom:1px solid var(--line)}
+.weather h2{margin:0;font:600 15px/1.3 var(--body)}
+.weather-meta,.weather-status{margin:0;font-size:13px;color:var(--muted)}
+.weather-meta a{display:inline-block;padding:4px 0}
+.weather-window{overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin}
+.weather-window:focus-visible{outline:2px solid var(--court);outline-offset:-2px}
+.weather-days{display:grid;grid-template-columns:repeat(7,minmax(94px,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.weather-day{display:grid;gap:1px;padding:5px 8px;border-left:1px solid var(--line);scroll-snap-align:start;white-space:nowrap;font-size:13px}
+.weather-day time{font-weight:600}
+.weather-reading{display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.weather-reading b{font-size:15px}
+.weather-reading small{color:var(--muted);font-size:13px}
+.weather-rain{color:var(--court);font-size:12px}
+.weather [hidden]{display:none}
+@media (max-width:760px){
+  .weather{grid-template-columns:minmax(0,1fr)}
+  .weather-heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:0 12px}
+}
 .post-media,.post-share-fallback{position:relative}
 .post-share{position:absolute;z-index:2;top:8px;right:8px;display:grid;justify-items:end}
 .post-share button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--court);cursor:pointer}
@@ -604,11 +622,25 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 
 <nav class="section-nav" aria-label="Tennis Daily">
   <a href="#soon"><span data-ru>Турниры</span><span data-uz>Turnirlar</span><span data-en>Tournaments</span></a>
+  <a href="#results"><span data-ru>Результаты</span><span data-uz>Natijalar</span><span data-en>Results</span></a>
+  <a href="#news"><span data-ru>Новости</span><span data-uz>Yangiliklar</span><span data-en>News</span></a>
   <a href="#courts"><span data-ru>Корты</span><span data-uz>Kortlar</span><span data-en>Courts</span></a>
   <a href="#coaches"><span data-ru>Тренеры</span><span data-uz>Murabbiylar</span><span data-en>Coaches</span></a>
-  <a href="#news"><span data-ru>Новости</span><span data-uz>Yangiliklar</span><span data-en>News</span></a>
-  <a href="#results"><span data-ru>Результаты</span><span data-uz>Natijalar</span><span data-en>Results</span></a>
 </nav>
+
+<aside class="weather" aria-labelledby="weather-title">
+  <div class="weather-heading">
+    <h2 id="weather-title"><span data-ru>Погода в Ташкенте</span><span data-uz>Toshkentda ob-havo</span><span data-en>Tashkent weather</span></h2>
+    <p class="weather-meta">°C · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>
+  </div>
+  <div class="weather-window" role="group" aria-labelledby="weather-title" tabindex="0" hidden>
+    <ol class="weather-days"></ol>
+  </div>
+  <p class="weather-status" role="status">
+    <span data-ru>Загружаем прогноз…</span><span data-uz>Prognoz yuklanmoqda…</span><span data-en>Loading forecast…</span>
+  </p>
+</aside>
+<script src="scripts/weather.js" defer></script>
 
 <header class="mast">
   <div class="mast-copy">
@@ -1147,10 +1179,15 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
       else sec.remove();
     }
   }
+  if (ARCH) {
+    document.documentElement.classList.add('arch');
+    ['world', 'courts', 'coaches'].forEach(id => { const e = document.getElementById(id); if (e) e.hidden = true; });
+  }
+  document.querySelectorAll('.section-nav a').forEach(link => {
+    const section = document.getElementById(link.hash.slice(1));
+    if (!section || section.hidden || !section.querySelector('h2')) link.remove();
+  });
   if (!ARCH) return;
-  document.documentElement.classList.add('arch');
-  ['world', 'courts', 'coaches'].forEach(id => { const e = document.getElementById(id); if (e) e.hidden = true; });
-  document.querySelector('.section-nav a[href="#coaches"]')?.remove();
   const rh = document.querySelectorAll('#res-h h2'); ['Итоги', 'Natijalar', 'Results'].forEach((t, i) => rh[i] && (rh[i].textContent = t));
   document.querySelectorAll('.league, .ticker, .arch-link').forEach(e => e.remove());
   const bar = document.createElement('div'); bar.className = 'arch-bar';
