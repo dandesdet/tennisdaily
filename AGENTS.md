@@ -4,6 +4,8 @@ Tennis Daily is a static, multilingual site for amateur tennis in Tashkent. The 
 
 ## Work in the same repository
 
+- Read `PROJECT_NOTES.md` at the start of each task. Record user-supplied sources, durable decisions, and open questions there so the other assistant can pick them up. Keep the notes short and leave out credentials and private material.
+
 - Before each new task, including in an existing session, run `git fetch origin`, then check `git status -sb` and compare the current branch with `origin/main`.
 - If the current branch is `main`, the working tree is clean, and the remote is only ahead, run `git merge --ff-only origin/main` before editing. If there are uncommitted edits or the histories diverged, preserve the changes and report the difference. If the fetch fails, say that freshness could not be verified.
 - Use separate branches or worktrees for simultaneous edits. Before continuing on an existing feature branch, review any new commits on `origin/main` that affect the task.

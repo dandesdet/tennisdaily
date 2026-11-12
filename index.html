@@ -315,7 +315,22 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-detail p{margin:0;color:var(--muted)}
 .court-detail .court-photos{margin:0}
 .court-detail .pp-img{aspect-ratio:4/3;object-fit:contain;background:var(--soft)}
-.court-detail .court-carousel button{top:calc(37.5cqw - 22px)}
+.court-detail-media{min-width:0}
+.court-type-track{display:flex;gap:10px;overflow:hidden;scroll-snap-type:x mandatory;scrollbar-width:none}
+.court-type-slide{flex:0 0 100%;min-width:0;margin:0;scroll-snap-align:start;border-radius:var(--r-inner);overflow:hidden;background:var(--soft)}
+.court-type-slide figcaption{padding:10px 12px;font-weight:600}
+.court-type-slide .pp-img{border-radius:0}
+.court-type-placeholder{aspect-ratio:4/3;display:grid;place-items:center;padding:12px;text-align:center;background:#eceeea;color:var(--muted)}
+.court-type-slide[data-surface="c"] .court-type-placeholder{background:#f5e6dd}
+.court-type-slide[data-surface="h"] .court-type-placeholder{background:#e6edf5}
+.court-type-controls{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:8px}
+.court-type-controls button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);font:500 24px/1 var(--body);cursor:pointer}
+.court-type-controls button:disabled{opacity:.45;cursor:default}
+@media(max-width:640px){
+  .court-type-track{overflow-x:auto;overscroll-behavior-x:contain}
+  .court-type-track.has-next .court-type-slide{flex-basis:86%}
+  .court-type-track.has-next .court-type-slide:last-child{scroll-snap-align:end}
+}
 .court-detail-info{display:grid;align-content:start;gap:16px}
 .court-detail-info .ty{margin:0}
 .court-detail-info .bk{margin:0}
@@ -335,15 +350,24 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--dot-color);box-shadow:0 1px 4px #0005;transition:transform .15s}
 .court-marker:hover .court-dot,.court-marker:focus-visible .court-dot{transform:scale(1.22)}
 .court-marker-type{margin:6px 0 0}
+.court-map-label{pointer-events:none;color:var(--ink)!important;font:600 12px var(--body)!important;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff}
+.leaflet-tooltip.court-map-label{background:none;border:0;box-shadow:none;padding:0}
+.leaflet-tooltip.court-map-label::before{display:none}
+.cmap:not(.court-labels-visible) .court-map-label{display:none!important}
 .gm-style .gm-style-iw-c{border-radius:var(--r-card);padding:12px!important;max-height:none!important}
 .gm-style .gm-style-iw-d{overflow:visible!important;max-height:none!important;font:400 16px/1.45 var(--body);color:var(--ink)}
 .gm-style-iw-chr{position:absolute;top:0;right:0}
 .lm-label{font:600 14px var(--body)!important;color:var(--ink);text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}
 .lm{position:relative;width:40px;height:40px;pointer-events:none}
 .lm[hidden]{display:none}
-.lm img{width:100%;height:100%;object-fit:cover;border:2px solid var(--paper);border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.lm img{pointer-events:auto;transition:transform .15s;width:100%;height:100%;object-fit:cover;border:2px solid var(--paper);border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 .lm .lm-label{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%)}
 .gm-landmark{position:absolute;transform:translate(-50%,-50%)}
+@media(hover:hover){
+  .lm:hover img{transform:scale(1.35)}
+  .lm:hover .lm-label{transform:translate(-50%,-6px)}
+}
+@media(prefers-reduced-motion:reduce){.lm img{transition:none}}
 .leaflet-container a.leaflet-popup-close-button{top:8px;right:8px;width:28px;height:28px;font-size:20px;line-height:27px;background:#fff;border-radius:50%;color:var(--ink)}
 .gm-style-iw-chr button{background:#fff!important;border-radius:50%;margin:6px!important;width:32px!important;height:32px!important}
 .gm-style-iw-chr button span{margin:4px!important}
@@ -383,7 +407,12 @@ section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-del
   .mast{grid-template-columns:1fr;gap:16px}.issue{text-align:left;display:flex;gap:8px;align-items:baseline;order:-1}.issue b{font-size:32px}
   .mast h1{--mast-title-size:80px}
   .mast p{font-size:20px}
-  .events,.results,.crows,.news,.world,footer{grid-template-columns:1fr}
+  .events,.results,.news,.world,footer{grid-template-columns:1fr}
+  .crows{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+  .crow{grid-template-columns:minmax(0,1fr);gap:8px;padding:12px 0;font-size:14px;line-height:1.3}
+  .crow .cth{grid-row:auto;width:100%;height:auto;aspect-ratio:4/3}
+  .crow b{overflow-wrap:anywhere}
+  .crow .d{display:none}
   section{padding-top:72px}
   .sh h2,.courts .ch h2{font-size:48px}
   .ev.big h3{font-size:40px}
@@ -1082,7 +1111,7 @@ const COURTS = [
    bk:[{u:'https://t.me/arendaKorta_Nbu_Start', k:'tg', t:'Aleks.Tennis.Coach'}], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o",'img/courts/mgu.webp']]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
   {ru:'Учкун', en:"Uchqun", stEn:"open", dEn:"Clay and a covered hard court, 100,000/hour.", uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.359794,69.285046], dRu:'Грунт и хард под навесом, 100 000/час.', dUz:'Grunt va ayvon ostida hard, 100 000/soat.', tel:'+998999027802', bk:[], t:[["c", "o"], ["h", "r",'img/uchqun_hard.webp']]},
-  {ru:'Республиканская школа олимпийского резерва', en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes. From 200,000/hour.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола. От 200 000/час.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor. 200 000/soatdan.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[["h", "o",'img/courts/school.webp'], ["c", "o"], ["h", "d"]]},
+  {ru:'Республиканская школа олимпийского резерва', short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes. From 200,000/hour.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола. От 200 000/час.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor. 200 000/soatdan.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[["h", "o",'img/courts/school.webp'], ["c", "o"], ["h", "d"]]},
   {ru:'Меридиан', en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'07:00–23:00', bk:[], t:[['h','i','img/courts/meridian.webp']],
    videos:[
      ['https://www.youtube.com/shorts/hh55DBUigII','Laver Cup: удар дня','Laver Cup: kun zarbasi','Laver Cup: shot of the day'],
@@ -1116,9 +1145,9 @@ const COURTS = [
       ['h','i','img/courts/ace-green.webp',['Зелёный корт','Yashil kort','Green court']]]},
   {ru:'Ипакчилик', en:"Ipakchilik", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
    t:[['c','o','img/courts/ipak.webp'], ['h','i','img/courts/ipakchi-indoor.webp']]},
-  {ru:'Теннисная школа Ироды Тулягановой', en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
+  {ru:'Теннисная школа Ироды Тулягановой', short:['Школа Ироды', 'Iroda maktabi', 'Iroda Tennis'], en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
   {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid-exterior.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
-  {ru:'Сингапурский институт (MDIS)', uz:'Singapur instituti (MDIS)', en:'Singapore Institute (MDIS)',
+  {ru:'Сингапурский институт (MDIS)', short:['MDIS', 'MDIS', 'MDIS'], uz:'Singapur instituti (MDIS)', en:'Singapore Institute (MDIS)',
    ll:[41.269655,69.202787], access:['Доступ для гостей уточняйте у MDIS.','Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.','Ask MDIS about guest access.'], tel:'+998781137702',
    dRu:'Чиланзар, проспект Бунёдкор, 28. Крытый теннисный корт в спортцентре института. Доступ для гостей уточняйте у MDIS.',
    dUz:'Chilonzor, Bunyodkor shoh ko‘chasi, 28. Institut sport markazidagi yopiq tennis korti. Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.',
@@ -1155,21 +1184,25 @@ function bookHtml(c) {
 const SURF = {c: ['грунт', 'grunt', 'clay'], h: ['хард', 'hard', 'hard'], x: ['', '', '']};
 const KIND = {o: ['улица', 'ochiq', 'outdoor'], r: ['навес', 'ayvon', 'covered'], i: ['зал', 'zal', 'indoor'], d: ['надувной купол', 'havo gumbazi', 'air dome']};
 const courtTypeLabel = (sf, k) => [L_(...SURF[sf]), k ? L_(...KIND[k]) : ''].filter(Boolean).join(' · ');
+function courtPhotoAlt(c, label) {
+  const name = c[lang] || c.uz;
+  const description = label || L_('Фото локации', 'Joy surati', 'Venue photo');
+  return (name + ' — ' + description).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+}
 const typesHtml = (c, filter = CF) => {
   const types = new Map(courtTypes(c, filter).map(([sf, k]) => [sf + k, [sf, k]]));
   return types.size ? `<span class="ty">${[...types.values()].map(([sf, k]) => `<span class="tg ${sf}">${courtTypeLabel(sf, k)}</span>`).join('')}</span>` : '';
 };
-function courtGallery(c, filter, includeOverview = false) {
+function courtGallery(c, filter) {
   const photos = courtTypes(c, filter).filter(([, , img]) => img);
-  if (c.img && (includeOverview || (!photos.length && !isSurfaceFilter(filter))) &&
-      !photos.some(([, , img]) => img === c.img)) {
+  if (c.img && !photos.length && !isSurfaceFilter(filter)) {
     photos.push(['x', null, c.img, ['Общий вид', 'Umumiy ko‘rinish', 'Overview']]);
   }
   if (!photos.length) return null;
   const multiple = photos.length > 1;
   const images = photos.map(([sf, k, img, caption], index) => {
     const label = caption ? L_(...caption) : courtTypeLabel(sf, k);
-    return `<figure${index ? ' hidden' : ''}><img class="pp-img" src="${img}" alt="${multiple ? '' : label}">${multiple ? `<figcaption>${label}</figcaption>` : ''}</figure>`;
+    return `<figure${index ? ' hidden' : ''}><img class="pp-img" src="${img}" alt="${courtPhotoAlt(c, label)}">${multiple ? `<figcaption>${label}</figcaption>` : ''}</figure>`;
   }).join('');
   const gallery = document.createElement('div');
   gallery.className = multiple ? 'court-photos court-carousel' : 'court-photos';
@@ -1249,13 +1282,59 @@ courtDialog.addEventListener('click', event => {
       event.clientY < bounds.top || event.clientY > bounds.bottom) courtDialog.close();
 });
 
+function courtTypeCarousel(court) {
+  const variants = courtTypes(court, 'all');
+  if (!variants.length) return courtGallery(court, 'all');
+
+  const multiple = variants.length > 1;
+  const gallery = document.createElement('div');
+  gallery.innerHTML = `<div class="court-type-track${multiple ? ' has-next' : ''}">${variants.map(([surface, kind, image, caption]) => {
+    const type = courtTypeLabel(surface, kind);
+    const label = [type, caption && L_(...caption)].filter(Boolean).join(' · ') ||
+      L_('Теннисный корт', 'Tennis korti', 'Tennis court');
+    const photo = image
+      ? `<img class="pp-img" src="${image}" alt="${courtPhotoAlt(court, label)}">`
+      : `<div class="court-type-placeholder">${L_('Фото пока нет', 'Hozircha surat yo‘q', 'No photo yet')}</div>`;
+    return `<figure class="court-type-slide" data-surface="${surface}">${photo}<figcaption>${label}</figcaption></figure>`;
+  }).join('')}</div>`;
+
+  if (multiple) {
+    gallery.insertAdjacentHTML('beforeend', `
+      <div class="court-type-controls">
+        <button type="button" aria-label="${L_('Предыдущий корт', 'Oldingi kort', 'Previous court')}" disabled>‹</button>
+        <button type="button" aria-label="${L_('Следующий корт', 'Keyingi kort', 'Next court')}">›</button>
+      </div>`);
+    const track = gallery.querySelector('.court-type-track');
+    const slides = [...track.children];
+    const [previous, next] = gallery.querySelectorAll('.court-type-controls button');
+    const position = slide => Math.min(slide.offsetLeft - slides[0].offsetLeft, track.scrollWidth - track.clientWidth);
+    const current = () => slides.reduce((best, slide, i) =>
+      Math.abs(position(slide) - track.scrollLeft) < Math.abs(position(slides[best]) - track.scrollLeft) ? i : best, 0);
+    const move = direction => {
+      const target = slides[current() + direction];
+      if (target) track.scrollTo({
+        left: position(target),
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      });
+    };
+    track.addEventListener('scroll', () => {
+      previous.disabled = track.scrollLeft <= 1;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+    }, {passive:true});
+    previous.onclick = () => move(-1);
+    next.onclick = () => move(1);
+  }
+  return gallery;
+}
+
 function openCourtDetails(court) {
   const name = court[lang] || court.ru;
   courtDialog.querySelector('h2').textContent = name;
   courtClose.setAttribute('aria-label', L_('Закрыть', 'Yopish', 'Close'));
   const unavailable = L_('Не указано', 'Ko‘rsatilmagan', 'Not listed');
-  const gallery = courtGallery(court, 'all', true);
+  const gallery = courtTypeCarousel(court);
   const media = document.createElement('div');
+  media.className = 'court-detail-media';
   if (gallery) media.append(gallery);
   else media.innerHTML = `<p class="court-detail-empty">${L_('Фото пока нет', 'Hozircha surat yo‘q', 'No photos yet')}</p>`;
   if (court.videos?.length) {
@@ -1298,7 +1377,6 @@ function openCourtDetails(court) {
     ? (court.stRu ? L_(court.stRu, court.stUz, court.stEn) : unavailable)
     : court.h || (court.tel ? L_('Уточняйте по телефону', 'Telefon orqali aniqlang', 'Call to confirm') : unavailable);
   info.innerHTML = `
-    ${typesHtml(court, 'all')}
     <div><h3>${L_('О кортах', 'Kortlar haqida', 'About the courts')}</h3><p>${L_(court.dRu, court.dUz, court.dEn) || unavailable}</p></div>
     <div><h3>${L_('Условия входа', 'Kirish shartlari', 'Entry requirements')}</h3><p>${entry}</p></div>
     <div><h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}</h3><p>${hours}</p></div>
@@ -1325,7 +1403,9 @@ function renderCourts() {
   const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
   document.getElementById('crows').innerHTML = list.map(c => {
     const photo = courtPhoto(c);
-    return `<button type="button" class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" aria-haspopup="dialog" aria-controls="court-dialog">${photo ? `<img class="cth" src="${photo}" alt="" loading="lazy">` : '<span class="cth none"></span>'}<b>${c[lang] || c.uz}</b>
+    const variant = courtTypes(c).find(([, , image]) => image === photo);
+    const label = variant?.[3] ? L_(...variant[3]) : variant ? courtTypeLabel(variant[0], variant[1]) : '';
+    return `<button type="button" class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" aria-haspopup="dialog" aria-controls="court-dialog">${photo ? `<img class="cth" src="${photo}" alt="${courtPhotoAlt(c, label)}" loading="lazy">` : '<span class="cth none"></span>'}<b>${c[lang] || c.uz}</b>
     <span class="d">${typesHtml(c)}</span></button>`;
   }).join('');
   document.querySelectorAll('.crow').forEach(row => {
@@ -1343,6 +1423,11 @@ const COURT_DOT_COLORS = {h:'#2F6DB5', c:'#C2683A', x:'#77746D'};
 const markerTypeLabel = ({surface, kind}) => courtTypeLabel(surface, kind) ||
   L_('Покрытие не указано', 'Qoplama ko‘rsatilmagan', 'Surface not listed');
 
+const shortCourtName = court => court.short ? L_(...court.short) :
+  (court[lang] || court.ru).split(/\s+(?:\(|·)/, 1)[0];
+const updateCourtLabelVisibility = () =>
+  document.getElementById('cmap').classList.toggle('court-labels-visible', map.getZoom() >= 14);
+
 function courtMarkerGroup(court, createMarker) {
   const types = new Map((court.t || []).map(([surface, kind]) => {
     const key = courtTypeKey(surface, kind);
@@ -1358,7 +1443,7 @@ function courtMarkerGroup(court, createMarker) {
       const visible = entries.filter(matches);
       entries.forEach(entry => {
         const index = visible.indexOf(entry);
-        entry.marker.update(index !== -1, (index - (visible.length - 1) / 2) * 17);
+        entry.marker.update(index !== -1, (index - (visible.length - 1) / 2) * 17, index === 0);
       });
     },
   };
@@ -1373,13 +1458,13 @@ function initLeaflet() {
     else wheel.disable();
   }, {capture:true, passive:true});
   map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
   marks = COURTS.map(c => courtMarkerGroup(c, type => {
     const marker = L.marker(c.ll).bindPopup(() => popup(c, type), {maxWidth:300});
     return {
       focus: () => { map.setView(marker.getLatLng(), 15); marker.openPopup(); },
-      update: (visible, offset) => {
+      update: (visible, offset, showLabel) => {
         if (!visible) {
           marker.remove();
           return;
@@ -1392,6 +1477,10 @@ function initLeaflet() {
         const title = `${c[lang]} · ${markerTypeLabel(type)}`;
         marker.getElement().title = title;
         marker.getElement().setAttribute('aria-label', title);
+        if (showLabel) {
+          if (marker.getTooltip()) marker.setTooltipContent(shortCourtName(c));
+          else marker.bindTooltip(shortCourtName(c), {permanent:true, direction:'top', offset:[0,-13], className:'court-map-label'});
+        } else if (marker.getTooltip()) marker.unbindTooltip();
         if (marker.isPopupOpen()) marker.setPopupContent(() => popup(c, type));
       },
     };
@@ -1406,14 +1495,14 @@ function initLeaflet() {
       icon:L.divIcon({className:'lm', html:landmarkContent(l), iconSize:[40,40], iconAnchor:[20,20]})}).addTo(map);
     return marker.getElement().querySelector('.lm-label');
   });
-  map.on('zoomend', updateLandmarkVisibility);
-  fitCourtView(); updateLandmarkVisibility(); applyCF();
+  map.on('zoomend', () => { updateLandmarkVisibility(); updateCourtLabelVisibility(); });
+  fitCourtView(); updateLandmarkVisibility(); updateCourtLabelVisibility(); applyCF();
 }
 const MAP_STYLE = [
   {featureType: 'poi', stylers: [{visibility: 'off'}]},
   {featureType: 'transit', stylers: [{visibility: 'off'}]},
   {featureType: 'road', elementType: 'labels.icon', stylers: [{visibility: 'off'}]},
-  {featureType: 'road.local', elementType: 'labels', stylers: [{visibility: 'off'}]},
+  {featureType: 'road', elementType: 'labels', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative.neighborhood', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative.land_parcel', stylers: [{visibility: 'off'}]},
   {featureType: 'administrative', elementType: 'labels', stylers: [{visibility: 'off'}]},
@@ -1453,6 +1542,7 @@ window.initGoogle = () => {
     let offset = 0;
     const draw = scale => marker.setIcon({
       path:g.SymbolPath.CIRCLE, scale, anchor:new g.Point(-offset / scale, 0),
+      labelOrigin:new g.Point(-offset / scale, -20 / scale),
       fillColor:COURT_DOT_COLORS[type.surface], fillOpacity:1,
       strokeColor:'#fff', strokeOpacity:1, strokeWeight:2,
     });
@@ -1469,7 +1559,7 @@ window.initGoogle = () => {
     });
     return {
       focus: () => { map.panTo(pos); map.setZoom(15); open(); },
-      update: (visible, nextOffset) => {
+      update: (visible, nextOffset, showLabel) => {
         marker.setVisible(visible);
         if (!visible) {
           if (cur === marker) info.close();
@@ -1478,6 +1568,7 @@ window.initGoogle = () => {
         offset = nextOffset;
         draw(9);
         marker.setTitle(`${c[lang]} · ${markerTypeLabel(type)}`);
+        marker.setLabel(showLabel ? {text:shortCourtName(c), className:'court-map-label'} : null);
         if (cur === marker) info.setContent(popup(c, type));
       },
     };
@@ -1508,8 +1599,8 @@ window.initGoogle = () => {
     overlay.setMap(map);
     return el.querySelector('.lm-label');
   });
-  map.addListener('zoom_changed', updateLandmarkVisibility);
-  fitCourtView(); updateLandmarkVisibility(); applyCF();
+  map.addListener('zoom_changed', () => { updateLandmarkVisibility(); updateCourtLabelVisibility(); });
+  fitCourtView(); updateLandmarkVisibility(); updateCourtLabelVisibility(); applyCF();
 };
 // если ключ не сработал (API не включён, домен не разрешён) — молча возвращаемся к OpenStreetMap
 window.gm_authFailure = () => { const el = document.getElementById('cmap'); el.innerHTML = ''; el.className = 'cmap'; initLeaflet(); renderCourts(); };
@@ -1529,6 +1620,7 @@ const SOURCES = [
   {t:'Motivation Family', av:'MF', u:'tennisfamuz', img:'img/groups/mf.webp', n:796},
   {t:'Tennis Family Uzbekistan', av:'TF', link:'https://www.instagram.com/tennisfam.uz/', site:'Instagram'},
   {t:'Федерация тенниса Узбекистана', tUz:'O‘zbekiston tennis federatsiyasi', tEn:'Uzbekistan Tennis Federation', av:'ФТУ', avL:'UTF', link:'https://tennis.uz/', site:'tennis.uz'},
+  {t:'Ирода Туляганова', tUz:'Iroda To‘laganova', tEn:'Iroda Tulyaganova', av:'ИТ', avL:'IT', link:'https://www.instagram.com/tulyaganovairoda/', site:'Instagram'},
   {t:'UzDaily', av:'UZ', link:'https://www.uzdaily.uz/', site:'uzdaily.uz'},
   {t:'Bukhara Tennis Khumo', av:'BK', link:'https://www.instagram.com/bukhara_tennis_khumo/', site:'Instagram', city:['Бухара','Buxoro','Bukhara']},
 ];
