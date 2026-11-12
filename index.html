@@ -53,10 +53,10 @@ img{display:block;max-width:100%}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:rgba(17,17,17,.35);border-radius:8px}
 
 /* верх */
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0}
-.date{flex:none;font-weight:500;color:var(--muted)}
+.top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"date weather langs";align-items:center;gap:16px;padding:20px 0}
+.date{grid-area:date;font-weight:500;color:var(--muted)}
 .date-short{display:none}
-.langs{display:flex;gap:4px}
+.langs{grid-area:langs;justify-self:end;display:flex;gap:4px}
 .langs button{min-width:44px;min-height:44px;border:0;background:none;font:600 16px var(--body);color:var(--muted);padding:6px 12px;border-radius:var(--pill);cursor:pointer;transition:background .15s,color .15s}
 .langs button:hover{color:var(--ink);background:var(--soft)}
 .langs button:active{transform:scale(.96)}
@@ -69,18 +69,33 @@ img{display:block;max-width:100%}
 @media (max-width:520px){
   .section-nav a{flex:1 0 auto;padding:0 12px}
 }
-.weather{flex:1;min-width:0}
-.weather-status{margin:0;font-size:12px;color:var(--muted);text-align:center}
+.weather{grid-area:weather;justify-self:center;width:100%;max-width:760px;min-width:0;padding:10px 12px 8px;border:1px solid var(--line);border-radius:var(--r-img);background:#fbfbf8}
+.weather h2{margin:0 4px 4px;font:600 15px/1.35 var(--body)}
+.weather-status{margin:4px;font-size:13px;color:var(--muted)}
 .weather-window{overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin}
 .weather-window:focus-visible{outline:2px solid var(--court);outline-offset:-2px}
-.weather-days{display:flex;width:max-content;gap:8px;list-style:none;margin:0 auto;padding:4px 2px}
-.weather-day{display:flex;align-items:center;gap:4px;scroll-snap-align:start;white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted)}
-.weather-icon{font-size:16px;line-height:1}
+.weather-track{min-width:490px}
+.weather-chart{display:block;width:100%;height:28px;margin-bottom:4px}
+.weather-days{display:grid;grid-template-columns:repeat(7,1fr);list-style:none;margin:0;padding:0}
+.weather-day{display:grid;justify-items:center;gap:4px;margin:0 2px;padding:5px 2px 6px;border-radius:var(--r-inner);scroll-snap-align:start;font-variant-numeric:tabular-nums}
+.weather-day:first-child{background:var(--court-soft)}
+.weather-day time{display:grid;justify-items:center;line-height:1.25;white-space:nowrap;font-size:14px;font-weight:600}
+.weather-day time small{color:var(--muted);font-size:11px;font-weight:400}
+.weather-icon{font-size:31px;line-height:1.15}
+.weather-temperatures{display:flex;align-items:baseline;gap:6px;font-size:14px;line-height:1.25}
+.weather-temperatures span{color:var(--muted)}
 .weather [hidden]{display:none}
-@media (max-width:900px){
-  .top{gap:10px}
+@media (max-width:1160px) and (min-width:901px){
   .date-long{display:none}
   .date-short{display:inline}
+}
+@media (max-width:900px){
+  .top{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"date langs" "weather weather";gap:8px 12px;padding:12px 0}
+}
+@media (max-width:420px){
+  .date-long{display:none}
+  .date-short{display:inline}
+  .weather{padding-inline:8px}
 }
 .post-media,.post-share-fallback{position:relative}
 .post-share{position:absolute;z-index:2;top:8px;right:8px;display:grid;justify-items:end}
@@ -604,9 +619,12 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <div class="top">
   <div class="date" id="today"></div>
   <aside class="weather" aria-labelledby="weather-title">
-    <h2 class="post-share-label" id="weather-title"><span data-ru>Погода в Ташкенте</span><span data-uz>Toshkentda ob-havo</span><span data-en>Tashkent weather</span></h2>
+    <h2 id="weather-title"><span data-ru>Погода в Ташкенте</span><span data-uz>Toshkentda ob-havo</span><span data-en>Tashkent weather</span></h2>
     <div class="weather-window" role="group" aria-labelledby="weather-title" tabindex="0" hidden>
-      <ol class="weather-days"></ol>
+      <div class="weather-track">
+        <canvas class="weather-chart" aria-hidden="true"></canvas>
+        <ol class="weather-days"></ol>
+      </div>
     </div>
     <p class="weather-status" role="status">
       <span data-ru>Прогноз загружается…</span><span data-uz>Prognoz yuklanmoqda…</span><span data-en>Loading forecast…</span>
