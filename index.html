@@ -514,6 +514,36 @@ a.vplay{display:block}
   .lgp .champs{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:700px){.league-grid{grid-template-columns:1fr}}
+
+#coaches .sh{margin-bottom:12px}
+.coach-note{margin:0 0 24px;color:var(--muted)}
+.coach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.coach-card{display:flex;flex-direction:column;gap:16px;padding:20px;border:1px solid var(--line);border-radius:var(--r-card)}
+.coach-profile{display:flex;align-items:center;gap:12px}
+.coach-initials{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:50%;background:var(--court-soft);color:var(--court);font-weight:700}
+.coach-card:nth-child(2) .coach-initials{background:var(--clay-soft);color:var(--clay)}
+.coach-card:nth-child(3) .coach-initials{background:var(--ball);color:var(--ink)}
+.coach-card h3{margin:0;font:500 25px/1.16 var(--serif)}
+.coach-card p{margin:0}
+.coach-level,.coach-timezone{color:var(--muted);font-size:14px}
+.coach-days{margin-top:auto;border-top:1px solid var(--line);padding-top:12px}
+.coach-days h4{margin:0 0 2px;font-size:16px}
+.coach-day{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 10px;padding-top:8px}
+.coach-day time{font-size:14px}
+.coach-slots{display:flex;flex-wrap:wrap;gap:6px}
+.coach-slot,.coach-submit{min-height:44px;padding:6px 12px;border:1px solid var(--line);border-radius:var(--pill);font:600 14px var(--body);background:var(--court-soft);color:var(--court);cursor:pointer}
+.coach-slot:hover{border-color:var(--court)}
+.coach-slot:disabled{background:var(--soft);color:var(--muted);text-decoration:line-through;cursor:default}
+.coach-dialog{width:min(480px,calc(100% - 24px))}
+.coach-form{display:grid;gap:12px;padding:16px 24px 24px}
+.coach-form p{margin:0}
+.coach-form label{display:grid;gap:4px;font-weight:600}
+.coach-form input{min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-small);font:inherit}
+.coach-form input:focus-visible,.coach-slot:focus-visible,.coach-submit:focus-visible{outline:2px solid var(--court);outline-offset:2px}
+.coach-submit{background:var(--ball);color:var(--ink)}
+.coach-status:not(:empty){margin:16px 0 0;color:var(--court)}
+@media (max-width:960px){.coach-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.coach-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -537,6 +567,7 @@ a.vplay{display:block}
 <nav class="section-nav" aria-label="Tennis Daily">
   <a href="#soon"><span data-ru>Турниры</span><span data-uz>Turnirlar</span><span data-en>Tournaments</span></a>
   <a href="#courts"><span data-ru>Корты</span><span data-uz>Kortlar</span><span data-en>Courts</span></a>
+  <a href="#coaches"><span data-ru>Тренеры</span><span data-uz>Murabbiylar</span><span data-en>Coaches</span></a>
   <a href="#news"><span data-ru>Новости</span><span data-uz>Yangiliklar</span><span data-en>News</span></a>
   <a href="#results"><span data-ru>Результаты</span><span data-uz>Natijalar</span><span data-en>Results</span></a>
 </nav>
@@ -928,6 +959,16 @@ a.vplay{display:block}
   </div>
 </section>
 
+<section id="coaches">
+  <div class="sh"><h2 data-ru>Тренеры</h2><h2 data-uz>Murabbiylar</h2><h2 data-en>Coaches</h2></div>
+  <p class="coach-note">
+    <span data-ru>Вымышленные тренеры и расписание. Запись можно попробовать в деморежиме.</span>
+    <span data-uz>Murabbiylar va jadval namuna uchun. Band qilishni sinab ko‘rishingiz mumkin.</span>
+    <span data-en>Sample coaches and schedules. Try booking a demo lesson.</span>
+  </p>
+  <div class="coach-grid"></div>
+</section>
+
 <footer>
   <div class="src-strip" id="sources">
     <h4 data-ru>Источники</h4><h4 data-uz>Manbalar</h4><h4 data-en>Sources</h4>
@@ -953,6 +994,30 @@ a.vplay{display:block}
 </div>
 
 <div class="lb" id="lb"><img alt=""></div>
+
+<dialog class="court-dialog coach-dialog" id="coach-dialog" aria-labelledby="coach-dialog-title">
+  <div class="court-dialog-head">
+    <h2 id="coach-dialog-title"></h2>
+    <form method="dialog">
+      <button type="submit" class="share-close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+        <span class="post-share-label" data-ru>Закрыть</span><span class="post-share-label" data-uz>Yopish</span><span class="post-share-label" data-en>Close</span>
+      </button>
+    </form>
+  </div>
+  <form class="coach-form" method="dialog">
+    <p class="coach-selection"></p>
+    <p class="coach-timezone">
+      <span data-ru>Введите тестовые данные. Они никуда не отправляются.</span>
+      <span data-uz>Sinov ma’lumotlarini kiriting. Ular yuborilmaydi.</span>
+      <span data-en>Enter sample details. They stay on this page.</span>
+    </p>
+    <label><span data-ru>Имя ученика</span><span data-uz>O‘quvchining ismi</span><span data-en>Player’s name</span><input type="text" required maxlength="80" autocomplete="off"></label>
+    <label><span data-ru>Телефон для связи</span><span data-uz>Aloqa telefoni</span><span data-en>Contact phone</span><input type="tel" required maxlength="24" autocomplete="off"></label>
+    <label><span data-ru>Возраст ученика</span><span data-uz>O‘quvchining yoshi</span><span data-en>Player’s age</span><input type="number" required min="1" max="120" inputmode="numeric" autocomplete="off"></label>
+    <button type="submit" class="coach-submit"><span data-ru>Забронировать в демо</span><span data-uz>Demo tarzida band qilish</span><span data-en>Book a demo slot</span></button>
+  </form>
+</dialog>
 
 <dialog class="court-dialog" id="court-dialog" aria-labelledby="court-dialog-title">
   <div class="court-dialog-head">
@@ -1012,7 +1077,8 @@ a.vplay{display:block}
   }
   if (!ARCH) return;
   document.documentElement.classList.add('arch');
-  ['world', 'courts'].forEach(id => { const e = document.getElementById(id); if (e) e.hidden = true; });
+  ['world', 'courts', 'coaches'].forEach(id => { const e = document.getElementById(id); if (e) e.hidden = true; });
+  document.querySelector('.section-nav a[href="#coaches"]')?.remove();
   const rh = document.querySelectorAll('#res-h h2'); ['Итоги', 'Natijalar', 'Results'].forEach((t, i) => rh[i] && (rh[i].textContent = t));
   document.querySelectorAll('.league, .ticker, .arch-link').forEach(e => e.remove());
   const bar = document.createElement('div'); bar.className = 'arch-bar';
@@ -1850,5 +1916,6 @@ document.querySelectorAll('#video .vids').forEach(v => {
   v.remove();
 });
 </script>
+<script src="scripts/coaches.js"></script>
 </body>
 </html>
