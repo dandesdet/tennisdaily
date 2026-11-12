@@ -353,7 +353,8 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-map-label{pointer-events:none;color:var(--ink)!important;font:600 12px var(--body)!important;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff}
 .leaflet-tooltip.court-map-label{background:none;border:0;box-shadow:none;padding:0}
 .leaflet-tooltip.court-map-label::before{display:none}
-.cmap:not(.court-labels-visible) .court-map-label{display:none!important}
+.cmap:not(.court-labels-visible) :is(.court-map-label,.lm-label){display:none!important}
+.cmap:not(.court-labels-visible) .lm img{width:24px;height:24px;margin:8px}
 .gm-style .gm-style-iw-c{border-radius:var(--r-card);padding:12px!important;max-height:none!important}
 .gm-style .gm-style-iw-d{overflow:visible!important;max-height:none!important;font:400 16px/1.45 var(--body);color:var(--ink)}
 .gm-style-iw-chr{position:absolute;top:0;right:0}
@@ -1111,16 +1112,16 @@ const COURTS = [
    bk:[{u:'https://t.me/arendaKorta_Nbu_Start', k:'tg', t:'Aleks.Tennis.Coach'}], t:[["c", "o"], ["h", "i"]]},
   {ru:'МГУ им. Ломоносова', en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts, from 100,000/hour. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице, от 100 000/час. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o",'img/courts/mgu.webp']]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
   {ru:'Учкун', en:"Uchqun", stEn:"open", dEn:"Clay and a covered hard court, 100,000/hour.", uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.359794,69.285046], dRu:'Грунт и хард под навесом, 100 000/час.', dUz:'Grunt va ayvon ostida hard, 100 000/soat.', tel:'+998999027802', bk:[], t:[["c", "o"], ["h", "r",'img/uchqun_hard.webp']]},
-  {ru:'Республиканская школа олимпийского резерва', short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes. From 200,000/hour.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола. От 200 000/час.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor. 200 000/soatdan.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[["h", "o",'img/courts/school.webp'], ["c", "o"], ["h", "d"]]},
+  {ru:'Республиканская школа олимпийского резерва', short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes. From 200,000/hour.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола. От 200 000/час.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor. 200 000/soatdan.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[['h','o','img/courts/school.webp'], ['c','o'], ['h','i','img/courts/rtshor-hall-1.webp',['№ 1 из 3','3 tadan 1-zal','No. 1 of 3']], ['h','d']]},
   {ru:'Меридиан', en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'07:00–23:00', bk:[], t:[['h','i','img/courts/meridian.webp']],
    videos:[
      ['https://www.youtube.com/shorts/hh55DBUigII','Laver Cup: удар дня','Laver Cup: kun zarbasi','Laver Cup: shot of the day'],
      ['https://www.youtube.com/shorts/JyOMNVMXVkM','Laver Cup: чистый виннер','Laver Cup: toza vinner','Laver Cup: a clean winner'],
      ['https://swing.vision/matches/sw2-yP7YidM','Запись матча на SwingVision','SwingVision’da o‘yin yozuvi','Match recording on SwingVision']
    ]},
-  {ru:'Юнусабад (у телебашни)', en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"2 clay and 4 hard courts. Clay 165,000, hard 130,000 per hour.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'2 грунта и 4 харда. Грунт 165 000, хард 130 000 за час.', dUz:'2 grunt, 4 hard. Grunt 165 000, hard 130 000.', tel:'+998712347760', h:'07:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}], t:[["c", "o"], ["h", "o",'img/courts/yunusabad.webp']]},
+  {ru:'Юнусабад (у телебашни)', en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"Two indoor tennis courts. Outdoor courts include clay and hard. Outdoor rates: clay 165,000, hard 130,000 per hour.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'Два крытых теннисных корта. На улице есть грунт и хард. Открытые корты: грунт 165 000, хард 130 000 сум в час.', dUz:'Ikkita yopiq tennis korti. Ochiq kortlar grunt va hard qoplamali. Ochiq kortlar narxi: grunt 165 000, hard 130 000 so‘m/soat.', tel:'+998712347760', h:'07:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}, {u:'https://yunsc.uz/sport/tennis', k:'site'}], t:[["c", "o"], ["h", "o",'img/courts/yunusabad.webp'], ['x','i','img/courts/yunusabad-indoor.jpg']]},
   {ru:'Пахтакор · Tennis & Padel City', en:"Pakhtakor · Tennis & Padel City", stEn:"open · online booking", dEn:"Islam Karimov 98A. 10 outdoor courts (7 clay, 3 hard) plus an indoor hall with clay and hard. Per hour: day 100–150,000, evening from 18:00 150–200,000; indoor 200 / 250,000.", uz:'Paxtakor · Tennis & Padel City', st:'ok', stRu:'открыт · онлайн-бронь', stUz:'ochiq · onlayn bron', ll:[41.315683,69.263468], dRu:'Ислама Каримова, 98А. 10 открытых кортов (7 грунт, 3 хард) и крытый зал: грунт и хард. Час днём 100–150 000, вечером с 18:00 — 150–200 000; крытые 200 / 250 000.', dUz:'Islom Karimov, 98A. 10 ta ochiq kort (7 grunt, 3 hard) va yopiq zal: grunt va hard. Soati kunduzi 100–150 000, kechqurun 18:00 dan 150–200 000; yopiq 200 / 250 000.', tel:'+998903331151', h:'07:00–02:00', bk:[{"u": "https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis", "k": "playsport", "t": "PlaySport", t:[["c", "o",'img/courts/pakhtakor.webp'], ["h", "o",'img/courts/pakhtakor-hard-outdoor.webp'], ["c", "i",'img/courts/pakhtakor-clay-indoor.webp'], ["h", "i",'img/courts/pakhtakor-hard-indoor.webp']]}, {"u": "img/courts/pakhtakor-scheme.webp", "k": "scheme", "t": ""}, {u:'https://tennispadelcity.uz/', k:'photos'}]},
-  {ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor 100,000, indoor 200,000 per hour.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Улица 100 000, зал 200 000 за час.', dUz:'Ochiq 100 000, yopiq 200 000.', tel:'+998911351877', h:'07:00–23:00', bk:[], t:[["c", "o",'img/courts/dinamo.webp'], ["x", "i"]]},
+  {ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor 100,000, indoor 200,000 per hour.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Улица 100 000, зал 200 000 за час.', dUz:'Ochiq 100 000, yopiq 200 000.', tel:'+998911351877', h:'07:00–23:00', bk:[], t:[['c','o','img/courts/dinamo.webp'], ['x','i','img/courts/dinamo-hall-2.webp',['Зал № 2','2-zal','Hall No. 2']]]},
   {ru:'AJOU · Ravshan court', en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 1, by Ajou University. Indoor hard court, air conditioning and heating. Entry by badge: regulars get one via Akmal; whether hourly renters need it is being clarified. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 1, у университета Аджу. Крытый хард, кондиционер и отопление. Вход по бейджу: постоянным игрокам делают через Акмаля, для тех, кто берёт корт на час, — уточняется. Аренда и группы — Tennis plus.', dUz:'Ajou universiteti, Yashnobod. Yopiq hard, konditsioner va isitish. Kirish beyj orqali: doimiy o‘yinchilarga Akmal orqali; soatbay olganlarga — aniqlanmoqda. Tennis plus.', access:['Постоянным игрокам нужен бейдж. Для разовой аренды уточните правила у Акмаля.','Doimiy o‘yinchilarga beyj kerak. Bir martalik ijara qoidalarini Akmaldan so‘rang.','Regular players need a badge. Ask Akmal about one-off bookings.'], tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/ajou_court.webp']],
    videos:[
      ['https://www.youtube.com/shorts/iPalS-TlosY','Бэкхендщик против волейщика','Bekhend va vollei','Backhander vs volleyer'],
@@ -1227,12 +1228,13 @@ function courtGallery(c, filter) {
   }
   return gallery;
 }
-function popup(c, type) {
+function popup(c, type, grouped = false) {
   const preview = document.createElement('div');
   preview.className = 'court-preview';
   preview.innerHTML = `<b>${c[lang] || c.uz}</b>`;
-  if (type.key !== 'x') preview.insertAdjacentHTML('beforeend', `<div class="court-marker-type"><span class="tg ${type.surface}">${markerTypeLabel(type)}</span></div>`);
-  const gallery = courtGallery(c, type.key) ||
+  if (grouped) preview.insertAdjacentHTML('beforeend', typesHtml(c, CF));
+  else if (type.key !== 'x') preview.insertAdjacentHTML('beforeend', `<div class="court-marker-type"><span class="tg ${type.surface}">${markerTypeLabel(type)}</span></div>`);
+  const gallery = grouped ? courtGallery(c, CF) : courtGallery(c, type.key) ||
     (type.key === 'x' && c.img ? courtGallery(c, 'all') : null);
   if (gallery) preview.append(gallery);
   return preview;
@@ -1290,7 +1292,7 @@ function courtTypeCarousel(court) {
   const gallery = document.createElement('div');
   gallery.innerHTML = `<div class="court-type-track${multiple ? ' has-next' : ''}">${variants.map(([surface, kind, image, caption]) => {
     const type = courtTypeLabel(surface, kind);
-    const label = [type, caption && L_(...caption)].filter(Boolean).join(' · ') ||
+    const label = [surface === 'x' && caption ? '' : type, caption && L_(...caption)].filter(Boolean).join(' · ') ||
       L_('Теннисный корт', 'Tennis korti', 'Tennis court');
     const photo = image
       ? `<img class="pp-img" src="${image}" alt="${courtPhotoAlt(court, label)}">`
@@ -1425,8 +1427,15 @@ const markerTypeLabel = ({surface, kind}) => courtTypeLabel(surface, kind) ||
 
 const shortCourtName = court => court.short ? L_(...court.short) :
   (court[lang] || court.ru).split(/\s+(?:\(|·)/, 1)[0];
+const COURT_DETAIL_ZOOM = 14;
 const updateCourtLabelVisibility = () =>
-  document.getElementById('cmap').classList.toggle('court-labels-visible', map.getZoom() >= 14);
+  document.getElementById('cmap').classList.toggle('court-labels-visible', map.getZoom() >= COURT_DETAIL_ZOOM);
+
+function refreshMapDetail() {
+  updateLandmarkVisibility();
+  updateCourtLabelVisibility();
+  marks.forEach(group => group.refresh());
+}
 
 function courtMarkerGroup(court, createMarker) {
   const types = new Map((court.t || []).map(([surface, kind]) => {
@@ -1441,9 +1450,15 @@ function courtMarkerGroup(court, createMarker) {
     focus: () => entries.find(matches)?.marker.focus(),
     refresh: () => {
       const visible = entries.filter(matches);
+      const compact = map.getZoom() < COURT_DETAIL_ZOOM;
+      const grouped = compact && visible.length > 1;
+      const mixed = grouped && visible.some(entry => entry.type.surface !== visible[0].type.surface);
       entries.forEach(entry => {
         const index = visible.indexOf(entry);
-        entry.marker.update(index !== -1, (index - (visible.length - 1) / 2) * 17, index === 0);
+        const shown = index >= 0 && (!compact || index === 0);
+        const offset = compact ? 0 : (index - (visible.length - 1) / 2) * 17;
+        const color = mixed ? '#285A47' : COURT_DOT_COLORS[entry.type.surface];
+        entry.marker.update(shown, offset, index === 0, compact, grouped, color);
       });
     },
   };
@@ -1461,27 +1476,30 @@ function initLeaflet() {
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
   marks = COURTS.map(c => courtMarkerGroup(c, type => {
-    const marker = L.marker(c.ll).bindPopup(() => popup(c, type), {maxWidth:300});
+    let grouped = false;
+    const marker = L.marker(c.ll).bindPopup(() => popup(c, type, grouped), {maxWidth:300});
     return {
       focus: () => { map.setView(marker.getLatLng(), 15); marker.openPopup(); },
-      update: (visible, offset, showLabel) => {
+      update: (visible, offset, showLabel, compact, nextGrouped, color) => {
         if (!visible) {
           marker.remove();
           return;
         }
+        grouped = nextGrouped;
+        const radius = compact ? 6 : 10;
         marker.setIcon(L.divIcon({
           className:'court-marker',
-          html:`<span class="court-dot" style="--dot-color:${COURT_DOT_COLORS[type.surface]}"></span>`,
-          iconSize:[20,20], iconAnchor:[10 - offset,10], popupAnchor:[offset,-10],
+          html:`<span class="court-dot" style="--dot-color:${color}"></span>`,
+          iconSize:[2 * radius,2 * radius], iconAnchor:[radius - offset,radius], popupAnchor:[offset,-radius],
         })).addTo(map);
-        const title = `${c[lang]} · ${markerTypeLabel(type)}`;
+        const title = grouped ? c[lang] : `${c[lang]} · ${markerTypeLabel(type)}`;
         marker.getElement().title = title;
         marker.getElement().setAttribute('aria-label', title);
         if (showLabel) {
           if (marker.getTooltip()) marker.setTooltipContent(shortCourtName(c));
           else marker.bindTooltip(shortCourtName(c), {permanent:true, direction:'top', offset:[0,-13], className:'court-map-label'});
         } else if (marker.getTooltip()) marker.unbindTooltip();
-        if (marker.isPopupOpen()) marker.setPopupContent(() => popup(c, type));
+        if (marker.isPopupOpen()) marker.setPopupContent(() => popup(c, type, grouped));
       },
     };
   }));
@@ -1495,7 +1513,7 @@ function initLeaflet() {
       icon:L.divIcon({className:'lm', html:landmarkContent(l), iconSize:[40,40], iconAnchor:[20,20]})}).addTo(map);
     return marker.getElement().querySelector('.lm-label');
   });
-  map.on('zoomend', () => { updateLandmarkVisibility(); updateCourtLabelVisibility(); });
+  map.on('zoomend', refreshMapDetail);
   fitCourtView(); updateLandmarkVisibility(); updateCourtLabelVisibility(); applyCF();
 }
 const MAP_STYLE = [
@@ -1539,37 +1557,40 @@ window.initGoogle = () => {
   marks = COURTS.map(c => courtMarkerGroup(c, type => {
     const pos = {lat:c.ll[0], lng:c.ll[1]};
     const marker = new g.Marker({position:pos, map, zIndex:10, visible:false});
-    let offset = 0;
+    let offset = 0, radius = 9, grouped = false, color = COURT_DOT_COLORS[type.surface];
     const draw = scale => marker.setIcon({
       path:g.SymbolPath.CIRCLE, scale, anchor:new g.Point(-offset / scale, 0),
       labelOrigin:new g.Point(-offset / scale, -20 / scale),
-      fillColor:COURT_DOT_COLORS[type.surface], fillOpacity:1,
+      fillColor:color, fillOpacity:1,
       strokeColor:'#fff', strokeOpacity:1, strokeWeight:2,
     });
     const open = () => {
       cur = marker;
-      info.setContent(popup(c, type));
+      info.setContent(popup(c, type, grouped));
       info.open({map, anchor:marker, shouldFocus:false});
     };
-    marker.addListener('mouseover', () => { draw(11); marker.setZIndex(11); });
-    marker.addListener('mouseout', () => { draw(9); marker.setZIndex(10); });
+    marker.addListener('mouseover', () => { draw(radius + 2); marker.setZIndex(11); });
+    marker.addListener('mouseout', () => { draw(radius); marker.setZIndex(10); });
     marker.addListener('click', () => {
       if (cur === marker && info.isOpen) info.close();
       else open();
     });
     return {
       focus: () => { map.panTo(pos); map.setZoom(15); open(); },
-      update: (visible, nextOffset, showLabel) => {
+      update: (visible, nextOffset, showLabel, compact, nextGrouped, nextColor) => {
         marker.setVisible(visible);
         if (!visible) {
           if (cur === marker) info.close();
           return;
         }
         offset = nextOffset;
-        draw(9);
-        marker.setTitle(`${c[lang]} · ${markerTypeLabel(type)}`);
+        radius = compact ? 5 : 9;
+        grouped = nextGrouped;
+        color = nextColor;
+        draw(radius);
+        marker.setTitle(grouped ? c[lang] : `${c[lang]} · ${markerTypeLabel(type)}`);
         marker.setLabel(showLabel ? {text:shortCourtName(c), className:'court-map-label'} : null);
-        if (cur === marker) info.setContent(popup(c, type));
+        if (cur === marker) info.setContent(popup(c, type, grouped));
       },
     };
   }));
@@ -1599,7 +1620,7 @@ window.initGoogle = () => {
     overlay.setMap(map);
     return el.querySelector('.lm-label');
   });
-  map.addListener('zoom_changed', () => { updateLandmarkVisibility(); updateCourtLabelVisibility(); });
+  map.addListener('zoom_changed', refreshMapDetail);
   fitCourtView(); updateLandmarkVisibility(); updateCourtLabelVisibility(); applyCF();
 };
 // если ключ не сработал (API не включён, домен не разрешён) — молча возвращаемся к OpenStreetMap
