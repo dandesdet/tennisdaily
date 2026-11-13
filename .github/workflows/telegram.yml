@@ -21,5 +21,5 @@ jobs:
           if [ -f tg/teaser.jpg ] && [ $(wc -m < tg/teaser.txt) -le 1024 ]; then
             curl -sS --fail-with-body "https://api.telegram.org/bot$TOKEN/sendPhoto" --form-string chat_id="$CHAT" -F photo=@tg/teaser.jpg -F parse_mode=HTML -F caption="<tg/teaser.txt"
           else
-            curl -sS --fail-with-body "https://api.telegram.org/bot$TOKEN/sendMessage" --form-string chat_id="$CHAT" -F parse_mode=HTML -F text="<tg/teaser.txt"
+            curl -sS --fail-with-body "https://api.telegram.org/bot$TOKEN/sendMessage" --form-string chat_id="$CHAT" -F parse_mode=HTML -F text="<tg/teaser.txt" --form-string link_preview_options='{"is_disabled":true}'
           fi
