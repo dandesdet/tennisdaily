@@ -590,8 +590,10 @@ a.vplay{display:block}
 .coach-back{justify-self:start;min-height:44px;padding:0;border:0;background:none;color:var(--court);font:600 14px var(--body);cursor:pointer}
 .coach-submit{background:var(--ball);color:var(--ink)}
 .coach-status:not(:empty){margin:16px 0 0;color:var(--court)}
-.court-suggestion{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 24px;margin-top:24px;padding:16px 20px;border:1px solid var(--line);border-radius:var(--r-img)}
-.court-suggestion h3{margin:0;font:500 24px/1.2 var(--serif)}
+.court-suggestion .cth{display:grid;place-items:center;border:1px solid var(--line);background:var(--paper);color:#77766f;font:400 28px/1 var(--body);filter:none;outline:0}
+.court-suggestion-copy{display:grid;justify-items:start;gap:8px}
+.court-suggestion-action{display:inline-flex;align-items:center;min-height:44px;padding:6px 16px;border-radius:var(--pill);background:var(--ball);color:var(--ink);font-weight:600}
+.court-suggestion:hover .court-suggestion-action{background:#D0E03A}
 .court-suggestion-dialog{width:min(480px,calc(100% - 24px))}
 .coach-form textarea{min-height:96px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-small);font:inherit;resize:vertical}
 .coach-form textarea:focus-visible{outline:2px solid var(--court);outline-offset:2px}
@@ -1036,10 +1038,14 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
         <li><a href="https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B0%D1%80%D0%BA_%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%B0%D0%BD_-%D0%AF%D0%BD%D0%B3%D0%B8_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%BE%D0%BD_Yangi_O%27zbekiston_-_5_%D0%B8%D1%8E%D0%BB%D1%8F_2022.jpg">Artem Abd</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
       </ul>
     </details>
-    <div class="crows" id="crows"></div>
-    <div class="court-suggestion">
-      <h3><span data-ru>Знаете ещё корты?</span><span data-uz>Yana kortlarni bilasizmi?</span><span data-en>Know another court?</span></h3>
-      <button type="button" class="coach-submit" id="court-suggestion-open" aria-haspopup="dialog" aria-controls="court-suggestion-dialog"><span data-ru>Дайте знать</span><span data-uz>Bizga xabar bering</span><span data-en>Let us know</span></button>
+    <div class="crows" id="crows">
+      <button type="button" class="crow court-suggestion" id="court-suggestion-open" aria-haspopup="dialog" aria-controls="court-suggestion-dialog">
+        <span class="cth" aria-hidden="true">+</span>
+        <span class="court-suggestion-copy">
+          <b><span data-ru>Знаете ещё корты?</span><span data-uz>Yana kortlarni bilasizmi?</span><span data-en>Know another court?</span></b>
+          <span class="court-suggestion-action"><span data-ru>Дайте знать</span><span data-uz>Bizga xabar bering</span><span data-en>Let us know</span></span>
+        </span>
+      </button>
     </div>
     <p class="cfoot" data-ru>Условия аренды и контакты указаны в карточках кортов. Онлайн-бронь: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, боты <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>.</p>
     <p class="cfoot" data-uz>Ijara shartlari va aloqa ma’lumotlari kort kartochkalarida. Onlayn bron: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a>, <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>.</p><p class="cfoot" data-en>See each court card for rental details and contacts. Online booking: <a href="https://playon.uz/korty-tashkent" target="_blank" rel="noopener">PlayOn</a>, <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" target="_blank" rel="noopener">PlaySport</a>, bots <a href="https://t.me/tennis_plusbot" target="_blank" rel="noopener">@tennis_plusbot</a> and <a href="https://t.me/ace_club_courts_bot" target="_blank" rel="noopener">@ace_club_courts_bot</a>.</p>
@@ -1456,7 +1462,7 @@ const courtViewPoints = () => CF === '24h'
   ? COURTS.filter(c => cMatch(c)).map(c => c.ll)
   : COURTS.filter(c => !c.far).map(c => c.ll).concat(LANDMARKS.map(l => l.ll));
 function applyCF() {
-  document.querySelectorAll('.crow').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); });
+  document.querySelectorAll('#crows .crow[data-i]').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); });
   marks.forEach(group => group.refresh());
 }
 function renderCF() {
@@ -1604,14 +1610,16 @@ function openCourtDetails(court) {
 
 function renderCourts() {
   const list = [...COURTS].sort((a, b) => fresh(b) - fresh(a));
-  document.getElementById('crows').innerHTML = list.map(c => {
+  const rows = document.getElementById('crows');
+  rows.querySelectorAll('.crow[data-i]').forEach(row => row.remove());
+  rows.insertAdjacentHTML('afterbegin', list.map(c => {
     const photo = courtPhoto(c);
     const variant = courtTypes(c).find(([, , image]) => image === photo);
     const label = variant?.[3] ? L_(...variant[3]) : variant ? courtTypeLabel(variant[0], variant[1]) : '';
     return `<button type="button" class="crow${fresh(c) ? ' changed' : ''}" data-i="${COURTS.indexOf(c)}" aria-haspopup="dialog" aria-controls="court-dialog">${photo ? `<img class="cth" src="${photo}" alt="${courtPhotoAlt(c, label)}" loading="lazy">` : '<span class="cth none"></span>'}<b>${c[lang] || c.uz}</b>
     <span class="d">${typesHtml(c)}</span></button>`;
-  }).join('');
-  document.querySelectorAll('.crow').forEach(row => {
+  }).join(''));
+  rows.querySelectorAll('.crow[data-i]').forEach(row => {
     row.onclick = () => openCourtDetails(COURTS[+row.dataset.i]);
   });
   renderCF(); applyCF();
