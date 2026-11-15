@@ -1492,8 +1492,10 @@ courtDialog.addEventListener('click', event => {
 });
 
 function courtTypeCarousel(court) {
-  const variants = courtTypes(court, 'all');
+  let variants = courtTypes(court, 'all');
   if (!variants.length) return courtGallery(court, 'all');
+  // Slides without a photo are hidden once at least one type has a photo; the type chips still list every type.
+  if (variants.some(v => v[2])) variants = variants.filter(v => v[2]);
 
   const multiple = variants.length > 1;
   const gallery = document.createElement('div');
