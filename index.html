@@ -1536,7 +1536,7 @@ function courtTypeCarousel(court) {
   return gallery;
 }
 
-function openCourtDetails(court) {
+function openCourtDetails(court, startImage) {
   const name = court[lang] || court.ru;
   courtDialog.querySelector('h2').textContent = name;
   courtClose.setAttribute('aria-label', L_('Закрыть', 'Yopish', 'Close'));
@@ -1606,6 +1606,13 @@ function openCourtDetails(court) {
   courtDialogBody.replaceChildren(media, info);
   courtDialog.showModal();
   courtDialog.scrollTop = 0;
+  // Open the carousel on the photo the visitor clicked in the list (e.g. the hall when the indoor filter is on).
+  const track = media.querySelector('.court-type-track');
+  const start = startImage && [...(track?.children || [])].find(slide => slide.querySelector('img')?.getAttribute('src') === startImage);
+  if (start) {
+    track.scrollLeft = start.offsetLeft - track.children[0].offsetLeft;
+    track.dispatchEvent(new Event('scroll'));
+  }
 }
 
 function renderCourts() {
@@ -1620,7 +1627,7 @@ function renderCourts() {
     <span class="d">${typesHtml(c)}</span></button>`;
   }).join(''));
   rows.querySelectorAll('.crow[data-i]').forEach(row => {
-    row.onclick = () => openCourtDetails(COURTS[+row.dataset.i]);
+    row.onclick = () => openCourtDetails(COURTS[+row.dataset.i], row.querySelector('.cth')?.getAttribute('src'));
   });
   renderCF(); applyCF();
   landmarkLabels.forEach((label, i) => {
