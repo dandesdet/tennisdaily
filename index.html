@@ -371,6 +371,7 @@ img[src*="courts/turin"]{object-position:50% 0}
 .hb-bar i{position:absolute;top:0;bottom:0;background:#2E8B57;border-radius:4px}
 .hb-bar u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
 .hb.unknown .hb-bar{background:repeating-linear-gradient(135deg,#dfe2dc 0 6px,#eceeea 6px 12px)}
+.hb-price{margin:4px 0 0!important;color:var(--ink)!important}.hb-price small{display:block;margin-top:2px;font-size:14px;color:var(--muted)}
 .hb-scale{display:flex;justify-content:space-between;font:500 12px/1 var(--body);color:var(--muted);font-variant-numeric:tabular-nums}
 .court-type-controls>button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);font:500 24px/1 var(--body);cursor:pointer}
 .court-type-controls>button:disabled{opacity:.45;cursor:default}
@@ -1419,7 +1420,8 @@ const COURTS = [
    dEn:'28 Bunyodkor Avenue, Chilanzar. Indoor tennis court at the institute’s sports centre. Ask MDIS about guest access.',
    bk:[{u:'https://www.mdis.uz/en/menu/sport-centre-', k:'site'}], t:[['x','i','img/courts/mdis-indoor.webp']]},
   {ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}], hT:{hd:'06:00–23:00'},
-   price:['Корт под куполом: 250 000 сум в час. Утром и с 22:00 — 200 000 сум. Данные администратора на 17 ноября 2026.', 'Gumbaz ostidagi kort: soatiga 250 000 so‘m. Ertalab va 22:00 dan keyin — 200 000 so‘m. Administrator ma’lumoti, 2026-yil 17-noyabr.', 'Air-dome court: 250,000 sum per hour. Mornings and from 22:00 — 200,000 sum. Administrator’s figures as of 17 November 2026.']},
+   pT:{hd:['250 000 сум в час. Скидка утром и с 22:00 — 200 000 сум.', 'Soatiga 250 000 so‘m. Ertalab va 22:00 dan keyin chegirma — 200 000 so‘m.', '250,000 sum per hour. Discount in the morning and from 22:00 — 200,000 sum.'],
+       src:['Данные администратора на 17 ноября 2026', 'Administrator ma’lumoti, 2026-yil 17-noyabr', 'Administrator’s figures as of 17 November 2026']}},
   {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
   {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', access:['Уточните, пускают ли на корт без проживания в санатории.','Sanatoriyda yashamasdan kortga kirish mumkinligini aniqlang.','Ask whether the court is open to non-guests.'], tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
 ];
@@ -1565,17 +1567,18 @@ courtDialog.addEventListener('click', event => {
 function courtHours(court, variant) {
   if (court.st === 'off') return {closed: court.stRu ? L_(court.stRu, court.stUz, court.stEn) : L_('Закрыт', 'Yopiq', 'Closed')};
   const key = variant ? variant[0] + (variant[1] || '') : '';
-  return {text: (court.hT && court.hT[key]) || court.h || ''};
+  return {text: (court.hT && court.hT[key]) || court.h || '', price: court.pT && court.pT[key], src: court.pT && court.pT.src};
 }
 function hoursBoard(court, variant, label) {
-  const {closed, text} = courtHours(court, variant);
+  const {closed, text, price, src} = courtHours(court, variant);
+  const priceRow = price ? `<p class="hb-price">${L_(...price)}${src ? `<small>${L_(...src)}</small>` : ''}</p>` : '';
   const m = text.match(/^(\d\d):(\d\d)–(\d\d):(\d\d)$/);
   const head = `<h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}${label ? ` · <span class="hb-type">${label}</span>` : ''}</h3>`;
   const scale = `<div class="hb-scale"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>`;
   if (!m) {
     const note = closed || (court.tel ? L_('Уточняйте по телефону', 'Telefon orqali aniqlang', 'Call to confirm') : '');
     const time = closed ? L_('Закрыт', 'Yopiq', 'Closed') : L_('Часы не указаны', 'Vaqt ko‘rsatilmagan', 'Hours not listed');
-    return `${head}<div class="hb unknown"><div class="hb-top"><b class="hb-time">${time}</b><span class="hb-now">${note}</span></div><div class="hb-bar"></div>${scale}</div>`;
+    return `${head}<div class="hb unknown"><div class="hb-top"><b class="hb-time">${time}</b><span class="hb-now">${note}</span></div><div class="hb-bar"></div>${scale}${priceRow}</div>`;
   }
   const from = +m[1] * 60 + +m[2], to = +m[3] * 60 + +m[4];
   const allDay = from === 0 && to === 24 * 60;
@@ -1586,7 +1589,7 @@ function hoursBoard(court, variant, label) {
   const pc = v => (v / 1440 * 100).toFixed(2) + '%';
   return `${head}<div class="hb"><div class="hb-top"><b class="hb-time">${allDay ? L_('Круглосуточно', 'Kecha-kunduz', 'Open 24/7') : text.replace('–', ' – ')}</b>` +
     `<span class="hb-now${open ? ' open' : ''}">${open ? L_('Открыто сейчас', 'Hozir ochiq', 'Open now') : L_('Сейчас закрыто', 'Hozir yopiq', 'Closed now')}</span></div>` +
-    `<div class="hb-bar">${spans.map(([a, b]) => `<i style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}<u style="left:${pc(now)}"></u></div>${scale}</div>`;
+    `<div class="hb-bar">${spans.map(([a, b]) => `<i style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}<u style="left:${pc(now)}"></u></div>${scale}${priceRow}</div>`;
 }
 
 function courtTypeCarousel(court) {
