@@ -1369,7 +1369,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <script>
 const COURTS = [
   {ru:'Матонат (Буревестник)', uz:'Matonat (Burevestnik)', en:'Matonat (Burevestnik)',
-   st:'up', stRu:'корты 1–4 закрыты', stUz:'1–4-kortlar yopiq', stEn:'courts 1–4 closed', since:'2026-11-07', ll:[41.325849,69.279293],
+   st:'off', stRu:'грунт закрыт на зиму', stUz:'grunt qishga yopiq', stEn:'clay closed for winter', since:'2026-11-17', ll:[41.325849,69.279293],
    dRu:'Юнусабад, массив Киёт, 88. Корты 1–4 закрыты, на их месте планируют крытые. Доступность остальных кортов уточняйте по телефону.',
    dUz:'Yunusobod, Qiyot mavzesi, 88. 1–4-kortlar yopildi, o‘rniga yopiq kortlar rejalashtirilgan. Boshqa kortlar haqida telefonda aniqlang.',
    dEn:'Yunusabad, Qiyot residential area, 88. Courts 1–4 are closed, with indoor courts planned in their place. Call to check availability of the other courts.',
@@ -1413,7 +1413,7 @@ const COURTS = [
       ['h','i','img/courts/ace-green.webp',['Зелёный корт','Yashil kort','Green court']]]},
   {ru:'Ипакчилик', counts:{co:2, hi:1}, en:"Ipakchilik", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
    t:[['c','o','img/courts/ipak.webp'], ['h','i','img/courts/ipakchi-indoor.webp']]},
-  {ru:'Теннисная школа Ироды Тулягановой', short:['Школа Ироды', 'Iroda maktabi', 'Iroda Tennis'], en:"Iroda Tulyaganova Tennis School", stEn:"open", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
+  {ru:'Теннисная школа Ироды Тулягановой', short:['Школа Ироды', 'Iroda maktabi', 'Iroda Tennis'], en:"Iroda Tulyaganova Tennis School", stEn:"clay closed for winter", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'off', stRu:'грунт закрыт на зиму', stUz:'grunt qishga yopiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
   {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid-exterior.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
   {ru:'Сингапурский институт (MDIS)', short:['MDIS', 'MDIS', 'MDIS'], uz:'Singapur instituti (MDIS)', en:'Singapore Institute (MDIS)',
    ll:[41.269655,69.202787], access:['Доступ для гостей уточняйте у MDIS.','Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.','Ask MDIS about guest access.'], tel:'+998781137702',
@@ -1566,20 +1566,24 @@ courtDialog.addEventListener('click', event => {
 });
 
 // One hours board for every court: time, open-now status and a 24-hour bar. A court type can override court.h via hT.
+// Seasonal closures by court type, applied to every court. Outdoor clay is closed for the winter.
+const SEASON_OFF = {co: ['Грунт на улице закрыт на зиму', 'Ochiq grunt qishga yopiq', 'Outdoor clay is closed for the winter']};
 function courtHours(court, variant) {
   if (court.st === 'off') return {closed: court.stRu ? L_(court.stRu, court.stUz, court.stEn) : L_('Закрыт', 'Yopiq', 'Closed')};
   const key = variant ? variant[0] + (variant[1] || '') : '';
+  if (SEASON_OFF[key]) return {closed: L_(...SEASON_OFF[key])};
   return {text: (court.hT && court.hT[key]) || court.h || '', disc: (court.discT && court.discT[key]) || court.disc || [], price: court.pT && court.pT[key], src: court.pT && court.pT.src};
 }
 function hoursBoard(court, variant, label) {
   const {closed, text, disc, price, src} = courtHours(court, variant);
   const priceRow = price ? `<p class="hb-price">${L_(...price)}${src ? `<small>${L_(...src)}</small>` : ''}</p>` : '';
-  const m = text.match(/^(\d\d):(\d\d)–(\d\d):(\d\d)$/);
+  const m = (text || '').match(/^(\d\d):(\d\d)–(\d\d):(\d\d)$/);
   const head = `<h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}${label ? ` · <span class="hb-type">${label}</span>` : ''}</h3>`;
   const scale = `<div class="hb-scale"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>`;
   if (!m) {
     const note = closed || (court.tel ? L_('Уточняйте по телефону', 'Telefon orqali aniqlang', 'Call to confirm') : '');
     const time = closed ? L_('Закрыт', 'Yopiq', 'Closed') : L_('Часы не указаны', 'Vaqt ko‘rsatilmagan', 'Hours not listed');
+    if (closed) return `${head}<div class="hb unknown"><div class="hb-top"><b class="hb-time">${time}</b></div><p class="hb-price">${closed}</p><div class="hb-bar"></div>${scale}</div>`;
     return `${head}<div class="hb unknown"><div class="hb-top"><b class="hb-time">${time}</b><span class="hb-now">${note}</span></div><div class="hb-bar"></div>${scale}${priceRow}</div>`;
   }
   const from = +m[1] * 60 + +m[2], to = +m[3] * 60 + +m[4];
