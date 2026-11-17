@@ -1349,7 +1349,8 @@ const COURTS = [
    dUz:'Chilonzor, Bunyodkor shoh ko‘chasi, 28. Institut sport markazidagi yopiq tennis korti. Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.',
    dEn:'28 Bunyodkor Avenue, Chilanzar. Indoor tennis court at the institute’s sports centre. Ask MDIS about guest access.',
    bk:[{u:'https://www.mdis.uz/en/menu/sport-centre-', k:'site'}], t:[['x','i','img/courts/mdis-indoor.webp']]},
-  {ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}]},
+  {ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}],
+   price:['Корт под куполом: 250 000 сум в час. Утром и с 22:00 — 200 000 сум. Данные администратора на 17 ноября 2026.', 'Gumbaz ostidagi kort: soatiga 250 000 so‘m. Ertalab va 22:00 dan keyin — 200 000 so‘m. Administrator ma’lumoti, 2026-yil 17-noyabr.', 'Air-dome court: 250,000 sum per hour. Mornings and from 22:00 — 200,000 sum. Administrator’s figures as of 17 November 2026.']},
   {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
   {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', access:['Уточните, пускают ли на корт без проживания в санатории.','Sanatoriyda yashamasdan kortga kirish mumkinligini aniqlang.','Ask whether the court is open to non-guests.'], tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
 ];
@@ -1588,7 +1589,8 @@ function openCourtDetails(court, startImage) {
   info.innerHTML = `
     <div><h3>${L_('О кортах', 'Kortlar haqida', 'About the courts')}</h3><p>${L_(court.dRu, court.dUz, court.dEn) || unavailable}</p></div>
     <div><h3>${L_('Условия входа', 'Kirish shartlari', 'Entry requirements')}</h3><p>${entry}</p></div>
-    <div><h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}</h3><p>${hours}</p></div>
+    <div><h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}</h3><p>${hours}</p></div>${court.price ? `
+    <div><h3>${L_('Стоимость', 'Narxi', 'Price')}</h3><p>${L_(...court.price)}</p></div>` : ''}
     <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>`;
   const marker = marks[COURTS.indexOf(court)];
   if (marker) {
