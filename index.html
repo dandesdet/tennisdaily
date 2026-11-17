@@ -356,10 +356,27 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-type-slide[data-surface="c"] .court-type-placeholder{background:#f5e6dd}
 .court-type-slide[data-surface="h"] .court-type-placeholder{background:#e6edf5}
 .court-type-controls{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:8px}
-.court-type-controls button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);font:500 24px/1 var(--body);cursor:pointer}
-.court-type-controls button:disabled{opacity:.45;cursor:default}
+.court-type-thumbs{display:flex;gap:8px;margin-right:auto;overflow-x:auto;scrollbar-width:none;padding:2px}
+.court-type-thumbs button{flex:none;width:56px;height:42px;padding:0;border:0;border-radius:8px;overflow:hidden;background:var(--soft);cursor:pointer;opacity:.6;outline:2px solid transparent;outline-offset:1px;transition:opacity .15s}
+.court-type-thumbs button:hover{opacity:.85}
+.court-type-thumbs button[aria-current="true"]{opacity:1;outline-color:var(--ink)}
+.court-type-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.court-type-thumbs .c{background:#f5e6dd}.court-type-thumbs .h{background:#e6edf5}
+.hb{display:grid;gap:8px;padding:12px 14px;border-radius:var(--r-inner);background:var(--soft)}
+.hb-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hb-time{font:600 20px/1.2 var(--body);color:var(--ink);font-variant-numeric:tabular-nums}
+.hb-now{font:600 14px/1.2 var(--body);color:var(--muted)}
+.hb-now.open{color:#2E8B57}
+.hb-bar{position:relative;height:8px;border-radius:4px;background:#dfe2dc;overflow:hidden}
+.hb-bar i{position:absolute;top:0;bottom:0;background:#2E8B57;border-radius:4px}
+.hb-bar u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
+.hb.unknown .hb-bar{background:repeating-linear-gradient(135deg,#dfe2dc 0 6px,#eceeea 6px 12px)}
+.hb-scale{display:flex;justify-content:space-between;font:500 12px/1 var(--body);color:var(--muted);font-variant-numeric:tabular-nums}
+.court-type-controls>button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);font:500 24px/1 var(--body);cursor:pointer}
+.court-type-controls>button:disabled{opacity:.45;cursor:default}
 @media(max-width:640px){
   .court-type-track{overflow-x:auto;overscroll-behavior-x:contain}
+  .court-type-controls>button{display:none}
   .court-type-track.has-next .court-type-slide{flex-basis:86%}
   .court-type-track.has-next .court-type-slide:last-child{scroll-snap-align:end}
 }
@@ -1401,7 +1418,7 @@ const COURTS = [
    dUz:'Chilonzor, Bunyodkor shoh ko‘chasi, 28. Institut sport markazidagi yopiq tennis korti. Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.',
    dEn:'28 Bunyodkor Avenue, Chilanzar. Indoor tennis court at the institute’s sports centre. Ask MDIS about guest access.',
    bk:[{u:'https://www.mdis.uz/en/menu/sport-centre-', k:'site'}], t:[['x','i','img/courts/mdis-indoor.webp']]},
-  {ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}],
+  {ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}], hT:{hd:'06:00–23:00'},
    price:['Корт под куполом: 250 000 сум в час. Утром и с 22:00 — 200 000 сум. Данные администратора на 17 ноября 2026.', 'Gumbaz ostidagi kort: soatiga 250 000 so‘m. Ertalab va 22:00 dan keyin — 200 000 so‘m. Administrator ma’lumoti, 2026-yil 17-noyabr.', 'Air-dome court: 250,000 sum per hour. Mornings and from 22:00 — 200,000 sum. Administrator’s figures as of 17 November 2026.']},
   {ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
   {ru:'Хумсон Булок', en:"Humson Buloq", stEn:"out of town", dEn:"Sanatorium in Bostanliq district, about 80 km from Tashkent, in the mountains. Ask whether the courts are open to non-guests.", uz:'Humson Buloq', st:'ok', stRu:'за городом', stUz:'shahar tashqarisida', far:true, ll:[41.658372,69.955048], dRu:'Санаторий в Бостанлыкском районе, в горах, около 80 км от Ташкента. Пускают ли на корты не гостей — уточняйте.', dUz:'Bo‘stonliq tumanidagi sanatoriy, tog‘da, Toshkentdan ~80 km. Mehmon bo‘lmaganlarni kortga kiritishadimi — aniqlang.', h:'00:00–24:00', access:['Уточните, пускают ли на корт без проживания в санатории.','Sanatoriyda yashamasdan kortga kirish mumkinligini aniqlang.','Ask whether the court is open to non-guests.'], tel:'+998933996000', bk:[], t:[["h","o",'img/courts/humson.webp']]},
@@ -1544,12 +1561,41 @@ courtDialog.addEventListener('click', event => {
       event.clientY < bounds.top || event.clientY > bounds.bottom) courtDialog.close();
 });
 
+// One hours board for every court: time, open-now status and a 24-hour bar. A court type can override court.h via hT.
+function courtHours(court, variant) {
+  if (court.st === 'off') return {closed: court.stRu ? L_(court.stRu, court.stUz, court.stEn) : L_('Закрыт', 'Yopiq', 'Closed')};
+  const key = variant ? variant[0] + (variant[1] || '') : '';
+  return {text: (court.hT && court.hT[key]) || court.h || ''};
+}
+function hoursBoard(court, variant, label) {
+  const {closed, text} = courtHours(court, variant);
+  const m = text.match(/^(\d\d):(\d\d)–(\d\d):(\d\d)$/);
+  const head = `<h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}${label ? ` · <span class="hb-type">${label}</span>` : ''}</h3>`;
+  const scale = `<div class="hb-scale"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>`;
+  if (!m) {
+    const note = closed || (court.tel ? L_('Уточняйте по телефону', 'Telefon orqali aniqlang', 'Call to confirm') : '');
+    const time = closed ? L_('Закрыт', 'Yopiq', 'Closed') : L_('Часы не указаны', 'Vaqt ko‘rsatilmagan', 'Hours not listed');
+    return `${head}<div class="hb unknown"><div class="hb-top"><b class="hb-time">${time}</b><span class="hb-now">${note}</span></div><div class="hb-bar"></div>${scale}</div>`;
+  }
+  const from = +m[1] * 60 + +m[2], to = +m[3] * 60 + +m[4];
+  const allDay = from === 0 && to === 24 * 60;
+  const spans = to > from ? [[from, to]] : [[from, 24 * 60], [0, to]];
+  const t = new Date(Date.now() + 5 * 3600e3); // Tashkent, UTC+5
+  const now = t.getUTCHours() * 60 + t.getUTCMinutes();
+  const open = spans.some(([a, b]) => now >= a && now < b);
+  const pc = v => (v / 1440 * 100).toFixed(2) + '%';
+  return `${head}<div class="hb"><div class="hb-top"><b class="hb-time">${allDay ? L_('Круглосуточно', 'Kecha-kunduz', 'Open 24/7') : text.replace('–', ' – ')}</b>` +
+    `<span class="hb-now${open ? ' open' : ''}">${open ? L_('Открыто сейчас', 'Hozir ochiq', 'Open now') : L_('Сейчас закрыто', 'Hozir yopiq', 'Closed now')}</span></div>` +
+    `<div class="hb-bar">${spans.map(([a, b]) => `<i style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}<u style="left:${pc(now)}"></u></div>${scale}</div>`;
+}
+
 function courtTypeCarousel(court) {
   const variants = courtTypes(court, 'all');
   if (!variants.length) return courtGallery(court, 'all');
 
   const multiple = variants.length > 1;
   const gallery = document.createElement('div');
+  gallery.variants = variants;
   gallery.innerHTML = `<div class="court-type-track${multiple ? ' has-next' : ''}">${variants.map(([surface, kind, image, caption]) => {
     const type = courtTypeLabel(surface, kind);
     const label = [surface === 'x' && caption ? '' : type, caption && L_(...caption)].filter(Boolean).join(' · ') ||
@@ -1563,12 +1609,16 @@ function courtTypeCarousel(court) {
   if (multiple) {
     gallery.insertAdjacentHTML('beforeend', `
       <div class="court-type-controls">
+        <div class="court-type-thumbs">${variants.map(([surface, kind, image], i) =>
+          `<button type="button" class="${surface}" aria-label="${courtTypeLabel(surface, kind)}" aria-current="${i === 0}">${image ? `<img src="${image}" alt="" loading="lazy">` : ''}</button>`).join('')}</div>
         <button type="button" aria-label="${L_('Предыдущий корт', 'Oldingi kort', 'Previous court')}" disabled>‹</button>
         <button type="button" aria-label="${L_('Следующий корт', 'Keyingi kort', 'Next court')}">›</button>
       </div>`);
     const track = gallery.querySelector('.court-type-track');
     const slides = [...track.children];
-    const [previous, next] = gallery.querySelectorAll('.court-type-controls button');
+    const [previous, next] = gallery.querySelectorAll('.court-type-controls > button');
+    const thumbs = [...gallery.querySelectorAll('.court-type-thumbs button')];
+    let shown = 0;
     const position = slide => Math.min(slide.offsetLeft - slides[0].offsetLeft, track.scrollWidth - track.clientWidth);
     const current = () => slides.reduce((best, slide, i) =>
       Math.abs(position(slide) - track.scrollLeft) < Math.abs(position(slides[best]) - track.scrollLeft) ? i : best, 0);
@@ -1582,7 +1632,16 @@ function courtTypeCarousel(court) {
     track.addEventListener('scroll', () => {
       previous.disabled = track.scrollLeft <= 1;
       next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+      const i = current();
+      if (i === shown) return;
+      shown = i;
+      thumbs.forEach((thumb, k) => thumb.setAttribute('aria-current', k === i));
+      gallery.dispatchEvent(new CustomEvent('slide', {detail: i}));
     }, {passive:true});
+    thumbs.forEach((thumb, i) => thumb.onclick = () => track.scrollTo({
+      left: position(slides[i]),
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    }));
     previous.onclick = () => move(-1);
     next.onclick = () => move(1);
   }
@@ -1635,13 +1694,12 @@ function openCourtDetails(court, startImage) {
   const info = document.createElement('div');
   info.className = 'court-detail-info';
   const entry = court.access ? L_(...court.access) : unavailable;
-  const hours = court.st === 'off'
-    ? (court.stRu ? L_(court.stRu, court.stUz, court.stEn) : unavailable)
-    : court.h || (court.tel ? L_('Уточняйте по телефону', 'Telefon orqali aniqlang', 'Call to confirm') : unavailable);
+  const variants = gallery?.variants || [];
+  const typeLabel = v => variants.length > 1 && v ? courtTypeLabel(v[0], v[1]) : '';
   info.innerHTML = `
     <div><h3>${L_('О кортах', 'Kortlar haqida', 'About the courts')}</h3><p>${L_(court.dRu, court.dUz, court.dEn) || unavailable}</p></div>
     <div><h3>${L_('Условия входа', 'Kirish shartlari', 'Entry requirements')}</h3><p>${entry}</p></div>
-    <div><h3>${L_('Часы работы', 'Ish vaqti', 'Opening hours')}</h3><p>${hours}</p></div>${court.price ? `
+    <div class="court-hours">${hoursBoard(court, variants[0], typeLabel(variants[0]))}</div>${court.price ? `
     <div><h3>${L_('Стоимость', 'Narxi', 'Price')}</h3><p>${L_(...court.price)}</p></div>` : ''}
     <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>`;
   const marker = marks[COURTS.indexOf(court)];
@@ -1657,6 +1715,9 @@ function openCourtDetails(court, startImage) {
     };
     info.append(mapButton);
   }
+  gallery?.addEventListener('slide', e => {
+    info.querySelector('.court-hours').innerHTML = hoursBoard(court, variants[e.detail], typeLabel(variants[e.detail]));
+  });
   courtDialogBody.replaceChildren(media, info);
   courtDialog.showModal();
   courtDialog.scrollTop = 0;
