@@ -299,7 +299,7 @@ img[src*="courts/turin"]{object-position:50% 0}
 .me-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:#2F6DB5;opacity:.5;animation:me-pulse 2s ease-out infinite;z-index:-1}
 @keyframes me-pulse{from{transform:scale(1);opacity:.5}to{transform:scale(3.2);opacity:0}}
 @media (prefers-reduced-motion:reduce){.me-dot::after{animation:none}}
-.me-btn{position:absolute;right:12px;bottom:28px;z-index:500;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--court);font:600 14px var(--body);cursor:pointer;box-shadow:0 1px 4px #0002}
+.me-btn{max-width:calc(100% - 24px);text-align:left;position:absolute;right:12px;bottom:28px;z-index:500;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--court);font:600 14px var(--body);cursor:pointer;box-shadow:0 1px 4px #0002}
 .me-btn:hover{color:var(--clay)}.me-btn:active{transform:scale(.97)}
 .cmap-wrap{position:relative}
 .cmap{height:640px;border-radius:var(--r-img);corner-shape:squircle;background:var(--soft);z-index:0}
@@ -2144,12 +2144,27 @@ function placeMe(lat, lng, pan) {
     if (pan) map.setView([lat, lng], Math.max(map.getZoom(), 13));
   }
 }
+// Click: one fresh fix with clear feedback (searching / denied / not found), then a quiet watch keeps the dot current.
+let meLast = null, meSay = null;
+function meStatus(text, ms) { meSay?.(text, ms); }
+function startWatch() {
+  if (meWatch !== null || !navigator.geolocation) return;
+  meWatch = navigator.geolocation.watchPosition(p => { meLast = p.coords; placeMe(p.coords.latitude, p.coords.longitude, false); },
+    () => { navigator.geolocation.clearWatch(meWatch); meWatch = null; }, {enableHighAccuracy: true, maximumAge: 60000});
+}
 function locateMe(pan) {
-  if (!navigator.geolocation || meWatch !== null) { if (pan && meMark) placeMe(...(meMark.pos ? [meMark.pos.lat(), meMark.pos.lng()] : [meMark.getLatLng().lat, meMark.getLatLng().lng]), true); return; }
-  let first = true;
-  meWatch = navigator.geolocation.watchPosition(p => {
-    placeMe(p.coords.latitude, p.coords.longitude, pan && first); first = false;
-  }, () => { meWatch = null; }, {enableHighAccuracy: true, maximumAge: 60000});
+  if (!navigator.geolocation) { if (pan) meStatus(L_('Браузер не умеет определять место', 'Brauzer joylashuvni aniqlay olmaydi', 'This browser can’t share location'), 4000); return; }
+  if (!pan) return startWatch();
+  if (meLast) placeMe(meLast.latitude, meLast.longitude, true);
+  meStatus(L_('Ищу вас…', 'Qidiryapman…', 'Locating…'));
+  navigator.geolocation.getCurrentPosition(p => {
+    meLast = p.coords; placeMe(p.coords.latitude, p.coords.longitude, true); meStatus(''); startWatch();
+  }, err => {
+    const msg = err.code === 1
+      ? L_('Разрешите доступ к местоположению в настройках браузера', 'Brauzer sozlamalarida joylashuvga ruxsat bering', 'Allow location access in your browser settings')
+      : L_('Не удалось определить место', 'Joylashuvni aniqlab bo‘lmadi', 'Couldn’t find your location');
+    meStatus(msg, 5000);
+  }, {enableHighAccuracy: false, timeout: 15000, maximumAge: 60000});
 }
 (() => {
   const box = document.getElementById('cmap');
@@ -2157,7 +2172,9 @@ function locateMe(pan) {
   box.before(wrap); wrap.append(box);
   const btn = document.createElement('button');
   btn.type = 'button'; btn.className = 'me-btn';
-  const label = () => btn.textContent = '◎ ' + L_('Где я', 'Men qayerda', 'My location');
+  let timer = 0, note = '';
+  const label = () => btn.textContent = note || '◎ ' + L_('Где я', 'Men qayerda', 'My location');
+  meSay = (text, ms) => { clearTimeout(timer); note = text; label(); if (text && ms) timer = setTimeout(() => { note = ''; label(); }, ms); };
   label(); document.addEventListener('langchange', label);
   btn.onclick = () => locateMe(true);
   wrap.append(btn);
