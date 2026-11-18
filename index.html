@@ -1452,7 +1452,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <script>
 const COURTS = [
   {ru:'Матонат (Буревестник)', uz:'Matonat (Burevestnik)', en:'Matonat (Burevestnik)', counts:{co:4, xi:2},
-   st:'off', stRu:'зал занят на всю зиму, грунт закрыт', stUz:'zal butun qishga band, grunt yopiq', stEn:'hall booked all winter, clay closed', since:'2026-11-18', ll:[41.325849,69.279293],
+   st:'ok', stRu:'зал занят на всю зиму', stUz:'zal butun qishga band', stEn:'hall booked all winter', since:'2026-11-18', ll:[41.325849,69.279293],
    dRu:'Юнусабад, массив Киёт, 88. 4 грунтовых корта на улице и 2 корта в зале (покрытие, вероятно, резиновое — уточняем), зал 06:00–23:00. Бронь — у Романа Талгатовича.',
    dUz:'Yunusobod, Qiyot mavzesi, 88. 4 ta ochiq grunt kort va zalda 2 ta kort (qoplama, ehtimol, rezina — aniqlanmoqda), zal 06:00–23:00. Bron — Roman Talgatovich orqali.',
    dEn:'Yunusabad, Qiyot residential area, 88. 4 outdoor clay courts and 2 indoor courts (probably a rubber surface — being confirmed), hall open 06:00–23:00. Book through Roman Talgatovich.',
@@ -1498,7 +1498,7 @@ const COURTS = [
   {ru:'Ace club', counts:{hi:2}, en:"Ace club", stEn:"open", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers.", uz:'Ace club', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush.', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn"}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}],
    t:[['h','i','img/courts/ace-blue.webp',['Голубой корт','Havorang kort','Light blue court']],
       ['h','i','img/courts/ace-green.webp',['Зелёный корт','Yashil kort','Green court']]]},
-  {h:'09:00–18:00', ru:'Ипакчилик', counts:{co:2, hi:1}, en:"Ipakchilik", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
+  {h:'09:00–23:00', offDays:[0], ru:'Ипакчи', counts:{co:2, hi:1}, en:"Ipakchi", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
    t:[['c','o','img/courts/ipak.webp'], ['h','i','img/courts/ipakchi-indoor.webp']]},
   {ru:'CSKA · школа Ироды Тулягановой', short:['CSKA · школа Ироды', 'CSKA · Iroda maktabi', 'CSKA · Iroda Tennis'], en:"CSKA · Iroda Tulyaganova Tennis School", stEn:"clay closed for winter", dEn:"CSKA tennis courts, Lashkarlar St., Mirzo Ulugbek district; landmark: the Saxat hotel. Outdoor clay courts.", uz:'CSKA · Iroda To‘laganova tennis maktabi', st:'off', stRu:'грунт закрыт на зиму', stUz:'grunt qishga yopiq', ll:[41.330284,69.340359], dRu:'Корты CSKA, улица Лашкарлар, Мирзо-Улугбекский район; ориентир — гостиница «Saxat». Открытые грунтовые корты.', dUz:'CSKA tennis kortlari, Lashkarlar ko‘chasi, Mirzo Ulug‘bek tumani; mo‘ljal — «Saxat» mehmonxonasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
   {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid-exterior.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
@@ -1688,15 +1688,19 @@ function hoursBoard(court, variant, label) {
   const spans = to > from ? [[from, to]] : [[from, 24 * 60], [0, to]];
   const t = new Date(Date.now() + 5 * 3600e3); // Tashkent, UTC+5
   const now = t.getUTCHours() * 60 + t.getUTCMinutes();
-  const open = spans.some(([a, b]) => now >= a && now < b);
+  // court.offDays — выходные дни недели по Ташкенту (0 — воскресенье)
+  const DN = [['вс','ya','Sun'],['пн','du','Mon'],['вт','se','Tue'],['ср','ch','Wed'],['чт','pa','Thu'],['пт','ju','Fri'],['сб','sh','Sat']];
+  const offDays = court.offDays || [], dayOff = offDays.includes(t.getUTCDay());
+  const open = !dayOff && spans.some(([a, b]) => now >= a && now < b);
+  const offRow = offDays.length ? `<p class="hb-price">${L_('Выходной', 'Dam olish kuni', 'Closed on')}: ${offDays.map(d => L_(...DN[d])).join(', ')}</p>` : '';
   const pc = v => (v / 1440 * 100).toFixed(2) + '%';
   const discSpans = disc.map(r => r.match(/^(\d\d):(\d\d)–(\d\d):(\d\d)$/)).filter(Boolean)
     .map(d => [+d[1] * 60 + +d[2], +d[3] * 60 + +d[4]]);
   const inDisc = open && discSpans.some(([a, b]) => now >= a && now < b);
   const discRow = discSpans.length ? `<p class="hb-disc"><i></i><span>${L_('Скидочные часы', 'Chegirma soatlari', 'Discount hours')}: ${disc.map(r => `<b>${r}</b>`).join(', ')}</span></p>` : '';
   return `${head}<div class="hb"><div class="hb-top"><b class="hb-time">${allDay ? L_('Круглосуточно', 'Kecha-kunduz', 'Open 24/7') : text.replace('–', ' – ')}</b>` +
-    `<span class="hb-now${open ? ' open' : ''}">${open ? (inDisc ? L_('Открыто · скидка', 'Ochiq · chegirma', 'Open · discount') : L_('Открыто сейчас', 'Hozir ochiq', 'Open now')) : L_('Сейчас закрыто', 'Hozir yopiq', 'Closed now')}</span></div>` +
-    `<div class="hb-bar">${spans.map(([a, b]) => `<i style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}${discSpans.map(([a, b]) => `<i class="d" style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}<u style="left:${pc(now)}"></u></div>${scale}${discRow}${priceRow}</div>`;
+    `<span class="hb-now${open ? ' open' : ''}">${open ? (inDisc ? L_('Открыто · скидка', 'Ochiq · chegirma', 'Open · discount') : L_('Открыто сейчас', 'Hozir ochiq', 'Open now')) : dayOff ? L_('Сегодня выходной', 'Bugun dam olish kuni', 'Closed today') : L_('Сейчас закрыто', 'Hozir yopiq', 'Closed now')}</span></div>` +
+    `<div class="hb-bar">${spans.map(([a, b]) => `<i style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}${discSpans.map(([a, b]) => `<i class="d" style="left:${pc(a)};width:${pc(b - a)}"></i>`).join('')}<u style="left:${pc(now)}"></u></div>${scale}${offRow}${discRow}${priceRow}</div>`;
 }
 
 function courtTypeCarousel(court) {
