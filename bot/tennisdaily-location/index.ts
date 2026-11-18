@@ -2,21 +2,27 @@
 // A visitor taps "Send to Telegram" on tennisdaily.uz → t.me/<bot>?start=court_<id>_<lang>
 // → the bot replies with the court name and a native Telegram location (sendLocation).
 //
-// Secrets (Supabase → Edge Functions → Secrets), never in Git:
+// Secret (Supabase → Edge Functions → Secrets), never in Git:
 //   TG_LOCATION_BOT_TOKEN  bot token from @BotFather
-//   TG_WEBHOOK_SECRET      random string; Telegram sends it back in a header on every update
-// Optional: COURTS_URL (default https://tennisdaily.uz/courts.json)
+// The webhook secret is derived from the token (SHA-256), so nothing else has to be stored;
+// Telegram sends it back in a header on every update and other callers get 403.
+// Optional: COURTS_URL (default: tennisdaily.uz/courts.json, then the same file on GitHub).
 //
-// One-time setup after the secrets are set: open
-//   <function URL>?setup=<TG_WEBHOOK_SECRET>
+// One-time setup after the token is set: open <function URL>?setup=1
+// (idempotent: it only points this bot's webhook at this function).
 // Health check (no secrets): <function URL>?health=1
 
 type Lang = "ru" | "uz" | "en";
 type Court = { id: string; name: Record<Lang, string>; lat: number; lon: number };
 
 const TOKEN = Deno.env.get("TG_LOCATION_BOT_TOKEN") ?? "";
-const SECRET = Deno.env.get("TG_WEBHOOK_SECRET") ?? "";
-const COURTS_URL = Deno.env.get("COURTS_URL") ?? "https://tennisdaily.uz/courts.json";
+const SECRET = TOKEN
+  ? Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode("tennisdaily-location:" + TOKEN))))
+    .map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 48)
+  : "";
+const COURTS_URLS = Deno.env.get("COURTS_URL")
+  ? [Deno.env.get("COURTS_URL")!]
+  : ["https://tennisdaily.uz/courts.json", "https://raw.githubusercontent.com/dandesdet/tennisdaily/main/courts.json"];
 const SITE = "https://tennisdaily.uz/#courts";
 const API = Deno.env.get("TG_API_BASE") ?? "https://api.telegram.org"; // overridable for local tests only
 const ID_RE = /^[a-z0-9-]{1,40}$/;
@@ -48,9 +54,15 @@ let cache: { at: number; courts: Map<string, Court> } | null = null;
 async function courts(): Promise<Map<string, Court> | null> {
   if (cache && Date.now() - cache.at < 10 * 60e3) return cache.courts;
   try {
-    const r = await fetch(COURTS_URL, { headers: { "cache-control": "no-cache" } });
-    if (!r.ok) throw new Error(`courts.json HTTP ${r.status}`);
-    const data = await r.json();
+    let data: any = null;
+    for (const u of COURTS_URLS) {
+      try {
+        const r = await fetch(u, { headers: { "cache-control": "no-cache" } });
+        if (r.ok) { data = await r.json(); break; }
+        console.error(`courts.json HTTP ${r.status} at ${u}`);
+      } catch (e) { console.error(`courts.json unreachable at ${u}:`, (e as Error).message); }
+    }
+    if (!data) throw new Error("no courts source reachable");
     const map = new Map<string, Court>();
     for (const c of data.courts ?? []) {
       const ok = typeof c.id === "string" && ID_RE.test(c.id) &&
@@ -145,7 +157,7 @@ Deno.serve(async (req) => {
       const list = await courts();
       return Response.json({ ok: true, token: Boolean(TOKEN), secret: Boolean(SECRET), courts: list?.size ?? 0 });
     }
-    if (SECRET && url.searchParams.get("setup") === SECRET && TOKEN) {
+    if (url.searchParams.has("setup") && TOKEN) {
       const hook = `https://${url.host}${url.pathname}`;
       const set = await tg("setWebhook", {
         url: hook, secret_token: SECRET, allowed_updates: ["message", "callback_query"], drop_pending_updates: true,
