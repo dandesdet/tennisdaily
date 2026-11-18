@@ -94,3 +94,10 @@
 - Матонат, зал (пользователь, 18.11): 2 корта, открыт 06:00–23:00, занят на весь зимний сезон. Фото img/courts/matonat-hall.webp — от пользователя; ребёнок вдали на корте убран ретушью, кадр 16:9.
 - Новое поле offDays:[0] — выходные дни недели (0 — вс), табло пишет «Сегодня выходной» и строку «Выходной: вс». Первое применение — Ипакчи.
 - Юнусабад, зал: фото заменено (от пользователя, 18.11) — пустой зал без людей и табло счёта; 2 корта в зале подтвердил пользователь.
+
+## Бот геолокации (18.11, Claude) — ветка `tg-location`
+- У каждого корта в COURTS стабильный `id` (не менять). `python3 scripts/build_courts_json.py` после правок COURTS → courts.json (id, названия, координаты). Бот читает https://tennisdaily.uz/courts.json, запасной адрес — raw.githubusercontent …/main/courts.json. id и courts.json уже в main (на интерфейс не влияют).
+- Бот — Supabase Edge Function `tennisdaily-location` в проекте «Tennis Match Covers» (zqrntbillpqefbdyhsly), код в bot/tennisdaily-location/index.ts. Webhook, без постоянного процесса и без Мака. Секрет один: TG_LOCATION_BOT_TOKEN (Supabase → Edge Functions → Secrets). Секрет webhook выводится из токена. Подключение: открыть …/functions/v1/tennisdaily-location?setup=1; проверка: ?health=1.
+- Deep link: t.me/<бот>?start=court_<id>_<ru|uz|en>. Бот шлёт название + sendLocation с кнопками «Маршрут в Яндекс Картах» и «Прислать ещё раз».
+- Сайт (ветка, не в main): в «Локации» две кнопки — Яндекс Карты (маршрут) и «Отправить в Telegram»; вторая скрыта, пока LOC_BOT в index.html пустой. Убраны 2ГИС, Google, Apple, «Показать на карте», «Скопировать координаты».
+- Откат: сайт — revert коммитов ветки; бот — удалить функцию в Supabase и deleteWebhook.
