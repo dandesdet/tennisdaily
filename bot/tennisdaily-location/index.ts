@@ -158,7 +158,8 @@ Deno.serve(async (req) => {
       return Response.json({ ok: true, token: Boolean(TOKEN), secret: Boolean(SECRET), courts: list?.size ?? 0 });
     }
     if (url.searchParams.has("setup") && TOKEN) {
-      const hook = `https://${url.host}${url.pathname}`;
+      const base = Deno.env.get("SUPABASE_URL"); // set by Supabase; req.url inside the runtime lacks /functions/v1
+      const hook = base ? `${base}/functions/v1/tennisdaily-location` : `https://${url.host}${url.pathname}`;
       const set = await tg("setWebhook", {
         url: hook, secret_token: SECRET, allowed_updates: ["message", "callback_query"], drop_pending_updates: true,
       });
