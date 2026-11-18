@@ -1527,8 +1527,8 @@ let fitCourtView = () => {}, landmarkLabels = [];
 const BK = {training: ['Запись на тренировки', 'Mashg‘ulotlarga yozilish', 'Training sign-up'], site: ['Сайт спортцентра', 'Sport markazi sayti', 'Sports centre website'], playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
 // Location in any map app the visitor uses, plus sharing to Telegram and copying coordinates.
 // Telegram bot that sends a court's native location (Supabase function tennisdaily-location).
-// Empty until the bot is live: then the Telegram button is hidden.
-const LOC_BOT = '';
+// Empty string hides the Telegram button (e.g. if the bot is down).
+const LOC_BOT = 'tennisdaily_uz_bot';
 const hasLL = c => Array.isArray(c.ll) && c.ll.length === 2 && c.ll.every(Number.isFinite);
 // Location: two actions — a route in Yandex Maps and the location in Telegram.
 function locHtml(c) {
