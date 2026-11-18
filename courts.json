@@ -1,0 +1,224 @@
+{
+ "courts": [
+  {
+   "id": "matonat",
+   "name": {
+    "ru": "Матонат (Буревестник)",
+    "uz": "Matonat (Burevestnik)",
+    "en": "Matonat (Burevestnik)"
+   },
+   "lat": 41.325849,
+   "lon": 69.279293
+  },
+  {
+   "id": "turin",
+   "name": {
+    "ru": "Туринский политех",
+    "uz": "Turin politexnikasi",
+    "en": "Turin Polytechnic"
+   },
+   "lat": 41.350545,
+   "lon": 69.222192
+  },
+  {
+   "id": "yoshlik",
+   "name": {
+    "ru": "Ёшлик (Старт)",
+    "uz": "Yoshlik (Start)",
+    "en": "Yoshlik (Start)"
+   },
+   "lat": 41.324598,
+   "lon": 69.306003
+  },
+  {
+   "id": "msu",
+   "name": {
+    "ru": "МГУ им. Ломоносова",
+    "uz": "MGU",
+    "en": "Lomonosov MSU"
+   },
+   "lat": 41.300731,
+   "lon": 69.280986
+  },
+  {
+   "id": "uchqun",
+   "name": {
+    "ru": "Учкун",
+    "uz": "Uchqun",
+    "en": "Uchqun"
+   },
+   "lat": 41.359794,
+   "lon": 69.285046
+  },
+  {
+   "id": "olympic-reserve",
+   "name": {
+    "ru": "Республиканская школа олимпийского резерва",
+    "uz": "Respublika olimpiya zaxiralari maktabi",
+    "en": "Republican Olympic Reserve School"
+   },
+   "lat": 41.349572,
+   "lon": 69.34426
+  },
+  {
+   "id": "meridian",
+   "name": {
+    "ru": "Меридиан",
+    "uz": "Meridian",
+    "en": "Meridian"
+   },
+   "lat": 41.39119,
+   "lon": 69.27879
+  },
+  {
+   "id": "yunusabad",
+   "name": {
+    "ru": "Юнусабад (у телебашни)",
+    "uz": "Yunusobod (teleminora)",
+    "en": "Yunusabad (by the TV tower)"
+   },
+   "lat": 41.346931,
+   "lon": 69.285143
+  },
+  {
+   "id": "pakhtakor",
+   "name": {
+    "ru": "Пахтакор · Tennis & Padel City",
+    "uz": "Paxtakor · Tennis & Padel City",
+    "en": "Pakhtakor · Tennis & Padel City"
+   },
+   "lat": 41.315683,
+   "lon": 69.263468
+  },
+  {
+   "id": "dinamo",
+   "name": {
+    "ru": "Динамо (МВЭС)",
+    "uz": "Dinamo (MVES)",
+    "en": "Dinamo (MVES)"
+   },
+   "lat": 41.332945,
+   "lon": 69.330479
+  },
+  {
+   "id": "ajou",
+   "name": {
+    "ru": "AJOU · Ravshan court",
+    "uz": "AJOU · Ravshan court",
+    "en": "AJOU · Ravshan court"
+   },
+   "lat": 41.279431,
+   "lon": 69.338145
+  },
+  {
+   "id": "jar",
+   "name": {
+    "ru": "JAR (Жар)",
+    "uz": "JAR",
+    "en": "JAR"
+   },
+   "lat": 41.32185,
+   "lon": 69.23049
+  },
+  {
+   "id": "hadra",
+   "name": {
+    "ru": "Хадра",
+    "uz": "Xadra",
+    "en": "Hadra"
+   },
+   "lat": 41.323518,
+   "lon": 69.241747
+  },
+  {
+   "id": "toptennis",
+   "name": {
+    "ru": "TopTennis · школа № 110",
+    "uz": "TopTennis · 110-maktab",
+    "en": "TopTennis · School No. 110"
+   },
+   "lat": 41.303978,
+   "lon": 69.27405
+  },
+  {
+   "id": "ace-club",
+   "name": {
+    "ru": "Ace club",
+    "uz": "Ace club",
+    "en": "Ace club"
+   },
+   "lat": 41.3099722,
+   "lon": 69.3073333
+  },
+  {
+   "id": "ipakchi",
+   "name": {
+    "ru": "Ипакчи",
+    "uz": "Ipakchi",
+    "en": "Ipakchi"
+   },
+   "lat": 41.329327,
+   "lon": 69.19038
+  },
+  {
+   "id": "cska",
+   "name": {
+    "ru": "CSKA · школа Ироды Тулягановой",
+    "uz": "CSKA · Iroda To‘laganova tennis maktabi",
+    "en": "CSKA · Iroda Tulyaganova Tennis School"
+   },
+   "lat": 41.330284,
+   "lon": 69.340359
+  },
+  {
+   "id": "umid",
+   "name": {
+    "ru": "Умид",
+    "uz": "Umid",
+    "en": "Umid"
+   },
+   "lat": 41.350547,
+   "lon": 69.347301
+  },
+  {
+   "id": "mdis",
+   "name": {
+    "ru": "Сингапурский институт (MDIS)",
+    "uz": "Singapur instituti (MDIS)",
+    "en": "Singapore Institute (MDIS)"
+   },
+   "lat": 41.269655,
+   "lon": 69.202787
+  },
+  {
+   "id": "lokomotiv",
+   "name": {
+    "ru": "Локомотив",
+    "uz": "Lokomotiv",
+    "en": "Lokomotiv"
+   },
+   "lat": 41.274739,
+   "lon": 69.273286
+  },
+  {
+   "id": "olympic-village",
+   "name": {
+    "ru": "Олимпийский городок",
+    "uz": "Olimpiya shaharchasi",
+    "en": "Olympic Village"
+   },
+   "lat": 41.321103,
+   "lon": 69.418334
+  },
+  {
+   "id": "humson",
+   "name": {
+    "ru": "Хумсон Булок",
+    "uz": "Humson Buloq",
+    "en": "Humson Buloq"
+   },
+   "lat": 41.658372,
+   "lon": 69.955048
+  }
+ ]
+}
