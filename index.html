@@ -386,7 +386,12 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-detail-info{display:grid;align-content:start;gap:16px}
 .court-detail-info .ty{margin:0}
 .court-detail-info .bk{margin:0}
-.court-map-link{justify-self:start;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--soft);color:var(--court);font:600 14px var(--body);cursor:pointer}
+.loc{display:flex;flex-wrap:wrap;gap:8px}
+.loc :is(a,button){display:inline-flex;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--court);font:600 14px var(--body);text-decoration:none;cursor:pointer;transition:background .15s,color .15s}
+.loc :is(a,button):hover{background:var(--soft);color:var(--clay)}
+.loc :is(a,button):active{transform:scale(.97)}
+.loc .court-map-link{background:var(--court);border-color:var(--court);color:#fff!important}.loc .court-map-link:hover{background:var(--ink);border-color:var(--ink)}
+.court-map-link{justify-self:start;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--court);color:#fff!important;color:var(--court);font:600 14px var(--body);cursor:pointer}
 .court-detail-empty{padding:16px;border-radius:var(--r-inner);corner-shape:squircle;background:var(--soft)}
 .court-videos{margin-top:16px}
 .court-videos .bk{margin-top:4px}
@@ -1437,15 +1442,25 @@ let fitCourtView = () => {}, landmarkLabels = [];
 
 // Где посмотреть свободные слоты: PlayOn (онлайн-бронь), бот или канал клуба; если нет — звонок
 const BK = {training: ['Запись на тренировки', 'Mashg‘ulotlarga yozilish', 'Training sign-up'], site: ['Сайт спортцентра', 'Sport markazi sayti', 'Sports centre website'], playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
+// Location in any map app the visitor uses, plus sharing to Telegram and copying coordinates.
+function locHtml(c) {
+  const [lat, lon] = c.ll, name = c[lang] || c.ru, q = encodeURIComponent(name);
+  const yandex = `https://yandex.uz/maps/?pt=${lon},${lat}&z=17&l=map`;
+  const apps = [
+    [L_('Яндекс', 'Yandex', 'Yandex'), `https://yandex.uz/maps/?rtext=~${lat},${lon}&rtt=auto`],
+    [L_('2ГИС', '2GIS', '2GIS'), `https://2gis.uz/geo/${lon}%2C${lat}`],
+    ['Google', `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`],
+    ['Apple', `https://maps.apple.com/?ll=${lat},${lon}&q=${q}`],
+  ];
+  const share = `https://t.me/share/url?url=${encodeURIComponent(yandex)}&text=${encodeURIComponent(name + ' · ' + L_('корт', 'kort', 'court'))}`;
+  return `<div class="loc">${apps.map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`).join('')}` +
+    `<a href="${share}" target="_blank" rel="noopener">${L_('Отправить в Telegram', 'Telegramga yuborish', 'Send via Telegram')}</a>` +
+    `<button type="button" data-ll="${lat}, ${lon}">${L_('Скопировать координаты', 'Koordinatalarni nusxalash', 'Copy coordinates')}</button></div>`;
+}
 function bookHtml(c) {
   const links = (c.bk || []).map(b => `<a href="${b.u}" target="_blank" rel="noopener">${L_(...BK[b.k])}${b.t && !/^play/.test(b.k) ? ' · ' + b.t : ''}</a>`);
   if (links.length && c.tel) links.push(`<a href="tel:${c.tel}">${L_('Тел.', 'Tel.', 'Tel.')} ${fmtTel(c.tel)}</a>`);
   else if (c.tel) links.push(`<a href="tel:${c.tel}">${L_('Позвонить', 'Qo‘ng‘iroq qilish', 'Call')} ${fmtTel(c.tel)}</a>`);
-  const coords = c.ll.join(',');
-  const route = lang === 'en' || GMAPS_KEY
-    ? `https://www.google.com/maps/dir/?api=1&destination=${coords}`
-    : `https://yandex.uz/maps/?rtext=~${coords}&rtt=auto`;
-  links.push(`<a href="${route}" target="_blank" rel="noopener">${L_('Маршрут', 'Yo‘nalish', 'Directions')}</a>`);
   return `<div class="bk">${links.join('')}</div>`;
 }
 
@@ -1714,9 +1729,18 @@ function openCourtDetails(court, startImage) {
     <div><h3>${L_('Условия входа', 'Kirish shartlari', 'Entry requirements')}</h3><p>${entry}</p></div>
     <div class="court-hours">${hoursBoard(court, variants[0], typeLabel(variants[0]))}</div>${court.price ? `
     <div><h3>${L_('Стоимость', 'Narxi', 'Price')}</h3><p>${L_(...court.price)}</p></div>` : ''}
-    <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>`;
+    <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>
+    <div><h3>${L_('Локация', 'Joylashuv', 'Location')}</h3>${locHtml(court)}</div>`;
+  info.querySelector('.loc button').onclick = e => {
+    const b = e.currentTarget, label = b.textContent;
+    navigator.clipboard?.writeText(b.dataset.ll).then(() => {
+      b.textContent = L_('Скопировано', 'Nusxalandi', 'Copied');
+      setTimeout(() => b.textContent = label, 1500);
+    });
+  };
   const marker = marks[COURTS.indexOf(court)];
   if (marker) {
+    // «Показать на карте» lives in the same row as the map apps.
     const mapButton = document.createElement('button');
     mapButton.type = 'button';
     mapButton.className = 'court-map-link';
@@ -1726,7 +1750,7 @@ function openCourtDetails(court, startImage) {
       document.getElementById('cmap').scrollIntoView({block: 'center'});
       marker.focus();
     };
-    info.append(mapButton);
+    info.querySelector('.loc').prepend(mapButton);
   }
   gallery?.addEventListener('slide', e => {
     info.querySelector('.court-hours').innerHTML = hoursBoard(court, variants[e.detail], typeLabel(variants[e.detail]));
