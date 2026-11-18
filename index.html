@@ -65,6 +65,8 @@ img{display:block;max-width:100%}
 .langs button:active{transform:scale(.96)}
 .langs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 
+.head{position:sticky;top:0;z-index:20;background:var(--paper);box-shadow:0 0 0 100vmax var(--paper);clip-path:inset(0 -100vmax -1px);transition:transform .25s ease}
+.head.away{transform:translateY(-100%)}
 .section-nav{display:flex;gap:4px;border-block:1px solid var(--line);overflow-x:auto}
 .section-nav a{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 20px;border-radius:var(--r-small);corner-shape:squircle;font-weight:600;text-decoration:none;white-space:nowrap}
 .section-nav a:hover{color:var(--court);background:var(--court-soft)}
@@ -110,6 +112,7 @@ img{display:block;max-width:100%}
   [id^="post-"]:hover .post-share,[id^="post-"]:focus-within .post-share{opacity:1;pointer-events:auto}
 }
 [id^="post-"]{scroll-margin-top:16px}
+section[id]{scroll-margin-top:24px}
 .share-dialog{width:min(472px,calc(100% - 24px));max-width:none;padding:20px 24px 24px;border:0;border-radius:var(--r-inner);corner-shape:squircle;background:var(--paper);color:var(--ink);box-shadow:0 12px 40px #0004}
 .share-dialog::backdrop{background:#0007}
 .share-dialog [hidden]{display:none}
@@ -671,6 +674,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <body>
 <div class="wrap">
 
+<div class="head" id="head">
 <div class="top">
   <div class="date" id="today"></div>
   <aside class="weather" aria-labelledby="weather-title">
@@ -703,6 +707,20 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
   <a href="#courts"><span data-ru>Корты</span><span data-uz>Kortlar</span><span data-en>Courts</span></a>
   <a href="#coaches"><span data-ru>Тренеры</span><span data-uz>Murabbiylar</span><span data-en>Coaches</span></a>
 </nav>
+</div>
+<script>
+// Шапка: прячется при прокрутке вниз, выезжает при прокрутке вверх — язык всегда под рукой
+(() => {
+  const head = document.getElementById('head'); let last = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY, d = y - last;
+    if (Math.abs(d) < 6) return;
+    head.classList.toggle('away', d > 0 && y > head.offsetHeight);
+    last = y;
+  }, {passive: true});
+  head.addEventListener('focusin', () => head.classList.remove('away'));
+})();
+</script>
 
 <script src="scripts/weather.js" defer></script>
 
