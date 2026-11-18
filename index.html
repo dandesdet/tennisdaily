@@ -555,8 +555,7 @@ a.vplay{display:block}
 .vrow{font:600 20px/1.2 var(--body);margin:0 0 16px}.vids+.vrow{margin-top:48px}
 .res .pic.wide img{aspect-ratio:auto}
 .res .score{margin:0;font:500 32px/1.1 var(--serif);letter-spacing:-.01em}
-.events:not(:has(>.ev.big)){display:block}
-.events:not(:has(>.ev.big)) .side{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:48px}
+.events:not(:has(>.ev.big)){display:grid;grid-template-columns:minmax(0,1fr);gap:64px}
 .ev.big .ph.banner img{height:auto;aspect-ratio:940/193}
 .ev .ph.banner .when{top:50%;transform:translateY(-50%)}
 /* все обложки на сайте — один формат 16:9 */
@@ -726,22 +725,22 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <section id="soon">
   <div class="sh"><h2 data-ru>Ближайшие турниры</h2><h2 data-uz>Yaqin turnirlar</h2><h2 data-en>Upcoming tournaments</h2></div>
   <div class="events">
-    <article class="ev big" id="post-olympic-singles-nov-22" data-d="2026-11-22" data-start="2026-11-22T11:00" data-end="2026-11-22T16:00">
-      <div class="ph"><img src="img/courts/olympic-village-outdoor-hard.jpg" alt="Открытые хардовые корты Олимпийского городка"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>22</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+    <article class="ev" id="post-meridian-singles-nov-14" data-d="2026-11-14" data-start="2026-11-14T16:00" data-end="2026-11-14T22:00">
+      <div class="ph"><img src="img/fc_logo.webp" alt="Бойцовский клуб"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><small data-en>Sat</small><b>14</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
-        <a class="via" href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
-        <h3 data-ru>Мужская одиночка · Олимпийский городок</h3><h3 data-uz>Erkaklar yakkaligi · Olimpiya shaharchasi</h3><h3 data-en>Men’s singles · Olympic Village</h3>
-        <div class="facts"><span class="fact">11:00–16:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Открытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Ochiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Outdoor hard court</span><span class="fact" data-ru>NTRP до 3.8</span><span class="fact" data-uz>NTRP 3.8 gacha</span><span class="fact" data-en>NTRP up to 3.8</span><span class="fact" data-ru>375 000 сум</span><span class="fact" data-uz>375 000 so‘m</span><span class="fact" data-en>375,000 sum</span></div>
+        <span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
+        <h3 data-ru>Мужская одиночка · Меридиан</h3><h3 data-uz>Erkaklar yakkaligi · Meridian</h3><h3 data-en>Men’s singles · Meridian</h3>
+        <div class="facts"><span class="fact" data-ru>16:00–22:00</span><span class="fact" data-uz>16:00–22:00</span><span class="fact" data-en>16:00–22:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Крытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Yopiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Indoor hard court</span><span class="fact" data-ru>NTRP до 4.0</span><span class="fact" data-uz>NTRP 4.0 gacha</span><span class="fact" data-en>NTRP up to 4.0</span><span class="fact" data-ru>400 000 сум</span><span class="fact" data-uz>400 000 so‘m</span><span class="fact" data-en>400,000 sum</span></div>
         <div class="fill">
-          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>20 из 24</span><span data-uz>24 tadan 20</span><span data-en>20 of 24</span></div>
-          <div class="bar" aria-hidden="true"><i class="in" style="width:83%"></i></div>
+          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>12 из 12</span><span data-uz>12 tadan 12</span><span data-en>12 of 12</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:100%"></i></div>
         </div>
-        <p class="note" data-ru>8 групп по 3 игрока, потом плей-офф, сет до 6. Запись до 21 ноября, 12:00.</p><p class="note" data-uz>3 o‘yinchidan 8 guruh, keyin pley-off, set 6 gacha. Yozilish 21-noyabr, 12:00 gacha.</p><p class="note" data-en>8 groups of 3 players, then playoffs, one set to 6. Sign-up closes 21 November, 12:00.</p>
-        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 4 места</span><span data-uz>4 ta joy bor</span><span data-en>4 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/Abdukarim_87" target="_blank" rel="noopener"><span data-ru>или напишите организатору · Абдукарим</span><span data-uz>yoki tashkilotchiga yozing · Abdukarim</span><span data-en>or message the organizer · Abdukarim</span></a><span class="chk" data-ru>сверено с PlayOn 18 ноября в 11:35</span><span class="chk" data-uz>PlayOn bilan 18-noyabr 11:35 da tekshirildi</span><span class="chk" data-en>checked on PlayOn on 18 November at 11:35</span></div>
-        <p class="ct"><a href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+        <p class="note" data-ru>Группы и плей-офф, сет до 6.</p><p class="note" data-uz>Guruhlar va pley-off, set 6 gacha.</p><p class="note" data-en>Groups and playoffs, one set to 6.</p>
+        <div class="spots-row"><span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmw7g2e1p002e01m2mzci5jfo" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
       </div>
     </article>
-    <article class="ev big" id="post-uchqun-doubles-nov-15" data-d="2026-11-15" data-start="2026-11-15T16:00" data-end="2026-11-15T22:00">
+    <article class="ev" id="post-uchqun-doubles-nov-15" data-d="2026-11-15" data-start="2026-11-15T16:00" data-end="2026-11-15T22:00">
       <div class="ph"><img src="img/uchqun_hard.webp" alt="Хардовые корты под навесом, Учкун"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>15</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
       <div class="bd">
         <a class="via" href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
@@ -756,39 +755,93 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
         <p class="ct"><a href="https://playon.uz/tournaments/cmw925a15000101s4o67pf9kq" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
       </div>
     </article>
-
-    <div class="side">
-      <article class="mini trip" id="post-meridian-doubles-nov-21" data-d="2026-11-21" data-start="2026-11-21T16:00" data-end="2026-11-21T22:00">
-        <img src="img/courts/meridian.webp" alt="Корты Меридиан">
-        <div><a class="via" href="https://playon.uz/tournaments/cmwi416kb001b01ob489q3pdf" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
-        <span class="tag" data-ru>Сб, 21 ноября · 16:00–22:00</span><span class="tag" data-uz>Sh, 21-noyabr · 16:00–22:00</span><span class="tag" data-en>Sat, 21 November · 16:00–22:00</span>
-        <h3 data-ru>Мужские пары NTRP 2.5–4.0 · Меридиан</h3><h3 data-uz>Erkaklar juftligi NTRP 2.5–4.0 · Meridian</h3><h3 data-en>Men’s doubles NTRP 2.5–4.0 · Meridian</h3>
-        <p style="margin:0" data-ru>12 пар: 4 группы по 3, потом плей-офф, сет до 6, хард. 350 000 сум с игрока. Запись до 20 ноября, 20:00.</p><p style="margin:0" data-uz>12 juft: 3 tadan 4 guruh, keyin pley-off, set 6 gacha, hard. O‘yinchidan 350 000 so‘m. Yozilish 20-noyabr, 20:00 gacha.</p><p style="margin:0" data-en>12 pairs: 4 groups of 3, then playoffs, one set to 6, hard. 350,000 sum per player. Sign-up closes 20 November, 20:00.</p>
-        <span class="spots open"><span data-ru>Записалось 10 из 12 пар</span><span data-uz>12 juftdan 10 tasi yozildi</span><span data-en>10 of 12 pairs signed up</span></span>
-        <p class="ct"><a href="https://playon.uz/tournaments/cmwi416kb001b01ob489q3pdf" target="_blank" rel="noopener"><span data-ru>Записаться на PlayOn</span><span data-uz>PlayOn’da yozilish</span><span data-en>Sign up on PlayOn</span></a></p>
+    <article class="ev" id="post-meridian-doubles-nov-21" data-d="2026-11-21" data-start="2026-11-21T16:00" data-end="2026-11-21T22:00">
+      <div class="ph"><img src="img/courts/meridian.webp" alt="Корты Меридиан"><div class="when"><small data-ru>сб</small><small data-uz>sh</small><small data-en>Sat</small><b>21</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmwi416kb001b01ob489q3pdf" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Мужские пары · Меридиан</h3><h3 data-uz>Erkaklar juftligi · Meridian</h3><h3 data-en>Men’s doubles · Meridian</h3>
+        <div class="facts"><span class="fact" data-ru>16:00–22:00</span><span class="fact" data-uz>16:00–22:00</span><span class="fact" data-en>16:00–22:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Крытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Yopiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Indoor hard court</span><span class="fact" data-ru>NTRP 2.5–4.0</span><span class="fact" data-uz>NTRP 2.5–4.0</span><span class="fact" data-en>NTRP 2.5–4.0</span><span class="fact" data-ru>350 000 сум с игрока</span><span class="fact" data-uz>o‘yinchidan 350 000 so‘m</span><span class="fact" data-en>350,000 sum per player</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Пары</span><span data-uz>Juftlar</span><span data-en>Pairs</span><span data-ru>10 из 12</span><span data-uz>12 tadan 10</span><span data-en>10 of 12</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:83%"></i></div>
         </div>
-      </article>
-      <article class="mini trip" id="post-meridian-singles-nov-14" data-d="2026-11-14" data-start="2026-11-14T16:00" data-end="2026-11-14T22:00">
-        <img src="img/fc_logo.webp" alt="Бойцовский клуб" style="object-fit:contain;background:#fff">
-        <div><span class="via"><img src="img/groups/fc.webp" alt=""><span data-ru>Бойцовский клуб</span><span data-uz>Boytsovskiy klub</span><span data-en>Fight Club</span></span>
-        <span class="tag" data-ru>Сб, 14 ноября · 16:00–22:00</span><span class="tag" data-uz>Sh, 14-noyabr · 16:00–22:00</span><span class="tag" data-en>Sat, 14 November · 16:00–22:00</span>
-        <h3 data-ru>Мужская одиночка NTRP до 4.0 · Меридиан</h3><h3 data-uz>Erkaklar yakkaligi NTRP 4.0 gacha · Meridian</h3><h3 data-en>Men’s singles NTRP up to 4.0 · Meridian</h3>
-        <p style="margin:0" data-ru>12 игроков, группы и плей-офф, сет до 6, хард. Взнос 400 000 сум.</p><p style="margin:0" data-uz>12 o‘yinchi, guruhlar va pley-off, set 6 gacha, hard. Badal 400 000 so‘m.</p><p style="margin:0" data-en>12 players, groups and playoffs, one set to 6, hard. Entry 400,000 sum.</p>
-        <span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span>
-        <p class="ct"><a href="https://playon.uz/tournaments/cmw7g2e1p002e01m2mzci5jfo" target="_blank" rel="noopener"><span data-ru>Сетка на PlayOn</span><span data-uz>PlayOn’da setka</span><span data-en>Draw on PlayOn</span></a></p>
+        <p class="note" data-ru>4 группы по 3 пары, потом плей-офф, сет до 6. Запись до 20 ноября, 20:00.</p><p class="note" data-uz>3 juftdan 4 guruh, keyin pley-off, set 6 gacha. Yozilish 20-noyabr, 20:00 gacha.</p><p class="note" data-en>4 groups of 3 pairs, then playoffs, one set to 6. Sign-up closes 20 November, 20:00.</p>
+        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 2 места для пар</span><span data-uz>2 juftga joy bor</span><span data-en>2 pair spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmwi416kb001b01ob489q3pdf" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmwi416kb001b01ob489q3pdf" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
+    <article class="ev" id="post-olympic-singles-nov-22" data-d="2026-11-22" data-start="2026-11-22T11:00" data-end="2026-11-22T16:00">
+      <div class="ph"><img src="img/courts/olympic-village-outdoor-hard.jpg" alt="Открытые хардовые корты Олимпийского городка"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>22</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Мужская одиночка · Олимпийский городок</h3><h3 data-uz>Erkaklar yakkaligi · Olimpiya shaharchasi</h3><h3 data-en>Men’s singles · Olympic Village</h3>
+        <div class="facts"><span class="fact">11:00–16:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Открытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Ochiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Outdoor hard court</span><span class="fact" data-ru>NTRP до 3.8</span><span class="fact" data-uz>NTRP 3.8 gacha</span><span class="fact" data-en>NTRP up to 3.8</span><span class="fact" data-ru>375 000 сум</span><span class="fact" data-uz>375 000 so‘m</span><span class="fact" data-en>375,000 sum</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>20 из 24</span><span data-uz>24 tadan 20</span><span data-en>20 of 24</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:83%"></i></div>
         </div>
-      </article>
-      <article class="mini trip" id="post-hidoyatov-singles-nov-2026" data-d="2026-12-13">
-        <img src="img/meridian_ev.webp" alt="Корты Меридиан">
-        <div><a class="via" href="https://playon.uz/tournaments/cmvy5to56003u01l57e0k2y0c" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
-        <span class="tag" data-ru>22 и 29 ноября, 6 и 13 декабря · 16:00</span><span class="tag" data-uz>22 va 29-noyabr, 6 va 13-dekabr · 16:00</span><span class="tag" data-en>22 and 29 November, 6 and 13 December · 16:00</span>
-        <h3 data-ru>Одиночки Тахира Хидоятова · Меридиан</h3><h3 data-uz>Tohir Hidoyatovning yakkalik turnirlari · Meridian</h3><h3 data-en>Tahir Khidoyatov’s singles events · Meridian</h3>
-        <p style="margin:0" data-ru>22 ноября — NTRP 3.8–4.0, 6 декабря — NTRP 4.0–4.5, 29 ноября и 13 декабря — Мастерс NTRP 4.5–5.0. По 8 мужчин в сетке, хард.</p><p style="margin:0" data-uz>22-noyabr — NTRP 3.8–4.0, 6-dekabr — NTRP 4.0–4.5, 29-noyabr va 13-dekabr — Masters NTRP 4.5–5.0. Har setkada 8 erkak, hard.</p><p style="margin:0" data-en>22 November — NTRP 3.8–4.0; 6 December — NTRP 4.0–4.5; 29 November and 13 December — Masters NTRP 4.5–5.0. 8 men per draw, hard.</p>
-        <span class="spots open"><span data-ru>22, 29 ноября и 6 декабря — мест нет; 13 декабря — 5 из 8, запись до 12 декабря</span><span data-uz>22, 29-noyabr va 6-dekabr — joy yo‘q; 13-dekabr — 8 tadan 5, yozilish 12-dekabrgacha</span><span data-en>22, 29 Nov and 6 Dec are full; 13 Dec — 5 of 8, sign-up until 12 Dec</span></span>
-        <p class="ct"><a href="https://playon.uz/tournaments/cmvy5to56003u01l57e0k2y0c" target="_blank" rel="noopener"><span data-ru>22 ноября</span><span data-uz>22-noyabr</span><span data-en>22 Nov</span></a><a href="https://playon.uz/tournaments/cmw1r91jt004n01mpisc11xky" target="_blank" rel="noopener"><span data-ru>29 ноября</span><span data-uz>29-noyabr</span><span data-en>29 Nov</span></a><a href="https://playon.uz/tournaments/cmwfba4rh001o01po15fbu3ny" target="_blank" rel="noopener"><span data-ru>6 декабря</span><span data-uz>6-dekabr</span><span data-en>6 Dec</span></a><a href="https://playon.uz/tournaments/cmwhdks79009i01odypo3e9mh" target="_blank" rel="noopener"><span data-ru>13 декабря</span><span data-uz>13-dekabr</span><span data-en>13 Dec</span></a></p>
+        <p class="note" data-ru>8 групп по 3 игрока, потом плей-офф, сет до 6. Запись до 21 ноября, 12:00.</p><p class="note" data-uz>3 o‘yinchidan 8 guruh, keyin pley-off, set 6 gacha. Yozilish 21-noyabr, 12:00 gacha.</p><p class="note" data-en>8 groups of 3 players, then playoffs, one set to 6. Sign-up closes 21 November, 12:00.</p>
+        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 4 места</span><span data-uz>4 ta joy bor</span><span data-en>4 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a><a class="dm" href="https://t.me/Abdukarim_87" target="_blank" rel="noopener"><span data-ru>или напишите организатору · Абдукарим</span><span data-uz>yoki tashkilotchiga yozing · Abdukarim</span><span data-en>or message the organizer · Abdukarim</span></a><span class="chk" data-ru>сверено с PlayOn 18 ноября в 11:35</span><span class="chk" data-uz>PlayOn bilan 18-noyabr 11:35 da tekshirildi</span><span class="chk" data-en>checked on PlayOn on 18 November at 11:35</span></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
+    <article class="ev" id="post-hidoyatov-singles-nov-2026" data-d="2026-11-22" data-start="2026-11-22T16:00">
+      <div class="ph"><img src="img/tahir_meridian.webp" alt="Тахир Хидоятов на корте Меридиана" style="object-position:50% 40%"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>22</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmvy5to56003u01l57e0k2y0c" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Одиночка Тахира Хидоятова · Меридиан</h3><h3 data-uz>Tohir Hidoyatovning yakkalik turniri · Meridian</h3><h3 data-en>Tahir Khidoyatov’s singles · Meridian</h3>
+        <div class="facts"><span class="fact" data-ru>16:00</span><span class="fact" data-uz>16:00</span><span class="fact" data-en>16:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Крытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Yopiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Indoor hard court</span><span class="fact" data-ru>NTRP 3.8–4.0</span><span class="fact" data-uz>NTRP 3.8–4.0</span><span class="fact" data-en>NTRP 3.8–4.0</span><span class="fact" data-ru>Мужская одиночка</span><span class="fact" data-uz>Erkaklar yakkaligi</span><span class="fact" data-en>Men’s singles</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>8 из 8</span><span data-uz>8 tadan 8</span><span data-en>8 of 8</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:100%"></i></div>
         </div>
-      </article>
-    </div>
+        <div class="spots-row"><span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmvy5to56003u01l57e0k2y0c" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
+    <article class="ev" id="post-hidoyatov-masters-nov-29" data-d="2026-11-29" data-start="2026-11-29T16:00">
+      <div class="ph"><img src="img/meridian_ev.webp" alt="Корты Меридиан"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>29</b><small data-ru>ноя</small><small data-uz>noy</small><small data-en>Nov</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmw1r91jt004n01mpisc11xky" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Мастерс Тахира Хидоятова · Меридиан</h3><h3 data-uz>Tohir Hidoyatovning Masters turniri · Meridian</h3><h3 data-en>Tahir Khidoyatov’s Masters · Meridian</h3>
+        <div class="facts"><span class="fact" data-ru>16:00</span><span class="fact" data-uz>16:00</span><span class="fact" data-en>16:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Крытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Yopiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Indoor hard court</span><span class="fact" data-ru>NTRP 4.5–5.0</span><span class="fact" data-uz>NTRP 4.5–5.0</span><span class="fact" data-en>NTRP 4.5–5.0</span><span class="fact" data-ru>Мужская одиночка</span><span class="fact" data-uz>Erkaklar yakkaligi</span><span class="fact" data-en>Men’s singles</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>8 из 8</span><span data-uz>8 tadan 8</span><span data-en>8 of 8</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:100%"></i></div>
+        </div>
+        <div class="spots-row"><span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmw1r91jt004n01mpisc11xky" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
+    <article class="ev" id="post-hidoyatov-singles-dec-6" data-d="2026-12-06" data-start="2026-12-06T16:00">
+      <div class="ph"><img src="img/tahir_meridian.webp" alt="Тахир Хидоятов на корте Меридиана" style="object-position:50% 40%"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>6</b><small data-ru>дек</small><small data-uz>dek</small><small data-en>Dec</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmwfba4rh001o01po15fbu3ny" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Одиночка Тахира Хидоятова · Меридиан</h3><h3 data-uz>Tohir Hidoyatovning yakkalik turniri · Meridian</h3><h3 data-en>Tahir Khidoyatov’s singles · Meridian</h3>
+        <div class="facts"><span class="fact" data-ru>16:00</span><span class="fact" data-uz>16:00</span><span class="fact" data-en>16:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Крытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Yopiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Indoor hard court</span><span class="fact" data-ru>NTRP 4.0–4.5</span><span class="fact" data-uz>NTRP 4.0–4.5</span><span class="fact" data-en>NTRP 4.0–4.5</span><span class="fact" data-ru>Мужская одиночка</span><span class="fact" data-uz>Erkaklar yakkaligi</span><span class="fact" data-en>Men’s singles</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>8 из 8</span><span data-uz>8 tadan 8</span><span data-en>8 of 8</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:100%"></i></div>
+        </div>
+        <div class="spots-row"><span class="spots full"><span data-ru>Мест нет</span><span data-uz>Joy yo‘q</span><span data-en>Full</span></span></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmwfba4rh001o01po15fbu3ny" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
+    <article class="ev" id="post-hidoyatov-masters-dec-13" data-d="2026-12-13" data-start="2026-12-13T16:00">
+      <div class="ph"><img src="img/meridian_ev.webp" alt="Корты Меридиан"><div class="when"><small data-ru>вс</small><small data-uz>ya</small><small data-en>Sun</small><b>13</b><small data-ru>дек</small><small data-uz>dek</small><small data-en>Dec</small></div></div>
+      <div class="bd">
+        <a class="via" href="https://playon.uz/tournaments/cmwhdks79009i01odypo3e9mh" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
+        <h3 data-ru>Мастерс Тахира Хидоятова · Меридиан</h3><h3 data-uz>Tohir Hidoyatovning Masters turniri · Meridian</h3><h3 data-en>Tahir Khidoyatov’s Masters · Meridian</h3>
+        <div class="facts"><span class="fact" data-ru>16:00</span><span class="fact" data-uz>16:00</span><span class="fact" data-en>16:00</span><span class="fact sf" style="--sf:#2E8B57" data-ru>Крытый хард</span><span class="fact sf" style="--sf:#2E8B57" data-uz>Yopiq hard</span><span class="fact sf" style="--sf:#2E8B57" data-en>Indoor hard court</span><span class="fact" data-ru>NTRP 4.5–5.0</span><span class="fact" data-uz>NTRP 4.5–5.0</span><span class="fact" data-en>NTRP 4.5–5.0</span><span class="fact" data-ru>Мужская одиночка</span><span class="fact" data-uz>Erkaklar yakkaligi</span><span class="fact" data-en>Men’s singles</span></div>
+        <div class="fill">
+          <div class="lbl"><span data-ru>Игроки</span><span data-uz>O‘yinchilar</span><span data-en>Players</span><span data-ru>5 из 8</span><span data-uz>8 tadan 5</span><span data-en>5 of 8</span></div>
+          <div class="bar" aria-hidden="true"><i class="in" style="width:62%"></i></div>
+        </div>
+        <p class="note" data-ru>Запись до 12 декабря.</p><p class="note" data-uz>Yozilish 12-dekabrgacha.</p><p class="note" data-en>Sign-up until 12 December.</p>
+        <div class="spots-row"><span class="spots open"><span data-ru>Осталось 3 места</span><span data-uz>3 ta joy bor</span><span data-en>3 spots left</span></span><a class="cta" href="https://playon.uz/tournaments/cmwhdks79009i01odypo3e9mh" target="_blank" rel="noopener"><span data-ru>Записаться</span><span data-uz>Yozilish</span><span data-en>Sign up</span></a></div>
+        <p class="ct"><a href="https://playon.uz/tournaments/cmwhdks79009i01odypo3e9mh" target="_blank" rel="noopener"><span data-ru>Страница турнира на PlayOn</span><span data-uz>PlayOn’dagi turnir sahifasi</span><span data-en>Tournament page on PlayOn</span></a></p>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -1298,6 +1351,9 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
       else sec.remove();
     }
   }
+  // анонсы — по дате и времени начала, ближайшие первыми
+  const evs = document.querySelector('#soon .events');
+  if (evs) [...evs.querySelectorAll(':scope > article')].sort((x, y) => (x.dataset.start || x.dataset.d).localeCompare(y.dataset.start || y.dataset.d)).forEach(e => evs.append(e));
   if (ARCH) {
     document.documentElement.classList.add('arch');
     ['world', 'courts', 'coaches'].forEach(id => { const e = document.getElementById(id); if (e) e.hidden = true; });
