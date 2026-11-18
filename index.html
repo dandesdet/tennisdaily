@@ -292,6 +292,13 @@ img[src*="courts/turin"]{object-position:50% 0}
 .map-photo-credits{margin:6px 0 18px;text-align:right;color:var(--muted);font-size:13px}
 .map-photo-credits summary{cursor:pointer}
 .map-photo-credits ul{list-style:none;margin:6px 0 0;padding:0}
+.me-dot{position:relative;width:16px;height:16px;border-radius:50%;background:#2F6DB5;border:3px solid #fff;box-shadow:0 1px 4px #0005;transform:translate(-50%,-50%)}
+.me-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:#2F6DB5;opacity:.5;animation:me-pulse 2s ease-out infinite;z-index:-1}
+@keyframes me-pulse{from{transform:scale(1);opacity:.5}to{transform:scale(3.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.me-dot::after{animation:none}}
+.me-btn{position:absolute;right:12px;bottom:28px;z-index:500;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--court);font:600 14px var(--body);cursor:pointer;box-shadow:0 1px 4px #0002}
+.me-btn:hover{color:var(--clay)}.me-btn:active{transform:scale(.97)}
+.cmap-wrap{position:relative}
 .cmap{height:640px;border-radius:var(--r-img);corner-shape:squircle;background:var(--soft);z-index:0}
 #cmap [role="region"][tabindex="0"]{border-radius:var(--r-img);corner-shape:squircle}
 #cmap:focus-visible,#cmap [role="region"][tabindex="0"]:focus-visible{outline:2px solid #005fcc;outline-offset:-2px}
@@ -1385,13 +1392,13 @@ const COURTS = [
   {ru:'МГУ им. Ломоносова', counts:{co:3}, en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn", t:[["c", "o",'img/courts/mgu.webp']]}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}]},
   {ru:'Учкун', en:"Uchqun", stEn:"open", dEn:"Clay and a covered hard court.", uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.359794,69.285046], dRu:'Грунт и хард под навесом.', dUz:'Grunt va ayvon ostida hard.', tel:'+998999027802', bk:[], t:[["c", "o"], ["h", "r",'img/uchqun_hard.webp']]},
   {ru:'Республиканская школа олимпийского резерва', counts:{ho:13, co:4, hi:3}, short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[['h','o','img/courts/school.webp'], ['c','o'], ['h','i','img/courts/rtshor-hall-1.webp',['№ 1 из 3','3 tadan 1-zal','No. 1 of 3']], ['h','d']]},
-  {ru:'Меридиан', counts:{hi:2}, en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'07:00–23:00', bk:[], t:[['h','i','img/courts/meridian.webp']],
+  {ru:'Меридиан', counts:{hi:2}, en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'06:00–23:00', bk:[], t:[['h','i','img/courts/meridian.webp']],
    videos:[
      ['https://www.youtube.com/shorts/hh55DBUigII','Laver Cup: удар дня','Laver Cup: kun zarbasi','Laver Cup: shot of the day'],
      ['https://www.youtube.com/shorts/JyOMNVMXVkM','Laver Cup: чистый виннер','Laver Cup: toza vinner','Laver Cup: a clean winner'],
      ['https://swing.vision/matches/sw2-yP7YidM','Запись матча на SwingVision','SwingVision’da o‘yin yozuvi','Match recording on SwingVision']
    ]},
-  {ru:'Юнусабад (у телебашни)', counts:{ho:4, xi:2}, en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"Two indoor tennis courts. There are four outdoor hard courts, as well as outdoor clay courts.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'Два крытых теннисных корта. На улице четыре хардовых корта и грунтовые корты.', dUz:'Ikkita yopiq tennis korti. Ochiq maydonda to‘rtta hard kort va grunt kortlar bor.', tel:'+998712347760', h:'07:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}, {u:'https://yunsc.uz/sport/tennis', k:'site'}], t:[["c", "o",'img/courts/yunusabad-clay.webp'], ["h", "o",'img/courts/yunusabad-outdoor-hard.webp'], ['x','i','img/courts/yunusabad-indoor.jpg']]},
+  {ru:'Юнусабад (у телебашни)', counts:{ho:4, xi:2}, en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"Two indoor tennis courts. There are four outdoor hard courts, as well as outdoor clay courts.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'Два крытых теннисных корта. На улице четыре хардовых корта и грунтовые корты.', dUz:'Ikkita yopiq tennis korti. Ochiq maydonda to‘rtta hard kort va grunt kortlar bor.', tel:'+998712347760', h:'09:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}, {u:'https://yunsc.uz/sport/tennis', k:'site'}], t:[["c", "o",'img/courts/yunusabad-clay.webp'], ["h", "o",'img/courts/yunusabad-outdoor-hard.webp'], ['x','i','img/courts/yunusabad-indoor.jpg']]},
   {ru:'Пахтакор · Tennis & Padel City', counts:{co:7, ho:3}, en:"Pakhtakor · Tennis & Padel City", stEn:"open · online booking", dEn:"Islam Karimov 98A. 10 outdoor courts (7 clay, 3 hard) plus an indoor hall with clay and hard.", uz:'Paxtakor · Tennis & Padel City', st:'ok', stRu:'открыт · онлайн-бронь', stUz:'ochiq · onlayn bron', ll:[41.315683,69.263468], dRu:'Ислама Каримова, 98А. 10 открытых кортов (7 грунт, 3 хард) и крытый зал: грунт и хард.', dUz:'Islom Karimov, 98A. 10 ta ochiq kort (7 grunt, 3 hard) va yopiq zal: grunt va hard.', tel:'+998903331151', h:'07:00–02:00', bk:[{"u": "https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis", "k": "playsport", "t": "PlaySport", t:[["c", "o",'img/courts/pakhtakor.webp'], ["h", "o",'img/courts/pakhtakor-hard-outdoor.webp'], ["c", "i",'img/courts/pakhtakor-clay-indoor.webp'], ["h", "i",'img/courts/pakhtakor-hard-indoor.webp']]}, {"u": "img/courts/pakhtakor-scheme.webp", "k": "scheme", "t": ""}, {u:'https://tennispadelcity.uz/', k:'photos'}]},
   {ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor hard and clay courts, plus an indoor hall.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Открытые хардовые и грунтовые корты, есть зал.', dUz:'Ochiq hard va grunt kortlar hamda yopiq zal bor.', tel:'+998911351877', h:'07:00–23:00', bk:[], t:[['c','o','img/courts/dinamo.webp'], ['h','o','img/courts/dinamo-outdoor-hard.webp'], ['h','i','img/courts/dinamo-court-1.webp',['Корт № 1','1-kort','Court No. 1']], ['x','i','img/courts/dinamo-hall-2.webp',['Зал № 2','2-zal','Hall No. 2']]]},
   {ru:'AJOU · Ravshan court', counts:{hi:2}, en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 113A, by Ajou University. Two indoor hard courts, air conditioning and heating. Entry by badge: regulars get one via Akmal; whether hourly renters need it is being clarified. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 113А, у университета Аджу. Два крытых хардовых корта, кондиционер и отопление. Вход по бейджу: постоянным игрокам делают через Акмаля, для тех, кто берёт корт на час, — уточняется. Аренда и группы — Tennis plus.', dUz:'Asalobod ko‘chasi, 113A, Ajou universiteti yonida, Yashnobod. Ikkita yopiq hard kort, konditsioner va isitish. Kirish beyj orqali: doimiy o‘yinchilarga Akmal orqali; soatbay olganlarga — aniqlanmoqda. Tennis plus.', access:['Постоянным игрокам нужен бейдж. Для разовой аренды уточните правила у Акмаля.','Doimiy o‘yinchilarga beyj kerak. Bir martalik ijara qoidalarini Akmaldan so‘rang.','Regular players need a badge. Ask Akmal about one-off bookings.'], tel:'+998900130140', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/ajou-indoor-hard.webp']],
@@ -1399,13 +1406,13 @@ const COURTS = [
      ['https://www.youtube.com/shorts/iPalS-TlosY','Бэкхендщик против волейщика','Bekhend va vollei','Backhander vs volleyer'],
      ['https://www.youtube.com/shorts/1sYwySHxVy4','Владимир Ивко — Шерзод Гуламов','Vladimir Ivko — Sherzod Gulomov','Vladimir Ivko vs Sherzod Gulamov']
    ]},
-  {ru:'JAR (Жар)', uz:'JAR', en:'JAR', st:'ok', stRu:'крытый зал', stUz:'yopiq zal', stEn:'indoor court',
+  {h:'07:00–22:00', ru:'JAR (Жар)', uz:'JAR', en:'JAR', st:'ok', stRu:'крытый зал', stUz:'yopiq zal', stEn:'indoor court',
    ll:[41.32185,69.23049], tel:'+998712494839',
    dRu:'Проспект Беруни, 3, рядом с Чорсу. Расписание теннисных занятий уточняйте по телефону.',
    dUz:'Beruniy shoh ko‘chasi, 3, Chorsu yaqinida. Tennis mashg‘ulotlari jadvalini telefonda aniqlang.',
    dEn:'3 Beruniy Avenue, near Chorsu. Call for the tennis schedule.',
    bk:[], t:[['x','i','img/courts/jar-indoor.webp']]},
-  {ru:'Хадра', en:"Hadra", stEn:"open", dEn:"Zarqaynar, 4/3.", uz:'Xadra', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.323518,69.241747], dRu:'Заркайнар, 4/3.', dUz:'Zarqaynar, 4/3.', tel:'+998712441449', h:'09:00–21:00', bk:[], t:[["h", "r",'img/courts/hadra.webp']]},
+  {ru:'Хадра', en:"Hadra", stEn:"open", dEn:"Zarqaynar, 4/3.", uz:'Xadra', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.323518,69.241747], dRu:'Заркайнар, 4/3.', dUz:'Zarqaynar, 4/3.', tel:'+998712441449', h:'08:00–20:00', bk:[], t:[["h", "r",'img/courts/hadra.webp']]},
   {ru:'TopTennis · школа № 110', uz:'TopTennis · 110-maktab', en:'TopTennis · School No. 110',
    st:'ok', stRu:'тренировки', stUz:'mashg‘ulotlar', stEn:'coaching', ll:[41.303978,69.274050],
    dRu:'Мирабад, ул. Якуба Коласа (бывшая Яккачинор), 9. Тренировки для взрослых и детей.',
@@ -1416,7 +1423,7 @@ const COURTS = [
   {ru:'Ace club', counts:{hi:2}, en:"Ace club", stEn:"open", dEn:"Tashselmash. 2 heated indoor courts, changing rooms and showers.", uz:'Ace club', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.3099722,69.3073333], dRu:'Ташсельмаш. 2 крытых корта с отоплением, раздевалки и душ.', dUz:'Toshselmash. 2 ta isitiladigan yopiq kort, dush.', h:'06:00–24:00', bk:[{"u": "https://playon.uz/stadiums/second-stadium", "k": "playon", "t": "PlayOn"}, {"u": "https://t.me/ace_club_courts_bot", "k": "bot", "t": "@ace_club_courts_bot"}],
    t:[['h','i','img/courts/ace-blue.webp',['Голубой корт','Havorang kort','Light blue court']],
       ['h','i','img/courts/ace-green.webp',['Зелёный корт','Yashil kort','Green court']]]},
-  {ru:'Ипакчилик', counts:{co:2, hi:1}, en:"Ipakchilik", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
+  {h:'09:00–18:00', ru:'Ипакчилик', counts:{co:2, hi:1}, en:"Ipakchilik", stEn:"open", dEn:"Ipakchi Street. Two outdoor clay courts and one indoor hard court.", uz:'Ipakchilik', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.329327,69.19038], dRu:'Улица Ипакчи. Два грунтовых корта на улице и один крытый хард.', dUz:'Ipakchi ko‘chasi. Ikkita ochiq grunt kort va bitta yopiq hard kort.', tel:'+998959492222', bk:[],
    t:[['c','o','img/courts/ipak.webp'], ['h','i','img/courts/ipakchi-indoor.webp']]},
   {ru:'Теннисная школа Ироды Тулягановой', short:['Школа Ироды', 'Iroda maktabi', 'Iroda Tennis'], en:"Iroda Tulyaganova Tennis School", stEn:"clay closed for winter", dEn:"Lashkarlar St. Outdoor clay courts.", uz:'Iroda To‘laganova tennis maktabi', st:'off', stRu:'грунт закрыт на зиму', stUz:'grunt qishga yopiq', ll:[41.330284,69.340359], dRu:'Улица Лашкарлар. Открытые грунтовые корты.', dUz:'Lashkarlar ko‘chasi. Ochiq grunt kortlar.', h:'09:00–21:00', tel:'+998935646880', t:[["c","o",'img/courts/iroda.webp']], bk:[]},
   {ru:'Умид', en:"Umid", stEn:"open", dEn:"Umid sports complex, Yalangach 82A. Hard court; amateur tournaments are held here (PlayOn).", uz:'Umid', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.350547,69.347301], dRu:'Спорткомплекс «Умид», Ялангач, 82А. Хард; здесь проходят любительские турниры (PlayOn).', dUz:'«Umid» sport majmuasi, Yalang‘och, 82A. Hard; havaskor turnirlar o‘tadi (PlayOn).', img:'img/courts/umid-exterior.webp', tel:'+998712631899', t:[["h",null]], bk:[]},
@@ -2022,6 +2029,48 @@ function initMap() {
 }
 initMap();
 
+// «Где я»: синяя пульсирующая точка посетителя на карте. Разрешение спрашиваем только по кнопке;
+// если оно уже дано раньше, точка появляется сама.
+let meMark = null, meWatch = null;
+function placeMe(lat, lng, pan) {
+  if (!map) return;
+  if (window.google && map instanceof google.maps.Map) {
+    if (!meMark) {
+      const el = document.createElement('div'); el.className = 'me-dot'; el.style.zIndex = 1000;
+      meMark = new google.maps.OverlayView();
+      meMark.pos = new google.maps.LatLng(lat, lng);
+      meMark.onAdd = () => meMark.getPanes().overlayMouseTarget.append(el);
+      meMark.draw = () => { const p = meMark.getProjection().fromLatLngToDivPixel(meMark.pos); if (p) { el.style.position = 'absolute'; el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; } };
+      meMark.onRemove = () => el.remove();
+      meMark.setMap(map);
+    } else { meMark.pos = new google.maps.LatLng(lat, lng); meMark.draw(); }
+    if (pan) { map.panTo({lat, lng}); if (map.getZoom() < 13) map.setZoom(13); }
+  } else if (window.L) {
+    if (!meMark) meMark = L.marker([lat, lng], {icon: L.divIcon({className: '', html: '<div class="me-dot"></div>', iconSize: [0, 0]}), interactive: false, zIndexOffset: 1000}).addTo(map);
+    else meMark.setLatLng([lat, lng]);
+    if (pan) map.setView([lat, lng], Math.max(map.getZoom(), 13));
+  }
+}
+function locateMe(pan) {
+  if (!navigator.geolocation || meWatch !== null) { if (pan && meMark) placeMe(...(meMark.pos ? [meMark.pos.lat(), meMark.pos.lng()] : [meMark.getLatLng().lat, meMark.getLatLng().lng]), true); return; }
+  let first = true;
+  meWatch = navigator.geolocation.watchPosition(p => {
+    placeMe(p.coords.latitude, p.coords.longitude, pan && first); first = false;
+  }, () => { meWatch = null; }, {enableHighAccuracy: true, maximumAge: 60000});
+}
+(() => {
+  const box = document.getElementById('cmap');
+  const wrap = document.createElement('div'); wrap.className = 'cmap-wrap';
+  box.before(wrap); wrap.append(box);
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'me-btn';
+  const label = () => btn.textContent = '◎ ' + L_('Где я', 'Men qayerda', 'My location');
+  label(); document.addEventListener('langchange', label);
+  btn.onclick = () => locateMe(true);
+  wrap.append(btn);
+  navigator.permissions?.query({name: 'geolocation'}).then(r => { if (r.state === 'granted') setTimeout(() => locateMe(false), 1500); }).catch(() => {});
+})();
+
 // Источники дайджеста. Закрытые группы без ссылки отображаются текстом.
 const SOURCES = [
   {t:'Теннис (Бойцовский клуб)', tUz:'Tennis (Boytsovskiy klub)', tEn:'Tennis (Fight Club)', av:'БК', avL:'FC', img:'img/groups/fc.webp', n:360},
@@ -2047,7 +2096,7 @@ const set = l => {
   lang = l; document.documentElement.lang = l;
   document.querySelectorAll('[data-set]').forEach(b => b.setAttribute('aria-pressed', b.dataset.set === l));
   try { localStorage.setItem('td-lang', l); } catch (e) {}
-  renderCourts(); renderSources();
+  renderCourts(); renderSources(); document.dispatchEvent(new Event('langchange'));
 };
 document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
