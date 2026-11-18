@@ -348,6 +348,8 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-dialog-head{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:24px 28px 16px;border-bottom:1px solid var(--line)}
 .court-dialog-head h2{margin:0;font:500 clamp(25px,4vw,38px)/1.15 var(--serif)}
 .court-dialog-head .share-close{flex:none;margin:-6px -8px 0 0;cursor:pointer;color:var(--ink)}
+.court-dialog-head h2{flex:1}
+.court-share{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-6px 0 0;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--court);cursor:pointer}.court-share svg{width:21px;height:21px}.court-share:hover{background:var(--court-soft)!important}
 .court-dialog-head button:hover{background:var(--soft)}
 .court-detail{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;padding:24px 28px 28px}
 .court-detail h3{font:600 16px/1.35 var(--body);margin:0 0 5px}
@@ -1279,6 +1281,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <dialog class="court-dialog" id="court-dialog" aria-labelledby="court-dialog-title">
   <div class="court-dialog-head">
     <h2 id="court-dialog-title"></h2>
+    <button type="button" class="court-share" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M8 11H5v10h14V11h-3"/></svg><span class="post-share-label"><span data-ru>Поделиться</span><span data-uz>Ulashish</span><span data-en>Share</span></span></button>
     <button type="button" class="share-close" autofocus>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
     </button>
@@ -1653,8 +1656,11 @@ const courtDialogBody = courtDialog.querySelector('.court-detail');
 const courtClose = courtDialog.querySelector('.share-close');
 courtClose.onclick = () => courtDialog.close();
 courtDialog.addEventListener('close', () => {
-  if (!courtDialog.open) courtDialogBody.replaceChildren();
+  if (!courtDialog.open) { courtDialogBody.replaceChildren(); openCourt = null; setCourtParam(''); }
 });
+courtDialog.querySelector('.court-share').onclick = e => {
+  if (openCourt) openShare(courtUrl(openCourt), openCourt[lang] || openCourt.ru, e.currentTarget);
+};
 courtDialog.addEventListener('click', event => {
   if (event.target !== courtDialog) return;
   const bounds = courtDialog.getBoundingClientRect();
@@ -1762,8 +1768,19 @@ function courtTypeCarousel(court) {
   return gallery;
 }
 
+// Each court has its own link: ?court=<id> opens its card; court/<id>/ is the shareable page with a preview.
+let openCourt = null;
+const courtUrl = c => new URL(`court/${c.id}/`, location.href).href;
+function setCourtParam(id) {
+  const u = new URL(location.href);
+  if (id) u.searchParams.set('court', id); else u.searchParams.delete('court');
+  history.replaceState(history.state, '', u);
+}
 function openCourtDetails(court, startImage) {
   const name = court[lang] || court.ru;
+  openCourt = court;
+  if (court.id) setCourtParam(court.id);
+  courtDialog.querySelector('.court-share').hidden = !court.id;
   courtDialog.querySelector('h2').textContent = name;
   courtClose.setAttribute('aria-label', L_('Закрыть', 'Yopish', 'Close'));
   const unavailable = L_('Не указано', 'Ko‘rsatilmagan', 'Not listed');
@@ -2159,6 +2176,9 @@ const set = l => {
 document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
 set(saved || 'uz');   // по умолчанию — узбекский; выбор человека запоминаем
+{ const id = new URLSearchParams(location.search).get('court');
+  const c = id && /^[a-z0-9-]{1,40}$/.test(id) && COURTS.find(x => x.id === id);
+  if (c) openCourtDetails(c); else if (id) setCourtParam(''); }
 
 const shareDialog = document.getElementById('share-dialog');
 const shareTrack = document.getElementById('share-track');
@@ -2220,6 +2240,10 @@ function openPostShare(card, button) {
     url.hash = card.id;
   }
   const title = [...card.querySelectorAll('h3')].find(h => h.getClientRects().length)?.innerText.trim() || document.title;
+  openShare(url.href, title, button);
+}
+function openShare(href, title, button) {
+  const url = {href};
   const link = encodeURIComponent(url.href);
   const subject = encodeURIComponent(title);
   const body = encodeURIComponent(title + '\n' + url.href);
