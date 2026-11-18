@@ -649,6 +649,21 @@ a.cta{min-height:44px;height:auto;padding-block:8px}
 :is(.cfoot,.map-photo-credits li) a[href],
 footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r-tiny);corner-shape:squircle;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 @media (max-width:900px){a.a2hs-link{justify-content:center}}
+
+/* ближайшие турниры — как итоги: равные карточки в две колонки 50/50, обложка 16:9 сверху */
+@media (min-width:901px){
+  .events,.events:not(:has(>.ev.big)){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px 40px}
+  .events .side,.events:not(:has(>.ev.big)) .side{display:contents}
+  .events .mini.trip{grid-template-columns:minmax(0,1fr);gap:14px;padding-top:0;border-top:0;align-content:start}
+  .events :is(.mini.trip>img,.mini.trip>.post-media>img){width:100%;height:auto;aspect-ratio:16/9;border-radius:var(--r-img);corner-shape:squircle}
+  .events .ev .bd{padding-top:14px}
+  .events .mini.trip>div{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .events .mini.trip>div>*{margin:0}
+  .events .mini.trip>div{min-width:0}
+  .events .mini.trip>div>*{max-width:100%}
+  .events .spots{width:auto}.events .spots,.events .spots *{white-space:normal}
+  .events :is(.ev.big h3,.ev h3,.mini h3){font-size:32px;line-height:1.15}
+}
 </style>
 </head>
 <body>
