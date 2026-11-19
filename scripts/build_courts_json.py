@@ -1,4 +1,4 @@
-"""Build courts.json, court/<id>/ pages, the /korty/ landing page, sitemap.xml and robots.txt from COURTS in index.html.
+"""Build courts.json, court/<id>/ pages, the /courts/ landing page, sitemap.xml and robots.txt from COURTS in index.html.
 
 The Telegram location bot reads https://tennisdaily.uz/courts.json, so the site
 stays the single source of court coordinates. Run after editing COURTS:
@@ -248,7 +248,7 @@ def head(title, desc, url, image):
 
 
 # Language switch is hidden: these pages exist in Russian only (a visible control must work).
-NAV = """<nav class="section-nav" aria-label="Tennis Daily"><a href="/#soon">Турниры</a><a href="/#results">Результаты</a><a href="/#news">Новости</a><a aria-current="page" href="/korty/">Корты</a><a href="/#coaches">Тренеры</a></nav>
+NAV = """<nav class="section-nav" aria-label="Tennis Daily"><a href="/#soon">Турниры</a><a href="/#results">Результаты</a><a href="/#news">Новости</a><a aria-current="page" href="/courts/">Корты</a><a href="/#coaches">Тренеры</a></nav>
 """
 TOP = """<div class="head">
 <div class="bar"><a class="logo" href="/">Tennis Daily</a><span id="today"></span></div>
@@ -258,7 +258,7 @@ FOOT = """<footer>
 <div><h4>Главное за день — в Telegram</h4>
 <p><a class="tg-btn" href="https://t.me/tennisdaily_uz" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.1l8.9-5.6c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.5-4.8Z" fill="currentColor"/></svg>Подписывайтесь</a></p></div>
 <div><h4>Есть новость?</h4><p>Турнир, новый корт, итоги — пишите: <a href="https://t.me/dandesdet" rel="noopener">@dandesdet</a></p>
-<p><a href="https://www.youtube.com/@dandesdet" rel="noopener">YouTube</a> · <a href="/?archive">Архив</a> · <a href="/korty/">Все корты Ташкента</a> · © 2026 tennisdaily.uz</p></div>
+<p><a href="https://www.youtube.com/@dandesdet" rel="noopener">YouTube</a> · <a href="/?archive">Архив</a> · <a href="/courts/">Все корты Ташкента</a> · © 2026 tennisdaily.uz</p></div>
 </footer>"""
 
 
@@ -330,7 +330,7 @@ def court_page(c):
 
 
 def landing_page(all_courts):
-    url = f"{SITE}korty/"
+    url = f"{SITE}courts/"
     title = "Теннисные корты Ташкента — где поиграть и как забронировать · Tennis Daily"
     n = len(all_courts)
     places = f"{n} {ru_plural(n, 'теннисный клуб и площадка', 'теннисных клуба и площадки', 'теннисных клубов и площадок')}"
@@ -369,8 +369,14 @@ def landing_page(all_courts):
     ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Теннисные корты Ташкента",
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}court/{c['id']}/", "name": c.get("ru")}
                               for i, c in enumerate(all_courts)]}
-    folder = ROOT / "korty"
+    folder = ROOT / "courts"
     folder.mkdir(exist_ok=True)
+    # Old address /korty/ (published 19.11 for a few hours) forwards to /courts/.
+    old = ROOT / "korty"
+    old.mkdir(exist_ok=True)
+    (old / "index.html").write_text('<!doctype html><meta charset="utf-8"><title>Теннисные корты Ташкента</title>'
+        f'<link rel="canonical" href="{url}"><meta name="robots" content="noindex">'
+        f'<meta http-equiv="refresh" content="0; url=/courts/"><a href="/courts/">Теннисные корты Ташкента</a>\n', encoding="utf-8")
     (folder / "index.html").write_text(head(title, desc, url, f"{SITE}img/og-site.jpg") +
         '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>" + f"""
 </head>
@@ -511,7 +517,7 @@ def landing_page(all_courts):
 
 
 def write_sitemap(court_ids):
-    urls = [SITE, f"{SITE}korty/"] + [f"{SITE}court/{i}/" for i in court_ids]
+    urls = [SITE, f"{SITE}courts/"] + [f"{SITE}court/{i}/" for i in court_ids]
     body = "".join(f"<url><loc>{u}</loc></url>\n" for u in urls)
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                       + body + "</urlset>\n", encoding="utf-8")
