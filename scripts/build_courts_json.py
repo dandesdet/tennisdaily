@@ -235,10 +235,12 @@ def head(title, desc, url, image):
 """
 
 
+# Language switch is hidden: these pages exist in Russian only (a visible control must work).
+NAV = """<nav class="section-nav" aria-label="Tennis Daily"><a href="/#soon">Турниры</a><a href="/#results">Результаты</a><a href="/#news">Новости</a><a aria-current="page" href="/korty/">Корты</a><a href="/#coaches">Тренеры</a></nav>
+"""
 TOP = """<div class="head">
-<div class="bar"><a class="logo" href="/">Tennis Daily</a><span id="today"></span><span class="langs"><a href="/?lang=uz">UZ</a><a aria-current="true" href="/?lang=ru">RU</a><a href="/?lang=en">EN</a></span></div>
-<nav class="section-nav" aria-label="Tennis Daily"><a href="/#soon">Турниры</a><a href="/#results">Результаты</a><a href="/#news">Новости</a><a aria-current="page" href="/korty/">Корты</a><a href="/#coaches">Тренеры</a></nav>
-</div>
+<div class="bar"><a class="logo" href="/">Tennis Daily</a><span id="today"></span></div>
+{NAV}</div>
 <script>{const d=new Date(),D=['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],M=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];document.getElementById('today').textContent=`${D[d.getDay()]}, ${d.getDate()} ${M[d.getMonth()]} ${d.getFullYear()}`}</script>"""
 FOOT = """<footer>
 <div><h4>Главное за день — в Telegram</h4>
@@ -300,7 +302,7 @@ def court_page(c):
 </head>
 <body>
 <main class="narrow">
-{TOP}
+{TOP.replace("{NAV}", NAV)}
 <h1>{esc(name)}</h1>
 <p class="lead">{esc(desc)}</p>
 {pic}
@@ -353,7 +355,7 @@ def landing_page(all_courts):
 </head>
 <body>
 <main>
-{TOP}
+{TOP.replace("{NAV}", "")}
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
 <div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
