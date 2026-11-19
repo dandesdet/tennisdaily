@@ -136,3 +136,8 @@
 - 2026-11-19: лендинг кортов переименован /korty/ → /courts/ (решение пользователя; в одном стиле с court/<id>/ и #courts). /korty/ — заглушка с переадресацией на /courts/ (noindex, canonical), её тоже пишет build_courts_json.py. В sitemap только /courts/.
 - 2026-11-19: Меридиан работает 24/7 (пользователь) — h:'00:00–24:00' (было 06–23 по 2ГИС).
 - 2026-11-19: бронь кортов Меридиана — Telegram @meriidiian (пользователь).
+- 2026-11-19 Школы при кортах (решение пользователя): поле `schools:[{n, d:[ru,uz,en], l:[{u,k,t}], src:[ru,uz,en]}]`, блок «Школы и тренировки» в карточке и строка «Школа» на court/<id>/. Новый ключ BK `post` (пост в Instagram).
+  - Локомотив: Prestige International — Instagram @tennis.prestige (от пользователя; в статье nechpul — tennisclub_prestige). Цены статьи (аренда 120/140 тыс., май 2026) не публикуем: расходятся с 250 тыс. за купол (17.11).
+  - Ёшлик · GoTennis (`yoshlik-gotennis`) — отдельная группа кортов (пользователь), бронь/запись бот @Gotenniskidsbot, пост instagram.com/p/DXjjQ-VCCTW/. 3 открытых + 2 крытых — только по nechpul.uz (8.05.2026), второго источника нет; фото нет; часов нет. Вопрос: не те же ли это 2 крытых, что у Зайнаб.
+  - Источник: nechpul.uz/ru/posts/tennis-spots (8.05.2026). Там же: ITEK Juniors (Ирода Туляганова) на кортах «Ёшлика», @Itektennisclub — у нас школа Тулягановой привязана к CSKA, сверить. Smash Tennis Academy (Пахтакор), Universal Tennis (Динамо), тренер Мирвали (Учкун) — пока не внесены.
+- 2026-11-19 Фото зимних кортов Ёшлика заменено (от пользователя): img/courts/yoshlik-winter.webp, источник top-school.uz/joshlik-sportivno-ozdorovitelnyj-kompleks/ — подпись «фото: top-school.uz» в 4-м элементе t. Источники фото пишем в подписи (просьба пользователя).

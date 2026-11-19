@@ -325,6 +325,7 @@ img[src*="courts/turin"]{object-position:50% 0}
 .bk{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-weight:600}
 .bk a{color:var(--court);text-decoration:none;transition:color .15s}
 .bk a::after{content:' →'}
+.school+.school{margin-top:16px}.school p{margin:4px 0}.school-src{color:var(--muted);font-size:14px}
 .bk a:hover{color:var(--clay)}
 .cfoot{margin:24px 0 0;color:var(--muted);max-width:760px}
 .cfoot a{color:var(--court);font-weight:600;text-decoration:none}
@@ -1602,11 +1603,16 @@ const COURTS = [
   {id:'yoshlik', ru:'Ёшлик · зимние корты', uz:'Yoshlik · qishki kortlar', en:'Yoshlik · winter courts', short:['Ёшлик · зимние','Yoshlik · qishki','Yoshlik · winter'], counts:{hi:2}, st:'up', since:'2026-11-01', ll:[41.324598,69.306003],
    dRu:'Оккургон, 16 (бывший стадион «Старт»). Два крытых харда — зимние корты. Руководитель — Зайнаб, бронь у неё.', dUz:'Oqqo‘rg‘on, 16 (sobiq «Start» stadioni). Ikkita yopiq hard — qishki kortlar. Rahbar — Zaynab, bron undan.', dEn:'Okkurgon St, 16 (former Start stadium). Two indoor hard courts, the winter courts. Run by Zaynab; book with her.',
    access:['Вход на территорию стадиона — 50 000 сум сверх аренды корта.','Stadion hududiga kirish — kort ijarasidan tashqari 50 000 so‘m.','Stadium entry: 50,000 sum on top of the court rental.'], tel:'+998931712333', h:'05:00–24:00',
-   bk:[{u:'https://t.me/zaynab_djalilova', k:'tg', t:'@zaynab_djalilova'}], t:[["h", "i",'img/yoshlik_hall.webp']]},
+   bk:[{u:'https://t.me/zaynab_djalilova', k:'tg', t:'@zaynab_djalilova'}], t:[["h", "i",'img/courts/yoshlik-winter.webp',['фото: top-school.uz','surat: top-school.uz','photo: top-school.uz']]]},
   {id:'yoshlik-beglaryan', ru:'Ёшлик · корты Бегларяна', uz:'Yoshlik · Beglaryan kortlari', en:'Yoshlik · Beglaryan courts', short:['Ёшлик · Бегларян','Yoshlik · Beglaryan','Yoshlik · Beglaryan'], counts:{co:2}, st:'off', stRu:'грунт закрыт на зиму', stUz:'grunt qishga yopiq', stEn:'clay closed for winter', ll:[41.32490,69.30570],
    dRu:'Оккургон, 16 (бывший стадион «Старт»). Два грунтовых корта сразу справа от входа, рядом с ITEK. Ведёт тренер Александр Бегларян.', dUz:'Oqqo‘rg‘on, 16 (sobiq «Start» stadioni). Kirishdan o‘ngdagi, ITEK yonidagi ikkita grunt kort. Murabbiy Aleksandr Beglaryan.', dEn:'Okkurgon St, 16 (former Start stadium). Two clay courts right of the entrance, next to ITEK, run by coach Alexander Beglaryan.',
    access:['Вход на территорию стадиона — 50 000 сум сверх аренды корта.','Stadion hududiga kirish — kort ijarasidan tashqari 50 000 so‘m.','Stadium entry: 50,000 sum on top of the court rental.'], h:'05:00–23:00',
    bk:[{u:'https://t.me/arendaKorta_Nbu_Start', k:'tg', t:'Aleks.Tennis.Coach'}], t:[["c", "o",'img/courts/yoshlik-clay-beglaryan-2.webp'], ["c", "o",'img/courts/yoshlik-clay-beglaryan-1.webp']]},
+  {id:'yoshlik-gotennis', ru:'Ёшлик · GoTennis', uz:'Yoshlik · GoTennis', en:'Yoshlik · GoTennis', short:['Ёшлик · GoTennis','Yoshlik · GoTennis','Yoshlik · GoTennis'], st:'ok', stRu:'открыт', stUz:'ochiq', stEn:'open', ll:[41.32430,69.30640],
+   dRu:'Оккургон, 16 (бывший стадион «Старт»). Корты клуба GoTennis — отдельные от кортов Зайнаб и Бегларяна. По данным nechpul.uz (май 2026): 3 открытых и 2 крытых корта.', dUz:'Oqqo‘rg‘on, 16 (sobiq «Start» stadioni). GoTennis klubi kortlari — Zaynab va Beglaryan kortlaridan alohida. nechpul.uz ma’lumotiga ko‘ra (2026-yil may): 3 ta ochiq va 2 ta yopiq kort.', dEn:'Okkurgon St, 16 (former Start stadium). GoTennis club courts, separate from Zaynab’s and Beglaryan’s. Per nechpul.uz (May 2026): 3 outdoor and 2 indoor courts.',
+   access:['Вход на территорию стадиона — 50 000 сум сверх аренды корта.','Stadion hududiga kirish — kort ijarasidan tashqari 50 000 so‘m.','Stadium entry: 50,000 sum on top of the court rental.'],
+   schools:[{n:'GoTennis', d:['Тренировки для детей и взрослых, любительские турниры, летний лагерь.','Bolalar va kattalar uchun mashg‘ulotlar, havaskor turnirlar, yozgi lager.','Coaching for kids and adults, amateur tournaments, summer camp.'], l:[{u:'https://t.me/Gotenniskidsbot', k:'training', t:'@Gotenniskidsbot'}, {u:'https://www.instagram.com/p/DXjjQ-VCCTW/', k:'post'}], src:['Источник: nechpul.uz, 8 мая 2026.','Manba: nechpul.uz, 2026-yil 8-may.','Source: nechpul.uz, 8 May 2026.']}],
+   bk:[{u:'https://t.me/Gotenniskidsbot', k:'bot', t:'@Gotenniskidsbot'}]},
   {id:'msu', ru:'МГУ им. Ломоносова', counts:{co:3}, en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://playon.uz/stadiums/%D0%BC%D0%B3%D1%83", "k": "playon", "t": "PlayOn"}, {"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["c", "o",'img/courts/mgu.webp']]},
   {id:'uchqun', ru:'Учкун', en:"Uchqun", stEn:"open", dEn:"Clay and a covered hard court.", uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.359794,69.285046], dRu:'Грунт и хард под навесом.', dUz:'Grunt va ayvon ostida hard.', tel:'+998999027802', bk:[], t:[["c", "o"], ["h", "r",'img/uchqun_hard.webp']]},
   {id:'olympic-reserve', ru:'Республиканская школа олимпийского резерва', counts:{ho:13, co:4, hi:3}, short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor.', tel:'+998712081901', bk:[{"u": "https://playon.uz/stadiums/%D1%80%D1%82%D1%88%D0%BE%D1%80", "k": "playon", "t": "PlayOn"}], t:[['h','o','img/courts/school.webp'], ['c','o'], ['h','i','img/courts/rtshor-hall-1.webp',['№ 1 из 3','3 tadan 1-zal','No. 1 of 3']], ['h','d']]},
@@ -1653,7 +1659,8 @@ const COURTS = [
    dUz:'Chilonzor, Bunyodkor shoh ko‘chasi, 28. Institut sport markazidagi yopiq tennis korti. Mehmonlar uchun kirish tartibini MDIS’dan so‘rang.',
    dEn:'28 Bunyodkor Avenue, Chilanzar. Indoor tennis court at the institute’s sports centre. Ask MDIS about guest access.',
    bk:[{u:'https://www.mdis.uz/en/menu/sport-centre-', k:'site'}], t:[['x','i','img/courts/mdis-indoor.webp']]},
-  {id:'lokomotiv', ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}], h:'06:00–24:00', disc:['06:00–08:00','22:00–24:00'],
+  {id:'lokomotiv', ru:'Локомотив', counts:{co:2}, en:"Lokomotiv", stEn:"open", dEn:"2 outdoor clay courts and a hard court under an air dome.", uz:'Lokomotiv', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.274739,69.273286], dRu:'2 открытых грунтовых корта и хард под куполом.', dUz:'2 ta ochiq grunt kort va gumbaz ostida hard.', t:[["c","o",'img/courts/lokomotiv.webp'], ["h","d",'img/courts/lokomotiv-dome.webp']], schools:[{n:'Prestige International', d:['Теннисный клуб: тренировки для детей и взрослых.','Tennis klubi: bolalar va kattalar uchun mashg‘ulotlar.','Tennis club: coaching for kids and adults.'], l:[{u:'https://www.instagram.com/tennis.prestige/', k:'ig', t:'@tennis.prestige'}], src:['Источник: nechpul.uz, 8 мая 2026.','Manba: nechpul.uz, 2026-yil 8-may.','Source: nechpul.uz, 8 May 2026.']}],
+   bk:[{u:'https://t.me/Khuma_tennis', k:'tg', t:'@Khuma_tennis'}], h:'06:00–24:00', disc:['06:00–08:00','22:00–24:00'],
    pT:{hd:['250 000 сум в час, в скидочные часы — 200 000 сум.', 'Soatiga 250 000 so‘m, chegirma soatlarida — 200 000 so‘m.', '250,000 sum per hour; 200,000 sum during discount hours.'],
        src:['Данные администратора на 17 ноября 2026', 'Administrator ma’lumoti, 2026-yil 17-noyabr', 'Administrator’s figures as of 17 November 2026']}},
   {id:'olympic-village', ru:'Олимпийский городок', en:"Olympic Village", stEn:"open", dEn:"New sports complex in the east of the city, several tennis courts. Ask about rental terms on site.", uz:'Olimpiya shaharchasi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.321103,69.418334], dRu:'Новый спорткомплекс на востоке города, несколько теннисных кортов. Условия аренды уточняйте на месте.', dUz:'Shahar sharqidagi yangi sport majmuasi, bir nechta tennis korti. Ijara shartlarini joyida aniqlang.', bk:[], t:[['h','o','img/courts/olympic-village-outdoor-hard.jpg']]},
@@ -1669,7 +1676,7 @@ let map = null, marks = [];
 let fitCourtView = () => {}, landmarkLabels = [];
 
 // Где посмотреть свободные слоты: PlayOn (онлайн-бронь), бот или канал клуба; если нет — звонок
-const BK = {training: ['Запись на тренировки', 'Mashg‘ulotlarga yozilish', 'Training sign-up'], site: ['Сайт спортцентра', 'Sport markazi sayti', 'Sports centre website'], playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
+const BK = {training: ['Запись на тренировки', 'Mashg‘ulotlarga yozilish', 'Training sign-up'], site: ['Сайт спортцентра', 'Sport markazi sayti', 'Sports centre website'], playon: ['Свободные слоты на PlayOn', 'PlayOn’da bo‘sh vaqtlar', 'Free slots on PlayOn'], playsport: ['Свободные слоты на PlaySport', 'PlaySport’da bo‘sh vaqtlar', 'Free slots on PlaySport'], scheme: ['Схема кортов', 'Kortlar sxemasi', 'Court layout'], bot: ['Бронь в боте', 'Botda bron', 'Book via bot'], tg: ['Бронь в Telegram', 'Telegram’da bron', 'Book on Telegram'], ig: ['Instagram', 'Instagram', 'Instagram'], post: ['Пост в Instagram', 'Instagram’dagi post', 'Instagram post'], photos: ['Фото клуба', 'Klub suratlari', 'Club photos'], hotel: ['Карточка отеля', 'Mehmonxona sahifasi', 'Hotel listing']};
 // Location in any map app the visitor uses, plus sharing to Telegram and copying coordinates.
 // Telegram bot that sends a court's native location (Supabase function tennisdaily-location).
 // Empty string hides the Telegram button (e.g. if the bot is down).
@@ -1683,6 +1690,12 @@ function locHtml(c) {
   const tg = LOC_BOT && c.id ? `https://t.me/${LOC_BOT}?start=court_${c.id}_${lang}` : '';
   return `<div class="loc"><a href="${yandex}" target="_blank" rel="noopener">${L_('Яндекс Карты', 'Yandex Xarita', 'Yandex Maps')}</a>` +
     (tg ? `<a class="court-map-link" href="${tg}" target="_blank" rel="noopener">${L_('Отправить в Telegram', 'Telegramga yuborish', 'Send to Telegram')}</a>` : '') + `</div>`;
+}
+// Школы при корте: {n: название, d: [ru, uz, en], src: [ru, uz, en], l: [{u, k, t}]} — k из BK.
+function schoolsHtml(c) {
+  return c.schools.map(sc => `<div class="school"><b>${sc.n}</b>${sc.d ? `<p>${L_(...sc.d)}</p>` : ''}`
+    + `<div class="bk">${(sc.l || []).map(b => `<a href="${b.u}" target="_blank" rel="noopener">${L_(...BK[b.k])}${b.t ? ' · ' + b.t : ''}</a>`).join('')}</div>`
+    + (sc.src ? `<p class="school-src">${L_(...sc.src)}</p>` : '') + `</div>`).join('');
 }
 function bookHtml(c) {
   const links = (c.bk || []).map(b => `<a href="${b.u}" target="_blank" rel="noopener">${L_(...BK[b.k])}${b.t && !/^play/.test(b.k) ? ' · ' + b.t : ''}</a>`);
@@ -1992,7 +2005,8 @@ function openCourtDetails(court, startImage) {
     <div><h3>${L_('Условия входа', 'Kirish shartlari', 'Entry requirements')}</h3><p>${entry}</p></div>
     <div class="court-hours">${hoursBoard(court, variants[0], typeLabel(variants[0]))}</div>${court.price ? `
     <div><h3>${L_('Стоимость', 'Narxi', 'Price')}</h3><p>${L_(...court.price)}</p></div>` : ''}
-    <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>
+    <div><h3>${L_('Бронь и контакты', 'Bron va aloqa', 'Booking and contacts')}</h3>${bookHtml(court)}</div>${court.schools?.length ? `
+    <div><h3>${L_('Школы и тренировки', 'Maktablar va mashg‘ulotlar', 'Schools and coaching')}</h3>${schoolsHtml(court)}</div>` : ''}
     ${hasLL(court) ? `<div><h3>${L_('Локация', 'Joylashuv', 'Location')}</h3>${locHtml(court)}</div>` : ''}`;
   gallery?.addEventListener('slide', e => {
     info.querySelector('.court-hours').innerHTML = hoursBoard(court, variants[e.detail], typeLabel(variants[e.detail]));

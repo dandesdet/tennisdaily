@@ -292,11 +292,17 @@ def court_page(c):
     links = booking_links(c)
     if links:
         rows.append(("Бронь и связь", " · ".join(f'<a href="{esc(u)}" rel="noopener">{esc(n)}</a>' for u, n in links)))
+    for sc in c.get("schools", []):
+        ls = " · ".join(f'<a href="{esc(b["u"])}" rel="noopener">{esc(b.get("t") or ("Пост в Instagram" if b.get("k") == "post" else b["u"]))}</a>'
+                        for b in sc.get("l", []))
+        txt = esc(sc["n"]) + (f' — {esc(sc["d"][0])}' if sc.get("d") else "") + (f"<br>{ls}" if ls else "") + \
+            (f'<br><span class="note">{esc(sc["src"][0])}</span>' if sc.get("src") else "")
+        rows.append(("Школа", txt))
     ll = c.get("ll") or []
     if len(ll) == 2:
         rows.append(("Как добраться", f'<a href="https://yandex.uz/maps/?rtext=~{ll[0]},{ll[1]}&rtt=auto" rel="noopener">Маршрут в Яндекс Картах</a>'
                                       f' · <a href="https://t.me/tennisdaily_uz_bot?start=court_{cid}_ru" rel="noopener">Отправить локацию в Telegram</a>'))
-    dl = "".join(f"<dt>{k}</dt><dd>{v if k in ('Цена', 'Телефон', 'Бронь и связь', 'Как добраться') else esc(v)}</dd>" for k, v in rows)
+    dl = "".join(f"<dt>{k}</dt><dd>{v if k in ('Цена', 'Телефон', 'Бронь и связь', 'Как добраться', 'Школа') else esc(v)}</dd>" for k, v in rows)
     items = gallery_items(c)
     if len(items) > 1:
         figs = "".join(f'<figure{" hidden" if i else ""}><img class="ph" src="/{src}" alt="Теннисный корт «{esc(name)}», Ташкент: {esc(lab.lower())}"'

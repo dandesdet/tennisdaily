@@ -31,6 +31,16 @@
    "lon": 69.3057
   },
   {
+   "id": "yoshlik-gotennis",
+   "name": {
+    "ru": "Ёшлик · GoTennis",
+    "uz": "Yoshlik · GoTennis",
+    "en": "Yoshlik · GoTennis"
+   },
+   "lat": 41.3243,
+   "lon": 69.3064
+  },
+  {
    "id": "msu",
    "name": {
     "ru": "МГУ им. Ломоносова",
