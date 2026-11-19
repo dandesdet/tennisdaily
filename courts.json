@@ -1,16 +1,6 @@
 {
  "courts": [
   {
-   "id": "matonat",
-   "name": {
-    "ru": "Матонат (Буревестник)",
-    "uz": "Matonat (Burevestnik)",
-    "en": "Matonat (Burevestnik)"
-   },
-   "lat": 41.325849,
-   "lon": 69.279293
-  },
-  {
    "id": "turin",
    "name": {
     "ru": "Туринский политех",
