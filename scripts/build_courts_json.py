@@ -270,7 +270,7 @@ def landing_page(all_courts):
   const P = {json.dumps(pts, ensure_ascii=False)};
   const map = L.map('map', {{scrollWheelZoom: false}});
   map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
-  L.tileLayer('https://{{s}}.basemaps.cartocdn.com/rastertiles/voyager/{{z}}/{{x}}/{{y}}{{r}}.png', {{maxZoom: 19, subdomains: 'abcd',
+  L.tileLayer('https://{{s}}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{{z}}/{{x}}/{{y}}{{r}}.png', {{maxZoom: 19, subdomains: 'abcd',
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}}).addTo(map);
   P.forEach(p => L.marker(p.ll, {{title: p.n, icon: L.divIcon({{className: 'court-marker', html: `<span class="court-dot" style="--c:${{p.c}}"></span>`, iconSize: [20, 20], iconAnchor: [10, 10]}})}})
     .bindPopup(`<a href="/court/${{p.id}}/">${{p.n}}</a>`).addTo(map));
