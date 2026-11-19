@@ -2345,10 +2345,11 @@ const set = l => {
 };
 document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => set(b.dataset.set));
 let saved = null; try { saved = localStorage.getItem('td-lang'); } catch (e) {}
-set(saved || 'uz');   // по умолчанию — узбекский; выбор человека запоминаем
+const urlLang = new URLSearchParams(location.search).get('lang');   // ?lang=ru from the static pages
+set(['uz', 'ru', 'en'].includes(urlLang) ? urlLang : saved || 'uz');   // по умолчанию — узбекский; выбор человека запоминаем
 { const id = new URLSearchParams(location.search).get('court');
   const c = id && /^[a-z0-9-]{1,40}$/.test(id) && COURTS.find(x => x.id === id);
-  if (c) openCourtDetails(c); else if (id) setCourtParam(''); }
+  if (c) { document.getElementById('courts')?.scrollIntoView({block: 'start'}); openCourtDetails(c); } else if (id) setCourtParam(''); }
 
 const shareDialog = document.getElementById('share-dialog');
 const shareTrack = document.getElementById('share-track');
