@@ -25,6 +25,9 @@ raw = subprocess.run(
 ).stdout
 
 SITE = "https://tennisdaily.uz/"
+_ms = html.index("const MAP_STYLE = [")
+MAP_STYLE = html[_ms + len("const MAP_STYLE = "):html.index("\n];", _ms) + 2]
+GMAPS_KEY = re.search(r"const GMAPS_KEY = '([^']+)'", html)[1]   # domain-restricted browser key, same as index.html
 
 
 SURF = {"c": "грунт", "h": "хард", "x": ""}
@@ -263,18 +266,26 @@ def landing_page(all_courts):
 <ul class="grid">{"".join(items)}</ul>
 <p class="note">Цены публикуем только с источником и датой проверки. Знаете ещё корт или видите ошибку — напишите <a href="https://t.me/dandesdet">@dandesdet</a>.</p>
 </main>
-<link rel="stylesheet" href="/vendor/leaflet.css">
-<script src="/vendor/leaflet.js"></script>
 <script>
 (() => {{
   const P = {json.dumps(pts, ensure_ascii=False)};
-  const map = L.map('map', {{scrollWheelZoom: false}});
-  map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
-  L.tileLayer('https://{{s}}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{{z}}/{{x}}/{{y}}{{r}}.png', {{maxZoom: 19, subdomains: 'abcd',
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}}).addTo(map);
-  P.forEach(p => L.marker(p.ll, {{title: p.n, icon: L.divIcon({{className: 'court-marker', html: `<span class="court-dot" style="--c:${{p.c}}"></span>`, iconSize: [20, 20], iconAnchor: [10, 10]}})}})
-    .bindPopup(`<a href="/court/${{p.id}}/">${{p.n}}</a>`).addTo(map));
-  map.fitBounds(P.filter(p => !p.far).map(p => p.ll), {{padding: [30, 30]}});
+  const STYLE = {MAP_STYLE};
+  window.initMap = () => {{
+    const g = google.maps;
+    const map = new g.Map(document.getElementById('map'), {{center: {{lat: 41.33, lng: 69.28}}, zoom: 12, gestureHandling: 'cooperative',
+      disableDefaultUI: true, zoomControl: true, clickableIcons: false, styles: STYLE}});
+    const info = new g.InfoWindow(), bounds = new g.LatLngBounds();
+    P.forEach(p => {{
+      const m = new g.Marker({{position: {{lat: p.ll[0], lng: p.ll[1]}}, map, title: p.n,
+        icon: {{path: g.SymbolPath.CIRCLE, scale: 9, fillColor: p.c, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2}}}});
+      m.addListener('click', () => {{ info.setContent(`<a href="/court/${{p.id}}/">${{p.n}}</a>`); info.open({{map, anchor: m}}); }});
+      if (!p.far) bounds.extend(m.getPosition());
+    }});
+    map.fitBounds(bounds, 30);
+  }};
+  const sc = document.createElement('script');
+  sc.src = 'https://maps.googleapis.com/maps/api/js?key={GMAPS_KEY}&callback=initMap&loading=async';
+  sc.async = true; document.head.append(sc);
 }})();
 </script>
 </body>
