@@ -201,7 +201,8 @@ def court_page(c):
         rows.append(("Бронь и связь", " · ".join(f'<a href="{esc(u)}" rel="noopener">{esc(n)}</a>' for u, n in links)))
     ll = c.get("ll") or []
     if len(ll) == 2:
-        rows.append(("Как добраться", f'<a href="https://yandex.uz/maps/?rtext=~{ll[0]},{ll[1]}&rtt=auto" rel="noopener">Маршрут в Яндекс Картах</a>'))
+        rows.append(("Как добраться", f'<a href="https://yandex.uz/maps/?rtext=~{ll[0]},{ll[1]}&rtt=auto" rel="noopener">Маршрут в Яндекс Картах</a>'
+                                      f' · <a href="https://t.me/tennisdaily_uz_bot?start=court_{cid}_ru" rel="noopener">Отправить локацию в Telegram</a>'))
     dl = "".join(f"<dt>{k}</dt><dd>{v if k in ('Цена', 'Телефон', 'Бронь и связь', 'Как добраться') else esc(v)}</dd>" for k, v in rows)
     pic = f'<img class="ph" src="/{photos[0]}" alt="Теннисный корт «{esc(name)}», Ташкент">' if photos else ""
     (folder / "index.html").write_text(head(title, desc, url, image) + court_jsonld(c, url, image) + f"""
