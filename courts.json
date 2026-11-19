@@ -23,12 +23,22 @@
   {
    "id": "yoshlik",
    "name": {
-    "ru": "Ёшлик (Старт)",
-    "uz": "Yoshlik (Start)",
-    "en": "Yoshlik (Start)"
+    "ru": "Ёшлик · зимние корты",
+    "uz": "Yoshlik · qishki kortlar",
+    "en": "Yoshlik · winter courts"
    },
    "lat": 41.324598,
    "lon": 69.306003
+  },
+  {
+   "id": "yoshlik-beglaryan",
+   "name": {
+    "ru": "Ёшлик · корты Бегларяна",
+    "uz": "Yoshlik · Beglaryan kortlari",
+    "en": "Yoshlik · Beglaryan courts"
+   },
+   "lat": 41.3249,
+   "lon": 69.3057
   },
   {
    "id": "msu",
