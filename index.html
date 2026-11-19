@@ -1941,9 +1941,9 @@ function courtTypeCarousel(court) {
   return gallery;
 }
 
-// Each court has its own link: ?court=<id> opens its card; court/<id>/ is the shareable page with a preview.
+// Each court has its own link: ?court=<id> opens its card; courts/<id>/ is the shareable page with a preview.
 let openCourt = null;
-const courtUrl = c => new URL(`court/${c.id}/`, location.href).href;
+const courtUrl = c => new URL(`courts/${c.id}/`, location.href).href;
 function setCourtParam(id) {
   const u = new URL(location.href);
   if (id) u.searchParams.set('court', id); else u.searchParams.delete('court');

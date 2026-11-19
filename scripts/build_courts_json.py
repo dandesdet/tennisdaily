@@ -1,4 +1,4 @@
-"""Build courts.json, court/<id>/ pages, the /courts/ landing page, sitemap.xml and robots.txt from COURTS in index.html.
+"""Build courts.json, courts/<id>/ pages (old court/<id>/ forward to them), the /courts/ landing page, sitemap.xml and robots.txt from COURTS in index.html.
 
 The Telegram location bot reads https://tennisdaily.uz/courts.json, so the site
 stays the single source of court coordinates. Run after editing COURTS:
@@ -265,18 +265,18 @@ FOOT = """<footer>
 def court_page(c):
     """Static, indexable court page (RU). It also serves as the share link for the court card."""
     cid = c["id"]
-    folder = ROOT / "court" / cid
+    folder = ROOT / "courts" / cid
     folder.mkdir(parents=True, exist_ok=True)
     photos = photos_of(c)
     image = ""
     if photos:
         with Image.open(ROOT / photos[0]) as im:
             ImageOps.fit(ImageOps.exif_transpose(im).convert("RGB"), (1200, 630)).save(folder / "preview.jpg", quality=82)
-        image = f"{SITE}court/{cid}/preview.jpg"
+        image = f"{SITE}courts/{cid}/preview.jpg"
     name = c.get("ru", cid)
     desc = c.get("dRu") or "Теннисный корт в Ташкенте: часы работы, бронь, как добраться."
     title = f"Теннисный корт «{name}» в Ташкенте — часы, цены, бронь · Tennis Daily"
-    url = f"{SITE}court/{cid}/"
+    url = f"{SITE}courts/{cid}/"
     rows = []
     if types_text(c):
         rows.append(("Корты", types_text(c).capitalize()))
@@ -353,7 +353,7 @@ def landing_page(all_courts):
         bk = " · ".join(f'<a href="{esc(u)}" rel="noopener">{esc(n)}</a>' for u, n in links)
         tel = f'<a href="tel:{esc(c["tel"])}">{esc(c["tel"])}</a>' if c.get("tel") else ""
         contact = " · ".join(x for x in [tel, bk] if x)
-        items.append(f'<li data-id="{c["id"]}"><a class="card" href="/court/{c["id"]}/">{img}<h3>{esc(c.get("ru"))}</h3></a>'
+        items.append(f'<li data-id="{c["id"]}"><a class="card" href="/courts/{c["id"]}/">{img}<h3>{esc(c.get("ru"))}</h3></a>'
                      f'<p>{esc(c.get("dRu"))}</p>' + (f'<p class="meta">{esc(meta)}</p>' if meta else "") +
                      (f"<p>{contact}</p>" if contact else "") + "</li>")
         ll = c.get("ll") or []
@@ -373,7 +373,7 @@ def landing_page(all_courts):
         F.append({"id": c["id"], "t": sorted({t[0] + (t[1] or "") for t in c.get("t", [])}), "h": c.get("h") or "",
                   "hT": c.get("hT") or {}, "off": c.get("offDays") or [], "st": c.get("st") or "", "full": c.get("full") or []})
     ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Теннисные корты Ташкента",
-          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}court/{c['id']}/", "name": c.get("ru")}
+          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}courts/{c['id']}/", "name": c.get("ru")}
                               for i, c in enumerate(all_courts)]}
     folder = ROOT / "courts"
     folder.mkdir(exist_ok=True)
@@ -447,7 +447,7 @@ def landing_page(all_courts):
       return sf === 'x' ? '' : `<span class="tg ${{sf}}">${{typeLabel(sf, k)}}${{n ? ' · ' + nCourts(n) : ''}}</span>`; }}).join('');
     const img = types.map(t => t[2]).find(Boolean) || p.img;
     return `<div class="court-preview"><b>${{esc(p.n)}}</b>${{pills ? `<div class="court-marker-type">${{pills}}</div>` : ''}}`
-      + (img ? `<img src="${{img}}" alt="${{esc(p.n)}}">` : '') + `<a class="more" href="/court/${{p.id}}/">Подробнее о корте →</a></div>`;
+      + (img ? `<img src="${{img}}" alt="${{esc(p.n)}}">` : '') + `<a class="more" href="/courts/${{p.id}}/">Подробнее о корте →</a></div>`;
   }};
   window.initMap = () => {{
     const g = google.maps;
@@ -523,7 +523,7 @@ def landing_page(all_courts):
 
 
 def write_sitemap(court_ids):
-    urls = [SITE, f"{SITE}courts/"] + [f"{SITE}court/{i}/" for i in court_ids]
+    urls = [SITE, f"{SITE}courts/"] + [f"{SITE}courts/{i}/" for i in court_ids]
     body = "".join(f"<url><loc>{u}</loc></url>\n" for u in urls)
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                       + body + "</urlset>\n", encoding="utf-8")
@@ -539,6 +539,12 @@ for c in json.loads(raw):
         raise SystemExit(f"Duplicate court id: {cid}")
     seen.add(cid)
     court_page(c)
+    # Old address court/<id>/ (19.11, a few hours) forwards to courts/<id>/.
+    (ROOT / "court" / cid).mkdir(parents=True, exist_ok=True)
+    (ROOT / "court" / cid / "index.html").write_text(
+        f'<!doctype html><meta charset="utf-8"><title>{esc(c.get("ru"))} · Tennis Daily</title>'
+        f'<link rel="canonical" href="{SITE}courts/{cid}/"><meta name="robots" content="noindex">'
+        f'<meta http-equiv="refresh" content="0; url=/courts/{cid}/"><a href="/courts/{cid}/">{esc(c.get("ru"))}</a>\n', encoding="utf-8")
     ll = c.get("ll") or []
     if not (len(ll) == 2 and -90 <= ll[0] <= 90 and -180 <= ll[1] <= 180):
         continue  # no usable coordinates: the bot will not offer this court
@@ -553,4 +559,4 @@ landing_page([c for c in json.loads(raw)])
 write_sitemap(sorted(seen))
 out = ROOT / "courts.json"
 out.write_text(json.dumps({"courts": courts}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-print(f"Wrote {len(courts)} courts to {out.name} and {len(seen)} pages to court/")
+print(f"Wrote {len(courts)} courts to {out.name} and {len(seen)} pages to courts/")
