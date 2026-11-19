@@ -27,6 +27,9 @@ raw = subprocess.run(
 SITE = "https://tennisdaily.uz/"
 _ms = html.index("const MAP_STYLE = [")
 MAP_STYLE = html[_ms + len("const MAP_STYLE = "):html.index("\n];", _ms) + 2]
+_ls = html.index("const LANDMARKS = [")
+LANDMARKS = json.loads(subprocess.run(["node", "-e", "process.stdout.write(JSON.stringify(" + html[_ls + len("const LANDMARKS = "):html.index("\n];", _ls) + 2] + "))"],
+                                      capture_output=True, text=True, check=True).stdout)
 GMAPS_KEY = re.search(r"const GMAPS_KEY = '([^']+)'", html)[1]   # domain-restricted browser key, same as index.html
 
 
@@ -53,6 +56,9 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;background:var(--ball);color:var(--ink);font-weight:600;text-decoration:none}
 .btn:hover{background:#D0E03A}
 .map{height:560px;border-radius:var(--r-img);background:var(--soft);z-index:0}
+.lm{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px}.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004}
+.lm span{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);font:600 13px 'Golos Text',sans-serif;white-space:nowrap;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;opacity:0;transition:opacity .15s}
+.lm:hover span,.map.zoomed .lm span{opacity:1}.lm[hidden]{display:none}
 .court-marker{background:none;border:0}.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0005}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 0;color:var(--muted);font-size:14px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 32px}
@@ -61,6 +67,17 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .grid a.card{display:block;color:inherit;text-decoration:none}.grid a.card:hover h3{color:var(--court)}
 .leaflet-popup-content{font:600 15px/1.35 'Golos Text',sans-serif;margin:10px 14px}.leaflet-popup-content a{color:var(--court)}
 .note{color:var(--muted);font-size:14px}
+.gal{position:relative}.gal figure{margin:0}.gal figure[hidden]{display:none}.gal figcaption{margin-top:8px;color:var(--muted)}
+.gal .nav{position:absolute;top:calc(50% - 40px);width:44px;height:44px;border:0;border-radius:50%;background:#fffd;color:var(--ink);font:400 26px/1 'Golos Text',sans-serif;cursor:pointer;box-shadow:0 1px 6px #0003}
+.gal .nav:hover{background:#fff}.gal .prev{left:12px}.gal .next{right:12px}
+.thumbs{display:flex;gap:8px;margin:12px 0 0;padding:0;list-style:none;overflow-x:auto}
+.thumbs button{flex:none;width:112px;padding:0;border:2px solid transparent;border-radius:var(--r-inner);background:none;cursor:pointer;overflow:hidden}
+.thumbs button[aria-current="true"]{border-color:var(--ink)}.thumbs img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.cfilt{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:999px;background:var(--soft);color:var(--ink);font:600 16px/1 'Golos Text',sans-serif;cursor:pointer}
+.cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}.cfilt small{font:500 14px/1 'Golos Text',sans-serif;opacity:.6}
+.grid li[hidden]{display:none}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.map{height:420px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}"""
 
@@ -74,6 +91,37 @@ def ru_plural(n, one, few, many):
 
 def esc(x):
     return escape(str(x or ""), quote=True)
+
+
+def gallery_items(c):
+    out, seen = [], set()
+    for t in c.get("t", []):
+        if len(t) > 2 and t[2] and t[2] not in seen and (ROOT / t[2]).exists():
+            seen.add(t[2])
+            label = (t[3][0] if len(t) > 3 and t[3] else "") or \
+                " ".join(x for x in [SURF.get(t[0], ""), KIND.get(t[1], "")] if x).capitalize()
+            out.append((t[2], label))
+    if c.get("img") and c["img"] not in seen and (ROOT / c["img"]).exists():
+        out.append((c["img"], "Общий вид"))
+    return out
+
+
+GALLERY_JS = """<script>
+(() => {
+  const g = document.querySelector('.gal'); if (!g) return;
+  const figs = g.querySelectorAll('figure'), th = document.querySelectorAll('.thumbs button');
+  let cur = 0;
+  const show = i => { cur = (i + figs.length) % figs.length;
+    figs.forEach((f, k) => f.hidden = k !== cur); th.forEach((b, k) => b.setAttribute('aria-current', k === cur)); };
+  g.querySelector('.prev')?.addEventListener('click', () => show(cur - 1));
+  g.querySelector('.next')?.addEventListener('click', () => show(cur + 1));
+  th.forEach((b, k) => b.addEventListener('click', () => show(k)));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea')) return;
+    if (e.key === 'ArrowLeft') show(cur - 1); else if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+</script>"""
 
 
 def photos_of(c):
@@ -211,7 +259,19 @@ def court_page(c):
         rows.append(("Как добраться", f'<a href="https://yandex.uz/maps/?rtext=~{ll[0]},{ll[1]}&rtt=auto" rel="noopener">Маршрут в Яндекс Картах</a>'
                                       f' · <a href="https://t.me/tennisdaily_uz_bot?start=court_{cid}_ru" rel="noopener">Отправить локацию в Telegram</a>'))
     dl = "".join(f"<dt>{k}</dt><dd>{v if k in ('Цена', 'Телефон', 'Бронь и связь', 'Как добраться') else esc(v)}</dd>" for k, v in rows)
-    pic = f'<img class="ph" src="/{photos[0]}" alt="Теннисный корт «{esc(name)}», Ташкент">' if photos else ""
+    items = gallery_items(c)
+    if len(items) > 1:
+        figs = "".join(f'<figure{" hidden" if i else ""}><img class="ph" src="/{src}" alt="Теннисный корт «{esc(name)}», Ташкент: {esc(lab.lower())}"'
+                       f'{" loading=\"lazy\"" if i else ""}><figcaption>{esc(lab)} · {i + 1} из {len(items)}</figcaption></figure>'
+                       for i, (src, lab) in enumerate(items))
+        thumbs = "".join(f'<li><button type="button" aria-label="{esc(lab)}" aria-current="{str(i == 0).lower()}"><img src="/{src}" alt="" loading="lazy"></button></li>'
+                         for i, (src, lab) in enumerate(items))
+        pic = (f'<div class="gal">{figs}<button type="button" class="nav prev" aria-label="Предыдущее фото">‹</button>'
+               f'<button type="button" class="nav next" aria-label="Следующее фото">›</button></div><ul class="thumbs">{thumbs}</ul>')
+    elif items:
+        pic = f'<figure class="gal" style="margin:0"><img class="ph" src="/{items[0][0]}" alt="Теннисный корт «{esc(name)}», Ташкент"><figcaption>{esc(items[0][1])}</figcaption></figure>'
+    else:
+        pic = ""
     (folder / "index.html").write_text(head(title, desc, url, image) + court_jsonld(c, url, image) + f"""
 </head>
 <body>
@@ -222,6 +282,7 @@ def court_page(c):
 {pic}
 <dl>{dl}</dl>
 <p><a class="btn" href="/?court={cid}">Открыть на карте Tennis Daily</a></p>
+{GALLERY_JS if len(items) > 1 else ""}
 <p class="note">Свободное время уточняйте по телефону или в онлайн-календаре брони. Данные о корте собирает редакция Tennis Daily; если что-то изменилось, напишите <a href="https://t.me/dandesdet">@dandesdet</a>.</p>
 </main>
 </body>
@@ -236,7 +297,7 @@ def landing_page(all_courts):
     places = f"{n} {ru_plural(n, 'теннисный клуб и площадка', 'теннисных клуба и площадки', 'теннисных клубов и площадок')}"
     desc = (f"{places} Ташкента на карте: грунт и хард, залы и улица. "
             "Часы работы, цены, телефоны и ссылки на онлайн-бронь.")
-    items, pts = [], []
+    items, pts, F = [], [], []
     for c in all_courts:
         photos = photos_of(c)
         img = (f'<img class="ph" src="/{photos[0]}" alt="Теннисный корт «{esc(c.get("ru"))}», Ташкент" loading="lazy">'
@@ -247,7 +308,7 @@ def landing_page(all_courts):
         bk = " · ".join(f'<a href="{esc(u)}" rel="noopener">{esc(n)}</a>' for u, n in links)
         tel = f'<a href="tel:{esc(c["tel"])}">{esc(c["tel"])}</a>' if c.get("tel") else ""
         contact = " · ".join(x for x in [tel, bk] if x)
-        items.append(f'<li><a class="card" href="/court/{c["id"]}/">{img}<h3>{esc(c.get("ru"))}</h3></a>'
+        items.append(f'<li data-id="{c["id"]}"><a class="card" href="/court/{c["id"]}/">{img}<h3>{esc(c.get("ru"))}</h3></a>'
                      f'<p>{esc(c.get("dRu"))}</p>' + (f'<p class="meta">{esc(meta)}</p>' if meta else "") +
                      (f"<p>{contact}</p>" if contact else "") + "</li>")
         ll = c.get("ll") or []
@@ -255,6 +316,8 @@ def landing_page(all_courts):
             surf = {t[0] for t in c.get("t", [])} - {"x"}
             color = "#2F6DB5" if surf == {"h"} else "#C2683A" if surf == {"c"} else "#1E4D3A"
             pts.append({"id": c["id"], "n": c.get("ru"), "ll": ll, "c": color, "far": bool(c.get("far"))})
+        F.append({"id": c["id"], "t": sorted({t[0] + (t[1] or "") for t in c.get("t", [])}), "h": c.get("h") or "",
+                  "hT": c.get("hT") or {}, "off": c.get("offDays") or [], "st": c.get("st") or "", "full": c.get("full") or []})
     ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Теннисные корты Ташкента",
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}court/{c['id']}/", "name": c.get("ru")}
                               for i, c in enumerate(all_courts)]}
@@ -268,6 +331,7 @@ def landing_page(all_courts):
 {TOP}
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
+<div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
 <div class="map" id="map"></div>
 <p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#1E4D3A"></i>хард и грунт</span></p>
 <h2>Как забронировать корт в Ташкенте</h2>
@@ -279,7 +343,36 @@ def landing_page(all_courts):
 <script>
 (() => {{
   const P = {json.dumps(pts, ensure_ascii=False)};
+  const F = {json.dumps(F, ensure_ascii=False)};
   const STYLE = {MAP_STYLE};
+  // Same filters as the map on the main page.
+  const TYPES = [['all','Все'],['now','Открыто сейчас'],['h','Весь хард'],['c','Весь грунт'],['hi','Хард в зале'],['hd','Хард под куполом'],
+    ['ho','Хард на улице'],['hr','Хард под навесом'],['co','Грунт на улице'],['ci','Грунт в зале'],['24h','24/7']];
+  const SEASON_OFF = ['co'];
+  const span = t => {{ const m = (t || '').match(/^(\\d\\d):(\\d\\d)–(\\d\\d):(\\d\\d)$/); return m && [+m[1] * 60 + +m[2], +m[3] * 60 + +m[4]]; }};
+  const openNow = c => {{
+    if (c.st === 'off') return false;
+    const d = new Date(Date.now() + 5 * 3600e3), now = d.getUTCHours() * 60 + d.getUTCMinutes();
+    if (c.off.includes(d.getUTCDay())) return false;
+    return (c.t.length ? c.t : ['']).some(k => {{
+      if (SEASON_OFF.includes(k) || c.full.includes(k)) return false;
+      const s = span(c.hT[k] || c.h); if (!s) return false;
+      return s[1] > s[0] ? now >= s[0] && now < s[1] : now >= s[0] || now < s[1];
+    }});
+  }};
+  const match = (c, f) => f === 'all' ? true : f === 'now' ? openNow(c) : f === '24h' ? c.h === '00:00–24:00' && c.st !== 'off'
+    : c.t.some(k => k === f || k[0] === f && f.length === 1);
+  let CF = 'all', markers = {{}};
+  const apply = () => {{
+    F.forEach(c => {{ const ok = match(c, CF); const li = document.querySelector(`.grid li[data-id="${{c.id}}"]`); if (li) li.hidden = !ok;
+      if (markers[c.id]) markers[c.id].setVisible(ok); }});
+    const el = document.getElementById('cfilt');
+    el.innerHTML = TYPES.map(([k, n]) => {{ const cnt = F.filter(c => match(c, k)).length;
+      return cnt || k === 'all' ? `<button type="button" data-k="${{k}}" aria-pressed="${{k === CF}}">${{/^[hc]/.test(k) ? `<i class="${{k[0]}}"></i>` : ''}}${{n}} <small>${{cnt}}</small></button>` : ''; }}).join('');
+    el.querySelectorAll('button').forEach(b => b.onclick = () => {{ CF = b.dataset.k; apply(); }});
+  }};
+  apply();
+  setInterval(() => CF === 'now' && apply(), 60e3);
   window.initMap = () => {{
     const g = google.maps;
     const map = new g.Map(document.getElementById('map'), {{center: {{lat: 41.33, lng: 69.28}}, zoom: 12, gestureHandling: 'cooperative',
@@ -287,11 +380,25 @@ def landing_page(all_courts):
     const info = new g.InfoWindow(), bounds = new g.LatLngBounds();
     P.forEach(p => {{
       const m = new g.Marker({{position: {{lat: p.ll[0], lng: p.ll[1]}}, map, title: p.n,
-        icon: {{path: g.SymbolPath.CIRCLE, scale: 9, fillColor: p.c, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2}}}});
+        icon: {{path: g.SymbolPath.CIRCLE, scale: 6, fillColor: p.c, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2}}}});
+      markers[p.id] = m;
       m.addListener('click', () => {{ info.setContent(`<a href="/court/${{p.id}}/">${{p.n}}</a>`); info.open({{map, anchor: m}}); }});
       if (!p.far) bounds.extend(m.getPosition());
     }});
+    const LM = {json.dumps([{"n": l["ru"], "ll": l["ll"], "img": "/" + l["img"], "z": l.get("minZoom", 0)} for l in LANDMARKS], ensure_ascii=False)};
+    const lms = LM.map(l => {{
+      const el = document.createElement('div'); el.className = 'lm'; el.innerHTML = `<img src="${{l.img}}" alt="" title="${{l.n}}"><span>${{l.n}}</span>`;
+      const pos = new g.LatLng(...l.ll), ov = new g.OverlayView();
+      ov.onAdd = () => ov.getPanes().overlayMouseTarget.append(el);
+      ov.draw = () => {{ const pt = ov.getProjection().fromLatLngToDivPixel(pos); if (pt) {{ el.style.left = pt.x + 'px'; el.style.top = pt.y + 'px'; }} }};
+      ov.onRemove = () => el.remove(); ov.setMap(map);
+      return [el, l.z];
+    }});
+    const zoomed = () => {{ const z = map.getZoom(); lms.forEach(([el, mz]) => el.hidden = z < mz);
+      document.getElementById('map').classList.toggle('zoomed', z >= 14); }};
+    map.addListener('zoom_changed', zoomed);
     map.fitBounds(bounds, 30);
+    zoomed(); apply();
   }};
   const sc = document.createElement('script');
   sc.src = 'https://maps.googleapis.com/maps/api/js?key={GMAPS_KEY}&callback=initMap&loading=async';

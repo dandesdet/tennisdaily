@@ -33,6 +33,9 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;background:var(--ball);color:var(--ink);font-weight:600;text-decoration:none}
 .btn:hover{background:#D0E03A}
 .map{height:560px;border-radius:var(--r-img);background:var(--soft);z-index:0}
+.lm{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px}.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004}
+.lm span{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);font:600 13px 'Golos Text',sans-serif;white-space:nowrap;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;opacity:0;transition:opacity .15s}
+.lm:hover span,.map.zoomed .lm span{opacity:1}.lm[hidden]{display:none}
 .court-marker{background:none;border:0}.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0005}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 0;color:var(--muted);font-size:14px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 32px}
@@ -41,6 +44,17 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .grid a.card{display:block;color:inherit;text-decoration:none}.grid a.card:hover h3{color:var(--court)}
 .leaflet-popup-content{font:600 15px/1.35 'Golos Text',sans-serif;margin:10px 14px}.leaflet-popup-content a{color:var(--court)}
 .note{color:var(--muted);font-size:14px}
+.gal{position:relative}.gal figure{margin:0}.gal figure[hidden]{display:none}.gal figcaption{margin-top:8px;color:var(--muted)}
+.gal .nav{position:absolute;top:calc(50% - 40px);width:44px;height:44px;border:0;border-radius:50%;background:#fffd;color:var(--ink);font:400 26px/1 'Golos Text',sans-serif;cursor:pointer;box-shadow:0 1px 6px #0003}
+.gal .nav:hover{background:#fff}.gal .prev{left:12px}.gal .next{right:12px}
+.thumbs{display:flex;gap:8px;margin:12px 0 0;padding:0;list-style:none;overflow-x:auto}
+.thumbs button{flex:none;width:112px;padding:0;border:2px solid transparent;border-radius:var(--r-inner);background:none;cursor:pointer;overflow:hidden}
+.thumbs button[aria-current="true"]{border-color:var(--ink)}.thumbs img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.cfilt{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:999px;background:var(--soft);color:var(--ink);font:600 16px/1 'Golos Text',sans-serif;cursor:pointer}
+.cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}.cfilt small{font:500 14px/1 'Golos Text',sans-serif;opacity:.6}
+.grid li[hidden]{display:none}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.map{height:420px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SportsActivityLocation", "name": "TopTennis · школа № 110", "description": "Мирабад, ул. Якуба Коласа (бывшая Яккачинор), 9. Тренировки для взрослых и детей.", "url": "https://tennisdaily.uz/court/toptennis/", "sport": "Tennis", "address": {"@type": "PostalAddress", "addressLocality": "Ташкент", "addressCountry": "UZ"}, "geo": {"@type": "GeoCoordinates", "latitude": 41.303978, "longitude": 69.27405}, "telephone": "+998977036145", "image": "https://tennisdaily.uz/court/toptennis/preview.jpg"}</script>
@@ -50,9 +64,10 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 <div class="top"><a class="logo" href="/">Tennis Daily</a><a href="/korty/">Все корты Ташкента</a></div>
 <h1>TopTennis · школа № 110</h1>
 <p class="lead">Мирабад, ул. Якуба Коласа (бывшая Яккачинор), 9. Тренировки для взрослых и детей.</p>
-<img class="ph" src="/img/courts/toptennis-school-110.webp" alt="Теннисный корт «TopTennis · школа № 110», Ташкент">
+<figure class="gal" style="margin:0"><img class="ph" src="/img/courts/toptennis-school-110.webp" alt="Теннисный корт «TopTennis · школа № 110», Ташкент"><figcaption>Грунт в зале</figcaption></figure>
 <dl><dt>Корты</dt><dd>Грунт в зале</dd><dt>Телефон</dt><dd><a href="tel:+998977036145">+998977036145</a></dd><dt>Бронь и связь</dt><dd><a href="https://www.instagram.com/toptennis.uz/" rel="noopener">@toptennis.uz</a> · <a href="https://t.me/toptennis_admin" rel="noopener">@toptennis_admin</a></dd><dt>Как добраться</dt><dd><a href="https://yandex.uz/maps/?rtext=~41.303978,69.27405&rtt=auto" rel="noopener">Маршрут в Яндекс Картах</a> · <a href="https://t.me/tennisdaily_uz_bot?start=court_toptennis_ru" rel="noopener">Отправить локацию в Telegram</a></dd></dl>
 <p><a class="btn" href="/?court=toptennis">Открыть на карте Tennis Daily</a></p>
+
 <p class="note">Свободное время уточняйте по телефону или в онлайн-календаре брони. Данные о корте собирает редакция Tennis Daily; если что-то изменилось, напишите <a href="https://t.me/dandesdet">@dandesdet</a>.</p>
 </main>
 </body>
