@@ -634,7 +634,7 @@ a.vplay{display:block}
 .coach-form{display:grid;gap:12px;padding:16px 24px 24px}
 .coach-form p{margin:0}
 .coach-form label{display:grid;gap:4px;font-weight:600}
-.coach-form input{min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-small);corner-shape:squircle;font:inherit}
+.coach-form input{min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-small);corner-shape:squircle;font:inherit;font-weight:400}
 .coach-form input:focus-visible,.coach-slot:focus-visible,.coach-submit:focus-visible,.coach-back:focus-visible{outline:2px solid var(--court);outline-offset:2px}
 .coach-back{justify-self:start;min-height:44px;padding:0;border:0;background:none;color:var(--court);font:600 14px var(--body);cursor:pointer}
 .coach-submit{background:var(--ball);color:var(--ink)}
@@ -644,7 +644,12 @@ a.vplay{display:block}
 .court-suggestion-action{display:inline-flex;align-items:center;min-height:44px;padding:6px 16px;border-radius:var(--pill);corner-shape:squircle;background:var(--ball);color:var(--ink);font-weight:600}
 .court-suggestion:hover .court-suggestion-action{background:#D0E03A}
 .court-suggestion-dialog{width:min(480px,calc(100% - 24px))}
-.coach-form textarea{min-height:96px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-small);corner-shape:squircle;font:inherit;resize:vertical}
+.coach-add-row{margin-top:28px}
+.coach-add{display:grid;grid-template-columns:min(42%,240px) minmax(0,1fr);align-items:center;gap:20px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.coach-add .cth{width:100%;aspect-ratio:16/9;display:grid;place-items:center;border:1px dashed var(--line);border-radius:var(--r-inner);corner-shape:squircle;background:var(--paper);color:#77766f;font:400 32px/1 var(--body)}
+.coach-add:hover .court-suggestion-action{background:#D0E03A}
+.coach-add:focus-visible{outline:2px solid var(--court);outline-offset:4px}
+.coach-form textarea{min-height:96px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-small);corner-shape:squircle;font:inherit;font-weight:400;resize:vertical}
 .coach-form textarea:focus-visible{outline:2px solid var(--court);outline-offset:2px}
 @media (max-width:820px){.coach-grid{grid-template-columns:1fr}}
 @media (max-width:620px){
@@ -1309,6 +1314,15 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
     <span data-en>Demo profiles. Experience, ratings, reviews and schedules are illustrative.</span>
   </p>
   <div class="coach-grid"></div>
+  <div class="coach-grid coach-add-row">
+    <button type="button" class="coach-add" id="coach-add-open" aria-haspopup="dialog" aria-controls="coach-add-dialog">
+      <span class="cth" aria-hidden="true">+</span>
+      <span class="court-suggestion-copy">
+        <b><span data-ru>Вы тренер?</span><span data-uz>Murabbiymisiz?</span><span data-en>Are you a coach?</span></b>
+        <span class="court-suggestion-action"><span data-ru>Добавить себя</span><span data-uz>O‘zingizni qo‘shing</span><span data-en>Add yourself</span></span>
+      </span>
+    </button>
+  </div>
 </section>
 
 <footer>
@@ -1399,6 +1413,28 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
     <label><span data-ru>Что ещё о нём известно?</span><span data-uz>Kort haqida yana nimalarni bilasiz?</span><span data-en>What else do you know about it?</span><textarea id="suggested-court-details" maxlength="900"></textarea></label>
     <input type="hidden" name="text">
     <p class="coach-timezone"><span data-ru>В Telegram откроется черновик. Нажмите «Отправить», чтобы он дошёл до редакции.</span><span data-uz>Telegram’da qoralama ochiladi. Tahririyatga jo‘natish uchun «Yuborish» tugmasini bosing.</span><span data-en>Telegram will open a draft. Tap Send to deliver it to the editors.</span></p>
+    <button type="submit" class="coach-submit"><span data-ru>Открыть Telegram</span><span data-uz>Telegram’ni ochish</span><span data-en>Open Telegram</span></button>
+  </form>
+</dialog>
+
+<dialog class="court-dialog court-suggestion-dialog" id="coach-add-dialog" aria-labelledby="coach-add-title">
+  <div class="court-dialog-head">
+    <h2 id="coach-add-title"><span data-ru>Добавить тренера</span><span data-uz>Murabbiy qo‘shish</span><span data-en>Add a coach</span></h2>
+    <form method="dialog">
+      <button type="submit" class="share-close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+        <span class="post-share-label" data-ru>Закрыть</span><span class="post-share-label" data-uz>Yopish</span><span class="post-share-label" data-en>Close</span>
+      </button>
+    </form>
+  </div>
+  <form class="coach-form" action="https://t.me/dandesdet" method="get" target="_blank" rel="noopener">
+    <label><span data-ru>Имя и фамилия</span><span data-uz>Ism va familiya</span><span data-en>Full name</span><input id="coach-add-name" type="text" required maxlength="80" autocomplete="name"></label>
+    <label><span data-ru>Где тренируете</span><span data-uz>Qayerda mashg‘ulot o‘tkazasiz</span><span data-en>Where you coach</span><input id="coach-add-where" type="text" maxlength="200"></label>
+    <label><span data-ru>Цена за час</span><span data-uz>Bir soat narxi</span><span data-en>Price per hour</span><input id="coach-add-price" type="text" maxlength="60"></label>
+    <label><span data-ru>Telegram или телефон</span><span data-uz>Telegram yoki telefon</span><span data-en>Telegram or phone</span><input id="coach-add-contact" type="text" required maxlength="80"></label>
+    <label><span data-ru>О себе</span><span data-uz>O‘zingiz haqingizda</span><span data-en>About you</span><textarea id="coach-add-about" maxlength="900"></textarea></label>
+    <input type="hidden" name="text">
+    <p class="coach-timezone"><span data-ru>В Telegram откроется черновик. Нажмите «Отправить», чтобы он дошёл до редакции.</span><span data-uz>Telegram’da qoralama ochiladi. Tahririyatga yetib borishi uchun «Yuborish»ni bosing.</span><span data-en>A draft opens in Telegram. Tap “Send” so it reaches the editors.</span></p>
     <button type="submit" class="coach-submit"><span data-ru>Открыть Telegram</span><span data-uz>Telegram’ni ochish</span><span data-en>Open Telegram</span></button>
   </form>
 </dialog>
@@ -2492,6 +2528,7 @@ document.querySelectorAll('#video .vids').forEach(v => {
     en: ['Tennis Daily court suggestion', 'Court', 'Address or link', 'Details', 'Enter the court name.'],
   };
   document.getElementById('court-suggestion-open').addEventListener('click', () => dialog.showModal());
+  dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
   name.addEventListener('input', () => name.setCustomValidity(''));
   form.addEventListener('submit', event => {
     const [heading, courtLabel, locationLabel, detailsLabel, missingName] = labels[document.documentElement.lang] || labels.uz;
@@ -2507,6 +2544,27 @@ document.querySelectorAll('#video .vids').forEach(v => {
     if (details.value.trim()) lines.push(`${detailsLabel}: ${details.value.trim()}`);
     form.elements.namedItem('text').value = lines.join('\n');
   });
+})();
+</script>
+<script>
+(() => {
+  const dialog = document.getElementById('coach-add-dialog');
+  const form = dialog.querySelector('.coach-form');
+  const f = id => document.getElementById('coach-add-' + id);
+  const L = {
+    ru: ['Тренер для Tennis Daily', 'Имя', 'Где тренирует', 'Цена за час', 'Контакт', 'О себе'],
+    uz: ['Tennis Daily uchun murabbiy', 'Ism', 'Qayerda', 'Bir soat narxi', 'Aloqa', 'O‘zi haqida'],
+    en: ['Coach for Tennis Daily', 'Name', 'Where', 'Price per hour', 'Contact', 'About'],
+  };
+  document.getElementById('coach-add-open').addEventListener('click', () => dialog.showModal());
+  form.addEventListener('submit', event => {
+    if (!form.reportValidity()) { event.preventDefault(); return; }
+    const l = L[document.documentElement.lang] || L.uz;
+    const lines = [l[0]];
+    ['name', 'where', 'price', 'contact', 'about'].forEach((id, i) => { const v = f(id).value.trim(); if (v) lines.push(`${l[i + 1]}: ${v}`); });
+    form.elements.namedItem('text').value = lines.join('\n');
+  });
+  dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 })();
 </script>
 <script src="scripts/coaches.js"></script>
