@@ -70,7 +70,19 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;background:var(--ball);color:var(--ink);font-weight:600;text-decoration:none}
 .btn:hover{background:#D0E03A}
 .map{height:560px;border-radius:var(--r-img);background:var(--soft);z-index:0}
-.lm{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px}.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004}
+.lm{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px}.lm button{display:block;width:100%;height:100%;padding:0;border:0;border-radius:50%;background:none;cursor:zoom-in}
+.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004;transition:transform .15s}
+.map:not(.zoomed) .lm{width:24px;height:24px;margin:-12px 0 0 -12px}
+@media(hover:hover){.lm:hover img{transform:scale(1.35)}}
+.court-map-label{pointer-events:none;color:var(--ink)!important;font:600 12px 'Golos Text',sans-serif!important;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff}
+.court-preview{width:min(280px,calc(100vw - 72px));font:400 15px/1.4 'Golos Text',sans-serif}.court-preview>b{display:block;font:500 22px/1.2 'Literata',Georgia,serif;padding-right:32px}
+.court-preview img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin:10px 0 8px}.court-preview .more{font-weight:600;color:var(--court);text-decoration:none}
+.court-marker-type{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.tg{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;background:var(--soft);border-radius:999px;padding:2px 10px 2px 8px}
+.tg::before{content:'';width:8px;height:8px;border-radius:50%}.tg.c::before{background:#C2683A}.tg.h::before{background:#2F6DB5}
+dialog.lb{border:0;padding:0;background:none;max-width:min(1100px,94vw)}dialog.lb::backdrop{background:#000c}
+dialog.lb img{display:block;max-width:100%;max-height:84vh;border-radius:12px}dialog.lb figcaption{color:#fff;font:600 16px 'Golos Text',sans-serif;margin-top:10px}
+dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width:44px;height:44px;border:0;border-radius:50%;background:#fffd;font-size:22px;cursor:pointer}
 .lm span{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);font:600 13px 'Golos Text',sans-serif;white-space:nowrap;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;opacity:0;transition:opacity .15s}
 .lm:hover span,.map.zoomed .lm span{opacity:1}.lm[hidden]{display:none}
 .court-marker{background:none;border:0}.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0005}
@@ -342,7 +354,16 @@ def landing_page(all_courts):
         if len(ll) == 2:
             surf = {t[0] for t in c.get("t", [])} - {"x"}
             color = "#2F6DB5" if surf == {"h"} else "#C2683A" if surf == {"c"} else "#1E4D3A"
-            pts.append({"id": c["id"], "n": c.get("ru"), "ll": ll, "c": color, "far": bool(c.get("far"))})
+            types = {}
+            for t in c.get("t", []):
+                k = t[0] + (t[1] or "")
+                img = t[2] if len(t) > 2 and t[2] and (ROOT / t[2]).exists() else ""
+                if k not in types or (img and not types[k][2]):
+                    types[k] = [t[0], t[1] or "", "/" + img if img else ""]
+            short = (c.get("short") or [None])[0] or re.split(r"\s+(?:\(|·)", c.get("ru", ""), maxsplit=1)[0]
+            pts.append({"id": c["id"], "n": c.get("ru"), "s": short, "ll": ll, "far": bool(c.get("far")),
+                        "t": list(types.values()), "cnt": c.get("counts") or {},
+                        "img": "/" + photos_of(c)[0] if photos_of(c) else ""})
         F.append({"id": c["id"], "t": sorted({t[0] + (t[1] or "") for t in c.get("t", [])}), "h": c.get("h") or "",
                   "hT": c.get("hT") or {}, "off": c.get("offDays") or [], "st": c.get("st") or "", "full": c.get("full") or []})
     ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Теннисные корты Ташкента",
@@ -360,7 +381,8 @@ def landing_page(all_courts):
 <p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
 <div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
 <div class="map" id="map"></div>
-<p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#1E4D3A"></i>хард и грунт</span></p>
+<dialog class="lb" id="lm-photo"><form method="dialog"><button aria-label="Закрыть">×</button></form><figure style="margin:0"><img alt=""><figcaption></figcaption></figure></dialog>
+<p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#285A47"></i>хард и грунт</span></p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
 <h2>Все корты</h2>
@@ -390,10 +412,10 @@ def landing_page(all_courts):
   }};
   const match = (c, f) => f === 'all' ? true : f === 'now' ? openNow(c) : f === '24h' ? c.h === '00:00–24:00' && c.st !== 'off'
     : c.t.some(k => k === f || k[0] === f && f.length === 1);
-  let CF = 'all', markers = {{}};
+  let CF = 'all', groups = [], map = null;
   const apply = () => {{
     F.forEach(c => {{ const ok = match(c, CF); const li = document.querySelector(`.grid li[data-id="${{c.id}}"]`); if (li) li.hidden = !ok;
-      if (markers[c.id]) markers[c.id].setVisible(ok); }});
+ }}); groups.forEach(g => g.refresh());
     const el = document.getElementById('cfilt');
     el.innerHTML = TYPES.map(([k, n]) => {{ const cnt = F.filter(c => match(c, k)).length;
       return cnt || k === 'all' ? `<button type="button" data-k="${{k}}" aria-pressed="${{k === CF}}">${{/^[hc]/.test(k) ? `<i class="${{k[0]}}"></i>` : ''}}${{n}} <small>${{cnt}}</small></button>` : ''; }}).join('');
@@ -401,21 +423,71 @@ def landing_page(all_courts):
   }};
   apply();
   setInterval(() => CF === 'now' && apply(), 60e3);
+  // Map behaves like the one on the main page: one small dot per venue when zoomed out (mixed colour if hard + clay),
+  // separate dots per court type with a short label from zoom 14, a popup with the type photo, landmark photos open large.
+  const COL = {{h: '#2F6DB5', c: '#C2683A', x: '#77746D'}}, DETAIL = 14;
+  const SURF = {{c: 'грунт', h: 'хард'}}, KIND = {{o: 'улица', r: 'навес', i: 'зал', d: 'надувной купол'}};
+  const typeLabel = (sf, k) => [SURF[sf], KIND[k]].filter(Boolean).join(' · ');
+  const esc = v => String(v).replace(/[&<>"]/g, ch => ({{'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}})[ch]);
+  const nCourts = n => n + ' ' + ({{one: 'корт', few: 'корта', many: 'кортов', other: 'корта'}})[new Intl.PluralRules('ru').select(n)];
+  const popup = (p, types) => {{
+    const pills = types.map(([sf, k]) => {{ const n = p.cnt[sf + k];
+      return sf === 'x' ? '' : `<span class="tg ${{sf}}">${{typeLabel(sf, k)}}${{n ? ' · ' + nCourts(n) : ''}}</span>`; }}).join('');
+    const img = types.map(t => t[2]).find(Boolean) || p.img;
+    return `<div class="court-preview"><b>${{esc(p.n)}}</b>${{pills ? `<div class="court-marker-type">${{pills}}</div>` : ''}}`
+      + (img ? `<img src="${{img}}" alt="${{esc(p.n)}}">` : '') + `<a class="more" href="/court/${{p.id}}/">Подробнее о корте →</a></div>`;
+  }};
   window.initMap = () => {{
     const g = google.maps;
-    const map = new g.Map(document.getElementById('map'), {{center: {{lat: 41.33, lng: 69.28}}, zoom: 12, gestureHandling: 'cooperative',
+    map = new g.Map(document.getElementById('map'), {{center: {{lat: 41.33, lng: 69.28}}, zoom: 12, gestureHandling: 'cooperative',
       disableDefaultUI: true, zoomControl: true, clickableIcons: false, styles: STYLE}});
-    const info = new g.InfoWindow(), bounds = new g.LatLngBounds();
-    P.forEach(p => {{
-      const m = new g.Marker({{position: {{lat: p.ll[0], lng: p.ll[1]}}, map, title: p.n,
-        icon: {{path: g.SymbolPath.CIRCLE, scale: 6, fillColor: p.c, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2}}}});
-      markers[p.id] = m;
-      m.addListener('click', () => {{ info.setContent(`<a href="/court/${{p.id}}/">${{p.n}}</a>`); info.open({{map, anchor: m}}); }});
-      if (!p.far) bounds.extend(m.getPosition());
+    const info = new g.InfoWindow({{maxWidth: 300}}), bounds = new g.LatLngBounds();
+    let cur = null;
+    info.addListener('close', () => {{ cur = null; }});
+    map.addListener('click', () => info.close());
+    groups = P.map(p => {{
+      const fc = F.find(c => c.id === p.id), types = p.t.length ? p.t : [['x', '', '']];
+      const entries = types.map(type => {{
+        const marker = new g.Marker({{position: {{lat: p.ll[0], lng: p.ll[1]}}, map, zIndex: 10, visible: false}});
+        let offset = 0, radius = 9, color = COL[type[0]], shownTypes = [type];
+        const draw = sc => marker.setIcon({{path: g.SymbolPath.CIRCLE, scale: sc, anchor: new g.Point(-offset / sc, 0),
+          labelOrigin: new g.Point(-offset / sc, -20 / sc), fillColor: color, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2}});
+        marker.addListener('mouseover', () => {{ draw(radius + 2); marker.setZIndex(11); }});
+        marker.addListener('mouseout', () => {{ draw(radius); marker.setZIndex(10); }});
+        marker.addListener('click', () => {{
+          if (cur === marker) return info.close();
+          cur = marker; info.setContent(popup(p, shownTypes)); info.open({{map, anchor: marker, shouldFocus: false}});
+        }});
+        return {{type, update: (visible, off, label, compact, all, col) => {{
+          marker.setVisible(visible);
+          if (!visible) {{ if (cur === marker) info.close(); return; }}
+          offset = off; radius = compact ? 5 : 9; color = col; shownTypes = compact ? all : [type]; draw(radius);
+          marker.setTitle(compact ? p.n : `${{p.n}} · ${{typeLabel(type[0], type[1])}}`);
+          marker.setLabel(label ? {{text: p.s, className: 'court-map-label'}} : null);
+        }}}};
+      }});
+      if (!p.far) bounds.extend({{lat: p.ll[0], lng: p.ll[1]}});
+      return {{refresh: () => {{
+        const ok = fc ? match(fc, CF) : true;
+        const vis = entries.filter(e => ok && (!/^[hc]/.test(CF) || CF === e.type[0] + e.type[1] || CF === e.type[0]));
+        const compact = map.getZoom() < DETAIL;
+        const mixed = compact && vis.length > 1 && vis.some(e => e.type[0] !== vis[0].type[0]);
+        entries.forEach(e => {{
+          const i = vis.indexOf(e), shown = i >= 0 && (!compact || i === 0);
+          e.update(shown, compact ? 0 : (i - (vis.length - 1) / 2) * 17, !compact && i === 0, compact,
+            vis.map(v => v.type), mixed ? '#285A47' : COL[e.type[0]]);
+        }});
+      }}}};
     }});
     const LM = {json.dumps([{"n": l["ru"], "ll": l["ll"], "img": "/" + l["img"], "z": l.get("minZoom", 0)} for l in LANDMARKS], ensure_ascii=False)};
+    const lb = document.getElementById('lm-photo');
+    lb.addEventListener('click', e => {{ if (e.target === lb) lb.close(); }});
     const lms = LM.map(l => {{
-      const el = document.createElement('div'); el.className = 'lm'; el.innerHTML = `<img src="${{l.img}}" alt="" title="${{l.n}}"><span>${{l.n}}</span>`;
+      const el = document.createElement('div'); el.className = 'lm';
+      el.innerHTML = `<button type="button" aria-label="${{l.n}}" aria-haspopup="dialog"><img src="${{l.img}}" alt=""></button><span>${{l.n}}</span>`;
+      el.querySelector('button').addEventListener('click', e => {{ e.stopPropagation();
+        lb.querySelector('img').src = l.img.replace('/img/landmarks/', '/img/landmarks/full/'); lb.querySelector('img').alt = l.n;
+        lb.querySelector('figcaption').textContent = l.n; lb.showModal(); }});
       const pos = new g.LatLng(...l.ll), ov = new g.OverlayView();
       ov.onAdd = () => ov.getPanes().overlayMouseTarget.append(el);
       ov.draw = () => {{ const pt = ov.getProjection().fromLatLngToDivPixel(pos); if (pt) {{ el.style.left = pt.x + 'px'; el.style.top = pt.y + 'px'; }} }};
@@ -423,9 +495,9 @@ def landing_page(all_courts):
       return [el, l.z];
     }});
     const zoomed = () => {{ const z = map.getZoom(); lms.forEach(([el, mz]) => el.hidden = z < mz);
-      document.getElementById('map').classList.toggle('zoomed', z >= 14); }};
+      document.getElementById('map').classList.toggle('zoomed', z >= DETAIL); groups.forEach(gr => gr.refresh()); }};
     map.addListener('zoom_changed', zoomed);
-    map.fitBounds(bounds, 30);
+    map.fitBounds(bounds, 40);
     zoomed(); apply();
   }};
   const sc = document.createElement('script');

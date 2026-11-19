@@ -46,7 +46,19 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;background:var(--ball);color:var(--ink);font-weight:600;text-decoration:none}
 .btn:hover{background:#D0E03A}
 .map{height:560px;border-radius:var(--r-img);background:var(--soft);z-index:0}
-.lm{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px}.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004}
+.lm{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px}.lm button{display:block;width:100%;height:100%;padding:0;border:0;border-radius:50%;background:none;cursor:zoom-in}
+.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004;transition:transform .15s}
+.map:not(.zoomed) .lm{width:24px;height:24px;margin:-12px 0 0 -12px}
+@media(hover:hover){.lm:hover img{transform:scale(1.35)}}
+.court-map-label{pointer-events:none;color:var(--ink)!important;font:600 12px 'Golos Text',sans-serif!important;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff}
+.court-preview{width:min(280px,calc(100vw - 72px));font:400 15px/1.4 'Golos Text',sans-serif}.court-preview>b{display:block;font:500 22px/1.2 'Literata',Georgia,serif;padding-right:32px}
+.court-preview img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin:10px 0 8px}.court-preview .more{font-weight:600;color:var(--court);text-decoration:none}
+.court-marker-type{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.tg{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;background:var(--soft);border-radius:999px;padding:2px 10px 2px 8px}
+.tg::before{content:'';width:8px;height:8px;border-radius:50%}.tg.c::before{background:#C2683A}.tg.h::before{background:#2F6DB5}
+dialog.lb{border:0;padding:0;background:none;max-width:min(1100px,94vw)}dialog.lb::backdrop{background:#000c}
+dialog.lb img{display:block;max-width:100%;max-height:84vh;border-radius:12px}dialog.lb figcaption{color:#fff;font:600 16px 'Golos Text',sans-serif;margin-top:10px}
+dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width:44px;height:44px;border:0;border-radius:50%;background:#fffd;font-size:22px;cursor:pointer}
 .lm span{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);font:600 13px 'Golos Text',sans-serif;white-space:nowrap;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;opacity:0;transition:opacity .15s}
 .lm:hover span,.map.zoomed .lm span{opacity:1}.lm[hidden]{display:none}
 .court-marker{background:none;border:0}.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0005}

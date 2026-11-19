@@ -46,7 +46,19 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;background:var(--ball);color:var(--ink);font-weight:600;text-decoration:none}
 .btn:hover{background:#D0E03A}
 .map{height:560px;border-radius:var(--r-img);background:var(--soft);z-index:0}
-.lm{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px}.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004}
+.lm{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px}.lm button{display:block;width:100%;height:100%;padding:0;border:0;border-radius:50%;background:none;cursor:zoom-in}
+.lm img{width:100%;height:100%;object-fit:cover;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px #0004;transition:transform .15s}
+.map:not(.zoomed) .lm{width:24px;height:24px;margin:-12px 0 0 -12px}
+@media(hover:hover){.lm:hover img{transform:scale(1.35)}}
+.court-map-label{pointer-events:none;color:var(--ink)!important;font:600 12px 'Golos Text',sans-serif!important;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff}
+.court-preview{width:min(280px,calc(100vw - 72px));font:400 15px/1.4 'Golos Text',sans-serif}.court-preview>b{display:block;font:500 22px/1.2 'Literata',Georgia,serif;padding-right:32px}
+.court-preview img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin:10px 0 8px}.court-preview .more{font-weight:600;color:var(--court);text-decoration:none}
+.court-marker-type{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.tg{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;background:var(--soft);border-radius:999px;padding:2px 10px 2px 8px}
+.tg::before{content:'';width:8px;height:8px;border-radius:50%}.tg.c::before{background:#C2683A}.tg.h::before{background:#2F6DB5}
+dialog.lb{border:0;padding:0;background:none;max-width:min(1100px,94vw)}dialog.lb::backdrop{background:#000c}
+dialog.lb img{display:block;max-width:100%;max-height:84vh;border-radius:12px}dialog.lb figcaption{color:#fff;font:600 16px 'Golos Text',sans-serif;margin-top:10px}
+dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width:44px;height:44px;border:0;border-radius:50%;background:#fffd;font-size:22px;cursor:pointer}
 .lm span{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);font:600 13px 'Golos Text',sans-serif;white-space:nowrap;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;opacity:0;transition:opacity .15s}
 .lm:hover span,.map.zoomed .lm span{opacity:1}.lm[hidden]{display:none}
 .court-marker{background:none;border:0}.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0005}
@@ -82,7 +94,8 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 <p class="lead">Где поиграть в теннис в Ташкенте: 21 теннисный клуб и площадка — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
 <div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
 <div class="map" id="map"></div>
-<p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#1E4D3A"></i>хард и грунт</span></p>
+<dialog class="lb" id="lm-photo"><form method="dialog"><button aria-label="Закрыть">×</button></form><figure style="margin:0"><img alt=""><figcaption></figcaption></figure></dialog>
+<p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#285A47"></i>хард и грунт</span></p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
 <h2>Все корты</h2>
@@ -97,7 +110,7 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 </main>
 <script>
 (() => {
-  const P = [{"id": "matonat", "n": "Матонат (Буревестник)", "ll": [41.325849, 69.279293], "c": "#C2683A", "far": false}, {"id": "turin", "n": "Туринский политех", "ll": [41.350545, 69.222192], "c": "#2F6DB5", "far": false}, {"id": "yoshlik", "n": "Ёшлик (Старт)", "ll": [41.324598, 69.306003], "c": "#1E4D3A", "far": false}, {"id": "msu", "n": "МГУ им. Ломоносова", "ll": [41.300731, 69.280986], "c": "#C2683A", "far": false}, {"id": "uchqun", "n": "Учкун", "ll": [41.359794, 69.285046], "c": "#1E4D3A", "far": false}, {"id": "olympic-reserve", "n": "Республиканская школа олимпийского резерва", "ll": [41.349572, 69.34426], "c": "#1E4D3A", "far": false}, {"id": "meridian", "n": "Меридиан", "ll": [41.39119, 69.27879], "c": "#2F6DB5", "far": false}, {"id": "yunusabad", "n": "Юнусабад (у телебашни)", "ll": [41.346931, 69.285143], "c": "#1E4D3A", "far": false}, {"id": "pakhtakor", "n": "Пахтакор · Tennis & Padel City", "ll": [41.315683, 69.263468], "c": "#1E4D3A", "far": false}, {"id": "dinamo", "n": "Динамо (МВЭС)", "ll": [41.332945, 69.330479], "c": "#1E4D3A", "far": false}, {"id": "ajou", "n": "AJOU · Ravshan court", "ll": [41.279431, 69.338145], "c": "#2F6DB5", "far": false}, {"id": "hadra", "n": "Хадра", "ll": [41.323518, 69.241747], "c": "#2F6DB5", "far": false}, {"id": "toptennis", "n": "TopTennis · школа № 110", "ll": [41.303978, 69.27405], "c": "#C2683A", "far": false}, {"id": "ace-club", "n": "Ace club", "ll": [41.3099722, 69.3073333], "c": "#2F6DB5", "far": false}, {"id": "ipakchi", "n": "Ипакчи", "ll": [41.329327, 69.19038], "c": "#1E4D3A", "far": false}, {"id": "cska", "n": "CSKA · школа Ироды Тулягановой", "ll": [41.330284, 69.340359], "c": "#C2683A", "far": false}, {"id": "umid", "n": "Умид", "ll": [41.350547, 69.347301], "c": "#2F6DB5", "far": false}, {"id": "mdis", "n": "Сингапурский институт (MDIS)", "ll": [41.269655, 69.202787], "c": "#1E4D3A", "far": false}, {"id": "lokomotiv", "n": "Локомотив", "ll": [41.274739, 69.273286], "c": "#1E4D3A", "far": false}, {"id": "olympic-village", "n": "Олимпийский городок", "ll": [41.321103, 69.418334], "c": "#2F6DB5", "far": false}, {"id": "humson", "n": "Хумсон Булок", "ll": [41.658372, 69.955048], "c": "#2F6DB5", "far": true}];
+  const P = [{"id": "matonat", "n": "Матонат (Буревестник)", "s": "Матонат", "ll": [41.325849, 69.279293], "far": false, "t": [["c", "o", "/img/courts/matonat-outdoor-clay.webp"], ["x", "i", "/img/courts/matonat-hall.webp"]], "cnt": {"co": 4, "xi": 2}, "img": "/img/courts/matonat-outdoor-clay.webp"}, {"id": "turin", "n": "Туринский политех", "s": "Туринский политех", "ll": [41.350545, 69.222192], "far": false, "t": [["h", "i", "/img/courts/turin-indoor-restored.webp"]], "cnt": {}, "img": "/img/courts/turin-indoor-restored.webp"}, {"id": "yoshlik", "n": "Ёшлик (Старт)", "s": "Ёшлик", "ll": [41.324598, 69.306003], "far": false, "t": [["c", "o", "/img/yoshlik_clay.webp"], ["h", "i", "/img/yoshlik_hall.webp"]], "cnt": {"hi": 2}, "img": "/img/yoshlik_clay.webp"}, {"id": "msu", "n": "МГУ им. Ломоносова", "s": "МГУ им. Ломоносова", "ll": [41.300731, 69.280986], "far": false, "t": [["c", "o", "/img/courts/mgu.webp"]], "cnt": {"co": 3}, "img": "/img/courts/mgu.webp"}, {"id": "uchqun", "n": "Учкун", "s": "Учкун", "ll": [41.359794, 69.285046], "far": false, "t": [["c", "o", ""], ["h", "r", "/img/uchqun_hard.webp"]], "cnt": {}, "img": "/img/uchqun_hard.webp"}, {"id": "olympic-reserve", "n": "Республиканская школа олимпийского резерва", "s": "РТШОР", "ll": [41.349572, 69.34426], "far": false, "t": [["h", "o", "/img/courts/school.webp"], ["c", "o", ""], ["h", "i", "/img/courts/rtshor-hall-1.webp"], ["h", "d", ""]], "cnt": {"ho": 13, "co": 4, "hi": 3}, "img": "/img/courts/school.webp"}, {"id": "meridian", "n": "Меридиан", "s": "Меридиан", "ll": [41.39119, 69.27879], "far": false, "t": [["h", "i", "/img/courts/meridian.webp"]], "cnt": {"hi": 2}, "img": "/img/courts/meridian.webp"}, {"id": "yunusabad", "n": "Юнусабад (у телебашни)", "s": "Юнусабад", "ll": [41.346931, 69.285143], "far": false, "t": [["c", "o", "/img/courts/yunusabad-clay.webp"], ["h", "o", "/img/courts/yunusabad-outdoor-hard.webp"], ["x", "i", "/img/courts/yunusabad-indoor.webp"]], "cnt": {"ho": 4, "xi": 2}, "img": "/img/courts/yunusabad-clay.webp"}, {"id": "pakhtakor", "n": "Пахтакор · Tennis & Padel City", "s": "Пахтакор", "ll": [41.315683, 69.263468], "far": false, "t": [["c", "o", "/img/courts/pakhtakor.webp"], ["h", "o", "/img/courts/pakhtakor-hard-outdoor.webp"], ["c", "i", "/img/courts/pakhtakor-clay-indoor.webp"], ["h", "i", "/img/courts/pakhtakor-hard-indoor.webp"]], "cnt": {"co": 7, "ho": 3}, "img": "/img/courts/pakhtakor.webp"}, {"id": "dinamo", "n": "Динамо (МВЭС)", "s": "Динамо", "ll": [41.332945, 69.330479], "far": false, "t": [["c", "o", "/img/courts/dinamo.webp"], ["h", "o", "/img/courts/dinamo-outdoor-hard.webp"], ["h", "i", "/img/courts/dinamo-court-1.webp"], ["x", "i", "/img/courts/dinamo-hall-2.webp"]], "cnt": {}, "img": "/img/courts/dinamo.webp"}, {"id": "ajou", "n": "AJOU · Ravshan court", "s": "AJOU", "ll": [41.279431, 69.338145], "far": false, "t": [["h", "i", "/img/courts/ajou-indoor-hard.webp"]], "cnt": {"hi": 2}, "img": "/img/courts/ajou-indoor-hard.webp"}, {"id": "hadra", "n": "Хадра", "s": "Хадра", "ll": [41.323518, 69.241747], "far": false, "t": [["h", "r", "/img/courts/hadra.webp"]], "cnt": {}, "img": "/img/courts/hadra.webp"}, {"id": "toptennis", "n": "TopTennis · школа № 110", "s": "TopTennis", "ll": [41.303978, 69.27405], "far": false, "t": [["c", "i", "/img/courts/toptennis-school-110.webp"]], "cnt": {}, "img": "/img/courts/toptennis-school-110.webp"}, {"id": "ace-club", "n": "Ace club", "s": "Ace club", "ll": [41.3099722, 69.3073333], "far": false, "t": [["h", "i", "/img/courts/ace-blue.webp"]], "cnt": {"hi": 2}, "img": "/img/courts/ace-blue.webp"}, {"id": "ipakchi", "n": "Ипакчи", "s": "Ипакчи", "ll": [41.329327, 69.19038], "far": false, "t": [["c", "o", "/img/courts/ipak.webp"], ["h", "i", "/img/courts/ipakchi-indoor.webp"]], "cnt": {"co": 2, "hi": 1}, "img": "/img/courts/ipak.webp"}, {"id": "cska", "n": "CSKA · школа Ироды Тулягановой", "s": "CSKA · школа Ироды", "ll": [41.330284, 69.340359], "far": false, "t": [["c", "o", "/img/courts/iroda.webp"]], "cnt": {}, "img": "/img/courts/iroda.webp"}, {"id": "umid", "n": "Умид", "s": "Умид", "ll": [41.350547, 69.347301], "far": false, "t": [["h", "o", ""]], "cnt": {"ho": 2}, "img": "/img/courts/umid-exterior.webp"}, {"id": "mdis", "n": "Сингапурский институт (MDIS)", "s": "MDIS", "ll": [41.269655, 69.202787], "far": false, "t": [["x", "i", "/img/courts/mdis-indoor.webp"]], "cnt": {}, "img": "/img/courts/mdis-indoor.webp"}, {"id": "lokomotiv", "n": "Локомотив", "s": "Локомотив", "ll": [41.274739, 69.273286], "far": false, "t": [["c", "o", "/img/courts/lokomotiv.webp"], ["h", "d", "/img/courts/lokomotiv-dome.webp"]], "cnt": {"co": 2}, "img": "/img/courts/lokomotiv.webp"}, {"id": "olympic-village", "n": "Олимпийский городок", "s": "Олимпийский городок", "ll": [41.321103, 69.418334], "far": false, "t": [["h", "o", "/img/courts/olympic-village-outdoor-hard.jpg"]], "cnt": {}, "img": "/img/courts/olympic-village-outdoor-hard.jpg"}, {"id": "humson", "n": "Хумсон Булок", "s": "Хумсон Булок", "ll": [41.658372, 69.955048], "far": true, "t": [["h", "o", "/img/courts/humson.webp"]], "cnt": {}, "img": "/img/courts/humson.webp"}];
   const F = [{"id": "matonat", "t": ["co", "xi"], "h": "", "hT": {"xi": "06:00–23:00"}, "off": [], "st": "ok", "full": ["xi"]}, {"id": "turin", "t": ["hi"], "h": "", "hT": {}, "off": [], "st": "new", "full": []}, {"id": "yoshlik", "t": ["co", "hi"], "h": "05:00–23:00", "hT": {"hi": "05:00–24:00"}, "off": [], "st": "up", "full": []}, {"id": "msu", "t": ["co"], "h": "07:00–22:00", "hT": {}, "off": [], "st": "off", "full": []}, {"id": "uchqun", "t": ["co", "hr"], "h": "", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "olympic-reserve", "t": ["co", "hd", "hi", "ho"], "h": "", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "meridian", "t": ["hi"], "h": "06:00–23:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "yunusabad", "t": ["co", "ho", "xi"], "h": "09:00–23:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "pakhtakor", "t": ["ci", "co", "hi", "ho"], "h": "07:00–02:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "dinamo", "t": ["co", "hi", "ho", "xi"], "h": "07:00–23:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "ajou", "t": ["hi"], "h": "06:00–22:00", "hT": {}, "off": [], "st": "up", "full": []}, {"id": "hadra", "t": ["hr"], "h": "08:00–20:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "toptennis", "t": ["ci"], "h": "", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "ace-club", "t": ["hi"], "h": "06:00–24:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "ipakchi", "t": ["co", "hi"], "h": "09:00–23:00", "hT": {}, "off": [0], "st": "ok", "full": []}, {"id": "cska", "t": ["co"], "h": "09:00–21:00", "hT": {}, "off": [], "st": "off", "full": []}, {"id": "umid", "t": ["ho"], "h": "", "hT": {}, "off": [], "st": "up", "full": []}, {"id": "mdis", "t": ["xi"], "h": "", "hT": {}, "off": [], "st": "", "full": []}, {"id": "lokomotiv", "t": ["co", "hd"], "h": "06:00–24:00", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "olympic-village", "t": ["ho"], "h": "", "hT": {}, "off": [], "st": "ok", "full": []}, {"id": "humson", "t": ["ho"], "h": "00:00–24:00", "hT": {}, "off": [], "st": "ok", "full": []}];
   const STYLE = [
   {featureType: 'poi', stylers: [{visibility: 'off'}]},
@@ -126,10 +139,10 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
   };
   const match = (c, f) => f === 'all' ? true : f === 'now' ? openNow(c) : f === '24h' ? c.h === '00:00–24:00' && c.st !== 'off'
     : c.t.some(k => k === f || k[0] === f && f.length === 1);
-  let CF = 'all', markers = {};
+  let CF = 'all', groups = [], map = null;
   const apply = () => {
     F.forEach(c => { const ok = match(c, CF); const li = document.querySelector(`.grid li[data-id="${c.id}"]`); if (li) li.hidden = !ok;
-      if (markers[c.id]) markers[c.id].setVisible(ok); });
+ }); groups.forEach(g => g.refresh());
     const el = document.getElementById('cfilt');
     el.innerHTML = TYPES.map(([k, n]) => { const cnt = F.filter(c => match(c, k)).length;
       return cnt || k === 'all' ? `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${/^[hc]/.test(k) ? `<i class="${k[0]}"></i>` : ''}${n} <small>${cnt}</small></button>` : ''; }).join('');
@@ -137,21 +150,71 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
   };
   apply();
   setInterval(() => CF === 'now' && apply(), 60e3);
+  // Map behaves like the one on the main page: one small dot per venue when zoomed out (mixed colour if hard + clay),
+  // separate dots per court type with a short label from zoom 14, a popup with the type photo, landmark photos open large.
+  const COL = {h: '#2F6DB5', c: '#C2683A', x: '#77746D'}, DETAIL = 14;
+  const SURF = {c: 'грунт', h: 'хард'}, KIND = {o: 'улица', r: 'навес', i: 'зал', d: 'надувной купол'};
+  const typeLabel = (sf, k) => [SURF[sf], KIND[k]].filter(Boolean).join(' · ');
+  const esc = v => String(v).replace(/[&<>"]/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[ch]);
+  const nCourts = n => n + ' ' + ({one: 'корт', few: 'корта', many: 'кортов', other: 'корта'})[new Intl.PluralRules('ru').select(n)];
+  const popup = (p, types) => {
+    const pills = types.map(([sf, k]) => { const n = p.cnt[sf + k];
+      return sf === 'x' ? '' : `<span class="tg ${sf}">${typeLabel(sf, k)}${n ? ' · ' + nCourts(n) : ''}</span>`; }).join('');
+    const img = types.map(t => t[2]).find(Boolean) || p.img;
+    return `<div class="court-preview"><b>${esc(p.n)}</b>${pills ? `<div class="court-marker-type">${pills}</div>` : ''}`
+      + (img ? `<img src="${img}" alt="${esc(p.n)}">` : '') + `<a class="more" href="/court/${p.id}/">Подробнее о корте →</a></div>`;
+  };
   window.initMap = () => {
     const g = google.maps;
-    const map = new g.Map(document.getElementById('map'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: 'cooperative',
+    map = new g.Map(document.getElementById('map'), {center: {lat: 41.33, lng: 69.28}, zoom: 12, gestureHandling: 'cooperative',
       disableDefaultUI: true, zoomControl: true, clickableIcons: false, styles: STYLE});
-    const info = new g.InfoWindow(), bounds = new g.LatLngBounds();
-    P.forEach(p => {
-      const m = new g.Marker({position: {lat: p.ll[0], lng: p.ll[1]}, map, title: p.n,
-        icon: {path: g.SymbolPath.CIRCLE, scale: 6, fillColor: p.c, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2}});
-      markers[p.id] = m;
-      m.addListener('click', () => { info.setContent(`<a href="/court/${p.id}/">${p.n}</a>`); info.open({map, anchor: m}); });
-      if (!p.far) bounds.extend(m.getPosition());
+    const info = new g.InfoWindow({maxWidth: 300}), bounds = new g.LatLngBounds();
+    let cur = null;
+    info.addListener('close', () => { cur = null; });
+    map.addListener('click', () => info.close());
+    groups = P.map(p => {
+      const fc = F.find(c => c.id === p.id), types = p.t.length ? p.t : [['x', '', '']];
+      const entries = types.map(type => {
+        const marker = new g.Marker({position: {lat: p.ll[0], lng: p.ll[1]}, map, zIndex: 10, visible: false});
+        let offset = 0, radius = 9, color = COL[type[0]], shownTypes = [type];
+        const draw = sc => marker.setIcon({path: g.SymbolPath.CIRCLE, scale: sc, anchor: new g.Point(-offset / sc, 0),
+          labelOrigin: new g.Point(-offset / sc, -20 / sc), fillColor: color, fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2});
+        marker.addListener('mouseover', () => { draw(radius + 2); marker.setZIndex(11); });
+        marker.addListener('mouseout', () => { draw(radius); marker.setZIndex(10); });
+        marker.addListener('click', () => {
+          if (cur === marker) return info.close();
+          cur = marker; info.setContent(popup(p, shownTypes)); info.open({map, anchor: marker, shouldFocus: false});
+        });
+        return {type, update: (visible, off, label, compact, all, col) => {
+          marker.setVisible(visible);
+          if (!visible) { if (cur === marker) info.close(); return; }
+          offset = off; radius = compact ? 5 : 9; color = col; shownTypes = compact ? all : [type]; draw(radius);
+          marker.setTitle(compact ? p.n : `${p.n} · ${typeLabel(type[0], type[1])}`);
+          marker.setLabel(label ? {text: p.s, className: 'court-map-label'} : null);
+        }};
+      });
+      if (!p.far) bounds.extend({lat: p.ll[0], lng: p.ll[1]});
+      return {refresh: () => {
+        const ok = fc ? match(fc, CF) : true;
+        const vis = entries.filter(e => ok && (!/^[hc]/.test(CF) || CF === e.type[0] + e.type[1] || CF === e.type[0]));
+        const compact = map.getZoom() < DETAIL;
+        const mixed = compact && vis.length > 1 && vis.some(e => e.type[0] !== vis[0].type[0]);
+        entries.forEach(e => {
+          const i = vis.indexOf(e), shown = i >= 0 && (!compact || i === 0);
+          e.update(shown, compact ? 0 : (i - (vis.length - 1) / 2) * 17, !compact && i === 0, compact,
+            vis.map(v => v.type), mixed ? '#285A47' : COL[e.type[0]]);
+        });
+      }};
     });
     const LM = [{"n": "Сквер Амира Темура", "ll": [41.311287, 69.279758], "img": "/img/landmarks/amir-temur.webp", "z": 0}, {"n": "Телебашня", "ll": [41.34567, 69.284719], "img": "/img/landmarks/tv-tower.webp", "z": 0}, {"n": "Аэропорт", "ll": [41.261838, 69.267204], "img": "/img/landmarks/airport.webp", "z": 0}, {"n": "Чорсу", "ll": [41.326169, 69.239632], "img": "/img/landmarks/chorsu.webp", "z": 0}, {"n": "Мечеть Минор", "ll": [41.3353, 69.275], "img": "/img/landmarks/minor-mosque.webp", "z": 0}, {"n": "Tashkent City", "ll": [41.3165, 69.24837], "img": "/img/landmarks/tashkent-city.webp", "z": 13}, {"n": "Комплекс Хазрати Имам", "ll": [41.337375, 69.239903], "img": "/img/landmarks/hazrati-imam.webp", "z": 13}, {"n": "Magic City", "ll": [41.30353, 69.2443], "img": "/img/landmarks/magic-city.webp", "z": 13}, {"n": "Парк «Новый Узбекистан»", "ll": [41.32713, 69.43824], "img": "/img/landmarks/new-uzbekistan.webp", "z": 0}, {"n": "Бывшая гостиница «Чорсу»", "ll": [41.322596, 69.234594], "img": "/img/landmarks/chorsu-hotel.webp", "z": 14}, {"n": "Стадион «Пахтакор»", "ll": [41.315522, 69.260244], "img": "/img/landmarks/pakhtakor-stadium.webp", "z": 14}, {"n": "Дворец авиастроителей", "ll": [41.29212, 69.341579], "img": "/img/landmarks/aviators-palace.webp", "z": 0}];
+    const lb = document.getElementById('lm-photo');
+    lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
     const lms = LM.map(l => {
-      const el = document.createElement('div'); el.className = 'lm'; el.innerHTML = `<img src="${l.img}" alt="" title="${l.n}"><span>${l.n}</span>`;
+      const el = document.createElement('div'); el.className = 'lm';
+      el.innerHTML = `<button type="button" aria-label="${l.n}" aria-haspopup="dialog"><img src="${l.img}" alt=""></button><span>${l.n}</span>`;
+      el.querySelector('button').addEventListener('click', e => { e.stopPropagation();
+        lb.querySelector('img').src = l.img.replace('/img/landmarks/', '/img/landmarks/full/'); lb.querySelector('img').alt = l.n;
+        lb.querySelector('figcaption').textContent = l.n; lb.showModal(); });
       const pos = new g.LatLng(...l.ll), ov = new g.OverlayView();
       ov.onAdd = () => ov.getPanes().overlayMouseTarget.append(el);
       ov.draw = () => { const pt = ov.getProjection().fromLatLngToDivPixel(pos); if (pt) { el.style.left = pt.x + 'px'; el.style.top = pt.y + 'px'; } };
@@ -159,9 +222,9 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
       return [el, l.z];
     });
     const zoomed = () => { const z = map.getZoom(); lms.forEach(([el, mz]) => el.hidden = z < mz);
-      document.getElementById('map').classList.toggle('zoomed', z >= 14); };
+      document.getElementById('map').classList.toggle('zoomed', z >= DETAIL); groups.forEach(gr => gr.refresh()); };
     map.addListener('zoom_changed', zoomed);
-    map.fitBounds(bounds, 30);
+    map.fitBounds(bounds, 40);
     zoomed(); apply();
   };
   const sc = document.createElement('script');
