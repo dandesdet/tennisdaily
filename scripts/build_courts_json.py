@@ -23,6 +23,7 @@ raw = subprocess.run(
     ["node", "-e", f"process.stdout.write(JSON.stringify({literal}))"],
     capture_output=True, text=True, check=True,
 ).stdout
+raw = json.dumps([c for c in json.loads(raw) if not c.get("hide")])  # hide:true — court is not shown anywhere
 
 SITE = "https://tennisdaily.uz/"
 _ms = html.index("const MAP_STYLE = [")
