@@ -36,19 +36,30 @@ SCHEMA_DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
 CSS = """@font-face{font-family:'Golos Text';font-weight:400;font-display:swap;src:url(/fonts/golos-text-cyrillic-400-normal.woff2) format('woff2')}
 @font-face{font-family:'Golos Text';font-weight:600;font-display:swap;src:url(/fonts/golos-text-cyrillic-600-normal.woff2) format('woff2')}
 @font-face{font-family:'Literata';font-display:swap;src:url(/fonts/literata-cyrillic-opsz-normal.woff2) format('woff2')}
-:root{--ink:#111;--muted:#4F4F4F;--line:#E4E4E0;--soft:#F4F4F0;--ball:#DCEB4C;--court:#1E4D3A}
+:root{--ink:#111;--muted:#4F4F4F;--line:#E4E4E0;--soft:#F4F4F0;--ball:#DCEB4C;--court:#1E4D3A;--r-img:16px;--r-inner:12px}
 *{box-sizing:border-box}body{margin:0;font:400 16px/1.5 'Golos Text',-apple-system,sans-serif;color:var(--ink);background:#fff}
-main{max-width:880px;margin:0 auto;padding:24px 20px 64px}a{color:var(--court)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600}.top a{text-decoration:none;color:var(--ink)}
-h1{font:500 clamp(32px,5vw,48px)/1.1 'Literata',Georgia,serif;margin:28px 0 12px}h2{font:500 26px/1.2 'Literata',Georgia,serif;margin:36px 0 10px}
-h3{font-size:18px;margin:0 0 4px}.lead{font-size:18px;color:var(--muted);margin:0 0 20px}
-.ph{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft)}
+main{max-width:1240px;margin:0 auto;padding:20px 20px 64px}main.narrow{max-width:880px}a{color:var(--court)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--ink)}
+.top a{text-decoration:none;color:var(--ink);font-weight:600}.top .logo{font:500 28px/1 'Literata',Georgia,serif}
+h1{font:500 clamp(36px,6vw,64px)/1.05 'Literata',Georgia,serif;margin:32px 0 12px;letter-spacing:-.01em}
+h2{font:500 clamp(26px,3vw,36px)/1.15 'Literata',Georgia,serif;margin:48px 0 12px}
+h3{font:500 22px/1.2 'Literata',Georgia,serif;margin:0 0 6px}h3 a{color:var(--ink);text-decoration:none}
+.lead{font-size:18px;color:var(--muted);margin:0 0 24px;max-width:760px}
+.ph{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-img);background:var(--soft)}
 dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px;margin:20px 0}dt{color:var(--muted)}dd{margin:0}
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;background:var(--ball);color:var(--ink);font-weight:600;text-decoration:none}
-.list{list-style:none;padding:0;margin:0;display:grid;gap:0}.list li{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
-.list img{width:160px;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:var(--soft)}.list p{margin:2px 0;color:var(--muted)}
+.btn:hover{background:#D0E03A}
+.map{height:560px;border-radius:var(--r-img);background:var(--soft);z-index:0}
+.court-marker{background:none;border:0}.court-dot{display:block;width:100%;height:100%;border:2px solid #fff;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0005}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 0;color:var(--muted);font-size:14px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 32px}
+.grid li{display:grid;align-content:start;gap:8px}.grid .ph{margin-bottom:8px}.grid p{margin:0;color:var(--muted)}.grid .meta{color:var(--ink)}
+.grid .ph.none{display:block;background:var(--soft) url(/img/ball.png) center/40px no-repeat}
+.grid a.card{display:block;color:inherit;text-decoration:none}.grid a.card:hover h3{color:var(--court)}
+.leaflet-popup-content{font:600 15px/1.35 'Golos Text',sans-serif;margin:10px 14px}.leaflet-popup-content a{color:var(--court)}
 .note{color:var(--muted);font-size:14px}
-@media(max-width:560px){.list li{grid-template-columns:1fr}.list img{width:100%}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}"""
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.map{height:420px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}"""
 
 
 def esc(x):
@@ -152,7 +163,7 @@ def head(title, desc, url, image):
 """
 
 
-TOP = '<div class="top"><a href="/">Tennis Daily</a><a href="/korty/">Все корты Ташкента</a></div>'
+TOP = '<div class="top"><a class="logo" href="/">Tennis Daily</a><a href="/korty/">Все корты Ташкента</a></div>'
 
 
 def court_page(c):
@@ -193,7 +204,7 @@ def court_page(c):
     (folder / "index.html").write_text(head(title, desc, url, image) + court_jsonld(c, url, image) + f"""
 </head>
 <body>
-<main>
+<main class="narrow">
 {TOP}
 <h1>{esc(name)}</h1>
 <p class="lead">{esc(desc)}</p>
@@ -212,19 +223,25 @@ def landing_page(all_courts):
     title = "Теннисные корты Ташкента — где поиграть и как забронировать · Tennis Daily"
     desc = (f"{len(all_courts)} теннисных кортов Ташкента на карте: грунт и хард, залы и улица. "
             "Часы работы, цены, телефоны и ссылки на онлайн-бронь.")
-    items = []
+    items, pts = [], []
     for c in all_courts:
         photos = photos_of(c)
-        img = f'<img src="/{photos[0]}" alt="" loading="lazy">' if photos else "<span></span>"
+        img = (f'<img class="ph" src="/{photos[0]}" alt="Теннисный корт «{esc(c.get("ru"))}», Ташкент" loading="lazy">'
+               if photos else '<span class="ph none"></span>')
         meta = " · ".join(x for x in [types_text(c), hours_text(c)] if x)
         meta = meta[:1].upper() + meta[1:]
         links = booking_links(c)
         bk = " · ".join(f'<a href="{esc(u)}" rel="noopener">{esc(n)}</a>' for u, n in links)
         tel = f'<a href="tel:{esc(c["tel"])}">{esc(c["tel"])}</a>' if c.get("tel") else ""
         contact = " · ".join(x for x in [tel, bk] if x)
-        items.append(f'<li>{img}<div><h3><a href="/court/{c["id"]}/">{esc(c.get("ru"))}</a></h3>'
-                     f'<p>{esc(c.get("dRu"))}</p>' + (f"<p>{esc(meta)}</p>" if meta else "") +
-                     (f"<p>{contact}</p>" if contact else "") + "</div></li>")
+        items.append(f'<li><a class="card" href="/court/{c["id"]}/">{img}<h3>{esc(c.get("ru"))}</h3></a>'
+                     f'<p>{esc(c.get("dRu"))}</p>' + (f'<p class="meta">{esc(meta)}</p>' if meta else "") +
+                     (f"<p>{contact}</p>" if contact else "") + "</li>")
+        ll = c.get("ll") or []
+        if len(ll) == 2:
+            surf = {t[0] for t in c.get("t", [])} - {"x"}
+            color = "#2F6DB5" if surf == {"h"} else "#C2683A" if surf == {"c"} else "#1E4D3A"
+            pts.append({"id": c["id"], "n": c.get("ru"), "ll": ll, "c": color, "far": bool(c.get("far"))})
     ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Теннисные корты Ташкента",
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}court/{c['id']}/", "name": c.get("ru")}
                               for i, c in enumerate(all_courts)]}
@@ -238,12 +255,28 @@ def landing_page(all_courts):
 {TOP}
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: {len(all_courts)} кортов с часами работы, ценами, телефонами и ссылками на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
+<div class="map" id="map"></div>
+<p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#1E4D3A"></i>хард и грунт</span></p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
 <h2>Все корты</h2>
-<ul class="list">{"".join(items)}</ul>
+<ul class="grid">{"".join(items)}</ul>
 <p class="note">Цены публикуем только с источником и датой проверки. Знаете ещё корт или видите ошибку — напишите <a href="https://t.me/dandesdet">@dandesdet</a>.</p>
 </main>
+<link rel="stylesheet" href="/vendor/leaflet.css">
+<script src="/vendor/leaflet.js"></script>
+<script>
+(() => {{
+  const P = {json.dumps(pts, ensure_ascii=False)};
+  const map = L.map('map', {{scrollWheelZoom: false}});
+  map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+  L.tileLayer('https://{{s}}.basemaps.cartocdn.com/rastertiles/voyager/{{z}}/{{x}}/{{y}}{{r}}.png', {{maxZoom: 19, subdomains: 'abcd',
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}}).addTo(map);
+  P.forEach(p => L.marker(p.ll, {{title: p.n, icon: L.divIcon({{className: 'court-marker', html: `<span class="court-dot" style="--c:${{p.c}}"></span>`, iconSize: [20, 20], iconAnchor: [10, 10]}})}})
+    .bindPopup(`<a href="/court/${{p.id}}/">${{p.n}}</a>`).addTo(map));
+  map.fitBounds(P.filter(p => !p.far).map(p => p.ll), {{padding: [30, 30]}});
+}})();
+</script>
 </body>
 </html>
 """, encoding="utf-8")
