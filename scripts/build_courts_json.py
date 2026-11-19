@@ -65,6 +65,13 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 @media(max-width:600px){.grid{grid-template-columns:1fr}.map{height:420px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}"""
 
 
+def ru_plural(n, one, few, many):
+    n = abs(n) % 100
+    if 11 <= n <= 14:
+        return many
+    return {1: one, 2: few, 3: few, 4: few}.get(n % 10, many)
+
+
 def esc(x):
     return escape(str(x or ""), quote=True)
 
@@ -225,7 +232,9 @@ def court_page(c):
 def landing_page(all_courts):
     url = f"{SITE}korty/"
     title = "Теннисные корты Ташкента — где поиграть и как забронировать · Tennis Daily"
-    desc = (f"{len(all_courts)} теннисных кортов Ташкента на карте: грунт и хард, залы и улица. "
+    n = len(all_courts)
+    places = f"{n} {ru_plural(n, 'теннисный клуб и площадка', 'теннисных клуба и площадки', 'теннисных клубов и площадок')}"
+    desc = (f"{places} Ташкента на карте: грунт и хард, залы и улица. "
             "Часы работы, цены, телефоны и ссылки на онлайн-бронь.")
     items, pts = [], []
     for c in all_courts:
@@ -258,7 +267,7 @@ def landing_page(all_courts):
 <main>
 {TOP}
 <h1>Теннисные корты Ташкента</h1>
-<p class="lead">Где поиграть в теннис в Ташкенте: {len(all_courts)} кортов с часами работы, ценами, телефонами и ссылками на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
+<p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
 <div class="map" id="map"></div>
 <p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#1E4D3A"></i>хард и грунт</span></p>
 <h2>Как забронировать корт в Ташкенте</h2>

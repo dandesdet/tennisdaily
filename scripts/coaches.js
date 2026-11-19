@@ -4,7 +4,7 @@
 
   const coaches = [
     {
-      id: 'aziza', years: 7, rating: 4.9,
+      id: 'aziza', years: 7, rating: 4.9, reviews: 23,
       name: ['Азиза Садыкова', 'Aziza Sodiqova', 'Aziza Sodikova'],
       teaser: ['Первые шаги на корте', 'Kortdagi ilk qadamlar', 'First steps on court'],
       level: ['Начинающие · взрослые и дети от 8 лет', 'Boshlovchilar · kattalar va 8 yoshdan bolalar', 'Beginners · adults and children ages 8+'],
@@ -13,7 +13,7 @@
       times: [['09:00', '11:00'], ['10:00', '17:00'], ['09:00', '12:00']],
     },
     {
-      id: 'timur', years: 9, rating: 4.8,
+      id: 'timur', years: 9, rating: 4.8, reviews: 41,
       name: ['Тимур Каримов', 'Timur Karimov', 'Timur Karimov'],
       teaser: ['Подача и тактика в паре', 'To‘p uzatish va juftlik taktikasi', 'Serve and doubles tactics'],
       level: ['Средний уровень · взрослые', 'O‘rta daraja · kattalar', 'Intermediate · adults'],
@@ -22,7 +22,7 @@
       times: [['12:00', '18:00'], ['16:00', '19:00'], ['11:00', '18:00']],
     },
     {
-      id: 'dilnoza', years: 12, rating: 5,
+      id: 'dilnoza', years: 12, rating: 5, reviews: 37,
       name: ['Дильноза Рахимова', 'Dilnoza Rahimova', 'Dilnoza Rahimova'],
       teaser: ['Подготовка к турнирам', 'Turnirlarga tayyorgarlik', 'Tournament preparation'],
       level: ['Продвинутый уровень · юниоры и взрослые', 'Yuqori daraja · o‘smirlar va kattalar', 'Advanced · juniors and adults'],
@@ -44,9 +44,14 @@
   const dateLabel = date => localized(dateFormats.map(format => format.format(date)));
   const bookedLabel = localized(['Занято', 'Band', 'Booked']);
   const photo = coach => `img/coaches/${coach.id}.webp`;
-  const meta = ({years, rating}) => `<div class="coach-meta">
-    <span class="coach-rating"><span aria-hidden="true">★</span> ${localized(languages.map(lang => new Intl.NumberFormat(lang, {minimumFractionDigits:1}).format(rating) + ' / 5'))}</span>
-    <span>${localized([`${years} лет стажа`, `${years} yil tajriba`, `${years} years coaching`])}</span>
+  const ruPlural = (n, one, few, many) => ({one, few, many, other: few})[new Intl.PluralRules('ru').select(n)];
+  // Rating as five dots in the accent colour, each filled by its share of the score (4.8 → four full, one at 80%).
+  const dots = rating => `<span class="coach-dots" aria-hidden="true">${[0, 1, 2, 3, 4]
+    .map(i => `<i style="--f:${Math.round(Math.max(0, Math.min(1, rating - i)) * 100)}%"></i>`).join('')}</span>`;
+  const meta = ({years, rating, reviews}) => `<div class="coach-meta">
+    <span class="coach-rating">${dots(rating)} ${localized(languages.map(lang => new Intl.NumberFormat(lang, {minimumFractionDigits:1}).format(rating)))}</span>
+    <span>${localized([`${reviews} ${ruPlural(reviews, 'отзыв', 'отзыва', 'отзывов')}`, `${reviews} ta fikr`, `${reviews} ${reviews === 1 ? 'review' : 'reviews'}`])}</span>
+    <span>${localized([`${years} ${ruPlural(years, 'год', 'года', 'лет')} стажа`, `${years} yil tajriba`, `${years} years coaching`])}</span>
   </div>`;
   const grid = section.querySelector('.coach-grid');
   const dialog = document.getElementById('coach-dialog');
