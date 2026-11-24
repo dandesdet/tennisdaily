@@ -1591,6 +1591,22 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 })();
 </script>
 <script>
+// Плеер YouTube с одного нажатия: со звуком браузеры (особенно iPhone) автозапуск во встроенном плеере блокируют
+// и YouTube показывает свою кнопку «▶» — второе нажатие. Поэтому запускаем без звука (так разрешено всегда),
+// а как только плеер загрузился — включаем звук и play через IFrame API (нажатие пользователя только что было).
+function ytFrame(id, title) {
+  const f = document.createElement('iframe');
+  f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1`;
+  f.title = title || 'YouTube';
+  f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+  f.allowFullscreen = true;
+  const cmd = func => f.contentWindow?.postMessage(JSON.stringify({event: 'command', func, args: []}), '*');
+  f.addEventListener('load', () => {
+    f.contentWindow?.postMessage(JSON.stringify({event: 'listening', id: 1}), '*');
+    [300, 900, 1800].forEach(t => setTimeout(() => { cmd('unMute'); cmd('playVideo'); }, t));
+  });
+  return f;
+}
 // Видео: лента со свайпом; сначала только картинка, по нажатию — плеер.
 // Играет всегда один ролик: нажал другой или увёл ролик из виду — прошлый останавливается (плеер убираем, возвращаем картинку)
 (() => {
@@ -1600,7 +1616,8 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
   btns.forEach(b => b.addEventListener('click', () => {
     if (b.querySelector('iframe')) return;
     btns.forEach(o => o !== b && stop(o));
-    b.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&playsinline=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="YouTube"></iframe>`;
+    b.innerHTML = '';
+    b.append(ytFrame(b.dataset.id, 'YouTube'));
   }));
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.intersectionRatio < .5) stop(e.target); }), {threshold: [0, .5]});
   btns.forEach(b => io.observe(b));
@@ -1629,8 +1646,8 @@ const COURTS = [
    dRu:'Оккургон, 16 (бывший стадион «Старт»). Два грунтовых корта сразу справа от входа, рядом с ITEK. Ведёт тренер Александр Бегларян.', dUz:'Oqqo‘rg‘on, 16 (sobiq «Start» stadioni). Kirishdan o‘ngdagi, ITEK yonidagi ikkita grunt kort. Murabbiy Aleksandr Beglaryan.', dEn:'Okkurgon St, 16 (former Start stadium). Two clay courts right of the entrance, next to ITEK, run by coach Alexander Beglaryan.',
    access:['Вход на территорию стадиона — 50 000 сум сверх аренды корта.','Stadion hududiga kirish — kort ijarasidan tashqari 50 000 so‘m.','Stadium entry: 50,000 sum on top of the court rental.'], h:'05:00–23:00',
    bk:[{u:'https://t.me/arendaKorta_Nbu_Start', k:'tg', t:'Aleks.Tennis.Coach'}], t:[["c", "o",'img/courts/yoshlik-clay-beglaryan-2.webp'], ["c", "o",'img/courts/yoshlik-clay-beglaryan-1.webp']]},
-  {id:'yoshlik-gotennis', ru:'Ёшлик · GoTennis', uz:'Yoshlik · GoTennis', en:'Yoshlik · GoTennis', short:['Ёшлик · GoTennis','Yoshlik · GoTennis','Yoshlik · GoTennis'], st:'ok', stRu:'открыт', stUz:'ochiq', stEn:'open', counts:{co:2}, t:[['c','o']], ll:[41.32430,69.30640],
-   dRu:'Оккургон, 16 (бывший стадион «Старт»). 2 грунтовых корта клуба GoTennis — отдельные от кортов Зайнаб Джалиловой и Бегларяна.', dUz:'Oqqo‘rg‘on, 16 (sobiq «Start» stadioni). GoTennis klubining 2 ta grunt korti — Zaynab va Beglaryan kortlaridan alohida.', dEn:'Okkurgon St, 16 (former Start stadium). GoTennis club’s 2 clay courts, separate from Zaynab’s and Beglaryan’s.',
+  {id:'yoshlik-gotennis', ru:'Ёшлик · GoTennis', uz:'Yoshlik · GoTennis', en:'Yoshlik · GoTennis', short:['Ёшлик · GoTennis','Yoshlik · GoTennis','Yoshlik · GoTennis'], st:'ok', stRu:'открыт', stUz:'ochiq', stEn:'open', counts:{co:3}, t:[['c','o','img/courts/yoshlik-gotennis.webp',['фото: GoTennis','surat: GoTennis','photo: GoTennis']]], ll:[41.32430,69.30640],
+   dRu:'Оккургон, 16 (бывший стадион «Старт»). 3 взрослых грунтовых корта и детский корт клуба GoTennis — отдельные от кортов Зайнаб Джалиловой и Бегларяна.', dUz:'Oqqo‘rg‘on, 16 (sobiq «Start» stadioni). GoTennis klubining 3 ta kattalar grunt korti va bolalar korti — Zaynab va Beglaryan kortlaridan alohida.', dEn:'Okkurgon St, 16 (former Start stadium). GoTennis club’s 3 full-size clay courts and a kids’ court, separate from Zaynab’s and Beglaryan’s.',
    access:['Вход на территорию стадиона — 50 000 сум сверх аренды корта.','Stadion hududiga kirish — kort ijarasidan tashqari 50 000 so‘m.','Stadium entry: 50,000 sum on top of the court rental.'],
    schools:[{n:'GoTennis', d:['Тренировки для детей и взрослых, любительские турниры, летний лагерь.','Bolalar va kattalar uchun mashg‘ulotlar, havaskor turnirlar, yozgi lager.','Coaching for kids and adults, amateur tournaments, summer camp.'], l:[{u:'https://t.me/Gotenniskidsbot', k:'training', t:'@Gotenniskidsbot'}, {u:'https://www.instagram.com/gotennisclub_team/', k:'ig', t:'@gotennisclub_team'}, {u:'https://www.instagram.com/p/DXjjQ-VCCTW/', k:'post'}], src:['Источник: nechpul.uz, 8 мая 2026.','Manba: nechpul.uz, 2026-yil 8-may.','Source: nechpul.uz, 8 May 2026.']}],
    bk:[{u:'https://t.me/Gotenniskidsbot', k:'bot', t:'@Gotenniskidsbot'}]},
@@ -2005,12 +2022,7 @@ function openCourtDetails(court, startImage) {
       play.textContent = '▶ ' + name;
       play.onclick = () => {
         videoSection.querySelector('iframe')?.remove();
-        const player = document.createElement('iframe');
-        player.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&playsinline=1`;
-        player.title = name;
-        player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-        player.allowFullscreen = true;
-        videoSection.append(player);
+        videoSection.append(ytFrame(youtubeId, name));
       };
       videoLinks.append(play);
     });
