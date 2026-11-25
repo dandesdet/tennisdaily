@@ -11,6 +11,7 @@ import re
 import subprocess
 from html import escape
 from PIL import Image, ImageOps
+from typo import nb
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -116,7 +117,7 @@ def ru_plural(n, one, few, many):
 
 
 def esc(x):
-    return escape(str(x or ""), quote=True)
+    return escape(nb(str(x or "")), quote=True)
 
 
 def gallery_items(c):

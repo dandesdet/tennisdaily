@@ -18,6 +18,7 @@ Tennis Daily is a static, multilingual site for amateur tennis in Tashkent. The 
 - `index.html` contains the site, court directory, filters and map. Keep Russian, Uzbek and English in sync.
 - Keep each court location in one record. Associate each photo with the matching court type. Use confirmed details for opening hours, access and booking.
 - Link to the live booking calendar for slot-dependent prices. Publish a fixed court tariff only with a current primary source and the date it was verified. Remove a tariff when the source no longer confirms it.
+- Bind prepositions, conjunctions and particles to the next word with a non-breaking space («на помощь»). `scripts/typo.js` does this on the site at runtime, `scripts/typo.py` in generated pages; extend both word lists together.
 - Keep post IDs stable. After editing posts or their images, run `python3 scripts/build_post_previews.py` with Pillow installed and include the updated `post/` files with the site changes.
 - In every daily update, run `python3 scripts/youtube_new.py` (needs yt-dlp) and add each listed video from the @dandesdet channel: `shorts` as a vertical video card, `wide` as `vid wide`. Do not wait for the user to ask.
 - Every source label (`.via`) and every source in the Sources list has a logo avatar in `img/groups/<slug>.webp`, 160×160. Take it from the source’s own profile picture (Instagram, Telegram, site). Never publish a card with a text-only source label.
