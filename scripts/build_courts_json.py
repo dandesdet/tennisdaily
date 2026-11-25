@@ -34,7 +34,7 @@ LANDMARKS = json.loads(subprocess.run(["node", "-e", "process.stdout.write(JSON.
 GMAPS_KEY = re.search(r"const GMAPS_KEY = '([^']+)'", html)[1]   # domain-restricted browser key, same as index.html
 
 
-SURF = {"c": "грунт", "h": "хард", "x": ""}
+SURF = {"c": "грунт", "h": "хард", "k": "ковер", "x": ""}
 KIND = {"o": "на улице", "r": "под навесом", "i": "в зале", "d": "под куполом"}
 BK = {"playon": "PlayOn", "playsport": "PlaySport", "tg": "Telegram", "site": "Сайт", "ig": "Instagram",
       "training": "Запись на тренировки", "photos": "Фото кортов"}
@@ -79,7 +79,7 @@ dl{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:8px 20px
 .court-preview img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin:10px 0 8px}.court-preview .more{font-weight:600;color:var(--court);text-decoration:none}
 .court-marker-type{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
 .tg{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;background:var(--soft);border-radius:999px;padding:2px 10px 2px 8px}
-.tg::before{content:'';width:8px;height:8px;border-radius:50%}.tg.c::before{background:#C2683A}.tg.h::before{background:#2F6DB5}
+.tg::before{content:'';width:8px;height:8px;border-radius:50%}.tg.c::before{background:#C2683A}.tg.h::before{background:#2F6DB5}.tg.k::before{background:#4F7A4A}
 dialog.lb{border:0;padding:0;background:none;max-width:min(1100px,94vw)}dialog.lb::backdrop{background:#000c}
 dialog.lb img{display:block;max-width:100%;max-height:84vh;border-radius:12px}dialog.lb figcaption{color:#fff;font:600 16px 'Golos Text',sans-serif;margin-top:10px}
 dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width:44px;height:44px;border:0;border-radius:50%;background:#fffd;font-size:22px;cursor:pointer}
@@ -437,8 +437,8 @@ def landing_page(all_courts):
   setInterval(() => CF === 'now' && apply(), 60e3);
   // Map behaves like the one on the main page: one small dot per venue when zoomed out (mixed colour if hard + clay),
   // separate dots per court type with a short label from zoom 14, a popup with the type photo, landmark photos open large.
-  const COL = {{h: '#2F6DB5', c: '#C2683A', x: '#77746D'}}, DETAIL = 14;
-  const SURF = {{c: 'грунт', h: 'хард'}}, KIND = {{o: 'улица', r: 'навес', i: 'зал', d: 'надувной купол'}};
+  const COL = {{h: '#2F6DB5', c: '#C2683A', k: '#4F7A4A', x: '#77746D'}}, DETAIL = 14;
+  const SURF = {{c: 'грунт', h: 'хард', k: 'ковер'}}, KIND = {{o: 'улица', r: 'навес', i: 'зал', d: 'надувной купол'}};
   const typeLabel = (sf, k) => [SURF[sf], KIND[k]].filter(Boolean).join(' · ');
   const esc = v => String(v).replace(/[&<>"]/g, ch => ({{'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}})[ch]);
   const nCourts = n => n + ' ' + ({{one: 'корт', few: 'корта', many: 'кортов', other: 'корта'}})[new Intl.PluralRules('ru').select(n)];
