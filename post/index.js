@@ -55,6 +55,7 @@ window.tennisDailyPostPreviews = new Set([
   "post-shans-unlucky-rally",
   "post-sharm-cup-2027",
   "post-team-meridian-nov-28",
+  "post-tennis-family-autumn-nov-21",
   "post-tml-shuffle-2026",
   "post-tml-winter-doubles-2026",
   "post-tulyaganova-school-nov-3",
