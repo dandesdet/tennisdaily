@@ -211,6 +211,26 @@
    "lon": 69.418334
   },
   {
+   "id": "avenir",
+   "name": {
+    "ru": "Avenir Tennis Court",
+    "uz": "Avenir Tennis Court",
+    "en": "Avenir Tennis Court"
+   },
+   "lat": 41.262904,
+   "lon": 69.209849
+  },
+  {
+   "id": "center-court",
+   "name": {
+    "ru": "Корт у сквера Амира Темура",
+    "uz": "Amir Temur xiyoboni yonidagi kort",
+    "en": "Court near Amir Temur Square"
+   },
+   "lat": 41.312124,
+   "lon": 69.2831
+  },
+  {
    "id": "humson",
    "name": {
     "ru": "Хумсон Булок",
