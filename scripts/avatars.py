@@ -86,8 +86,19 @@ def sources(pid, by_id, edits, own, covers):
     ed, p = edits.get(pid, {}), by_id.get(pid, {})
     for s in (own.get(pid), ed.get('photoMain'), covers.get(pid), p.get('photo'),
               *(ed.get('altPhotos') or []), ed.get('mergedPhoto')):
-        if isinstance(s, str) and s:
+        if (isinstance(s, str) and s) or (isinstance(s, dict) and s.get('src')):
             yield s
+
+
+def region(src):
+    """Квадрат, который выбрали вручную в people.html: {src, x, y, s, w, h} в пикселях кадра w×h."""
+    img = read(src['src'])
+    if img is None:
+        return None
+    k = img.shape[1] / src.get('w', img.shape[1])
+    x, y, side = (int(src[c] * k) for c in ('x', 'y', 's'))
+    crop = img[max(0, y):y + side, max(0, x):x + side]
+    return Image.fromarray(cv2.cvtColor(crop, cv2.COLOR_BGR2RGB)).resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def read(src):
@@ -169,6 +180,11 @@ def main():
         pid = '+'.join(ids)
         result, why = None, 'нет фото'
         for src in (s for i in ids for s in sources(i, by_id, edits, own, covers)):
+            if isinstance(src, dict):  # ручной выбор — без детектора
+                result = region(src)
+                if result:
+                    break
+                continue
             try:
                 img = read(src)
             except (OSError, ValueError) as e:  # сеть или битый файл — пробуем следующий источник
