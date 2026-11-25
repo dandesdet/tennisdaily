@@ -555,6 +555,12 @@ html.standalone body{overscroll-behavior-y:contain}
 .ticker.end{-webkit-mask-image:none;mask-image:none}
 .ticker a{scroll-snap-align:start;flex:0 0 auto}
 @media (max-width:700px){.ticker{gap:24px}.ticker a{white-space:normal;max-width:68vw;line-height:1.35}}
+/* бегущая строка: JS оборачивает пункты в .tt и дублирует их; пауза под курсором и при фокусе */
+.ticker.run{overflow:hidden;scroll-snap-type:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent)}
+.ticker.run .tt{display:flex;gap:inherit;flex:none;animation:tick var(--dur,60s) linear infinite}
+.ticker.run a{white-space:nowrap;max-width:none}
+.ticker.run:is(:hover,:focus-within) .tt{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(calc(-1 * var(--shift,50%)))}}
 .live{display:inline-flex;align-items:center;gap:8px;font:600 18px/1.2 var(--body);color:#C62828}
 .live::before{content:"";width:10px;height:10px;border-radius:50%;background:#E53935;box-shadow:0 0 0 4px rgba(229,57,53,.18)}
 .live.done{color:var(--muted)}.live.done::before{background:var(--muted);box-shadow:none}
@@ -765,6 +771,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
   <a href="#soon"><span>●</span><span data-ru>Сб 28 ноября: командный турнир в Меридиане — 20 из 20, только лист ожидания</span><span data-uz>28-noyabr, sh: Meridianda jamoaviy turnir — 20 tadan 20, faqat kutish ro‘yxati</span><span data-en>Sat 28 Nov: team tournament at Meridian — 20 of 20, waiting list only</span></a>
   <a href="#soon"><span>●</span><span data-ru>Вс 29 ноября: мужские пары в Олимпийском городке — 3 из 12 пар, запись до 27 ноября</span><span data-uz>29-noyabr, ya: Olimpiya shaharchasida erkaklar juftligi — 12 tadan 3 juft, yozilish 27-noyabrgacha</span><span data-en>Sun 29 Nov: men’s doubles at Olympic Village — 3 of 12 pairs, sign-up until 27 Nov</span></a>
   <a href="#soon"><span>●</span><span data-ru>Мастерс Хидоятова 27 декабря — 4 места</span><span data-uz>27-dekabr Hidoyatov Masters — 4 ta joy</span><span data-en>Khidoyatov Masters on 27 Dec — 4 spots left</span></a>
+  <a href="courts/olympic-village/"><span>●</span><span data-ru>Олимпийский городок: оплатите час — играйте два, выходит 75 000 сум в час</span><span data-uz>Olimpiya shaharchasi: bir soat to‘lang — ikki soat o‘ynang, soatiga 75 000 so‘m</span><span data-en>Olympic Village: pay for one hour, play two — 75,000 sum an hour</span></a>
   <a href="#results"><span>●</span><span data-ru>Олимпийский городок, 22 ноября: победил Миррауф Адилов</span><span data-uz>Olimpiya shaharchasi, 22-noyabr: Mirrauf Adilov g‘olib</span><span data-en>Olympic Village, 22 Nov: Mirrauf Adilov wins</span></a>
   <a href="#results"><span>●</span><span data-ru>Меридиан, 22 ноября: одиночку Хидоятова выиграл Фирдавс Мухитдинов</span><span data-uz>Meridian, 22-noyabr: Hidoyatov yakkaligida Firdavs Muxitdinov g‘olib</span><span data-en>Meridian, 22 Nov: Firdavs Mukhitdinov wins Khidoyatov’s singles</span></a>
   <a href="#video"><span>●</span><span data-ru>Новые видео: Autumn Cup ’26 — финал, полуфинал и розыгрыши</span><span data-uz>Yangi videolar: Autumn Cup ’26 — final, yarim final va rallilar</span><span data-en>New videos: Autumn Cup ’26 — final, semi-final and rallies</span></a>
@@ -1003,7 +1010,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
     </article>
     <article class="res" id="post-tennis-family-autumn-nov-21" data-d="2026-11-21">
       <div class="pic cover"><img src="img/courts/olympic-village-outdoor-hard.jpg" alt="Открытые хардовые корты Олимпийского городка"><div class="pod-av" aria-hidden="true"><span class="g p1"><b class="a" title="Петро Захарченко">ПЗ</b><b class="a" title="Ранай Уткельбаева">РУ</b></span><span class="g p2"><b class="a" title="Мурод Ибрагимов">МИ</b><b class="a" title="Наргиза Ходжаева">НХ</b></span><span class="g p3"><b class="a" title="Шохрух Ниязов">ШН</b><b class="a" title="Малика Оразалиева">МО</b></span></div></div>
-      <a class="via" href="https://www.instagram.com/tennisfam.uz/" target="_blank" rel="noopener"><span>Tennis Family</span></a>
+      <a class="via" href="https://www.instagram.com/tennisfam.uz/" target="_blank" rel="noopener"><img src="img/groups/tf.webp" alt=""><span>Tennis Family</span></a>
       <div class="meta" data-ru>21 ноября · Олимпийский городок · микст · 15 пар</div><div class="meta" data-uz>21-noyabr · Olimpiya shaharchasi · mikst · 15 juft</div><div class="meta" data-en>21 November · Olympic Village · mixed doubles · 15 pairs</div>
       <h3 data-ru>Микст Tennis Family «Золотая осень»</h3><h3 data-uz>Tennis Family «Oltin kuz» miksti</h3><h3 data-en>Tennis Family “Golden Autumn” mixed doubles</h3>
       <p class="meta" data-ru>Masters</p><p class="meta" data-uz>Masters</p><p class="meta" data-en>Masters</p>
@@ -2533,11 +2540,11 @@ const SOURCES = [
   {t:'Tennis plus', av:'TP', img:'img/groups/tp.webp', n:1612},
   {t:'Tashkent Masters League', av:'TML', u:'tashkent_masters_league', img:'img/groups/tml.webp', n:309},
   {t:'Motivation Family', av:'MF', u:'tennisfamuz', img:'img/groups/mf.webp', n:796},
-  {t:'Tennis Family Uzbekistan', av:'TF', link:'https://www.instagram.com/tennisfam.uz/', site:'Instagram'},
-  {t:'Федерация тенниса Узбекистана', tUz:'O‘zbekiston tennis federatsiyasi', tEn:'Uzbekistan Tennis Federation', av:'ФТУ', avL:'UTF', link:'https://tennis.uz/', site:'tennis.uz'},
-  {t:'Ирода Туляганова', tUz:'Iroda To‘laganova', tEn:'Iroda Tulyaganova', av:'ИТ', avL:'IT', link:'https://www.instagram.com/tulyaganovairoda/', site:'Instagram'},
-  {t:'UzDaily', av:'UZ', link:'https://www.uzdaily.uz/', site:'uzdaily.uz'},
-  {t:'Bukhara Tennis Khumo', av:'BK', link:'https://www.instagram.com/bukhara_tennis_khumo/', site:'Instagram', city:['Бухара','Buxoro','Bukhara']},
+  {t:'Tennis Family Uzbekistan', av:'TF', img:'img/groups/tf.webp', link:'https://www.instagram.com/tennisfam.uz/', site:'Instagram'},
+  {t:'Федерация тенниса Узбекистана', tUz:'O‘zbekiston tennis federatsiyasi', tEn:'Uzbekistan Tennis Federation', av:'ФТУ', img:'img/groups/ftu.webp', avL:'UTF', link:'https://tennis.uz/', site:'tennis.uz'},
+  {t:'Ирода Туляганова', tUz:'Iroda To‘laganova', tEn:'Iroda Tulyaganova', av:'ИТ', img:'img/groups/iroda.webp', avL:'IT', link:'https://www.instagram.com/tulyaganovairoda/', site:'Instagram'},
+  {t:'UzDaily', av:'UZ', img:'img/groups/uzdaily.webp', link:'https://www.uzdaily.uz/', site:'uzdaily.uz'},
+  {t:'Bukhara Tennis Khumo', av:'BK', img:'img/groups/khumo.webp', link:'https://www.instagram.com/bukhara_tennis_khumo/', site:'Instagram', city:['Бухара','Buxoro','Bukhara']},
 ];
 function renderSources() {
   document.getElementById('srcs').innerHTML = SOURCES.map(g => {
@@ -2714,6 +2721,15 @@ document.querySelector('.a2hs-link')?.addEventListener('click', e => {
 <script>
 // бегущая строка: затухание справа убираем, когда долистали до конца
 (() => { const t = document.querySelector('.ticker'); if (!t) return;
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && t.children.length > 1) {
+    const tt = document.createElement('div'); tt.className = 'tt';
+    const items = [...t.children]; tt.append(...items);
+    items.forEach(a => { const c = a.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.tabIndex = -1; tt.append(c); });
+    t.append(tt); t.classList.add('run');
+    const fit = () => { const shift = tt.children[items.length].offsetLeft - items[0].offsetLeft;
+      tt.style.setProperty('--shift', shift + 'px'); tt.style.setProperty('--dur', Math.round(shift / 50) + 's'); };
+    fit(); addEventListener('resize', fit); document.fonts?.ready.then(fit);
+  }
   const upd = () => t.classList.toggle('end', t.scrollLeft + t.clientWidth >= t.scrollWidth - 4);
   t.addEventListener('scroll', upd, {passive: true}); addEventListener('resize', upd); upd(); })();
 </script>
