@@ -301,8 +301,9 @@ img[src*="courts/turin"]{object-position:50% 0}
 .me-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:#2F6DB5;opacity:.5;animation:me-pulse 2s ease-out infinite;z-index:-1}
 @keyframes me-pulse{from{transform:scale(1);opacity:.5}to{transform:scale(3.2);opacity:0}}
 @media (prefers-reduced-motion:reduce){.me-dot::after{animation:none}}
-.me-btn{max-width:calc(100% - 24px);text-align:left;position:absolute;right:12px;bottom:28px;z-index:500;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--court);font:600 14px var(--body);cursor:pointer;box-shadow:0 1px 4px #0002}
-.me-btn:hover{color:var(--clay)}.me-btn:active{transform:scale(.97)}
+.me-btn{max-width:calc(100% - 24px);text-align:left;position:absolute;right:12px;bottom:28px;z-index:500;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px 8px 14px;border:0;border-radius:var(--pill);corner-shape:squircle;background:var(--ball);color:var(--ink);font:600 15px var(--body);cursor:pointer;box-shadow:0 0 0 1px #A9B82C inset,0 2px 8px #0003}
+.me-btn svg{flex:none;width:18px;height:18px}
+.me-btn:hover{filter:brightness(1.04)}.me-btn:active{transform:scale(.97)}
 .cmap-wrap{position:relative}
 .cmap{height:640px;border-radius:var(--r-img);corner-shape:squircle;background:var(--soft);z-index:0}
 #cmap [role="region"][tabindex="0"]{border-radius:var(--r-img);corner-shape:squircle}
@@ -991,7 +992,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
   <div class="sh" id="res-h"><h2 data-ru>Последние итоги</h2><h2 data-uz>So‘nggi natijalar</h2><h2 data-en>Latest results</h2></div>
   <div class="results">
     <article class="res" id="post-hidoyatov-singles-nov-22-results" data-d="2026-11-22">
-      <div class="pic cover"><img src="img/courts/meridian.webp" alt="Корты Меридиан"><div class="pod-av" aria-hidden="true"><span class="g p1"><img class="a" src="av/mukhitdinov.webp" alt="" title="Фирдавс Мухитдинов"></span><span class="g p2"><b class="a" title="Артём Кащей">АК</b></span><span class="g p3"><b class="a" title="Тахир Хидоятов">ТХ</b></span><span class="g p3"><b class="a" title="Алишер Хакимов">АХ</b></span></div></div>
+      <div class="pic cover"><img src="img/courts/meridian.webp" alt="Корты Меридиан"><div class="pod-av" aria-hidden="true"><span class="g p1"><img class="a" src="av/mukhitdinov.webp" alt="" title="Фирдавс Мухитдинов"></span><span class="g p2"><b class="a" title="Артём Кащей">АК</b></span><span class="g p3"><b class="a" title="Тахир Хидоятов">ТХ</b></span><span class="g p3"><img class="a" src="av/khakimov.webp" alt="" title="Алишер Хакимов"></span></div></div>
       <a class="via" href="https://playon.uz/tournaments/cmvy5to56003u01l57e0k2y0c" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
       <div class="meta" data-ru>22 ноября · Меридиан · мужская одиночка NTRP 3.8–4.0 · 8 игроков</div><div class="meta" data-uz>22-noyabr · Meridian · erkaklar yakkaligi NTRP 3.8–4.0 · 8 o‘yinchi</div><div class="meta" data-en>22 November · Meridian · men’s singles NTRP 3.8–4.0 · 8 players</div>
       <h3 data-ru>Одиночка Тахира Хидоятова</h3><h3 data-uz>Tohir Hidoyatovning yakkalik turniri</h3><h3 data-en>Tahir Khidoyatov’s singles</h3>
@@ -1009,7 +1010,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
       <p class="ct"><a href="https://playon.uz/tournaments/cmwgf5z0y001x01od2mc08w8x" target="_blank" rel="noopener"><span data-ru>Итоги на PlayOn</span><span data-uz>PlayOn’da natijalar</span><span data-en>Results on PlayOn</span></a></p>
     </article>
     <article class="res" id="post-tennis-family-autumn-nov-21" data-d="2026-11-21">
-      <div class="pic cover"><img src="img/courts/olympic-village-outdoor-hard.jpg" alt="Открытые хардовые корты Олимпийского городка"><div class="pod-av" aria-hidden="true"><span class="g p1"><b class="a" title="Петро Захарченко">ПЗ</b><b class="a" title="Ранай Уткельбаева">РУ</b></span><span class="g p2"><b class="a" title="Мурод Ибрагимов">МИ</b><b class="a" title="Наргиза Ходжаева">НХ</b></span><span class="g p3"><b class="a" title="Шохрух Ниязов">ШН</b><b class="a" title="Малика Оразалиева">МО</b></span></div></div>
+      <div class="pic cover"><img src="img/courts/olympic-village-outdoor-hard.jpg" alt="Открытые хардовые корты Олимпийского городка"><div class="pod-av" aria-hidden="true"><span class="g p1"><b class="a" title="Петро Захарченко">ПЗ</b><b class="a" title="Ранай Уткельбаева">РУ</b></span><span class="g p2"><b class="a" title="Мурод Ибрагимов">МИ</b><img class="a" src="av/khodjaeva.webp" alt="" title="Наргиза Ходжаева"></span><span class="g p3"><b class="a" title="Шохрух Ниязов">ШН</b><b class="a" title="Малика Оразалиева">МО</b></span></div></div>
       <a class="via" href="https://www.instagram.com/tennisfam.uz/" target="_blank" rel="noopener"><img src="img/groups/tf.webp" alt=""><span>Tennis Family</span></a>
       <div class="meta" data-ru>21 ноября · Олимпийский городок · микст · 15 пар</div><div class="meta" data-uz>21-noyabr · Olimpiya shaharchasi · mikst · 15 juft</div><div class="meta" data-en>21 November · Olympic Village · mixed doubles · 15 pairs</div>
       <h3 data-ru>Микст Tennis Family «Золотая осень»</h3><h3 data-uz>Tennis Family «Oltin kuz» miksti</h3><h3 data-en>Tennis Family “Golden Autumn” mixed doubles</h3>
@@ -1021,7 +1022,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
       <p class="ct"><a href="https://www.instagram.com/tennisfam.uz/" target="_blank" rel="noopener"><span data-ru>Tennis Family в Instagram</span><span data-uz>Tennis Family Instagram’da</span><span data-en>Tennis Family on Instagram</span></a></p>
     </article>
     <article class="res" id="post-meridian-doubles-nov-21-results" data-d="2026-11-21">
-      <div class="pic cover"><img src="img/courts/meridian.webp" alt="Корты Меридиан"><div class="pod-av" aria-hidden="true"><span class="g p1"><b class="a" title="Нематжон Ахмеджанов">НА</b><b class="a" title="Асилхон Хошимов">АХ</b></span><span class="g p2"><img class="a" src="av/abdulaziz.webp" alt="" title="Абдулазиз Каримходжаев"><b class="a" title="Мухтор Мухаммадалиев">ММ</b></span><span class="g p3"><b class="a" title="Бахтиёр Маткурбанов">БМ</b><b class="a" title="Бобур Азимов">БА</b></span><span class="g p3"><b class="a" title="Бонур Латипов">БЛ</b><b class="a" title="Абдуллох Тошмирзаев">АТ</b></span></div></div>
+      <div class="pic cover"><img src="img/courts/meridian.webp" alt="Корты Меридиан"><div class="pod-av" aria-hidden="true"><span class="g p1"><b class="a" title="Нематжон Ахмеджанов">НА</b><b class="a" title="Асилхон Хошимов">АХ</b></span><span class="g p2"><img class="a" src="av/abdulaziz.webp" alt="" title="Абдулазиз Каримходжаев"><b class="a" title="Мухтор Мухаммадалиев">ММ</b></span><span class="g p3"><img class="a" src="av/matkurbanov.webp" alt="" title="Бахтиёр Маткурбанов"><b class="a" title="Бобур Азимов">БА</b></span><span class="g p3"><b class="a" title="Бонур Латипов">БЛ</b><b class="a" title="Абдуллох Тошмирзаев">АТ</b></span></div></div>
       <a class="via" href="https://playon.uz/tournaments/cmwi416kb001b01ob489q3pdf" target="_blank" rel="noopener"><img src="img/groups/playon.webp" alt=""><span>PlayOn</span></a>
       <div class="meta" data-ru>21 ноября · Меридиан · мужские пары NTRP 2.5–4.0 · 12 пар</div><div class="meta" data-uz>21-noyabr · Meridian · erkaklar juftligi NTRP 2.5–4.0 · 12 juft</div><div class="meta" data-en>21 November · Meridian · men’s doubles NTRP 2.5–4.0 · 12 pairs</div>
       <h3 data-ru>Мужские пары в Меридиане</h3><h3 data-uz>Meridianda erkaklar juftligi</h3><h3 data-en>Men’s doubles at Meridian</h3>
@@ -2526,7 +2527,8 @@ function locateMe(pan) {
   const btn = document.createElement('button');
   btn.type = 'button'; btn.className = 'me-btn';
   let timer = 0, note = '';
-  const label = () => btn.textContent = note || '◎ ' + L_('Где я', 'Men qayerda', 'My location');
+  const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 3 3 10.6l7.6 2.8L13.4 21z"/></svg>';
+  const label = () => { if (note) btn.textContent = note; else { btn.innerHTML = arrow; btn.append(L_('Где я', 'Men qayerda', 'My location')); } };
   meSay = (text, ms) => { clearTimeout(timer); note = text; label(); if (text && ms) timer = setTimeout(() => { note = ''; label(); }, ms); };
   label(); document.addEventListener('langchange', label);
   btn.onclick = () => locateMe(true);
