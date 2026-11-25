@@ -31,7 +31,7 @@
     const time = document.createElement('time');
     time.dateTime = date;
     if (index === 0) time.setAttribute('aria-current', 'date');
-    appendTranslations(time, weekdays.map(format => format.format(new Date(date + 'T00:00:00Z'))));
+    appendTranslations(time, index === 0 ? ['Сегодня', 'Bugun', 'Today'] : weekdays.map(format => format.format(new Date(date + 'T00:00:00Z'))));
 
     const [, symbol, description] = conditions.find(([codes]) => codes.includes(daily.weather_code[index])) ||
       [[], '–', ['Нет данных', 'Ma’lumot yo‘q', 'No data']];
