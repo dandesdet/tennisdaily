@@ -551,6 +551,11 @@ html.standalone body{overscroll-behavior-y:contain}
 .totop{position:fixed;right:20px;bottom:20px;z-index:40;width:52px;height:52px;border:0;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s,transform .2s,background .15s}
 .totop.on{opacity:1;transform:none;pointer-events:auto}.totop:hover{background:var(--court)}.totop:active{transform:scale(.94)}
 .totop svg{width:22px;height:22px}
+/* счётчик посещений: левый нижний угол, по центру кнопки «наверх» */
+.visits{position:fixed;left:20px;bottom:30px;z-index:40;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--muted);font:500 13px/1 var(--body);font-variant-numeric:tabular-nums}
+.visits[hidden]{display:none}
+.visits svg{width:16px;height:16px;flex:none}
+.visits .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* бегущая строка: видно, что дальше есть ещё — край затухает, следующий пункт выглядывает */
 .ticker{gap:32px;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 64px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 64px),transparent)}
 .ticker.end{-webkit-mask-image:none;mask-image:none}
@@ -2703,6 +2708,24 @@ document.querySelectorAll('.ev, .mini, .res, .nw').forEach(card => {
     window.open(a.href, '_blank', 'noopener');
   });
 });
+</script>
+<p class="visits" id="visits" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span class="lbl" data-ru>Посещений сайта:</span><span class="lbl" data-uz>Saytga tashriflar:</span><span class="lbl" data-en>Site visits:</span><span id="visits-n"></span></p>
+<script>
+// счётчик посещений (Supabase, проект Tennis Match Covers): +1 один раз за сессию и только на tennisdaily.uz
+(() => {
+  const el = document.getElementById('visits'), n = document.getElementById('visits-n');
+  let seen = true; try { seen = !!sessionStorage.getItem('td-visit'); sessionStorage.setItem('td-visit', '1'); } catch (e) {}
+  const count = !seen && location.hostname === 'tennisdaily.uz';
+  fetch('https://zqrntbillpqefbdyhsly.supabase.co/rest/v1/rpc/tennisdaily_visit', {
+    method: 'POST',
+    headers: {apikey: 'sb_publishable_t3TSrtMbCoBNk-rQFpr_NA_E-oItUUS', 'Content-Type': 'application/json'},
+    body: JSON.stringify({count_visit: count}),
+  }).then(r => r.ok ? r.json() : Promise.reject()).then(total => {
+    if (!Number.isFinite(total)) return;
+    n.textContent = total.toLocaleString('ru-RU');
+    el.hidden = false;
+  }).catch(() => {});
+})();
 </script>
 <button type="button" class="totop" id="totop" aria-label="Наверх"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <script>
