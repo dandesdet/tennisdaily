@@ -2,7 +2,8 @@
 """Ролики YouTube-канала @dandesdet, которых ещё нет в index.html.
 
 Запуск из корня репозитория:  python3 scripts/youtube_new.py [--since 2026-10-01]
-Нужен yt-dlp. Печатает дату, ID, формат (shorts / wide) и название.
+Нужен yt-dlp. Печатает дату, ID, формат и название. Формат — по кадру, а не по вкладке канала:
+вертикальный → shorts (блок «Короткие ролики»), горизонтальный → wide (блок внизу), даже если он лежит в Shorts.
 Пустой вывод — новых роликов нет.
 Затем проверяет все обложки i.ytimg.com в index.html: битая печатается как BROKEN.
 Вертикальной обложки oar2.jpg нет у горизонтальных роликов — берите maxresdefault.jpg.
@@ -24,10 +25,15 @@ def ids(tab):
 
 
 def meta(vid):
-    out = subprocess.run(['yt-dlp', '--skip-download', '--print', '%(upload_date)s\t%(title)s',
+    out = subprocess.run(['yt-dlp', '--skip-download', '--print', '%(upload_date)s\t%(width)s\t%(height)s\t%(title)s',
                           f'https://www.youtube.com/watch?v={vid}'],
                          capture_output=True, text=True).stdout.strip()
-    return out.split('\t', 1) if '\t' in out else ('', out)
+    parts = out.split('\t', 3)
+    if len(parts) < 4:
+        return '', '?', out
+    date, w, h, title = parts
+    kind = 'shorts' if w.isdigit() and h.isdigit() and int(h) > int(w) else 'wide'
+    return date, kind, title
 
 
 def main():
@@ -35,12 +41,12 @@ def main():
     ap.add_argument('--since', default='2026-10-01', help='не старше этой даты (ГГГГ-ММ-ДД)')
     since = ap.parse_args().since.replace('-', '')
     site = open('index.html', encoding='utf-8').read()
-    for tab, kind in (('shorts', 'shorts'), ('videos', 'wide')):
+    for tab in ('shorts', 'videos'):
         # вкладки идут от новых к старым: останавливаемся на первом ролике старше --since
         for vid in ids(tab):
             if vid in site:
                 continue
-            date, title = meta(vid)
+            date, kind, title = meta(vid)
             if date and date < since:
                 break
             print(f'{date}\t{vid}\t{kind}\t{title}')
