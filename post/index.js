@@ -18,6 +18,7 @@ window.tennisDailyPostPreviews = new Set([
   "post-hidoyatov-singles-dec-6",
   "post-hidoyatov-singles-nov-2026",
   "post-hidoyatov-singles-nov-22-results",
+  "post-intricate-rally-ajou",
   "post-ivko-gulamov",
   "post-kadyrov-nizaev-video",
   "post-karimkhodjaev-doubles",
