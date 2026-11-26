@@ -367,6 +367,11 @@ img[src*="courts/turin"]{object-position:50% 0}
 .court-type-slide{flex:0 0 100%;min-width:0;margin:0;scroll-snap-align:start;border-radius:var(--r-inner);corner-shape:squircle;overflow:hidden;background:var(--soft)}
 .court-type-slide figcaption{padding:10px 12px;font-weight:600}
 .court-type-slide .pp-img{border-radius:0}
+.court-video{position:relative}
+.court-video video.pp-img{background:#111;object-fit:contain}
+.court-play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border:0;border-radius:50%;background:rgba(17,17,17,.72);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .15s}
+.court-play:hover{background:var(--court)}
+.court-play svg{width:28px;height:28px;margin-left:3px}
 .court-type-placeholder{aspect-ratio:4/3;display:grid;place-items:center;padding:12px;text-align:center;background:#eceeea;color:var(--muted)}
 .court-type-slide[data-surface="c"] .court-type-placeholder{background:#f5e6dd}
 .court-type-slide[data-surface="h"] .court-type-placeholder{background:#e6edf5}
@@ -1790,7 +1795,7 @@ const COURTS = [
      ['https://www.youtube.com/shorts/JyOMNVMXVkM','Laver Cup: чистый виннер','Laver Cup: toza vinner','Laver Cup: a clean winner'],
      ['https://swing.vision/matches/sw2-yP7YidM','Запись матча на SwingVision','SwingVision’da o‘yin yozuvi','Match recording on SwingVision']
    ]},
-  {id:'yunusabad', ru:'Юнусабад (у телебашни)', counts:{ho:4, xi:2}, en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"Two indoor tennis courts. There are four outdoor hard courts, as well as outdoor clay courts.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'Два крытых теннисных корта. На улице четыре хардовых корта и грунтовые корты.', dUz:'Ikkita yopiq tennis korti. Ochiq maydonda to‘rtta hard kort va grunt kortlar bor.', tel:'+998712347760', h:'09:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}, {u:'https://yunsc.uz/sport/tennis', k:'site'}], t:[["c", "o",'img/courts/yunusabad-clay.webp'], ["h", "o",'img/courts/yunusabad-outdoor-hard.webp'], ['x','i','img/courts/yunusabad-indoor.webp']]},
+  {id:'yunusabad', ru:'Юнусабад (у телебашни)', counts:{ho:4, xi:2, hd:2}, en:"Yunusabad (by the TV tower)", stEn:"open", dEn:"Two indoor tennis courts. There are four outdoor hard courts, as well as outdoor clay courts.", uz:'Yunusobod (teleminora)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.346931,69.285143], dRu:'Два крытых теннисных корта. На улице четыре хардовых корта и грунтовые корты.', dUz:'Ikkita yopiq tennis korti. Ochiq maydonda to‘rtta hard kort va grunt kortlar bor.', tel:'+998712347760', h:'09:00–23:00', bk:[{"u": "https://t.me/YunusobodSC", "k": "tg", "t": "@YunusobodSC"}, {u:'https://yunsc.uz/sport/tennis', k:'site'}], t:[['h','d','img/courts/yunusabad-dome.webp', null, 'img/courts/yunusabad-dome.mp4'], ["c", "o",'img/courts/yunusabad-clay.webp'], ["h", "o",'img/courts/yunusabad-outdoor-hard.webp'], ['x','i','img/courts/yunusabad-indoor.webp']]},
   {id:'pakhtakor', ru:'Пахтакор · Tennis & Padel City', counts:{co:7, ho:3}, en:"Pakhtakor · Tennis & Padel City", stEn:"open · online booking", dEn:"Islam Karimov 98A. 10 outdoor courts (7 clay, 3 hard) plus an indoor hall with clay and hard.", uz:'Paxtakor · Tennis & Padel City', st:'ok', stRu:'открыт · онлайн-бронь', stUz:'ochiq · onlayn bron', ll:[41.315683,69.263468], dRu:'Ислама Каримова, 98А. 10 открытых кортов (7 грунтовых и 3 хардовых) и крытый зал с грунтом и хардом.', dUz:'Islom Karimov, 98A. 10 ta ochiq kort (7 grunt, 3 hard) va yopiq zal: grunt va hard.', tel:'+998903331151', h:'07:00–02:00', bk:[{"u": "https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis", "k": "playsport", "t": "PlaySport"}, {"u": "img/courts/pakhtakor-scheme.webp", "k": "scheme", "t": ""}, {u:'https://tennispadelcity.uz/', k:'photos'}], t:[["c", "o",'img/courts/pakhtakor.webp'], ["h", "o",'img/courts/pakhtakor-hard-outdoor.webp'], ["c", "i",'img/courts/pakhtakor-clay-indoor.webp'], ["h", "i",'img/courts/pakhtakor-hard-indoor.webp']]},
   {id:'dinamo', ru:'Динамо (МВЭС)', en:"Dinamo (MVES)", stEn:"open", dEn:"Outdoor hard and clay courts, plus an indoor hall.", uz:'Dinamo (MVES)', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.332945,69.330479], dRu:'Открытые хардовые и грунтовые корты, есть зал.', dUz:'Ochiq hard va grunt kortlar hamda yopiq zal bor.', tel:'+998911351877', h:'07:00–23:00', bk:[], t:[['c','o','img/courts/dinamo.webp'], ['h','o','img/courts/dinamo-outdoor-hard.webp'], ['h','i','img/courts/dinamo-court-1.webp',['Корт № 1','1-kort','Court No. 1']], ['x','i','img/courts/dinamo-hall-2.webp',['Зал № 2','2-zal','Hall No. 2']]]},
   {id:'ajou', ru:'AJOU · Ravshan court', counts:{hi:2}, en:"AJOU · Ravshan court", stEn:"badge needed to enter", dEn:"Asalobod 113A, by Ajou University. Two indoor hard courts, air conditioning and heating. Entry by badge: regulars get one via Akmal; whether hourly renters need it is being clarified. Rental and groups via Tennis plus.", uz:'AJOU · Ravshan court', st:'up', stRu:'вход по бейджу', stUz:'kirish beyj orqali', since:'2026-11-06', ll:[41.279431,69.338145], dRu:'Асалобод, 113А, у университета Аджу. Два крытых хардовых корта, кондиционер и отопление. Вход по бейджу: постоянным игрокам его оформляет Акмаль, правила для разовой аренды уточняются. Аренда и группы — Tennis plus.', dUz:'Asalobod ko‘chasi, 113A, Ajou universiteti yonida, Yashnobod. Ikkita yopiq hard kort, konditsioner va isitish. Kirish beyj orqali: doimiy o‘yinchilarga Akmal orqali; soatbay olganlarga — aniqlanmoqda. Tennis plus.', access:['Постоянным игрокам нужен бейдж. Для разовой аренды уточните правила у Акмаля.','Doimiy o‘yinchilarga beyj kerak. Bir martalik ijara qoidalarini Akmaldan so‘rang.','Regular players need a badge. Ask Akmal about one-off bookings.'], tel:'+998900130140', h:'06:00–22:00', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["h", "i",'img/courts/ajou-indoor-hard.webp']],
@@ -2061,16 +2066,27 @@ function courtTypeCarousel(court) {
   const multiple = variants.length > 1;
   const gallery = document.createElement('div');
   gallery.variants = variants;
-  gallery.innerHTML = `<div class="court-type-track${multiple ? ' has-next' : ''}">${variants.map(([surface, kind, image, caption]) => {
+  gallery.innerHTML = `<div class="court-type-track${multiple ? ' has-next' : ''}">${variants.map(([surface, kind, image, caption, video]) => {
     const type = courtTypeLabel(surface, kind);
     const label = [surface === 'x' && caption ? '' : type, caption && L_(...caption)].filter(Boolean).join(' · ') ||
       L_('Теннисный корт', 'Tennis korti', 'Tennis court');
-    const photo = image
+    let photo = image
       ? `<img class="pp-img" src="${image}" alt="${courtPhotoAlt(court, label)}">`
       : `<div class="court-type-placeholder">${L_('Фото пока нет', 'Hozircha surat yo‘q', 'No photo yet')}</div>`;
+    // ролик корта (5-й элемент типа): фото с кнопкой, по нажатию — видео на его месте
+    if (video) photo = `<div class="court-video" data-video="${video}">${photo}<button type="button" class="court-play" aria-label="${L_('Смотреть видео', 'Videoni ko‘rish', 'Watch video')}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></button></div>`;
     return `<figure class="court-type-slide" data-surface="${surface}">${photo}<figcaption>${label}</figcaption></figure>`;
   }).join('')}</div>`;
 
+  gallery.querySelectorAll('.court-play').forEach(button => button.addEventListener('click', event => {
+    event.stopPropagation();
+    const box = button.parentElement, img = box.querySelector('img');
+    const v = document.createElement('video');
+    Object.assign(v, {src: box.dataset.video, controls: true, autoplay: true, muted: true, playsInline: true, loop: true});
+    if (img) v.poster = img.src;
+    v.className = 'pp-img';
+    box.replaceChildren(v);
+  }));
   if (multiple) {
     gallery.insertAdjacentHTML('beforeend', `
       <div class="court-type-controls">
