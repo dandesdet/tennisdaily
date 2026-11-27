@@ -69,6 +69,7 @@ img{display:block;max-width:100%}
 
 .head{position:sticky;top:0;z-index:20;background:var(--paper);box-shadow:0 0 0 100vmax var(--paper);clip-path:inset(0 -100vmax -1px);transition:transform .25s ease}
 .head.away{transform:translateY(-100%)}
+@media (max-width:900px){.head.slim .weather{display:none}}   /* телефон: выезжающая шапка без прогноза */
 .section-nav{display:flex;gap:4px;border-block:1px solid var(--line);overflow-x:auto}
 .section-nav a{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 20px;border-radius:var(--r-small);corner-shape:squircle;font-weight:600;text-decoration:none;white-space:nowrap}
 .section-nav a:hover{color:var(--court);background:var(--court-soft)}
@@ -605,6 +606,19 @@ a.vplay{display:block}
 .cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}
 .cfilt small{font:500 14px/1 var(--body);opacity:.6}
+/* Телефон: фильтры в одну строку со свайпом, в конце строки — круглая кнопка «развернуть все» */
+.cfilt-more{display:none}
+@media (max-width:700px){
+  .cfilt-wrap{display:flex;align-items:center;gap:8px;margin:0 0 16px}
+  .cfilt-wrap .cfilt{flex:1;min-width:0;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cfilt-wrap .cfilt::-webkit-scrollbar{display:none}
+  .cfilt-wrap .cfilt button{flex:none}
+  .cfilt-wrap.open .cfilt{flex-wrap:wrap;align-items:center;overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .cfilt-more:not([hidden]){display:grid;place-items:center;flex:none;width:32px;height:32px;min-width:32px;padding:0;border:0;border-radius:50%;corner-shape:round;background:var(--soft);color:var(--ink);cursor:pointer;transition:background .15s}
+  .cfilt-more:hover{background:var(--line)}.cfilt-more:active{transform:scale(.94)}
+  .cfilt-more svg{transition:transform .2s ease}
+  .cfilt-wrap.open .cfilt-more svg{transform:rotate(180deg)}
+}
 .crow[hidden]{display:none}
 .league-grid{margin-top:96px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
 .lgp{background:var(--soft);border-radius:var(--r-card);corner-shape:squircle;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
@@ -770,8 +784,19 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 // Шапка: прячется при прокрутке вниз, выезжает при прокрутке вверх — язык всегда под рукой
 (() => {
   const head = document.getElementById('head'); let last = scrollY;
+  const mobile = matchMedia('(max-width:900px)');
+  // Телефон: когда исходная шапка ушла за экран, прячем в ней прогноз (класс slim) — выезжает только дата, языки и меню.
+  // Шапка в потоке страницы, поэтому прокрутку компенсируем на высоту прогноза — содержимое не прыгает.
+  const slim = y => {
+    if (!mobile.matches) { if (head.classList.contains('slim')) head.classList.remove('slim'); return; }
+    if (!head.classList.contains('slim') && y > head.offsetHeight) {
+      const h = head.offsetHeight; head.classList.add('slim'); const dh = h - head.offsetHeight;
+      if (dh > 0) { scrollBy(0, -dh); last -= dh; }
+    } else if (head.classList.contains('slim') && y < 4) head.classList.remove('slim');
+  };
   addEventListener('scroll', () => {
     const y = scrollY, d = y - last;
+    slim(y);
     if (Math.abs(d) < 6) return;
     head.classList.toggle('away', d > 0 && y > head.offsetHeight);
     last = y;
@@ -1438,7 +1463,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <section id="courts">
   <div class="courts">
     <div class="ch"><h2 data-ru>Где сыграть в Ташкенте</h2><h2 data-uz>Toshkentda qayerda o‘ynash mumkin</h2><h2 data-en>Where to play in Tashkent</h2></div>
-    <div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
+    <div class="cfilt-wrap" id="cfiltWrap"><div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div><button type="button" class="cfilt-more" id="cfiltMore" aria-expanded="false" aria-controls="cfilt" aria-label="Все фильтры" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
     <div class="map-frame">
       <div class="cmap" id="cmap" role="region" aria-label="Карта кортов"></div>
       <div class="map-zoom-hint">
@@ -2000,11 +2025,40 @@ function applyCF() {
   document.querySelectorAll('#crows .crow[data-i]').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); });
   marks.forEach(group => group.refresh());
 }
+// Кнопка «все фильтры»: видна, только когда фильтры не помещаются в строку (или уже развёрнуты)
+const CFILT_MORE = document.getElementById('cfiltMore');   // ссылка сохраняется: перерисовка фильтров вынимает кнопку из DOM
+function cfiltMoreSync() {
+  const wrap = document.getElementById('cfiltWrap'), el = document.getElementById('cfilt'), btn = CFILT_MORE;
+  if (!wrap || !btn) return;
+  // развёрнуто — кнопка встаёт последней в общий поток фильтров (в конце списка), свёрнуто — в конец строки
+  const open = wrap.classList.contains('open');
+  if (open && btn.parentNode !== el) el.append(btn);
+  if (!open && btn.parentNode !== wrap) wrap.append(btn);
+  btn.hidden = !open && el.scrollWidth <= el.clientWidth + 1;
+}
+(() => {
+  const wrap = document.getElementById('cfiltWrap'), btn = CFILT_MORE;
+  if (!wrap || !btn) return;
+  btn.onclick = () => {
+    const open = wrap.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Свернуть фильтры' : 'Все фильтры');
+    cfiltMoreSync();
+    if (!open) {   // свернули — строка показывает выбранный фильтр
+      const el = document.getElementById('cfilt'), on = el.querySelector('[aria-pressed="true"]');
+      el.scrollLeft = on ? Math.max(0, on.offsetLeft - el.offsetLeft - 16) : 0;
+    }
+  };
+  addEventListener('resize', cfiltMoreSync, {passive: true});
+})();
 function renderCF() {
   const el = document.getElementById('cfilt'); if (!el) return;
+  const keepX = el.scrollLeft;   // на телефоне строка фильтров прокручена — не сбрасываем её при перерисовке
   el.innerHTML = CTYPES.map(([k, ru, uz, en]) => { const n = COURTS.filter(c => cMatch(c, k)).length;
     return `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${/^[hc]/.test(k) ? `<i class="${k[0]}"></i>` : ''}${L_(ru, uz, en)} <small>${n}</small></button>`; }).join('');
-  el.querySelectorAll('button').forEach(b => b.onclick = () => {
+  el.scrollLeft = keepX;
+  cfiltMoreSync();
+  el.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => {
     const next = b.dataset.k;
     const refit = CF !== next && (CF === '24h' || next === '24h');
     CF = next; renderCourts();
