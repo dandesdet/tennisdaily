@@ -114,7 +114,7 @@ dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width
 .thumbs{display:flex;gap:8px;margin:12px 0 0;padding:0;list-style:none;overflow-x:auto}
 .thumbs button{flex:none;width:112px;padding:0;border:2px solid transparent;border-radius:var(--r-inner);background:none;cursor:pointer;overflow:hidden}
 .thumbs button[aria-current="true"]{border-color:var(--ink)}.thumbs img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
-.cfind{margin:0 0 16px}
+.cfind{margin:16px 0}
 .cfind-bar{display:flex;align-items:center;gap:12px;min-height:72px;padding:0 12px 0 24px;border:1px solid var(--soft);border-radius:999px;corner-shape:squircle;background:var(--soft);cursor:text;transition:background .15s,border-color .15s}
 .cfind-bar:hover{border-color:var(--line)}
 .cfind.open .cfind-bar,.cfind-bar:focus-within{background:#fff;border-color:var(--ink)}
@@ -446,13 +446,13 @@ def landing_page(all_courts):
 {TOP.replace("{NAV}", "")}
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
-<div class="cfind" id="cfind">
-<div class="cfind-bar" id="cfindBar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><button type="button" class="cfind-tok" id="cfindTok" hidden></button><input type="search" id="csearch" autocomplete="off" enterkeyhint="search" aria-label="Поиск корта" aria-controls="cfilt" aria-expanded="false" placeholder="Грунт в зале, Юнусабад, открыто сейчас…"><button type="button" class="cfind-x" id="cfindX" aria-label="Очистить" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-<div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов" hidden></div>
 </div>
 <div class="cmap-wrap"><div class="map" id="map"></div><button type="button" class="me-btn" id="me-btn"></button></div>
 <dialog class="lb" id="lm-photo"><form method="dialog"><button aria-label="Закрыть">×</button></form><figure style="margin:0"><img alt=""><figcaption></figcaption></figure></dialog>
 <p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#285A47"></i>хард и грунт</span></p>
+<div class="cfind" id="cfind">
+<div class="cfind-bar" id="cfindBar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><button type="button" class="cfind-tok" id="cfindTok" hidden></button><input type="search" id="csearch" autocomplete="off" enterkeyhint="search" aria-label="Поиск корта" aria-controls="cfilt" aria-expanded="false" placeholder="Грунт в зале, Юнусабад, открыто сейчас…"><button type="button" class="cfind-x" id="cfindX" aria-label="Очистить" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+<div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов" hidden></div>
 <p class="cempty" id="cempty" hidden>Ничего не нашлось. Попробуйте название клуба, район или покрытие.</p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
