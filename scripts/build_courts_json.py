@@ -122,6 +122,18 @@ dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width
 .cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:999px;background:var(--soft);color:var(--ink);font:600 16px/1 'Golos Text',sans-serif;cursor:pointer}
 .cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}.cfilt small{font:500 14px/1 'Golos Text',sans-serif;opacity:.6}
+.cfilt-more{display:none}
+@media (max-width:700px){
+  .cfilt-wrap{display:flex;align-items:center;gap:8px;margin:0 0 16px}
+  .cfilt-wrap .cfilt{flex:1;min-width:0;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cfilt-wrap .cfilt::-webkit-scrollbar{display:none}
+  .cfilt-wrap .cfilt button{flex:none}
+  .cfilt-wrap.open .cfilt{flex-wrap:wrap;align-items:center;overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .cfilt-more:not([hidden]){display:grid;place-items:center;flex:none;width:32px;height:32px;min-width:32px;padding:0;border:0;border-radius:50%;background:var(--soft);color:var(--ink);cursor:pointer;transition:background .15s}
+  .cfilt-more:hover{background:var(--line)}.cfilt-more:active{transform:scale(.94)}
+  .cfilt-more svg{transition:transform .2s ease}
+  .cfilt-wrap.open .cfilt-more svg{transform:rotate(180deg)}
+}
 .grid li[hidden]{display:none}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.map{height:420px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}"""
@@ -418,11 +430,11 @@ def landing_page(all_courts):
 {TOP.replace("{NAV}", "")}
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
-<div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
+<div class="cfilt-wrap" id="cfiltWrap"><div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div><button type="button" class="cfilt-more" id="cfiltMore" aria-expanded="false" aria-controls="cfilt" aria-label="Все фильтры" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
 <div class="cmap-wrap"><div class="map" id="map"></div><button type="button" class="me-btn" id="me-btn"></button></div>
 <dialog class="lb" id="lm-photo"><form method="dialog"><button aria-label="Закрыть">×</button></form><figure style="margin:0"><img alt=""><figcaption></figcaption></figure></dialog>
 <p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#285A47"></i>хард и грунт</span></p>
-<label class="csearch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="csearch" placeholder="Название, район или «грунт в зале»" aria-label="Поиск корта" autocomplete="off" enterkeyhint="search"></label>
+<label class="csearch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="csearch" placeholder="Грунт в зале, Юнусабад, открыто сейчас…" aria-label="Поиск корта" autocomplete="off" enterkeyhint="search"></label>
 <p class="cempty" id="cempty" hidden>Ничего не нашлось. Попробуйте название клуба, район или покрытие.</p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
@@ -459,11 +471,28 @@ def landing_page(all_courts):
   const apply = () => {{
     let shown = 0; F.forEach(c => {{ const ok = match(c, CF) && qMatch(c); shown += ok; const li = document.querySelector(`.grid li[data-id="${{c.id}}"]`); if (li) li.hidden = !ok;
  }}); groups.forEach(g => g.refresh()); document.getElementById('cempty').hidden = shown > 0;
-    const el = document.getElementById('cfilt');
+    const el = document.getElementById('cfilt'), keepX = el.scrollLeft;
     el.innerHTML = TYPES.map(([k, n]) => {{ const cnt = F.filter(c => match(c, k) && qMatch(c)).length;
       return cnt || k === 'all' ? `<button type="button" data-k="${{k}}" aria-pressed="${{k === CF}}">${{/^[hc]/.test(k) ? `<i class="${{k[0]}}"></i>` : ''}}${{n}} <small>${{cnt}}</small></button>` : ''; }}).join('');
-    el.querySelectorAll('button').forEach(b => b.onclick = () => {{ CF = b.dataset.k; apply(); }});
+    el.scrollLeft = keepX; moreSync();
+    el.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => {{ CF = b.dataset.k; apply(); el.querySelector('[aria-pressed="true"]').focus({{preventScroll: true}}); }});
   }};
+  // Phone: chips in one swipeable row; the round button at its end opens them all (same as the main page).
+  const MORE = document.getElementById('cfiltMore'), WRAP = document.getElementById('cfiltWrap');
+  const moreSync = () => {{
+    const el = document.getElementById('cfilt'), open = WRAP.classList.contains('open');
+    if (open && MORE.parentNode !== el) el.append(MORE);
+    if (!open && MORE.parentNode !== WRAP) WRAP.append(MORE);
+    MORE.hidden = !open && el.scrollWidth <= el.clientWidth + 1;
+  }};
+  MORE.onclick = () => {{
+    const open = WRAP.classList.toggle('open');
+    MORE.setAttribute('aria-expanded', open); MORE.setAttribute('aria-label', open ? 'Свернуть фильтры' : 'Все фильтры');
+    moreSync();
+    if (!open) {{ const el = document.getElementById('cfilt'), on = el.querySelector('[aria-pressed="true"]');
+      el.scrollLeft = on ? Math.max(0, on.offsetLeft - el.offsetLeft - 16) : 0; }}
+  }};
+  addEventListener('resize', moreSync, {{passive: true}});
   apply();
   document.getElementById('csearch').oninput = e => {{ CQ = parseQ(e.target.value); apply(); }};
   setInterval(() => CF === 'now' && apply(), 60e3);

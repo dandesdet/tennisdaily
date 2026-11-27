@@ -97,6 +97,18 @@ dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width
 .cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:999px;background:var(--soft);color:var(--ink);font:600 16px/1 'Golos Text',sans-serif;cursor:pointer}
 .cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}.cfilt small{font:500 14px/1 'Golos Text',sans-serif;opacity:.6}
+.cfilt-more{display:none}
+@media (max-width:700px){
+  .cfilt-wrap{display:flex;align-items:center;gap:8px;margin:0 0 16px}
+  .cfilt-wrap .cfilt{flex:1;min-width:0;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cfilt-wrap .cfilt::-webkit-scrollbar{display:none}
+  .cfilt-wrap .cfilt button{flex:none}
+  .cfilt-wrap.open .cfilt{flex-wrap:wrap;align-items:center;overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .cfilt-more:not([hidden]){display:grid;place-items:center;flex:none;width:32px;height:32px;min-width:32px;padding:0;border:0;border-radius:50%;background:var(--soft);color:var(--ink);cursor:pointer;transition:background .15s}
+  .cfilt-more:hover{background:var(--line)}.cfilt-more:active{transform:scale(.94)}
+  .cfilt-more svg{transition:transform .2s ease}
+  .cfilt-wrap.open .cfilt-more svg{transform:rotate(180deg)}
+}
 .grid li[hidden]{display:none}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.map{height:420px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}}</style>
