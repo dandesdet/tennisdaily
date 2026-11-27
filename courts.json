@@ -201,6 +201,16 @@
    "lon": 69.202787
   },
   {
+   "id": "transport-university",
+   "name": {
+    "ru": "Транспортный университет",
+    "uz": "Transport universiteti",
+    "en": "Transport University"
+   },
+   "lat": 41.274352,
+   "lon": 69.279512
+  },
+  {
    "id": "lokomotiv",
    "name": {
     "ru": "Локомотив",
