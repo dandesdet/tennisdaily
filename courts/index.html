@@ -33,10 +33,6 @@ main{max-width:1240px;margin:0 auto;padding:20px 20px 64px}main.narrow{max-width
 .logo .b::before,.logo .b::after{content:"";position:absolute;top:10%;bottom:10%;width:46%;border:.045em solid #fff;border-radius:50%}
 .logo .b::before{left:-26%;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
 .logo .b::after{right:-26%;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
-.csearch{position:relative;display:block;max-width:520px;margin:16px 0 0}
-.csearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-.csearch input{width:100%;height:44px;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:999px;corner-shape:squircle;background:#fff;color:var(--ink);font:400 16px/1 'Golos Text',sans-serif;transition:border-color .15s}
-.csearch input:focus{outline:none;border-color:var(--ink)}
 .cempty{margin:16px 0 0;color:var(--muted)}
 .cmap-wrap{position:relative}
 .me-dot{position:relative;width:16px;height:16px;border-radius:50%;background:#2F6DB5;border:3px solid #fff;box-shadow:0 1px 4px #0005;transform:translate(-50%,-50%)}
@@ -93,21 +89,41 @@ dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width
 .thumbs{display:flex;gap:8px;margin:12px 0 0;padding:0;list-style:none;overflow-x:auto}
 .thumbs button{flex:none;width:112px;padding:0;border:2px solid transparent;border-radius:var(--r-inner);background:none;cursor:pointer;overflow:hidden}
 .thumbs button[aria-current="true"]{border-color:var(--ink)}.thumbs img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
-.cfilt{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
-.cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:999px;background:var(--soft);color:var(--ink);font:600 16px/1 'Golos Text',sans-serif;cursor:pointer}
-.cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}.cfilt small{font:500 14px/1 'Golos Text',sans-serif;opacity:.6}
-.cfilt-more{display:none}
+.cfind{margin:0 0 16px}
+.cfind-bar{display:flex;align-items:center;gap:12px;min-height:72px;padding:0 12px 0 24px;border:1px solid var(--soft);border-radius:999px;corner-shape:squircle;background:var(--soft);cursor:text;transition:background .15s,border-color .15s}
+.cfind-bar:hover{border-color:var(--line)}
+.cfind.open .cfind-bar,.cfind-bar:focus-within{background:#fff;border-color:var(--ink)}
+.cfind-bar>svg{flex:none;color:var(--muted)}
+.cfind-bar input{flex:1;min-width:40px;height:56px;border:0;padding:0;background:none;color:var(--ink);font:400 22px/1.2 'Golos Text',sans-serif;outline:none}
+.cfind-bar input::placeholder{color:var(--muted)}
+.cfind-bar input::-webkit-search-cancel-button{display:none}
+.cfind-tok{flex:0 1 auto;min-width:0;display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 8px 0 8px;border:0;border-radius:999px;corner-shape:squircle;background:var(--ink);color:#fff;font:500 18px/1 'Golos Text',sans-serif;cursor:pointer;white-space:nowrap}
+.cfind-tok .l{overflow:hidden;text-overflow:ellipsis}
+.cfind-tok .x{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffffff26;font-size:18px;line-height:1}
+.cfind-tok:hover .x{background:#ffffff40}
+.cfind-x{flex:none;display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;transition:background .15s}
+.cfind-x:hover{background:var(--soft);color:var(--ink)}
+.cfind-x[hidden],.cfind-tok[hidden]{display:none}
+.cfilt{display:flex;flex-wrap:wrap;gap:10px;padding:16px 0 4px}
+.cfilt[hidden]{display:none}
+.cfind.open .cfilt{animation:cfind-in .18s ease-out}
+@keyframes cfind-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.cfind.open .cfilt{animation:none}}
+.cfilt button{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:0;border-radius:999px;corner-shape:squircle;background:var(--soft);color:var(--ink);font:500 18px/1 'Golos Text',sans-serif;cursor:pointer;transition:background .15s,transform .1s}
+.cfilt button:has(.ic){padding-left:8px}
+.cfilt button:hover{background:var(--line)}.cfilt button:active{transform:scale(.97)}
+.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.cfilt small{font:500 15px/1 'Golos Text',sans-serif;opacity:.55}
+.cfilt .ic,.cfind-tok .ic{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;color:#fff}
+.ic svg{width:18px;height:18px}
+.ic.h{background:#2F6DB5}.ic.c{background:#C2683A}.ic.now{background:var(--ball);color:var(--ink)}.ic.d24{background:var(--court)}
 @media (max-width:700px){
-  .cfilt-wrap{display:flex;align-items:center;gap:8px;margin:0 0 16px}
-  .cfilt-wrap .cfilt{flex:1;min-width:0;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
-  .cfilt-wrap .cfilt::-webkit-scrollbar{display:none}
-  .cfilt-wrap .cfilt button{flex:none}
-  .cfilt-wrap.open .cfilt{flex-wrap:wrap;align-items:center;overflow:visible;-webkit-mask-image:none;mask-image:none}
-  .cfilt-more:not([hidden]){display:grid;place-items:center;flex:none;width:32px;height:32px;min-width:32px;padding:0;border:0;border-radius:50%;background:var(--soft);color:var(--ink);cursor:pointer;transition:background .15s}
-  .cfilt-more:hover{background:var(--line)}.cfilt-more:active{transform:scale(.94)}
-  .cfilt-more svg{transition:transform .2s ease}
-  .cfilt-wrap.open .cfilt-more svg{transform:rotate(180deg)}
+  .cfind-bar{min-height:56px;padding:0 6px 0 18px;gap:8px}
+  .cfind-bar:has(.cfind-tok:not([hidden])){padding-left:6px}.cfind-bar:has(.cfind-tok:not([hidden]))>svg{display:none}.cfind-bar input{min-width:24px}
+  .cfind-bar input{height:44px;font-size:18px}
+  .cfind-tok{height:40px;font-size:16px;gap:8px}.cfind-tok .ic,.cfind-tok .x{width:28px;height:28px}
+  .cfind-x{width:44px;height:44px}
+  .cfilt{gap:8px}.cfilt button{height:44px;font-size:16px;padding:0 18px}.cfilt button:has(.ic){padding-left:6px}
 }
 .grid li[hidden]{display:none}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -122,11 +138,13 @@ dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width
 <script>{const d=new Date(),D=['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],M=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];document.getElementById('today').textContent=`${D[d.getDay()]}, ${d.getDate()} ${M[d.getMonth()]} ${d.getFullYear()}`}</script>
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: 25 теннисных клубов и площадок — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
-<div class="cfilt-wrap" id="cfiltWrap"><div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div><button type="button" class="cfilt-more" id="cfiltMore" aria-expanded="false" aria-controls="cfilt" aria-label="Все фильтры" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+<div class="cfind" id="cfind">
+<div class="cfind-bar" id="cfindBar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><button type="button" class="cfind-tok" id="cfindTok" hidden></button><input type="search" id="csearch" autocomplete="off" enterkeyhint="search" aria-label="Поиск корта" aria-controls="cfilt" aria-expanded="false" placeholder="Грунт в зале, Юнусабад, открыто сейчас…"><button type="button" class="cfind-x" id="cfindX" aria-label="Очистить" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+<div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов" hidden></div>
+</div>
 <div class="cmap-wrap"><div class="map" id="map"></div><button type="button" class="me-btn" id="me-btn"></button></div>
 <dialog class="lb" id="lm-photo"><form method="dialog"><button aria-label="Закрыть">×</button></form><figure style="margin:0"><img alt=""><figcaption></figcaption></figure></dialog>
 <p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#285A47"></i>хард и грунт</span></p>
-<label class="csearch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="csearch" placeholder="Грунт в зале, Юнусабад, открыто сейчас…" aria-label="Поиск корта" autocomplete="off" enterkeyhint="search"></label>
 <p class="cempty" id="cempty" hidden>Ничего не нашлось. Попробуйте название клуба, район или покрытие.</p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
@@ -229,28 +247,44 @@ function qBase(c, q) {
   const apply = () => {
     let shown = 0; F.forEach(c => { const ok = match(c, CF) && qMatch(c); shown += ok; const li = document.querySelector(`.grid li[data-id="${c.id}"]`); if (li) li.hidden = !ok;
  }); groups.forEach(g => g.refresh()); document.getElementById('cempty').hidden = shown > 0;
-    const el = document.getElementById('cfilt'), keepX = el.scrollLeft;
-    el.innerHTML = TYPES.map(([k, n]) => { const cnt = F.filter(c => match(c, k) && qMatch(c)).length;
-      return cnt || k === 'all' ? `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${/^[hc]/.test(k) ? `<i class="${k[0]}"></i>` : ''}${n} <small>${cnt}</small></button>` : ''; }).join('');
-    el.scrollLeft = keepX; moreSync();
-    el.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => { CF = b.dataset.k; apply(); el.querySelector('[aria-pressed="true"]').focus({preventScroll: true}); });
+    const el = document.getElementById('cfilt');
+    el.innerHTML = TYPES.filter(([k]) => k !== 'all').map(([k, n]) => { const cnt = F.filter(c => match(c, k) && qMatch(c)).length;
+      return cnt || k === CF ? `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${cfIcon(k)}${n} <small>${cnt}</small></button>` : ''; }).join('');
+    el.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => { setCF(b.dataset.k === CF ? 'all' : b.dataset.k); cfindOpen(false); });
+    cfindSync();
   };
-  // Phone: chips in one swipeable row; the round button at its end opens them all (same as the main page).
-  const MORE = document.getElementById('cfiltMore'), WRAP = document.getElementById('cfiltWrap');
-  const moreSync = () => {
-    const el = document.getElementById('cfilt'), open = WRAP.classList.contains('open');
-    if (open && MORE.parentNode !== el) el.append(MORE);
-    if (!open && MORE.parentNode !== WRAP) WRAP.append(MORE);
-    MORE.hidden = !open && el.scrollWidth <= el.clientWidth + 1;
+  // Big search line, same as the main page: tap opens the chips, a chosen chip sits in the line, Esc or a tap elsewhere closes.
+  const CF_ICON = {
+    now: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/></svg>',
+    '24h': '<svg viewBox="0 0 24 24" fill="currentColor"><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="700" font-family="Golos Text,sans-serif">24</text></svg>',
+    i: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 11 12 5l8 6v8H4z"/></svg>',
+    d: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 18a9 9 0 0 1 18 0"/><path d="M3 18h18"/></svg>',
+    o: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>',
+    r: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 5l9 5M6 10v9M18 10v9"/></svg>',
+    s: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>'
   };
-  MORE.onclick = () => {
-    const open = WRAP.classList.toggle('open');
-    MORE.setAttribute('aria-expanded', open); MORE.setAttribute('aria-label', open ? 'Свернуть фильтры' : 'Все фильтры');
-    moreSync();
-    if (!open) { const el = document.getElementById('cfilt'), on = el.querySelector('[aria-pressed="true"]');
-      el.scrollLeft = on ? Math.max(0, on.offsetLeft - el.offsetLeft - 16) : 0; }
+  const cfIcon = k => k === 'now' ? `<span class="ic now">${CF_ICON.now}</span>` : k === '24h' ? `<span class="ic d24">${CF_ICON['24h']}</span>`
+    : /^[hc]/.test(k) ? `<span class="ic ${k[0]}">${CF_ICON[k[1]] || CF_ICON.s}</span>` : '';
+  const cfind = document.getElementById('cfind'), input = document.getElementById('csearch');
+  const cfindOpen = open => { cfind.classList.toggle('open', open); document.getElementById('cfilt').hidden = !open; input.setAttribute('aria-expanded', open); };
+  const cfindSync = () => {
+    const tok = document.getElementById('cfindTok'), t = TYPES.find(([k]) => k === CF);
+    tok.hidden = CF === 'all';
+    if (CF !== 'all') { tok.innerHTML = `${cfIcon(CF)}<span class="l">${t[1]}</span><span class="x" aria-hidden="true">×</span>`; tok.setAttribute('aria-label', 'Снять фильтр: ' + t[1]); }
+    input.placeholder = CF !== 'all' ? '' : innerWidth < 700 ? 'Грунт в зале, Юнусабад…' : 'Грунт в зале, Юнусабад, открыто сейчас…';
+    document.getElementById('cfindX').hidden = CF === 'all' && !input.value;
   };
-  addEventListener('resize', moreSync, {passive: true});
+  const setCF = k => { CF = k; apply(); };
+  input.onfocus = () => cfindOpen(true);
+  document.getElementById('cfindBar').onclick = e => { if (!e.target.closest('button')) { input.focus(); cfindOpen(true); } };
+  document.getElementById('cfindTok').onclick = () => { setCF('all'); input.focus(); };
+  document.getElementById('cfindX').onclick = () => { input.value = ''; CQ = null; setCF('all'); input.focus(); };
+  input.onkeydown = e => {
+    if (e.key === 'Escape' || e.key === 'Enter') { cfindOpen(false); input.blur(); }
+    if (e.key === 'Backspace' && !input.value && CF !== 'all') setCF('all');
+  };
+  document.addEventListener('pointerdown', e => { if (!cfind.contains(e.target)) cfindOpen(false); });
+  document.addEventListener('focusin', e => { if (!cfind.contains(e.target)) cfindOpen(false); });
   apply();
   document.getElementById('csearch').oninput = e => { CQ = parseQ(e.target.value); apply(); };
   setInterval(() => CF === 'now' && apply(), 60e3);

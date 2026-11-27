@@ -601,32 +601,44 @@ a.vplay{display:block}
 .mini.trip{grid-template-columns:160px 1fr}:is(.mini.trip>img,.mini.trip>.post-media>img){width:160px;height:auto;aspect-ratio:16/9}
 .world .mini.trip{grid-template-columns:240px 1fr}.world :is(.mini.trip>img,.mini.trip>.post-media>img){width:240px;height:auto;aspect-ratio:16/9}
 @media (max-width:520px){.mini.trip,.world .mini.trip{grid-template-columns:1fr}:is(.mini.trip>img,.mini.trip>.post-media>img),.world :is(.mini.trip>img,.mini.trip>.post-media>img){width:100%;height:auto}}
-.cfilt{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
-.cfilt button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:var(--pill);corner-shape:squircle;background:var(--soft);color:var(--ink);font:600 16px/1 var(--body);cursor:pointer;transition:background .15s}
-.cfilt button:hover{background:var(--line)}.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.cfilt i{width:10px;height:10px;border-radius:50%}.cfilt i.h{background:#2F6DB5}.cfilt i.c{background:#C2683A}
-.cfilt small{font:500 14px/1 var(--body);opacity:.6}
-/* Телефон: фильтры в одну строку со свайпом, в конце строки — круглая кнопка «развернуть все» */
-.cfilt-more{display:none}
-@media (max-width:700px){
-  .cfilt-wrap{display:flex;align-items:center;gap:8px;margin:0 0 16px}
-  .cfilt-wrap .cfilt{flex:1;min-width:0;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
-  .cfilt-wrap .cfilt::-webkit-scrollbar{display:none}
-  .cfilt-wrap .cfilt button{flex:none}
-  .cfilt-wrap.open .cfilt{flex-wrap:wrap;align-items:center;overflow:visible;-webkit-mask-image:none;mask-image:none}
-  .cfilt-more:not([hidden]){display:grid;place-items:center;flex:none;width:32px;height:32px;min-width:32px;padding:0;border:0;border-radius:50%;corner-shape:round;background:var(--soft);color:var(--ink);cursor:pointer;transition:background .15s}
-  .cfilt-more:hover{background:var(--line)}.cfilt-more:active{transform:scale(.94)}
-  .cfilt-more svg{transition:transform .2s ease}
-  .cfilt-wrap.open .cfilt-more svg{transform:rotate(180deg)}
-}
 .crow[hidden]{display:none}
-/* Поиск кортов: свободный запрос — покрытие, тип площадки, название, район */
-.csearch{position:relative;display:block;max-width:520px;margin:0 0 12px}
-.csearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-.csearch input{width:100%;height:44px;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--ink);font:400 16px/1 var(--body);transition:border-color .15s}
-.csearch input::placeholder{color:var(--muted)}
-.csearch input:hover{border-color:#cfcfc9}
-.csearch input:focus{outline:none;border-color:var(--ink)}
+/* Поиск кортов: одна большая строка. Нажали — под ней плашки фильтров; выбранный фильтр живёт в самой строке. */
+.cfind{margin:0 0 16px}
+.cfind-bar{display:flex;align-items:center;gap:12px;min-height:72px;padding:0 12px 0 24px;border:1px solid var(--soft);border-radius:var(--pill);corner-shape:squircle;background:var(--soft);cursor:text;transition:background .15s,border-color .15s}
+.cfind-bar:hover{border-color:var(--line)}
+.cfind.open .cfind-bar,.cfind-bar:focus-within{background:var(--paper);border-color:var(--ink)}
+.cfind-bar>svg{flex:none;color:var(--muted)}
+.cfind-bar input{flex:1;min-width:40px;height:56px;border:0;padding:0;background:none;color:var(--ink);font:400 22px/1.2 var(--body);outline:none}
+.cfind-bar input::placeholder{color:var(--muted)}
+.cfind-bar input::-webkit-search-cancel-button{display:none}
+.cfind-tok{flex:0 1 auto;min-width:0;display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 8px 0 8px;border:0;border-radius:var(--pill);corner-shape:squircle;background:var(--ink);color:#fff;font:500 18px/1 var(--body);cursor:pointer;white-space:nowrap}
+.cfind-tok .l{overflow:hidden;text-overflow:ellipsis}
+.cfind-tok .x{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffffff26;font-size:18px;line-height:1}
+.cfind-tok:hover .x{background:#ffffff40}
+.cfind-x{flex:none;display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;transition:background .15s}
+.cfind-x:hover{background:var(--soft);color:var(--ink)}
+.cfind-x[hidden],.cfind-tok[hidden]{display:none}
+.cfilt{display:flex;flex-wrap:wrap;gap:10px;padding:16px 0 4px}
+.cfilt[hidden]{display:none}
+.cfind.open .cfilt{animation:cfind-in .18s ease-out}
+@keyframes cfind-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.cfind.open .cfilt{animation:none}}
+.cfilt button{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:0;border-radius:var(--pill);corner-shape:squircle;background:var(--soft);color:var(--ink);font:500 18px/1 var(--body);cursor:pointer;transition:background .15s,transform .1s}
+.cfilt button:has(.ic){padding-left:8px}
+.cfilt button:hover{background:var(--line)}.cfilt button:active{transform:scale(.97)}
+.cfilt button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.cfilt small{font:500 15px/1 var(--body);opacity:.55}
+.cfilt .ic,.cfind-tok .ic{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;color:#fff}
+.ic svg{width:18px;height:18px}
+.ic.h{background:#2F6DB5}.ic.c{background:#C2683A}.ic.now{background:var(--ball);color:var(--ink)}.ic.d24{background:var(--court)}
+@media (max-width:700px){
+  .cfind-bar{min-height:56px;padding:0 6px 0 18px;gap:8px}
+  .cfind-bar:has(.cfind-tok:not([hidden])){padding-left:6px}.cfind-bar:has(.cfind-tok:not([hidden]))>svg{display:none}.cfind-bar input{min-width:24px}
+  .cfind-bar input{height:44px;font-size:18px}
+  .cfind-tok{height:40px;font-size:16px;gap:8px}.cfind-tok .ic,.cfind-tok .x{width:28px;height:28px}
+  .cfind-x{width:44px;height:44px}
+  .cfilt{gap:8px}.cfilt button{height:44px;font-size:16px;padding:0 18px}.cfilt button:has(.ic){padding-left:6px}
+}
 .cempty{margin:16px 0 0;color:var(--muted)}
 .league-grid{margin-top:96px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
 .lgp{background:var(--soft);border-radius:var(--r-card);corner-shape:squircle;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
@@ -1471,7 +1483,10 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <section id="courts">
   <div class="courts">
     <div class="ch"><h2 data-ru>Где сыграть в Ташкенте</h2><h2 data-uz>Toshkentda qayerda o‘ynash mumkin</h2><h2 data-en>Where to play in Tashkent</h2></div>
-    <div class="cfilt-wrap" id="cfiltWrap"><div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div><button type="button" class="cfilt-more" id="cfiltMore" aria-expanded="false" aria-controls="cfilt" aria-label="Все фильтры" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
+    <div class="cfind" id="cfind">
+      <div class="cfind-bar" id="cfindBar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><button type="button" class="cfind-tok" id="cfindTok" hidden></button><input type="search" id="csearch" autocomplete="off" enterkeyhint="search" aria-label="Поиск корта" aria-controls="cfilt" aria-expanded="false"><button type="button" class="cfind-x" id="cfindX" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов" hidden></div>
+    </div>
     <div class="map-frame">
       <div class="cmap" id="cmap" role="region" aria-label="Карта кортов"></div>
       <div class="map-zoom-hint">
@@ -1498,7 +1513,6 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
         <li><a href="https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B0%D1%80%D0%BA_%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%B0%D0%BD_-%D0%AF%D0%BD%D0%B3%D0%B8_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%BE%D0%BD_Yangi_O%27zbekiston_-_5_%D0%B8%D1%8E%D0%BB%D1%8F_2022.jpg">Artem Abd</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
       </ul>
     </details>
-    <label class="csearch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="csearch" autocomplete="off" enterkeyhint="search" aria-label="Поиск корта"></label>
     <p class="cempty" id="cempty" hidden></p>
     <div class="crows" id="crows">
       <button type="button" class="crow court-suggestion" id="court-suggestion-open" aria-haspopup="dialog" aria-controls="court-suggestion-dialog">
@@ -2008,9 +2022,12 @@ let CF = 'all';
 const CTYPES = [['all','Все','Hammasi','All'],['now','Открыто сейчас','Hozir ochiq','Open now'],['h','Весь хард','Barcha hard kortlar','All hard'],['c','Весь грунт','Barcha grunt kortlar','All clay'],['hi','Хард в зале','Zalda hard','Indoor hard'],['hd','Хард под куполом','Gumbaz ostida hard','Hard under an air dome'],['ho','Хард на улице','Ochiq hard','Outdoor hard'],['hr','Хард под навесом','Ayvon ostida hard','Covered hard'],['co','Грунт на улице','Ochiq grunt','Outdoor clay'],['ci','Грунт в зале','Zalda grunt','Indoor clay'],['24h','24/7','24/7','24/7']];
 const isSurfaceFilter = filter => filter !== 'all' && filter !== '24h' && filter !== 'now';
 const courtTypeKey = (surface, kind) => surface + (kind || '');
-const courtTypes = (c, filter = CF) => (c.t || []).filter(([surface, kind]) =>
-  !isSurfaceFilter(filter) || filter === surface || filter === courtTypeKey(surface, kind));
-const courtPhoto = c => (!isSurfaceFilter(CF) && c.img) || courtTypes(c).find(([, , img]) => img)?.[2];
+// Покрытие и тип площадки из поиска («дутики», «грунт в зале») сужают варианты так же, как кнопка фильтра.
+const qKinds = q => q && (q.S.size || q.K.size);
+const courtTypes = (c, filter = CF, q = CQ) => (c.t || []).filter(([surface, kind]) =>
+  (!isSurfaceFilter(filter) || filter === surface || filter === courtTypeKey(surface, kind)) &&
+  (!qKinds(q) || ((!q.S.size || q.S.has(surface)) && (!q.K.size || q.K.has(kind)))));
+const courtPhoto = c => (!isSurfaceFilter(CF) && !qKinds(CQ) && c.img) || courtTypes(c).find(([, , img]) => img)?.[2];
 // Open right now by Tashkent time: any court type whose hours cover this minute (closures, days off and winter clay included).
 function openNow(c) {
   if (c.st === 'off') return false;
@@ -2094,55 +2111,70 @@ function applyCF() {
   empty.textContent = L_('Ничего не нашлось. Попробуйте иначе: «грунт в зале», «Юнусабад», «открыто сейчас».', 'Hech narsa topilmadi. Boshqacha yozib ko‘ring: «zalda grunt», «Yunusobod», «hozir ochiq».', 'Nothing found. Try “indoor clay”, “Yunusabad” or “open now”.');
   marks.forEach(group => group.refresh());
 }
-// Кнопка «все фильтры»: видна, только когда фильтры не помещаются в строку (или уже развёрнуты)
-const CFILT_MORE = document.getElementById('cfiltMore');   // ссылка сохраняется: перерисовка фильтров вынимает кнопку из DOM
-function cfiltMoreSync() {
-  const wrap = document.getElementById('cfiltWrap'), el = document.getElementById('cfilt'), btn = CFILT_MORE;
-  if (!wrap || !btn) return;
-  // развёрнуто — кнопка встаёт последней в общий поток фильтров (в конце списка), свёрнуто — в конец строки
-  const open = wrap.classList.contains('open');
-  if (open && btn.parentNode !== el) el.append(btn);
-  if (!open && btn.parentNode !== wrap) wrap.append(btn);
-  btn.hidden = !open && el.scrollWidth <= el.clientWidth + 1;
+// Большая строка поиска: нажали — открылись плашки, выбрали — плашка встала в строку, Esc или клик мимо — закрыть.
+const CF_ICON = {
+  now: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/></svg>',
+  '24h': '<svg viewBox="0 0 24 24" fill="currentColor"><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="700" font-family="Golos Text,sans-serif">24</text></svg>',
+  i: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 11 12 5l8 6v8H4z"/></svg>',
+  d: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 18a9 9 0 0 1 18 0"/><path d="M3 18h18"/></svg>',
+  o: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>',
+  r: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 5l9 5M6 10v9M18 10v9"/></svg>',
+  s: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>'
+};
+const cfIcon = k => k === 'now' ? `<span class="ic now">${CF_ICON.now}</span>` : k === '24h' ? `<span class="ic d24">${CF_ICON['24h']}</span>`
+  : /^[hc]/.test(k) ? `<span class="ic ${k[0]}">${CF_ICON[k[1]] || CF_ICON.s}</span>` : '';
+const cfind = document.getElementById('cfind');
+function cfindOpen(open) {
+  cfind.classList.toggle('open', open);
+  document.getElementById('cfilt').hidden = !open;
+  document.getElementById('csearch').setAttribute('aria-expanded', open);
+}
+function cfindSync() {
+  const tok = document.getElementById('cfindTok'), input = document.getElementById('csearch'), x = document.getElementById('cfindX');
+  const t = CTYPES.find(([k]) => k === CF);
+  tok.hidden = CF === 'all';
+  if (CF !== 'all') {
+    tok.innerHTML = `${cfIcon(CF)}<span class="l">${L_(t[1], t[2], t[3])}</span><span class="x" aria-hidden="true">×</span>`;
+    tok.setAttribute('aria-label', L_('Снять фильтр', 'Filtrni olib tashlash', 'Remove filter') + ': ' + L_(t[1], t[2], t[3]));
+  }
+  input.placeholder = CF !== 'all' ? '' : innerWidth < 700 ? L_('Грунт в зале, Юнусабад…', 'Zalda grunt, Yunusobod…', 'Indoor clay, Yunusabad…')
+    : L_('Грунт в зале, Юнусабад, открыто сейчас…', 'Zalda grunt, Yunusobod, hozir ochiq…', 'Indoor clay, Yunusabad, open now…');
+  x.hidden = CF === 'all' && !input.value;
+  x.setAttribute('aria-label', L_('Очистить', 'Tozalash', 'Clear'));
+}
+function setCF(next) {
+  const refit = CF !== next && (CF === '24h' || next === '24h');
+  CF = next; renderCourts();
+  clearInterval(renderCF.timer);
+  if (CF === 'now') renderCF.timer = setInterval(renderCourts, 60e3);   // re-check as the clock moves
+  if (refit) fitCourtView();
 }
 (() => {
-  const wrap = document.getElementById('cfiltWrap'), btn = CFILT_MORE;
-  if (!wrap || !btn) return;
-  btn.onclick = () => {
-    const open = wrap.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-    btn.setAttribute('aria-label', open ? 'Свернуть фильтры' : 'Все фильтры');
-    cfiltMoreSync();
-    if (!open) {   // свернули — строка показывает выбранный фильтр
-      const el = document.getElementById('cfilt'), on = el.querySelector('[aria-pressed="true"]');
-      el.scrollLeft = on ? Math.max(0, on.offsetLeft - el.offsetLeft - 16) : 0;
-    }
-  };
-  addEventListener('resize', cfiltMoreSync, {passive: true});
-})();
-(() => {
   const input = document.getElementById('csearch');
-  input.oninput = () => { CQ = parseQ(input.value); renderCF(); applyCF(); };
+  input.oninput = () => { CQ = parseQ(input.value); renderCourts(); };
+  input.onfocus = () => cfindOpen(true);
+  document.getElementById('cfindBar').onclick = e => { if (!e.target.closest('button')) { input.focus(); cfindOpen(true); } };
+  document.getElementById('cfindTok').onclick = () => { setCF('all'); input.focus(); };
+  document.getElementById('cfindX').onclick = () => { input.value = ''; CQ = null; setCF('all'); input.focus(); };
+  input.onkeydown = e => {
+    if (e.key === 'Escape') { cfindOpen(false); input.blur(); }
+    if (e.key === 'Backspace' && !input.value && CF !== 'all') setCF('all');
+    if (e.key === 'Enter') { cfindOpen(false); input.blur(); }
+  };
+  document.addEventListener('pointerdown', e => { if (!cfind.contains(e.target)) cfindOpen(false); });
+  document.addEventListener('focusin', e => { if (!cfind.contains(e.target)) cfindOpen(false); });
 })();
 function renderCF() {
   const el = document.getElementById('cfilt'); if (!el) return;
   const search = document.getElementById('csearch');
-  search.placeholder = L_('Грунт в зале, Юнусабад, открыто сейчас…', 'Zalda grunt, Yunusobod, hozir ochiq…', 'Indoor clay, Yunusabad, open now…');
   search.setAttribute('aria-label', L_('Поиск корта', 'Kort qidirish', 'Search courts'));
-  const keepX = el.scrollLeft;   // на телефоне строка фильтров прокручена — не сбрасываем её при перерисовке
-  el.innerHTML = CTYPES.map(([k, ru, uz, en]) => { const n = COURTS.filter(c => cMatch(c, k)).length;
-    return `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${/^[hc]/.test(k) ? `<i class="${k[0]}"></i>` : ''}${L_(ru, uz, en)} <small>${n}</small></button>`; }).join('');
-  el.scrollLeft = keepX;
-  cfiltMoreSync();
+  el.innerHTML = CTYPES.filter(([k]) => k !== 'all').map(([k, ru, uz, en]) => { const n = COURTS.filter(c => cMatch(c, k)).length;
+    return n || k === CF ? `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${cfIcon(k)}${L_(ru, uz, en)} <small>${n}</small></button>` : ''; }).join('');
   el.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => {
-    const next = b.dataset.k;
-    const refit = CF !== next && (CF === '24h' || next === '24h');
-    CF = next; renderCourts();
-    clearInterval(renderCF.timer);
-    if (CF === 'now') renderCF.timer = setInterval(renderCourts, 60e3);   // re-check as the clock moves
-    if (refit) fitCourtView();
-    el.querySelector('[aria-pressed="true"]').focus({preventScroll:true});
+    setCF(b.dataset.k === CF ? 'all' : b.dataset.k);
+    cfindOpen(false);
   });
+  cfindSync();
 }
 const courtDialog = document.getElementById('court-dialog');
 const courtDialogBody = courtDialog.querySelector('.court-detail');
@@ -2203,7 +2235,7 @@ function hoursBoard(court, variant, label) {
 }
 
 function courtTypeCarousel(court) {
-  const variants = courtTypes(court, 'all');
+  const variants = courtTypes(court, 'all', null);
   if (!variants.length) return courtGallery(court, 'all');
 
   const multiple = variants.length > 1;
