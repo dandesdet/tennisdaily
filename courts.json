@@ -11,6 +11,16 @@
    "lon": 69.222192
   },
   {
+   "id": "tennisplus-yunusabad",
+   "name": {
+    "ru": "Tennis Plus Юнусабад",
+    "uz": "Tennis Plus Yunusobod",
+    "en": "Tennis Plus Yunusabad"
+   },
+   "lat": 41.3656,
+   "lon": 69.3112
+  },
+  {
    "id": "yoshlik",
    "name": {
     "ru": "Ёшлик · зимние корты",
