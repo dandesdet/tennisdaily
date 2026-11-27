@@ -1928,6 +1928,7 @@ function bookHtml(c) {
   const links = (c.bk || []).map(b => `<a href="${b.u}" target="_blank" rel="noopener">${L_(...BK[b.k])}${b.t && !/^play/.test(b.k) ? ' · ' + b.t : ''}</a>`);
   if (links.length && c.tel) links.push(`<a href="tel:${c.tel}">${L_('Тел.', 'Tel.', 'Tel.')} ${fmtTel(c.tel)}</a>`);
   else if (c.tel) links.push(`<a href="tel:${c.tel}">${L_('Позвонить', 'Qo‘ng‘iroq qilish', 'Call')} ${fmtTel(c.tel)}</a>`);
+  if (!links.length) return `<p class="muted">${L_('Не указаны', 'Ko‘rsatilmagan', 'Not listed')}</p>`;
   return `<div class="bk">${links.join('')}</div>`;
 }
 

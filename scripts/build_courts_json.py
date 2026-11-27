@@ -52,7 +52,25 @@ CSS = """@font-face{font-family:'Golos Text';font-weight:400;font-display:swap;s
 main{max-width:1240px;margin:0 auto;padding:20px 20px 64px}main.narrow{max-width:880px}a{color:var(--court)}
 .head{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 0 0 100vmax #fff;clip-path:inset(0 -100vmax -1px)}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;color:var(--muted)}
-.bar .logo{font:500 26px/1 'Literata',Georgia,serif;color:var(--ink);text-decoration:none}
+.bar .logo{font:500 26px/1 'Literata',Georgia,serif;color:var(--ink);text-decoration:none;letter-spacing:-.02em;white-space:nowrap}
+.logo .i{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.logo .b{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:var(--ball);vertical-align:.02em;margin:0 .02em;position:relative}
+.logo .b::before,.logo .b::after{content:"";position:absolute;top:10%;bottom:10%;width:46%;border:.045em solid #fff;border-radius:50%}
+.logo .b::before{left:-26%;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.logo .b::after{right:-26%;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.csearch{position:relative;display:block;max-width:520px;margin:16px 0 0}
+.csearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.csearch input{width:100%;height:44px;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:999px;corner-shape:squircle;background:#fff;color:var(--ink);font:400 16px/1 'Golos Text',sans-serif;transition:border-color .15s}
+.csearch input:focus{outline:none;border-color:var(--ink)}
+.cempty{margin:16px 0 0;color:var(--muted)}
+.cmap-wrap{position:relative}
+.me-dot{position:relative;width:16px;height:16px;border-radius:50%;background:#2F6DB5;border:3px solid #fff;box-shadow:0 1px 4px #0005;transform:translate(-50%,-50%)}
+.me-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:#2F6DB5;opacity:.5;animation:me-pulse 2s ease-out infinite;z-index:-1}
+@keyframes me-pulse{from{transform:scale(1);opacity:.5}to{transform:scale(3.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.me-dot::after{animation:none}}
+.me-btn{max-width:calc(100% - 84px);text-align:left;position:absolute;right:12px;top:12px;z-index:500;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px 8px 14px;border:0;border-radius:999px;corner-shape:squircle;background:var(--ball);color:var(--ink);font:600 15px 'Golos Text',sans-serif;cursor:pointer;box-shadow:0 0 0 1px #A9B82C inset,0 2px 8px #0003}
+.me-btn svg{flex:none;width:18px;height:18px}
+.me-btn:hover{filter:brightness(1.04)}.me-btn:active{transform:scale(.97)}
 .langs{display:flex;gap:4px}.langs a{display:grid;place-items:center;min-width:44px;height:44px;border-radius:50%;color:var(--ink);font-weight:600;text-decoration:none}.langs a[aria-current]{background:var(--ink);color:#fff}
 .section-nav{display:flex;gap:4px;border-block:1px solid var(--line);overflow-x:auto}
 .section-nav a{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 20px;border-radius:8px;font-weight:600;text-decoration:none;white-space:nowrap;color:var(--ink)}
@@ -252,7 +270,7 @@ def head(title, desc, url, image):
 NAV = """<nav class="section-nav" aria-label="Tennis Daily"><a href="/#soon">Турниры</a><a href="/#results">Результаты</a><a href="/#news">Новости</a><a aria-current="page" href="/courts/">Корты</a><a href="/#coaches">Тренеры</a></nav>
 """
 TOP = """<div class="head">
-<div class="bar"><a class="logo" href="/">Tennis Daily</a><span id="today"></span></div>
+<div class="bar"><a class="logo" href="/" aria-label="Tennis Daily">Tennis Da<span class="b" aria-hidden="true"></span><span class="i">i</span>ly</a><span id="today"></span></div>
 {NAV}</div>
 <script>{const d=new Date(),D=['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],M=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];document.getElementById('today').textContent=`${D[d.getDay()]}, ${d.getDate()} ${M[d.getMonth()]} ${d.getFullYear()}`}</script>"""
 FOOT = """<footer>
@@ -336,8 +354,15 @@ def court_page(c):
 """, encoding="utf-8")
 
 
+def search_js():
+    src = (ROOT / "index.html").read_text(encoding="utf-8")
+    a = src.index("// Поиск: запрос на любом"); b = src.index("\nconst courtViewPoints", a)
+    return src[a:b]
+
+
 def landing_page(all_courts):
     url = f"{SITE}courts/"
+    SEARCH_JS = search_js()
     title = "Теннисные корты Ташкента — где поиграть и как забронировать · Tennis Daily"
     n = len(all_courts)
     places = f"{n} {ru_plural(n, 'теннисный клуб и площадка', 'теннисных клуба и площадки', 'теннисных клубов и площадок')}"
@@ -372,7 +397,8 @@ def landing_page(all_courts):
                         "t": list(types.values()), "cnt": c.get("counts") or {},
                         "img": "/" + photos_of(c)[0] if photos_of(c) else ""})
         F.append({"id": c["id"], "t": sorted({t[0] + (t[1] or "") for t in c.get("t", [])}), "h": c.get("h") or "",
-                  "hT": c.get("hT") or {}, "off": c.get("offDays") or [], "st": c.get("st") or "", "full": c.get("full") or []})
+                  "hT": c.get("hT") or {}, "off": c.get("offDays") or [], "st": c.get("st") or "", "full": c.get("full") or [],
+                  **{k: c[k] for k in ("ru", "uz", "en", "short", "dRu", "dUz", "dEn") if c.get(k)}})
     ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Теннисные корты Ташкента",
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}courts/{c['id']}/", "name": c.get("ru")}
                               for i, c in enumerate(all_courts)]}
@@ -393,9 +419,11 @@ def landing_page(all_courts):
 <h1>Теннисные корты Ташкента</h1>
 <p class="lead">Где поиграть в теннис в Ташкенте: {places} — часы работы, цены, телефоны и ссылки на бронь. Все корты на одной карте — на <a href="/#courts">главной Tennis Daily</a>, там же фильтр «Открыто сейчас».</p>
 <div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div>
-<div class="map" id="map"></div>
+<div class="cmap-wrap"><div class="map" id="map"></div><button type="button" class="me-btn" id="me-btn"></button></div>
 <dialog class="lb" id="lm-photo"><form method="dialog"><button aria-label="Закрыть">×</button></form><figure style="margin:0"><img alt=""><figcaption></figcaption></figure></dialog>
 <p class="legend"><span><i style="background:#2F6DB5"></i>хард</span><span><i style="background:#C2683A"></i>грунт</span><span><i style="background:#285A47"></i>хард и грунт</span></p>
+<label class="csearch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" id="csearch" placeholder="Название, район или «грунт в зале»" aria-label="Поиск корта" autocomplete="off" enterkeyhint="search"></label>
+<p class="cempty" id="cempty" hidden>Ничего не нашлось. Попробуйте название клуба, район или покрытие.</p>
 <h2>Как забронировать корт в Ташкенте</h2>
 <p>Онлайн-бронь со свободным временем: <a href="https://playon.uz/korty-tashkent" rel="noopener">PlayOn</a> и <a href="https://booking.playsport.uz/ru/clubs/tennis-padel-city?sport=tennis" rel="noopener">PlaySport</a> (Пахтакор), а также боты <a href="https://t.me/tennis_plusbot" rel="noopener">@tennis_plusbot</a> и <a href="https://t.me/ace_club_courts_bot" rel="noopener">@ace_club_courts_bot</a>. В остальных клубах бронь по телефону — номера в списке ниже.</p>
 <h2>Все корты</h2>
@@ -425,16 +453,19 @@ def landing_page(all_courts):
   }};
   const match = (c, f) => f === 'all' ? true : f === 'now' ? openNow(c) : f === '24h' ? c.h === '00:00–24:00' && c.st !== 'off'
     : c.t.some(k => k === f || k[0] === f && f.length === 1);
+  const COURTS = F;
+{SEARCH_JS}
   let CF = 'all', groups = [], map = null;
   const apply = () => {{
-    F.forEach(c => {{ const ok = match(c, CF); const li = document.querySelector(`.grid li[data-id="${{c.id}}"]`); if (li) li.hidden = !ok;
- }}); groups.forEach(g => g.refresh());
+    let shown = 0; F.forEach(c => {{ const ok = match(c, CF) && qMatch(c); shown += ok; const li = document.querySelector(`.grid li[data-id="${{c.id}}"]`); if (li) li.hidden = !ok;
+ }}); groups.forEach(g => g.refresh()); document.getElementById('cempty').hidden = shown > 0;
     const el = document.getElementById('cfilt');
-    el.innerHTML = TYPES.map(([k, n]) => {{ const cnt = F.filter(c => match(c, k)).length;
+    el.innerHTML = TYPES.map(([k, n]) => {{ const cnt = F.filter(c => match(c, k) && qMatch(c)).length;
       return cnt || k === 'all' ? `<button type="button" data-k="${{k}}" aria-pressed="${{k === CF}}">${{/^[hc]/.test(k) ? `<i class="${{k[0]}}"></i>` : ''}}${{n}} <small>${{cnt}}</small></button>` : ''; }}).join('');
     el.querySelectorAll('button').forEach(b => b.onclick = () => {{ CF = b.dataset.k; apply(); }});
   }};
   apply();
+  document.getElementById('csearch').oninput = e => {{ CQ = parseQ(e.target.value); apply(); }};
   setInterval(() => CF === 'now' && apply(), 60e3);
   // Map behaves like the one on the main page: one small dot per venue when zoomed out (mixed colour if hard + clay),
   // separate dots per court type with a short label from zoom 14, a popup with the type photo, landmark photos open large.
@@ -481,7 +512,7 @@ def landing_page(all_courts):
       }});
       if (!p.far) bounds.extend({{lat: p.ll[0], lng: p.ll[1]}});
       return {{refresh: () => {{
-        const ok = fc ? match(fc, CF) : true;
+        const ok = fc ? match(fc, CF) && qMatch(fc) : true;
         const vis = entries.filter(e => ok && (!/^[hc]/.test(CF) || CF === e.type[0] + e.type[1] || CF === e.type[0]));
         const compact = map.getZoom() < DETAIL;
         const mixed = compact && vis.length > 1 && vis.some(e => e.type[0] !== vis[0].type[0]);
@@ -511,8 +542,41 @@ def landing_page(all_courts):
       document.getElementById('map').classList.toggle('zoomed', z >= DETAIL); groups.forEach(gr => gr.refresh()); }};
     map.addListener('zoom_changed', zoomed);
     map.fitBounds(bounds, 40);
-    zoomed(); apply();
+    zoomed(); apply(); window.meReady();
   }};
+  let meMark = null, meWatch = null, meLast = null, meTimer = 0;
+  const meBtn = document.getElementById('me-btn');
+  const meLabel = text => {{ clearTimeout(meTimer); if (text) meBtn.textContent = text;
+    else meBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 3 3 10.6l7.6 2.8L13.4 21z"/></svg>Где я'; }};
+  const meSay = (text, ms) => {{ meLabel(text); if (text && ms) meTimer = setTimeout(() => meLabel(''), ms); }};
+  const placeMe = (lat, lng, pan) => {{
+    if (!map) return;
+    const g = google.maps;
+    if (!meMark) {{
+      const el = document.createElement('div'); el.className = 'me-dot'; el.style.zIndex = 1000;
+      meMark = new g.OverlayView(); meMark.pos = new g.LatLng(lat, lng);
+      meMark.onAdd = () => meMark.getPanes().overlayMouseTarget.append(el);
+      meMark.draw = () => {{ const pt = meMark.getProjection().fromLatLngToDivPixel(meMark.pos); if (pt) {{ el.style.position = 'absolute'; el.style.left = pt.x + 'px'; el.style.top = pt.y + 'px'; }} }};
+      meMark.onRemove = () => el.remove(); meMark.setMap(map);
+    }} else {{ meMark.pos = new g.LatLng(lat, lng); meMark.draw(); }}
+    if (pan) {{ map.panTo({{lat, lng}}); if (map.getZoom() < 13) map.setZoom(13); }}
+  }};
+  const startWatch = () => {{
+    if (meWatch !== null || !navigator.geolocation) return;
+    meWatch = navigator.geolocation.watchPosition(p => {{ meLast = p.coords; placeMe(p.coords.latitude, p.coords.longitude, false); }},
+      () => {{ navigator.geolocation.clearWatch(meWatch); meWatch = null; }}, {{enableHighAccuracy: true, maximumAge: 60000}});
+  }};
+  const locateMe = pan => {{
+    if (!navigator.geolocation) {{ if (pan) meSay('Браузер не умеет определять место', 4000); return; }}
+    if (!pan) return startWatch();
+    if (meLast) placeMe(meLast.latitude, meLast.longitude, true);
+    meSay('Ищу вас…');
+    navigator.geolocation.getCurrentPosition(p => {{ meLast = p.coords; placeMe(p.coords.latitude, p.coords.longitude, true); meSay(''); startWatch(); }},
+      err => meSay(err.code === 1 ? 'Разрешите доступ к местоположению в настройках браузера' : 'Не удалось определить место', 5000),
+      {{enableHighAccuracy: false, timeout: 15000, maximumAge: 60000}});
+  }};
+  meLabel(''); meBtn.onclick = () => locateMe(true);
+  window.meReady = () => navigator.permissions?.query({{name: 'geolocation'}}).then(r => {{ if (r.state === 'granted') locateMe(false); }}).catch(() => {{}});
   const sc = document.createElement('script');
   sc.src = 'https://maps.googleapis.com/maps/api/js?key={GMAPS_KEY}&callback=initMap&loading=async';
   sc.async = true; document.head.append(sc);

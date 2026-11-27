@@ -27,7 +27,25 @@
 main{max-width:1240px;margin:0 auto;padding:20px 20px 64px}main.narrow{max-width:880px}a{color:var(--court)}
 .head{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 0 0 100vmax #fff;clip-path:inset(0 -100vmax -1px)}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;color:var(--muted)}
-.bar .logo{font:500 26px/1 'Literata',Georgia,serif;color:var(--ink);text-decoration:none}
+.bar .logo{font:500 26px/1 'Literata',Georgia,serif;color:var(--ink);text-decoration:none;letter-spacing:-.02em;white-space:nowrap}
+.logo .i{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.logo .b{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:var(--ball);vertical-align:.02em;margin:0 .02em;position:relative}
+.logo .b::before,.logo .b::after{content:"";position:absolute;top:10%;bottom:10%;width:46%;border:.045em solid #fff;border-radius:50%}
+.logo .b::before{left:-26%;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.logo .b::after{right:-26%;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.csearch{position:relative;display:block;max-width:520px;margin:16px 0 0}
+.csearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.csearch input{width:100%;height:44px;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:999px;corner-shape:squircle;background:#fff;color:var(--ink);font:400 16px/1 'Golos Text',sans-serif;transition:border-color .15s}
+.csearch input:focus{outline:none;border-color:var(--ink)}
+.cempty{margin:16px 0 0;color:var(--muted)}
+.cmap-wrap{position:relative}
+.me-dot{position:relative;width:16px;height:16px;border-radius:50%;background:#2F6DB5;border:3px solid #fff;box-shadow:0 1px 4px #0005;transform:translate(-50%,-50%)}
+.me-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:#2F6DB5;opacity:.5;animation:me-pulse 2s ease-out infinite;z-index:-1}
+@keyframes me-pulse{from{transform:scale(1);opacity:.5}to{transform:scale(3.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.me-dot::after{animation:none}}
+.me-btn{max-width:calc(100% - 84px);text-align:left;position:absolute;right:12px;top:12px;z-index:500;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px 8px 14px;border:0;border-radius:999px;corner-shape:squircle;background:var(--ball);color:var(--ink);font:600 15px 'Golos Text',sans-serif;cursor:pointer;box-shadow:0 0 0 1px #A9B82C inset,0 2px 8px #0003}
+.me-btn svg{flex:none;width:18px;height:18px}
+.me-btn:hover{filter:brightness(1.04)}.me-btn:active{transform:scale(.97)}
 .langs{display:flex;gap:4px}.langs a{display:grid;place-items:center;min-width:44px;height:44px;border-radius:50%;color:var(--ink);font-weight:600;text-decoration:none}.langs a[aria-current]{background:var(--ink);color:#fff}
 .section-nav{display:flex;gap:4px;border-block:1px solid var(--line);overflow-x:auto}
 .section-nav a{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 20px;border-radius:8px;font-weight:600;text-decoration:none;white-space:nowrap;color:var(--ink)}
@@ -87,7 +105,7 @@ dialog.lb form{position:absolute;top:10px;right:10px}dialog.lb form button{width
 <body>
 <main class="narrow">
 <div class="head">
-<div class="bar"><a class="logo" href="/">Tennis Daily</a><span id="today"></span></div>
+<div class="bar"><a class="logo" href="/" aria-label="Tennis Daily">Tennis Da<span class="b" aria-hidden="true"></span><span class="i">i</span>ly</a><span id="today"></span></div>
 <nav class="section-nav" aria-label="Tennis Daily"><a href="/#soon">Турниры</a><a href="/#results">Результаты</a><a href="/#news">Новости</a><a aria-current="page" href="/courts/">Корты</a><a href="/#coaches">Тренеры</a></nav>
 </div>
 <script>{const d=new Date(),D=['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],M=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];document.getElementById('today').textContent=`${D[d.getDay()]}, ${d.getDate()} ${M[d.getMonth()]} ${d.getFullYear()}`}</script>
