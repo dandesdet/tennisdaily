@@ -2029,10 +2029,12 @@ const cMatch = (c, filter = CF) => qMatch(c) && (
   filter === 'all' || courtTypes(c, filter).length > 0);
 // Поиск: запрос на любом из трёх языков, кириллицей или латиницей, с опечаткой в одну букву.
 // Слова о покрытии и типе площадки ищут один вариант корта («грунт в зале»), остальные — по названию и адресу.
-const TR = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'j',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sh',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',қ:'q',ғ:'g',ҳ:'h',ў:'o'};
+const TR = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'yo',ж:'j',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sh',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',қ:'q',ғ:'g',ҳ:'h',ў:'o'};
 const qNorm = t => t.toLowerCase().replace(/[а-яёқғҳў]/g, ch => TR[ch]).replace(/[‘’ʻʼ'`]/g, '')
   .replace(/kh/g, 'h').replace(/zh/g, 'j').replace(/№/g, ' ');
 const qWords = t => qNorm(t).split(/[^a-z0-9]+/).filter(Boolean);
+// Звучание вместо написания: «ажу» — AJOU, «цска» — CSKA, «хадра» — Xadra
+const qFold = w => w.replace(/ou|oo/g, 'u').replace(/^ts/, 'c').replace(/c(?!h)/g, 'k').replace(/q/g, 'k').replace(/x/g, 'h').replace(/w/g, 'v').replace(/(.)\1/g, '$1');
 const Q_SURF = {c: ['grunt', 'clay', 'glin'], h: ['hard'], k: ['kover', 'carpet', 'gilam', 'iskusstv']};
 const Q_KIND = {o: ['ulits', 'ulic', 'outdoor', 'ochiq', 'otkryt'], r: ['naves', 'covered', 'ayvon'], i: ['zal', 'indoor', 'hall'], d: ['kupol', 'dutik', 'dome', 'gumbaz', 'naduv', 'havo'], ird: ['kryt', 'yopiq', 'roof']};
 const Q_NOW = ['seychas', 'now', 'hozir'], Q_24 = ['kruglosut', '24'];
@@ -2044,9 +2046,9 @@ function lev1(a, b) {   // расстояние не больше одной п�
   return a.slice(i + 1) === b.slice(i + 1) || a.slice(i + 1) === b.slice(i) || a.slice(i) === b.slice(i + 1);
 }
 const prefixLen = (a, b) => { let i = 0; while (i < a.length && a[i] === b[i]) i++; return i; };
-// Начало слова, опечатка или другое окончание («олимпийский» — «олимпийского»)
-const wordHit = (q, w) => w.startsWith(q) || (q.length >= 4 && (lev1(q, w.slice(0, q.length)) || lev1(q, w) ||
-  prefixLen(q, w) >= Math.max(5, Math.ceil(q.length * .75))));
+// Начало слова или другое окончание («олимпийский» — «олимпийского»); с fuzzy — ещё и опечатка в одну букву
+const wordHit = (q, w, fuzzy = true) => w.startsWith(q) || prefixLen(q, w) >= Math.max(5, Math.ceil(q.length * .75)) ||
+  (fuzzy && q.length >= 4 && (lev1(q, w.slice(0, q.length)) || lev1(q, w)));
 let CQ = null;
 function parseQ(text) {
   const words = qWords(text);
@@ -2062,19 +2064,21 @@ function parseQ(text) {
     const k = Object.keys(Q_KIND).find(k => stemHit(w, Q_KIND[k]));
     if (k === 'o' && now && /^(otkryt|ochiq)/.test(w)) return;   // «открыто сейчас» — про часы, а не про улицу
     if (k) { [...k].forEach(x => q.K.add(x)); return; }
-    q.text.push(w);
+    q.text.push(qFold(w));
   });
+  // Нечёткие совпадения (опечатка, другое окончание) — только если точных нет: «учкун» не должен находить «uchun»
+  q.fuzzy = !COURTS.some(c => qBase(c, q) && qText(c, q, false));
   return q;
 }
-const qHay = c => c._q || (c._q = qWords([c.id, c.ru, c.uz, c.en, ...(c.short || []), c.dRu, c.dUz, c.dEn].filter(Boolean).join(' ')));
-function qMatch(c) {
-  const q = CQ;
-  if (!q) return true;
+const Q_ALIAS = {'ace-club': 'эйс'};   // как название пишут по-русски, если на сайте его нет
+const qHay = c => c._q || (c._q = qWords([c.id, Q_ALIAS[c.id], c.ru, c.uz, c.en, ...(c.short || []), c.dRu, c.dUz, c.dEn].filter(Boolean).join(' ')).map(qFold));
+const qText = (c, q, fuzzy) => q.text.every(t => qHay(c).some(w => wordHit(t, w, fuzzy)));
+const qMatch = c => !CQ || (qBase(c, CQ) && qText(c, CQ, CQ.fuzzy));
+function qBase(c, q) {
   if (q.now && !openNow(c)) return false;
   if (q.h24 && !(c.h === '00:00–24:00' && c.st !== 'off')) return false;
   if ((q.S.size || q.K.size) && !(c.t || []).some(([sf, k]) => (!q.S.size || q.S.has(sf)) && (!q.K.size || q.K.has(k)))) return false;
-  const hay = qHay(c);
-  return q.text.every(t => hay.some(w => wordHit(t, w)));
+  return true;
 }
 const courtViewPoints = () => CF === '24h'
   ? COURTS.filter(c => cMatch(c)).map(c => c.ll)
