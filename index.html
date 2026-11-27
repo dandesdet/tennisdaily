@@ -620,6 +620,14 @@ a.vplay{display:block}
   .cfilt-wrap.open .cfilt-more svg{transform:rotate(180deg)}
 }
 .crow[hidden]{display:none}
+/* Поиск кортов: свободный запрос — покрытие, тип площадки, название, район */
+.csearch{position:relative;display:block;max-width:520px;margin:0 0 12px}
+.csearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.csearch input{width:100%;height:44px;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:var(--pill);corner-shape:squircle;background:var(--paper);color:var(--ink);font:400 16px/1 var(--body);transition:border-color .15s}
+.csearch input::placeholder{color:var(--muted)}
+.csearch input:hover{border-color:#cfcfc9}
+.csearch input:focus{outline:none;border-color:var(--ink)}
+.cempty{margin:16px 0 0;color:var(--muted)}
 .league-grid{margin-top:96px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
 .lgp{background:var(--soft);border-radius:var(--r-card);corner-shape:squircle;padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
 .lgp h3{font:500 clamp(30px,2.6vw,40px)/1.1 var(--serif);letter-spacing:-.02em;margin:0}.lgp p{margin:0}
@@ -1463,6 +1471,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
 <section id="courts">
   <div class="courts">
     <div class="ch"><h2 data-ru>Где сыграть в Ташкенте</h2><h2 data-uz>Toshkentda qayerda o‘ynash mumkin</h2><h2 data-en>Where to play in Tashkent</h2></div>
+    <label class="csearch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="csearch" autocomplete="off" enterkeyhint="search" aria-label="Поиск корта"></label>
     <div class="cfilt-wrap" id="cfiltWrap"><div class="cfilt" id="cfilt" role="group" aria-label="Фильтры кортов"></div><button type="button" class="cfilt-more" id="cfiltMore" aria-expanded="false" aria-controls="cfilt" aria-label="Все фильтры" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>
     <div class="map-frame">
       <div class="cmap" id="cmap" role="region" aria-label="Карта кортов"></div>
@@ -1490,6 +1499,7 @@ footer p:not(.footer-links) a:not(.tg-btn){padding:3px 4px;border-radius:var(--r
         <li><a href="https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B0%D1%80%D0%BA_%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%B0%D0%BD_-%D0%AF%D0%BD%D0%B3%D0%B8_%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%BE%D0%BD_Yangi_O%27zbekiston_-_5_%D0%B8%D1%8E%D0%BB%D1%8F_2022.jpg">Artem Abd</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
       </ul>
     </details>
+    <p class="cempty" id="cempty" hidden></p>
     <div class="crows" id="crows">
       <button type="button" class="crow court-suggestion" id="court-suggestion-open" aria-haspopup="dialog" aria-controls="court-suggestion-dialog">
         <span class="cth" aria-hidden="true">+</span>
@@ -1826,7 +1836,7 @@ const COURTS = [
    bk:[{u:'https://t.me/Gotenniskidsbot', k:'bot', t:'@Gotenniskidsbot'}]},
   {id:'msu', ru:'МГУ им. Ломоносова', counts:{co:3}, en:"Lomonosov MSU", stEn:"closed until spring", dEn:"Amir Temur, 22. 3 outdoor clay courts. Tennis plus moved its groups indoors.", uz:'MGU', st:'off', stRu:'закрыт до весны', stUz:'bahorgacha yopiq', since:'2026-11-01', ll:[41.300731,69.280986], dRu:'Амира Темура, 22. 3 грунтовых корта на улице. Tennis plus перенёс группы в крытые залы.', dUz:'3 ta ochiq grunt. Guruhlar yopiq zallarga ko‘chdi.', tel:'+998900130140', h:'07:00–22:00', bk:[{"u": "https://t.me/tennis_plusbot", "k": "bot", "t": "@tennis_plusbot"}], t:[["c", "o",'img/courts/mgu.webp']]},
   {id:'uchqun', ru:'Учкун', en:"Uchqun", stEn:"open", dEn:"Clay and a covered hard court.", uz:'Uchqun', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.359794,69.285046], dRu:'Грунт и хард под навесом.', dUz:'Grunt va ayvon ostida hard.', tel:'+998999027802', bk:[], t:[["c", "o"], ["h", "r",'img/uchqun_hard.webp']]},
-  {id:'olympic-reserve', ru:'Республиканская школа олимпийского резерва', counts:{ho:13, co:4, hi:3}, short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor.', tel:'+998712081901', bk:[], t:[['h','o','img/courts/school.webp'], ['c','o'], ['h','i','img/courts/rtshor-hall-1.webp',['№ 1 из 3','3 tadan 1-zal','No. 1 of 3']], ['h','d']]},
+  {id:'olympic-reserve', ru:'Республиканская школа олимпийского резерва', counts:{ho:13, co:4, hi:3}, short:['РТШОР', 'Olimpiya zaxirasi', 'Olympic Reserve'], en:"Republican Olympic Reserve School", stEn:"open", dEn:"Yalangach, 26A/1. 20 courts: 13 outdoor hard courts, 4 outdoor clay courts and 3 covered hard courts. The complex has air domes.", uz:'Respublika olimpiya zaxiralari maktabi', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.349572,69.34426], dRu:'Ялангач, 26А/1. 20 кортов: 13 открытых хардов, 4 открытых грунтовых и 3 крытых хардовых корта. На территории есть надувные купола.', dUz:'Yalang‘och, 26A/1. 20 kort: 13 ta ochiq hard, 4 ta ochiq grunt va 3 ta yopiq hard kort. Majmuada havo bilan shishiriladigan gumbazlar bor.', tel:'+998712081901', bk:[], t:[['h','o','img/courts/school.webp'], ['c','o'], ['h','i','img/courts/rtshor-hall-1.webp',['№ 1 из 3','3 tadan 1-zal','No. 1 of 3']], ['h','d','img/courts/rtshor-dome.webp']]},
   {id:'meridian', ru:'Меридиан', counts:{hi:2}, en:"Meridian", stEn:"open", dEn:"Beshqo‘rg‘on, Tashkent district. 2 indoor courts. Home of the Fight Club tournaments.", uz:'Meridian', st:'ok', stRu:'открыт', stUz:'ochiq', ll:[41.39119,69.27879], dRu:'Бешкурган, Ташкентский район. 2 крытых корта. Здесь проходят турниры «Бойцовского клуба».', dUz:'Beshqo‘rg‘on. 2 ta yopiq kort. «Boytsovskiy klub» turnirlari shu yerda.', tel:'+998998019966', h:'00:00–24:00', bk:[{u:'https://t.me/meriidiian', k:'tg', t:'@meriidiian'}], t:[['h','i','img/courts/meridian.webp']],
    videos:[
      ['https://www.youtube.com/shorts/hh55DBUigII','Laver Cup: удар дня','Laver Cup: kun zarbasi','Laver Cup: shot of the day'],
@@ -2013,16 +2023,68 @@ function openNow(c) {
     return b > a ? now >= a && now < b : now >= a || now < b;
   });
 }
-const cMatch = (c, filter = CF) => {
-  if (filter === 'now') return openNow(c);
-  if (filter === '24h') return c.h === '00:00–24:00' && c.st !== 'off';
-  return filter === 'all' || courtTypes(c, filter).length > 0;
-};
+const cMatch = (c, filter = CF) => qMatch(c) && (
+  filter === 'now' ? openNow(c) :
+  filter === '24h' ? c.h === '00:00–24:00' && c.st !== 'off' :
+  filter === 'all' || courtTypes(c, filter).length > 0);
+// Поиск: запрос на любом из трёх языков, кириллицей или латиницей, с опечаткой в одну букву.
+// Слова о покрытии и типе площадки ищут один вариант корта («грунт в зале»), остальные — по названию и адресу.
+const TR = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'j',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sh',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',қ:'q',ғ:'g',ҳ:'h',ў:'o'};
+const qNorm = t => t.toLowerCase().replace(/[а-яёқғҳў]/g, ch => TR[ch]).replace(/[‘’ʻʼ'`]/g, '')
+  .replace(/kh/g, 'h').replace(/zh/g, 'j').replace(/№/g, ' ');
+const qWords = t => qNorm(t).split(/[^a-z0-9]+/).filter(Boolean);
+const Q_SURF = {c: ['grunt', 'clay', 'glin'], h: ['hard'], k: ['kover', 'carpet', 'gilam', 'iskusstv']};
+const Q_KIND = {o: ['ulits', 'ulic', 'outdoor', 'ochiq', 'otkryt'], r: ['naves', 'covered', 'ayvon'], i: ['zal', 'indoor', 'hall'], d: ['kupol', 'dutik', 'dome', 'gumbaz', 'naduv', 'havo'], ird: ['kryt', 'yopiq', 'roof']};
+const Q_NOW = ['seychas', 'now', 'hozir'], Q_24 = ['kruglosut', '24'];
+const Q_STOP = new Set(['v', 'na', 'i', 's', 'so', 'u', 'k', 'po', 'pod', 'gde', 'dlya', 'the', 'in', 'a', 'an', 'and', 'with', 'under', 'va', 'da', 'bilan', 'ostida', 'kort', 'korty', 'kortov', 'korta', 'kortlar', 'court', 'courts', 'tennis', 'tennisnyy', 'tennisnye', 'tashkent', 'toshkent', 'v']);
+const stemHit = (w, stems) => stems.some(st => w.startsWith(st) || (w.length >= 3 && st.startsWith(w)));
+function lev1(a, b) {   // расстояние не больше одной правки
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0; while (i < a.length && a[i] === b[i]) i++;
+  return a.slice(i + 1) === b.slice(i + 1) || a.slice(i + 1) === b.slice(i) || a.slice(i) === b.slice(i + 1);
+}
+const prefixLen = (a, b) => { let i = 0; while (i < a.length && a[i] === b[i]) i++; return i; };
+// Начало слова, опечатка или другое окончание («олимпийский» — «олимпийского»)
+const wordHit = (q, w) => w.startsWith(q) || (q.length >= 4 && (lev1(q, w.slice(0, q.length)) || lev1(q, w) ||
+  prefixLen(q, w) >= Math.max(5, Math.ceil(q.length * .75))));
+let CQ = null;
+function parseQ(text) {
+  const words = qWords(text);
+  if (!words.length) return null;
+  const q = {S: new Set(), K: new Set(), now: false, h24: false, text: []};
+  const now = words.some(w => stemHit(w, Q_NOW));
+  words.forEach(w => {
+    if (Q_STOP.has(w)) return;
+    if (stemHit(w, Q_NOW)) { q.now = true; return; }
+    if (w === '24' || w === '7' || w.startsWith('kruglosut')) { q.h24 = true; return; }
+    const s = Object.keys(Q_SURF).find(k => stemHit(w, Q_SURF[k]));
+    if (s) { q.S.add(s); return; }
+    const k = Object.keys(Q_KIND).find(k => stemHit(w, Q_KIND[k]));
+    if (k === 'o' && now && /^(otkryt|ochiq)/.test(w)) return;   // «открыто сейчас» — про часы, а не про улицу
+    if (k) { [...k].forEach(x => q.K.add(x)); return; }
+    q.text.push(w);
+  });
+  return q;
+}
+const qHay = c => c._q || (c._q = qWords([c.id, c.ru, c.uz, c.en, ...(c.short || []), c.dRu, c.dUz, c.dEn].filter(Boolean).join(' ')));
+function qMatch(c) {
+  const q = CQ;
+  if (!q) return true;
+  if (q.now && !openNow(c)) return false;
+  if (q.h24 && !(c.h === '00:00–24:00' && c.st !== 'off')) return false;
+  if ((q.S.size || q.K.size) && !(c.t || []).some(([sf, k]) => (!q.S.size || q.S.has(sf)) && (!q.K.size || q.K.has(k)))) return false;
+  const hay = qHay(c);
+  return q.text.every(t => hay.some(w => wordHit(t, w)));
+}
 const courtViewPoints = () => CF === '24h'
   ? COURTS.filter(c => cMatch(c)).map(c => c.ll)
   : COURTS.filter(c => !c.far).map(c => c.ll).concat(LANDMARKS.map(l => l.ll));
 function applyCF() {
-  document.querySelectorAll('#crows .crow[data-i]').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); });
+  let shown = 0;
+  document.querySelectorAll('#crows .crow[data-i]').forEach(r => { r.hidden = !cMatch(COURTS[+r.dataset.i]); shown += !r.hidden; });
+  const empty = document.getElementById('cempty');
+  empty.hidden = shown > 0;
+  empty.textContent = L_('Ничего не нашлось. Попробуйте иначе: «грунт в зале», «Юнусабад», «открыто сейчас».', 'Hech narsa topilmadi. Boshqacha yozib ko‘ring: «zalda grunt», «Yunusobod», «hozir ochiq».', 'Nothing found. Try “indoor clay”, “Yunusabad” or “open now”.');
   marks.forEach(group => group.refresh());
 }
 // Кнопка «все фильтры»: видна, только когда фильтры не помещаются в строку (или уже развёрнуты)
@@ -2051,8 +2113,15 @@ function cfiltMoreSync() {
   };
   addEventListener('resize', cfiltMoreSync, {passive: true});
 })();
+(() => {
+  const input = document.getElementById('csearch');
+  input.oninput = () => { CQ = parseQ(input.value); renderCF(); applyCF(); };
+})();
 function renderCF() {
   const el = document.getElementById('cfilt'); if (!el) return;
+  const search = document.getElementById('csearch');
+  search.placeholder = L_('Грунт в зале, Юнусабад, открыто сейчас…', 'Zalda grunt, Yunusobod, hozir ochiq…', 'Indoor clay, Yunusabad, open now…');
+  search.setAttribute('aria-label', L_('Поиск корта', 'Kort qidirish', 'Search courts'));
   const keepX = el.scrollLeft;   // на телефоне строка фильтров прокручена — не сбрасываем её при перерисовке
   el.innerHTML = CTYPES.map(([k, ru, uz, en]) => { const n = COURTS.filter(c => cMatch(c, k)).length;
     return `<button type="button" data-k="${k}" aria-pressed="${k === CF}">${/^[hc]/.test(k) ? `<i class="${k[0]}"></i>` : ''}${L_(ru, uz, en)} <small>${n}</small></button>`; }).join('');
