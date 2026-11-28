@@ -52,6 +52,7 @@ window.tennisDailyPostPreviews = new Set([
   "post-rare-fun-fail-ajou",
   "post-razors-edge",
   "post-reel-05-indoor-hard",
+  "post-reel-06-ravshan-doubles",
   "post-santa-cup-2027",
   "post-school-podium-oct-25",
   "post-seven-sets-oct-25",
