@@ -131,6 +131,16 @@
    "lon": 69.338145
   },
   {
+   "id": "avengers",
+   "name": {
+    "ru": "Avengers tennis team",
+    "uz": "Avengers tennis team",
+    "en": "Avengers tennis team"
+   },
+   "lat": 41.296995,
+   "lon": 69.267698
+  },
+  {
    "id": "hadra",
    "name": {
     "ru": "Хадра",
