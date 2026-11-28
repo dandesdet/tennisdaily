@@ -248,6 +248,12 @@ a.via:hover{color:var(--court)}
 .podium .f{font-weight:600}
 .res .quote{font:400 18px/1.45 var(--body);margin:0}
 .res .muted{margin:0;color:var(--muted)}
+.res.clip{position:relative;overflow:hidden;max-height:var(--h)}.res.clip>*{flex-shrink:0}
+.res.clip::after{content:'';position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(rgba(255,255,255,0),var(--paper) 70%);pointer-events:none}
+.res .more{display:none}
+.res.clip .more{display:inline-flex;align-items:center;position:absolute;left:0;bottom:0;z-index:1;min-height:44px;padding:0;border:0;background:none;color:var(--court);font:600 16px/1.2 var(--body);cursor:pointer}
+.res.clip .more::after{content:' ↓';white-space:pre}
+.res.clip.open{max-height:none}.res.clip.open::after{display:none}.res.clip.open .more{position:static;align-self:flex-start}.res.clip.open .more::after{content:' ↑'}
 
 .league a.go{background:var(--ball);color:var(--ink)}
 .league a.go:hover{background:#fff}
@@ -2745,6 +2751,38 @@ function renderSources() {
     return link ? `<a class="sg" href="${link}" target="_blank" rel="noopener">${inner}</a>` : `<span class="sg">${inner}</span>`;
   }).join('');
 }
+
+// Итоги: в ряду карточки одной высоты; длинные свёрнуты, «Подробнее» разворачивает
+function clampResults() {
+  const cards = [...document.querySelectorAll('.results .res')].filter(r => r.offsetParent);
+  cards.forEach(r => { r.classList.remove('clip'); r.style.removeProperty('--h'); });
+  const content = r => { const last = [...r.children].filter(x => !x.classList.contains('more') && x.offsetParent).pop();
+    return last ? last.getBoundingClientRect().bottom - r.getBoundingClientRect().top : 0; };
+  const rows = new Map();
+  cards.forEach(r => { const top = Math.round(r.getBoundingClientRect().top + scrollY); rows.set(top, [...(rows.get(top) || []), r]); });
+  rows.forEach(row => {
+    if (row.length < 2) return;
+    const h = row.map(content), sorted = [...h].sort((a, b) => a - b), target = sorted[Math.floor((sorted.length - 1) / 2)];
+    row.forEach((r, i) => {
+      if (h[i] <= target + 48) return;
+      if (!r.querySelector('.more')) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'more';
+        b.onclick = () => { r.classList.toggle('open'); b.textContent = moreLabel(r); b.setAttribute('aria-expanded', r.classList.contains('open')); };
+        r.append(b);
+      }
+      r.classList.add('clip'); r.style.setProperty('--h', target + 'px');
+      const b = r.querySelector('.more'); b.textContent = moreLabel(r); b.setAttribute('aria-expanded', r.classList.contains('open'));
+    });
+  });
+}
+const moreLabel = r => r.classList.contains('open') ? L_('Свернуть', 'Yig‘ish', 'Show less') : L_('Подробнее', 'Batafsil', 'More details');
+let clampTimer = 0;
+const clampSoon = () => { clearTimeout(clampTimer); clampTimer = setTimeout(clampResults, 120); };
+addEventListener('resize', clampSoon);
+addEventListener('load', clampSoon);
+document.addEventListener('langchange', clampSoon);
+document.querySelectorAll('.results img').forEach(img => img.complete || img.addEventListener('load', clampSoon, {once: true}));
 
 const set = l => {
   lang = l; document.documentElement.lang = l;
