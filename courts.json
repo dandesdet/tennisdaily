@@ -241,6 +241,16 @@
    "lon": 69.418334
   },
   {
+   "id": "krasnitsky",
+   "name": {
+    "ru": "Стадион им. Красницкого (Водник)",
+    "uz": "Krasnitskiy nomidagi stadion (Vodnik)",
+    "en": "Krasnitsky Stadium (Vodnik)"
+   },
+   "lat": 41.257405,
+   "lon": 69.37523
+  },
+  {
    "id": "avenir",
    "name": {
     "ru": "Avenir Tennis Court",
