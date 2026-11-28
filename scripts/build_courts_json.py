@@ -254,6 +254,12 @@ def booking_links(c):
     return out
 
 
+def fmt_tel(t):
+    """+998 90 013 01 40 — как на главной."""
+    m = re.fullmatch(r"\+998(\d\d)(\d{3})(\d\d)(\d\d)", t)
+    return "\u00a0".join(("+998",) + m.groups()) if m else esc(t)
+
+
 def link_html(u, n):
     """Ссылка брони; у Instagram — цветная иконка, как на главной."""
     cls = ' class="ig"' if "instagram.com/" in u else ""
@@ -341,7 +347,7 @@ def court_page(c):
     if c.get("access"):
         rows.append(("Условия", esc(c["access"][0])))
     if c.get("tel"):
-        rows.append(("Телефон", f'<a href="tel:{esc(c["tel"])}">{esc(c["tel"])}</a>'))
+        rows.append(("Телефон", f'<a href="tel:{esc(c["tel"])}">{fmt_tel(c["tel"])}</a>'))
     links = booking_links(c)
     if links:
         rows.append(("Бронь и связь", " · ".join(link_html(u, n) for u, n in links)))
@@ -411,7 +417,7 @@ def landing_page(all_courts):
         meta = meta[:1].upper() + meta[1:]
         links = booking_links(c)
         bk = " · ".join(link_html(u, n) for u, n in links)
-        tel = f'<a href="tel:{esc(c["tel"])}">{esc(c["tel"])}</a>' if c.get("tel") else ""
+        tel = f'<a href="tel:{esc(c["tel"])}">{fmt_tel(c["tel"])}</a>' if c.get("tel") else ""
         contact = " · ".join(x for x in [tel, bk] if x)
         items.append(f'<li data-id="{c["id"]}"><a class="card" href="/courts/{c["id"]}/">{img}<h3>{esc(c.get("ru"))}</h3></a>'
                      f'<p>{esc(c.get("dRu"))}</p>' + (f'<p class="meta">{esc(meta)}</p>' if meta else "") +

@@ -1916,7 +1916,7 @@ COURTS.splice(0, COURTS.length, ...COURTS.filter(c => !c.hide));
 const TODAY = new Date('2026-11-07'), FRESH = 10; // дней, пока изменение считается новостью
 let lang = 'ru';
 const L_ = (ru, uz, en) => lang === 'ru' ? ru : lang === 'uz' ? uz : (en ?? uz);
-const fmtTel = t => t.replace(/^\+998(\d\d)(\d{3})(\d\d)(\d\d)$/, '$1\u00a0$2\u00a0$3\u00a0$4');
+const fmtTel = t => t.replace(/^\+998(\d\d)(\d{3})(\d\d)(\d\d)$/, '+998\u00a0$1\u00a0$2\u00a0$3\u00a0$4');
 const fresh = c => c.since && (TODAY - new Date(c.since)) / 864e5 <= FRESH;
 let map = null, marks = [];
 let fitCourtView = () => {}, landmarkLabels = [];
@@ -2308,12 +2308,17 @@ function courtTypeCarousel(court) {
     const position = slide => Math.min(slide.offsetLeft - slides[0].offsetLeft, track.scrollWidth - track.clientWidth);
     const current = () => slides.reduce((best, slide, i) =>
       Math.abs(position(slide) - track.scrollLeft) < Math.abs(position(slides[best]) - track.scrollLeft) ? i : best, 0);
+    // Safari: плавная прокрутка из кода спорит с scroll-snap и откатывается — на время прокрутки привязку снимаем
+    let snapBack = 0;
+    const go = left => {
+      track.style.scrollSnapType = 'none';
+      track.scrollTo({left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+      clearTimeout(snapBack);
+      snapBack = setTimeout(() => { track.style.scrollSnapType = ''; }, 700);
+    };
     const move = direction => {
       const target = slides[current() + direction];
-      if (target) track.scrollTo({
-        left: position(target),
-        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-      });
+      if (target) go(position(target));
     };
     track.addEventListener('scroll', () => {
       previous.disabled = track.scrollLeft <= 1;
@@ -2324,10 +2329,7 @@ function courtTypeCarousel(court) {
       thumbs.forEach((thumb, k) => thumb.setAttribute('aria-current', k === i));
       gallery.dispatchEvent(new CustomEvent('slide', {detail: i}));
     }, {passive:true});
-    thumbs.forEach((thumb, i) => thumb.onclick = () => track.scrollTo({
-      left: position(slides[i]),
-      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-    }));
+    thumbs.forEach((thumb, i) => thumb.onclick = () => go(position(slides[i])));
     previous.onclick = () => move(-1);
     next.onclick = () => move(1);
   }
